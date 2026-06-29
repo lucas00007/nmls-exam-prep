@@ -99,7 +99,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.025);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back to Dashboard</a>
 
 <h2>HMDA — Home Mortgage Disclosure Act</h2>
 <p>HMDA requires mortgage lenders to collect and report data on loan applications. Purpose: enable regulators to identify potential discrimination and monitor lending patterns. Implemented by Regulation C, enforced by the CFPB. HMDA does not make lending decisions — it collects data for analysis.</p>

@@ -92,7 +92,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.02);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back</a>
 
 <h2>The Essential Mortgage Math Formulas</h2>
 <p>These calculations appear on the NMLS exam regularly. Practice each one until it becomes automatic.</p>

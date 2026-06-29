@@ -92,7 +92,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.02);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back</a>
 
 <h2>What Is the SAFE Act?</h2>
 <p>The Secure and Fair Enforcement for Mortgage Licensing Act of 2008 — the SAFE Act — created a nationwide system for licensing and registering mortgage loan originators. It was Congress's response to the mortgage crisis, designed to increase accountability and reduce fraud in the mortgage industry.</p>

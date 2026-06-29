@@ -41,7 +41,7 @@ body{font-family:'DM Sans',sans-serif;background:#1e1508;background-image:repeat
   <div class="hdr"><h1>DTI Calculator</h1><p>Calculate Front-End & Back-End DTI · QM Thresholds · Conforming Limits</p></div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back</a>
 
 <style>
 .calc-intro{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:24px;}

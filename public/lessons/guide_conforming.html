@@ -99,7 +99,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.025);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back to Dashboard</a>
 
 <h2>What Is a Conforming Loan?</h2>
 <p>A conventional mortgage that meets BOTH Fannie Mae/Freddie Mac purchase guidelines: (1) loan amount at or below the FHFA conforming limit AND (2) underwriting meets GSE standards. All conforming loans are conventional — but not all conventional loans are conforming.</p>

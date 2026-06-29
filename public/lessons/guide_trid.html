@@ -99,7 +99,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.025);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back to Dashboard</a>
 
 <h2>What Is TRID?</h2>
 <p>TILA-RESPA Integrated Disclosure — effective October 3, 2015. TRID replaced the Good Faith Estimate (GFE) with the Loan Estimate (LE) and replaced the HUD-1 with the Closing Disclosure (CD). Governed by both Regulation Z and Regulation X.</p>

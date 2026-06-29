@@ -92,7 +92,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.02);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back</a>
 
 <div class="highlight">Over 50 key mortgage and lending terms defined in plain language. These are the words and concepts that appear on the NMLS SAFE exam. Know them cold.</div>
 <div style="font-family:DM Mono,monospace;font-size:.65rem;letter-spacing:1.5px;color:#8a7a60;margin-bottom:16px;text-transform:uppercase;">A through Z — 50 Terms</div>

@@ -99,7 +99,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.025);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back to Dashboard</a>
 
 <h2>What Is RESPA?</h2>
 <p>The Real Estate Settlement Procedures Act — enacted in 1974, implemented by Regulation X, enforced by the CFPB. RESPA protects consumers from abusive practices in the mortgage settlement process and requires clear disclosure of settlement costs.</p>

@@ -92,7 +92,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.02);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back</a>
 <div class="highlight">50 exam-style questions. Click an answer to see the explanation. These reflect the style and difficulty of the real NMLS SAFE exam.</div>
 <div class="q-card" id="q1">
   <div class="q-num">QUESTION 01 / 50</div>

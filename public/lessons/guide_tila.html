@@ -99,7 +99,7 @@ tr:nth-child(even) td{background:rgba(0,0,0,.025);}
   </div>
 </div>
 <div class="paper-wrap">
-  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+  <a href="javascript:void(0)" onclick="if(history.length > 1){history.back();}else{window.location.href='/dashboard';}"  class="back-btn">← Back to Dashboard</a>
 
 <h2>What Is TILA?</h2>
 <p>The Truth in Lending Act — enacted 1968, implemented by Regulation Z, enforced by the CFPB. TILA ensures consumers receive clear, accurate disclosures about the cost of credit BEFORE they borrow. The centerpiece disclosure is the Annual Percentage Rate (APR).</p>
