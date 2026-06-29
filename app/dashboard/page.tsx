@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { verifyToken } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
 
@@ -90,9 +91,9 @@ export default async function DashboardPage() {
       {/* ── Navbar (dark navy) ── */}
       <nav className="sticky top-0 z-50 bg-[#1e2d3d] border-b border-[#2a3a4e]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <span className="font-serif text-xl font-bold text-[#c9a84c] tracking-wide">
+          <Link href="/" className="font-serif text-xl font-bold text-[#c9a84c] tracking-wide">
             NMLS PREP
-          </span>
+          </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-[#a0b4c4] hidden sm:block">
               {payload.email}

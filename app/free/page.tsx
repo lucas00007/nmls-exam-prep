@@ -4,42 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 
 const guides = [
-  {
-    title: "SAFE Act Overview",
-    desc: "A complete breakdown of the Secure and Fair Enforcement for Mortgage Licensing Act — the foundation of every MLO license.",
-    meta: "8 pages",
-    tag: "Federal Law",
-  },
-  {
-    title: "Federal Mortgage Laws Summary",
-    desc: "Quick-reference cheat sheet covering TILA, RESPA, ECOA, HMDA, and the key provisions you must know for the exam.",
-    meta: "12 pages",
-    tag: "Federal Law",
-  },
-  {
-    title: "Mortgage Math Cheat Sheet",
-    desc: "All the formulas you need: LTV, DTI, ARM payment caps, points, APR, and more — with fully worked examples.",
-    meta: "6 pages",
-    tag: "Math",
-  },
-  {
-    title: "50 Sample Practice Questions",
-    desc: "A representative sample from the full 660+ question bank, covering federal law, ethics, and loan origination.",
-    meta: "50 questions",
-    tag: "Practice",
-  },
-  {
-    title: "Exam Day Checklist",
-    desc: "Everything you need to know: NMLS exam format, rules, scoring, what to bring, and what to review the night before.",
-    meta: "2 pages",
-    tag: "Strategy",
-  },
-  {
-    title: "Key Terms Glossary",
-    desc: "Over 100 mortgage and lending terms defined in plain language — the vocabulary that will appear on your exam.",
-    meta: "10 pages",
-    tag: "Reference",
-  },
+  { title: "SAFE Act Overview", desc: "A complete breakdown of the SAFE Act — the foundation of every MLO license.", meta: "8 pages", tag: "Federal Law", file: "/lessons/free_safe_act_overview.html" },
+  { title: "Federal Mortgage Laws Summary", desc: "Quick-reference cheat sheet covering TILA, RESPA, ECOA, HMDA, and key provisions.", meta: "12 pages", tag: "Federal Law", file: "/lessons/free_federal_laws_summary.html" },
+  { title: "Mortgage Math Cheat Sheet", desc: "All the formulas: LTV, DTI, points, APR, TRID math, Texas 50(a)(6) — with worked examples.", meta: "6 pages", tag: "Math", file: "/lessons/free_mortgage_math.html" },
+  { title: "50 Sample Practice Questions", desc: "A representative sample from the full 660+ question bank with detailed explanations.", meta: "50 questions", tag: "Practice", file: "/lessons/free_sample_questions.html" },
+  { title: "Exam Day Checklist", desc: "NMLS exam format, scoring, what to bring, strategy tips, and key numbers final drill.", meta: "2 pages", tag: "Strategy", file: "/lessons/free_exam_checklist.html" },
+  { title: "Key Terms Glossary", desc: "Over 50 mortgage and lending terms defined in plain language.", meta: "50+ terms", tag: "Reference", file: "/lessons/free_glossary.html" },
 ];
 
 const tagColors: Record<string, string> = {
@@ -84,6 +54,12 @@ export default function FreePage() {
             <span className="text-sm text-white font-medium hidden sm:block">
               Free Resources
             </span>
+            <Link
+              href="/dashboard"
+              className="text-sm text-[#a0b4c4] hover:text-white transition-colors hidden sm:block"
+            >
+              Dashboard
+            </Link>
             <Link
               href="/login"
               className="text-sm text-[#a0b4c4] hover:text-white transition-colors"
@@ -135,13 +111,39 @@ export default function FreePage() {
               </p>
               <div className="mt-5 pt-4 border-t border-[#e0e8f0] flex items-center justify-between">
                 <span className="text-xs text-[#a0b4c4]">{guide.meta}</span>
-                <button className="text-[#c9a84c] text-sm font-semibold hover:underline">
-                  View →
-                </button>
+                <a href={guide.file} target="_blank" rel="noopener noreferrer" className="text-[#c9a84c] text-sm font-semibold hover:underline">View →</a>
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* ── Free Interactive Lesson ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
+        <h2 className="font-serif text-2xl font-bold text-[#1e2d3d] mb-4">Free Interactive Lesson</h2>
+        <a
+          href="/lessons/respa_interactive_lesson.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block bg-white border border-[#e0e8f0] rounded-2xl p-6 hover:border-[#c9a84c]/50 hover:shadow-md transition-all"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-blue-700 bg-blue-100 inline-block mb-3">
+                Federal Law
+              </span>
+              <h3 className="font-serif text-lg font-bold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors mb-1">
+                RESPA Interactive Lesson
+              </h3>
+              <p className="text-[#4a5568] text-sm leading-relaxed max-w-xl">
+                A full interactive walkthrough of the Real Estate Settlement Procedures Act — kickbacks, referral fees, disclosures, and HUD-1 rules tested on the NMLS exam.
+              </p>
+            </div>
+            <div className="flex-shrink-0 text-[#c9a84c] font-semibold text-sm whitespace-nowrap">
+              Open Lesson →
+            </div>
+          </div>
+        </a>
       </div>
 
       {/* ── Upgrade CTA (light) ── */}
