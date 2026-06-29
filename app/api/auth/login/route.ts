@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // getUserByEmail checks the file DB first, then falls back to ADMIN_EMAIL / ADMIN_PASSWORD_HASH env vars
     const user = getUserByEmail(email.trim().toLowerCase());
 
     if (!user || !user.passwordHash) {
