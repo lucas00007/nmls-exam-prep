@@ -1,0 +1,15 @@
+[
+  {
+    "id": "admin_001",
+    "email": "jsl2149380442@gmail.com",
+    "passwordHash": "$2b$12$SwBJDxRzpWM4yzEf9hZvM.69tizxDQ6t1q2rwVzChHRzSNAx9HvkK",
+    "name": "Admin",
+    "plan": "paid",
+    "stripeCustomerId": null,
+    "stripeSessionId": null,
+    "setupToken": null,
+    "setupTokenExpiry": null,
+    "createdAt": 1782756747928,
+    "lastLogin": null
+  }
+]
