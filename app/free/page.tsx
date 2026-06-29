@@ -106,13 +106,12 @@ export default function FreePage() {
               <h3 className="font-serif text-lg font-bold text-[#1e2d3d] mb-2 group-hover:text-[#c9a84c] transition-colors">
                 {guide.title}
               </h3>
-              <p className="text-[#4a5568] text-sm leading-relaxed flex-1">
+              <p className="text-[#4a5568] text-sm leading-relaxed mb-4">
                 {guide.desc}
               </p>
-              <div className="mt-5 pt-4 border-t border-[#e0e8f0] flex items-center justify-between">
-                <span className="text-xs text-[#a0b4c4]">{guide.meta}</span>
-                <a href={guide.file} target="_blank" rel="noopener noreferrer" className="text-[#c9a84c] text-sm font-semibold hover:underline">View →</a>
-              </div>
+              <a href={guide.file} target="_blank" rel="noopener noreferrer" className="text-[#c9a84c] text-sm font-semibold hover:underline self-start">
+                View →
+              </a>
             </div>
           ))}
         </div>
