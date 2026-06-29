@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texas USC Study Guide — NMLS Prep Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;
+  --paper:#e8e0cc;
+  --paper2:#ddd4bc;
+  --paper3:#d2c8ae;
+  --paper4:#c8bca0;
+  --accent:#8b6914;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,220,80,0.5);
+  --gray:#5a4a30;--gray2:#7a6a50;
+  --border:rgba(0,0,0,.12);--shadow:rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#1e1508;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px),
+    repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px);
+  color:var(--ink);
+  min-height:100vh;
+}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#8b6914;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#8b6914ee 0%,#8b6914bb 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.78);}
+.paper-wrap{
+  background:var(--paper);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,140,100,0.18) 27px,rgba(160,140,100,0.18) 28px);
+  border-radius:0 0 4px 4px;
+  box-shadow:4px 8px 32px rgba(0,0,0,.45),inset 0 0 80px rgba(0,0,0,.03);
+  padding:32px 40px 40px;
+  position:relative;
+}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,80,80,.2);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--ink);margin:28px 0 12px;padding-top:22px;border-top:1px dashed rgba(0,0,0,.15);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.08rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#2a1a08;line-height:1.78;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 22px;}
+li{font-size:.88rem;color:#2a1a08;line-height:1.72;margin-bottom:5px;}
+li strong{color:var(--red2);}
+.card{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 10px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.card-body{font-size:.85rem;color:#2a1a08;line-height:1.65;}
+.card-body strong{color:var(--red2);}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 8px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.3);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.3);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.3);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.3);}
+.highlight{background:rgba(255,248,220,.8);border-left:3px solid var(--gold2);border-radius:3px;padding:12px 16px;margin:14px 0;font-size:.87rem;color:#2a1a08;line-height:1.68;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2.2rem;color:#8b6914;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#3a2a10;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:9px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.5px;}
+td{padding:9px 12px;border:1px solid var(--paper3);color:#2a1a08;vertical-align:top;line-height:1.55;}
+tr:nth-child(even) td{background:rgba(0,0,0,.025);}
+.trap-box{background:rgba(255,232,232,.6);border:1px solid rgba(176,32,32,.25);border-left:3px solid var(--red2);border-radius:3px;padding:14px 16px;margin:14px 0;}
+.trap-box h4{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--red2);margin-bottom:8px;}
+.trap-box ul{margin:0 0 0 16px;}
+.trap-box li{font-size:.84rem;color:#3a1010;line-height:1.65;margin-bottom:4px;}
+.key-box{background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:14px 16px;margin:14px 0;}
+.key-box h4{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.key-box ul{margin:0 0 0 16px;}
+.key-box li{font-size:.84rem;color:#2a1a08;line-height:1.65;margin-bottom:4px;}
+.footer-note{margin-top:36px;padding:14px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.78rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">UNIFORM STATE CONTENT</div>
+  <div class="hdr">
+    <h1>Texas USC Study Guide</h1>
+    <p>Section 50(a)(6) · TDSML · Foreclosure Rules · SAFE Act · Licensing Requirements</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+
+<h2>Texas Section 50(a)(6) — Home Equity Lending</h2>
+<p>These rules are written directly into the TEXAS CONSTITUTION — making them among the most powerful consumer protections in the country. All six rules apply to every Texas home equity transaction.</p>
+
+<h2>The Six 50(a)(6) Rules</h2>
+<div class="grid">
+  <div class="num-card"><div class="num-big">80%</div><div class="num-lbl">Max CLTV</div><div class="num-desc">All liens combined cannot exceed 80% of fair market value. Hard constitutional cap — no exceptions.</div></div>
+  <div class="num-card"><div class="num-big">3%</div><div class="num-lbl">Fee Cap</div><div class="num-desc">Total fees cannot exceed 3% of original principal. Lender has 60 days to cure after written notice.</div></div>
+  <div class="num-card"><div class="num-big">12</div><div class="num-lbl">Calendar Days</div><div class="num-desc">Mandatory waiting period from written application to closing. Calendar days — not business days.</div></div>
+  <div class="num-card"><div class="num-big">1</div><div class="num-lbl">Loan at a Time</div><div class="num-desc">Only ONE home equity loan per Texas homestead at a time. Must pay off existing lien first.</div></div>
+</div>
+<ul>
+<li><strong>Closing location:</strong> Must occur at lender's office, attorney's office, or title company — NEVER at the borrower's home</li>
+<li><strong>No prepayment penalty</strong> on any Texas home equity loan</li>
+</ul>
+
+<h2>Texas CLTV Calculation</h2>
+<div class="card"><div class="tag tag-r">Most Tested Texas Math</div><div class="card-title">Maximum HEL Formula</div><div class="card-body"><strong>Max HEL = (Home Value × 80%) − All Existing Liens</strong><br><br>Example: $500,000 home × 80% = $400,000 cap. First mortgage = $350,000. Max HEL = $400,000 − $350,000 = <strong>$50,000</strong><br><br>If first mortgage = $400,000 → Max HEL = $0 (no borrowable equity)</div></div>
+
+<h2>Texas Foreclosure Rules</h2>
+<div class="grid">
+  <div class="num-card"><div class="num-big">1st Tue</div><div class="num-lbl">Sale Day</div><div class="num-desc">First Tuesday of each month, 10AM–4PM at county courthouse. Jan 1 or July 4 → moves to Wednesday.</div></div>
+  <div class="num-card"><div class="num-big">21</div><div class="num-lbl">Days Notice</div><div class="num-desc">Certified mail AND courthouse posting required at least 21 days before the sale date.</div></div>
+</div>
+<div class="highlight"><strong>Two holiday exceptions:</strong> If First Tuesday falls on January 1 or July 4 ONLY — the sale moves to Wednesday. No other holidays move the sale.</div>
+
+<h2>TDSML — Texas Regulator</h2>
+<p>Texas Department of Savings and Mortgage Lending regulates non-bank mortgage companies and individual MLOs. Maximum penalty: <strong>$25,000 per violation per day.</strong></p>
+
+<h2>Texas Licensing Requirements</h2>
+<table>
+  <tr><th>Requirement</th><th>Federal</th><th>Texas Total</th></tr>
+  <tr><td>Pre-licensing hours</td><td>20 hours</td><td>23 hours (+ 3 Texas)</td></tr>
+  <tr><td>Annual CE hours</td><td>7 hours</td><td>8 hours (+ 1 Texas)</td></tr>
+  <tr><td>Renewal deadline</td><td>Dec 31</td><td>Dec 31</td></tr>
+</table>
+
+<h2>SAFE Act Mandatory Bars</h2>
+<ul>
+<li><strong>Bar 1:</strong> Any felony within preceding 7 YEARS — any felony, regardless of type</li>
+<li><strong>Bar 2:</strong> Any felony EVER involving fraud, dishonesty, breach of trust, or money laundering — NO time limit, PERMANENT</li>
+</ul>
+
+<div class="trap-box"><h4>Exam Traps — Texas USC</h4><ul>
+<li>12 CALENDAR days wait — not business days</li>
+<li>80% CLTV includes ALL liens combined</li>
+<li>Closing at borrower's home = constitutional violation even if borrower requests it</li>
+<li>SAFE Act Category 2 fraud felony = PERMANENT — no time limit</li>
+<li>First Tuesday ONLY — not any Tuesday of the month</li>
+<li>Jan 1 AND July 4 move to Wednesday — no other holidays</li>
+<li>TDSML = $25,000/violation/DAY — per day structure</li>
+</ul></div>
+
+  <div class="footer-note">NMLS Prep · Study Guide · Full access at nmlsprep.com · For exam preparation only</div>
+</div>
+</div>
+</body>
+</html>
