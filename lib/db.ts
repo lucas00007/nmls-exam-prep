@@ -35,11 +35,7 @@ function getAdminEnvUser(): User | null {
 
 function readDB(): { users: User[] } {
   try {
-    if (!fs.existsSync(DB_PATH)) {
-      fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-      fs.writeFileSync(DB_PATH, JSON.stringify({ users: [] }, null, 2));
-      return { users: [] };
-    }
+    if (!fs.existsSync(DB_PATH)) return { users: [] };
     return JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
   } catch {
     return { users: [] };
@@ -53,21 +49,29 @@ function writeDB(data: { users: User[] }): void {
 
 export function getUserByEmail(email: string): User | null {
   const normalized = email.trim().toLowerCase();
-  const db = readDB();
-  const found = db.users.find((u) => u.email === normalized) ?? null;
-  if (found) return found;
+  // Check admin env user FIRST — no filesystem access needed on Vercel
   const admin = getAdminEnvUser();
   if (admin && admin.email === normalized) return admin;
-  return null;
+  // Then try file DB
+  try {
+    const db = readDB();
+    return db.users.find((u) => u.email === normalized) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export function getUserById(id: string): User | null {
-  const db = readDB();
-  const found = db.users.find((u) => u.id === id) ?? null;
-  if (found) return found;
+  // Check admin env user FIRST — no filesystem access needed on Vercel
   const admin = getAdminEnvUser();
   if (admin && admin.id === id) return admin;
-  return null;
+  // Then try file DB
+  try {
+    const db = readDB();
+    return db.users.find((u) => u.id === id) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export function getUserByToken(token: string): User | null {
