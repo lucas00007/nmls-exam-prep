@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Score Tracker — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#e8e0cc;--paper2:#ddd4bc;--paper3:#d2c8ae;--paper4:#c8bca0;
+  --accent:#1a5c2e;--gold:#b8860b;--gold2:#d4a017;
+  --red2:#b02020;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --tape:rgba(255,220,80,0.5);--gray:#5a4a30;--gray2:#7a6a50;
+  --border:rgba(0,0,0,.12);--shadow:rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#1e1508;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a5c2e;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a5c2eee,#1a5c2ebb);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.78);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,140,100,0.18) 27px,rgba(160,140,100,0.18) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 32px rgba(0,0,0,.45);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,80,80,.2);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+.footer-note{margin-top:36px;padding:14px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.78rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">STUDY TOOL</div>
+  <div class="hdr"><h1>Score Tracker</h1><p>Log Every Practice Score · Track Your Progress · Know When You Are Ready</p></div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+
+<style>
+.tracker-intro{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:24px;}
+.add-score-form{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:20px 24px;margin-bottom:24px;box-shadow:2px 3px 10px rgba(0,0,0,.12);}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;flex-wrap:wrap;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:#7a6a50;}
+.form-input{padding:9px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper);font-size:.88rem;color:#1a1108;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;}
+.form-input:focus{border-color:#b8860b;}
+.form-select{padding:9px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper);font-size:.88rem;color:#1a1108;font-family:'DM Sans',sans-serif;outline:none;}
+.add-btn{padding:9px 18px;border-radius:3px;background:#b8860b;color:#fff;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:all .15s;}
+.add-btn:hover{background:#d4a017;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:24px;}
+.stat-card{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px rgba(0,0,0,.12);}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2rem;color:#b8860b;line-height:1;margin-bottom:4px;}
+.stat-num.pass{color:#1e7a3c;}
+.stat-num.fail{color:#b02020;}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:#7a6a50;}
+.chart-area{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:20px;margin-bottom:24px;box-shadow:2px 3px 8px rgba(0,0,0,.12);}
+.chart-title{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#7a6a50;margin-bottom:16px;}
+.chart-wrap{position:relative;height:160px;display:flex;align-items:flex-end;gap:6px;padding-bottom:24px;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;}
+.chart-bar{width:100%;border-radius:2px 2px 0 0;transition:height .3s;min-height:2px;position:relative;}
+.chart-bar.pass{background:#1e7a3c;}
+.chart-bar.fail{background:#b02020;}
+.chart-bar.target{background:#b8860b;}
+.chart-score{font-family:'DM Mono',monospace;font-size:.55rem;color:#5a4a30;}
+.chart-date{font-family:'DM Mono',monospace;font-size:.5rem;color:#8a7a60;text-align:center;white-space:nowrap;overflow:hidden;}
+.target-line{position:absolute;left:0;right:0;border-top:2px dashed #b8860b;pointer-events:none;}
+.target-label{position:absolute;right:0;font-family:'DM Mono',monospace;font-size:.55rem;color:#b8860b;background:var(--paper);padding:0 4px;}
+.history-table{width:100%;border-collapse:collapse;}
+.history-table th{background:#d2c8ae;color:#1a1108;font-weight:600;padding:8px 12px;text-align:left;border:1px solid #c8bca0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.5px;}
+.history-table td{padding:8px 12px;border:1px solid #d2c8ae;font-size:.83rem;color:#2a1a08;}
+.history-table tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.score-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;}
+.score-badge.pass{background:#d5f5e3;color:#1e7a3c;}
+.score-badge.fail{background:#fde8e8;color:#b02020;}
+.delete-btn{background:none;border:none;color:#bbb;cursor:pointer;font-size:.8rem;padding:2px 6px;border-radius:2px;transition:color .15s;}
+.delete-btn:hover{color:#b02020;}
+.empty-state{text-align:center;padding:32px;color:#8a7a60;font-size:.88rem;}
+.progress-msg{padding:14px 16px;border-radius:3px;margin-bottom:16px;font-size:.85rem;line-height:1.6;}
+.progress-msg.great{background:#d5f5e3;border-left:3px solid #1e7a3c;color:#1a4a22;}
+.progress-msg.good{background:#fde8b8;border-left:3px solid #b07800;color:#5a3800;}
+.progress-msg.keep{background:#fde8e8;border-left:3px solid #b02020;color:#5a1010;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr 1fr;}}
+</style>
+
+<p class="tracker-intro">Log every practice quiz and mock exam score here. Watch your progress over time. Target: <strong>75% or higher</strong> consistently before scheduling your real exam.</p>
+
+<div id="progress-msg"></div>
+
+<div class="add-score-form">
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-input" id="score-date">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Quiz / Exam</label>
+      <select class="form-select" id="score-type">
+        <option value="Mock Exam (125Q)">Mock Exam (125Q)</option>
+        <option value="RESPA + TILA Quiz">RESPA + TILA Quiz</option>
+        <option value="TRID + ECOA Quiz">TRID + ECOA Quiz</option>
+        <option value="HMDA + Fair Housing Quiz">HMDA + Fair Housing Quiz</option>
+        <option value="HOEPA + SCRA + BSA Quiz">HOEPA + SCRA + BSA Quiz</option>
+        <option value="Full 8-Topic Drill">Full 8-Topic Drill</option>
+        <option value="Focus Quiz">Focus Quiz</option>
+        <option value="Texas USC Quiz">Texas USC Quiz</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Score (%)</label>
+      <input type="number" class="form-input" id="score-pct" min="0" max="100" placeholder="e.g. 78">
+    </div>
+    <button class="add-btn" onclick="addScore()">Add Score</button>
+  </div>
+</div>
+
+<div class="stats-grid" id="stats-grid">
+  <div class="stat-card"><div class="stat-num" id="st-total">—</div><div class="stat-lbl">Total Attempts</div></div>
+  <div class="stat-card"><div class="stat-num" id="st-avg">—</div><div class="stat-lbl">Average Score</div></div>
+  <div class="stat-card"><div class="stat-num" id="st-best">—</div><div class="stat-lbl">Best Score</div></div>
+  <div class="stat-card"><div class="stat-num" id="st-latest">—</div><div class="stat-lbl">Latest Score</div></div>
+  <div class="stat-card"><div class="stat-num" id="st-trend">—</div><div class="stat-lbl">Trend</div></div>
+  <div class="stat-card"><div class="stat-num" id="st-ready">—</div><div class="stat-lbl">Exam Ready?</div></div>
+</div>
+
+<div class="chart-area">
+  <div class="chart-title">Score History Chart</div>
+  <div class="chart-wrap" id="chart-wrap">
+    <div class="empty-state" style="width:100%;">Add your first score above to see the chart</div>
+  </div>
+</div>
+
+<div style="background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.12);border-radius:3px;padding:20px;box-shadow:2px 3px 8px rgba(0,0,0,.12);">
+  <div style="font-family:DM Mono,monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#7a6a50;margin-bottom:12px;">Score History</div>
+  <div id="history-wrap">
+    <div class="empty-state">No scores logged yet. Add your first score above!</div>
+  </div>
+</div>
+
+<script>
+let scores = JSON.parse(localStorage.getItem('nmls_scores') || '[]');
+
+// Set today's date as default
+document.getElementById('score-date').value = new Date().toISOString().split('T')[0];
+
+function saveScores() {
+  localStorage.setItem('nmls_scores', JSON.stringify(scores));
+}
+
+function addScore() {
+  const date = document.getElementById('score-date').value;
+  const type = document.getElementById('score-type').value;
+  const pct = parseInt(document.getElementById('score-pct').value);
+  if(!date || !pct || pct < 0 || pct > 100) {
+    alert('Please enter a valid date and score (0-100)');
+    return;
+  }
+  scores.push({ id: Date.now(), date, type, pct });
+  scores.sort((a,b) => new Date(a.date) - new Date(b.date));
+  saveScores();
+  document.getElementById('score-pct').value = '';
+  render();
+}
+
+function deleteScore(id) {
+  if(confirm('Delete this score?')) {
+    scores = scores.filter(s => s.id !== id);
+    saveScores();
+    render();
+  }
+}
+
+function render() {
+  if(scores.length === 0) {
+    document.getElementById('chart-wrap').innerHTML = '<div class="empty-state" style="width:100%;">Add your first score above to see the chart</div>';
+    document.getElementById('history-wrap').innerHTML = '<div class="empty-state">No scores logged yet.</div>';
+    document.getElementById('st-total').textContent = '—';
+    document.getElementById('st-avg').textContent = '—';
+    document.getElementById('st-best').textContent = '—';
+    document.getElementById('st-latest').textContent = '—';
+    document.getElementById('st-trend').textContent = '—';
+    document.getElementById('st-ready').textContent = '—';
+    document.getElementById('progress-msg').innerHTML = '';
+    return;
+  }
+
+  const avg = Math.round(scores.reduce((s,x) => s+x.pct, 0) / scores.length);
+  const best = Math.max(...scores.map(s => s.pct));
+  const latest = scores[scores.length-1].pct;
+  const prev = scores.length > 1 ? scores[scores.length-2].pct : null;
+  const trend = prev !== null ? (latest > prev ? '↑ Up' : latest < prev ? '↓ Down' : '→ Same') : '—';
+  const ready = avg >= 75 && latest >= 75 ? '✅ YES' : avg >= 70 ? '🔶 Almost' : '❌ Not yet';
+
+  document.getElementById('st-total').textContent = scores.length;
+  document.getElementById('st-avg').textContent = avg + '%';
+  document.getElementById('st-avg').className = 'stat-num ' + (avg >= 75 ? 'pass' : 'fail');
+  document.getElementById('st-best').textContent = best + '%';
+  document.getElementById('st-best').className = 'stat-num ' + (best >= 75 ? 'pass' : 'fail');
+  document.getElementById('st-latest').textContent = latest + '%';
+  document.getElementById('st-latest').className = 'stat-num ' + (latest >= 75 ? 'pass' : 'fail');
+  document.getElementById('st-trend').textContent = trend;
+  document.getElementById('st-ready').textContent = ready;
+
+  // Progress message
+  const msg = document.getElementById('progress-msg');
+  if(avg >= 78 && latest >= 75) {
+    msg.className = 'progress-msg great';
+    msg.innerHTML = '<strong>🎉 You are ready!</strong> Your average is ' + avg + '% and your latest score is ' + latest + '%. Schedule your real exam with confidence. You have done the work.';
+  } else if(avg >= 70) {
+    msg.className = 'progress-msg good';
+    msg.innerHTML = '<strong>📈 Getting close!</strong> Your average is ' + avg + '%. You need 75% to pass. Keep drilling your weak topics and retake the mock exam. You are almost there.';
+  } else {
+    msg.className = 'progress-msg keep';
+    msg.innerHTML = '<strong>📚 Keep studying.</strong> Your average is ' + avg + '%. Go back through the interactive lessons for your weakest topics, focus on the exam traps, and keep drilling. You will get there.';
+  }
+
+  // Chart
+  const maxPct = Math.max(100, ...scores.map(s => s.pct));
+  const recent = scores.slice(-12);
+  const targetPos = (75 / 100) * 136;
+  let chartHTML = `<div class="target-line" style="bottom:${targetPos}px"><span class="target-label">75% pass line</span></div>`;
+  recent.forEach(s => {
+    const h = Math.round((s.pct / 100) * 136);
+    const cls = s.pct >= 75 ? 'pass' : 'fail';
+    const dateStr = s.date.slice(5);
+    chartHTML += `<div class="chart-bar-wrap">
+      <div class="chart-score">${s.pct}%</div>
+      <div class="chart-bar ${cls}" style="height:${h}px"></div>
+      <div class="chart-date">${dateStr}</div>
+    </div>`;
+  });
+  document.getElementById('chart-wrap').innerHTML = chartHTML;
+
+  // History table
+  const rows = [...scores].reverse().map(s => `
+    <tr>
+      <td>${s.date}</td>
+      <td>${s.type}</td>
+      <td><span class="score-badge ${s.pct >= 75 ? 'pass' : 'fail'}">${s.pct}%</span></td>
+      <td>${s.pct >= 75 ? '✅ Pass' : '❌ Below 75%'}</td>
+      <td><button class="delete-btn" onclick="deleteScore(${s.id})">✕</button></td>
+    </tr>`).join('');
+  document.getElementById('history-wrap').innerHTML = `
+    <table class="history-table">
+      <thead><tr><th>Date</th><th>Quiz / Exam</th><th>Score</th><th>Status</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+render();
+</script>
+
+  <div class="footer-note">NMLS Prep · nmlsprep.com · For exam preparation only</div>
+</div>
+</div>
+</body>
+</html>

@@ -40,12 +40,37 @@ const guides = [
   { title: "Ethics & UDAP Guide",        file: "/lessons/guide_ethics.html",       icon: "🎯" },
 ];
 
-type Tab = "lessons" | "guides" | "quizzes";
+const tools = [
+  {
+    title: "Key Numbers Flashcard Deck",
+    desc: "50 flashcards covering all major topics. Tap to flip, filter by topic, shuffle, track progress.",
+    file: "/lessons/tool_flashcards.html",
+    icon: "🃏",
+    tag: "50 Cards",
+  },
+  {
+    title: "Texas Numbers Cheat Sheet",
+    desc: "Every Texas-specific number on one printable page. 50(a)(6), foreclosure, TDSML, SAFE Act.",
+    file: "/lessons/tool_texas_cheat_sheet.html",
+    icon: "📋",
+    tag: "Printable",
+  },
+  {
+    title: "Score Tracker",
+    desc: "Log every quiz and mock exam score. Visual chart, stats, and tells you when you are ready.",
+    file: "/lessons/tool_score_tracker.html",
+    icon: "📊",
+    tag: "Interactive",
+  },
+];
+
+type Tab = "lessons" | "guides" | "quizzes" | "tools";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "lessons", label: "Interactive Lessons" },
   { key: "guides",  label: "Study Guides" },
   { key: "quizzes", label: "Quizzes & Exams" },
+  { key: "tools",   label: "Tools" },
 ];
 
 export default function DashboardContent({ email }: { email: string }) {
@@ -207,6 +232,41 @@ export default function DashboardContent({ email }: { email: string }) {
                   <p className="text-xs text-[#a0b4c4] mb-4">{quiz.questions} questions</p>
                   <div className="text-[#c9a84c] text-sm font-semibold group-hover:underline">
                     Start Quiz →
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Tab: Tools ── */}
+        {tab === "tools" && (
+          <div>
+            <div className="flex items-baseline gap-3 mb-6">
+              <h2 className="font-serif text-2xl font-bold text-[#1e2d3d]">Tools</h2>
+              <span className="text-sm text-[#a0b4c4]">flashcards, cheat sheets, tracker</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {tools.map((tool) => (
+                <a
+                  key={tool.title}
+                  href={tool.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white border border-[#e0e8f0] rounded-xl p-5 hover:border-[#c9a84c]/50 hover:shadow-md transition-all group flex flex-col"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="text-2xl">{tool.icon}</div>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-[#a8893e] bg-[#c9a84c]/15">
+                      {tool.tag}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors mb-2 leading-snug">
+                    {tool.title}
+                  </h3>
+                  <p className="text-xs text-[#4a5568] leading-relaxed flex-1">{tool.desc}</p>
+                  <div className="mt-4 text-[#c9a84c] text-sm font-semibold group-hover:underline">
+                    Open →
                   </div>
                 </a>
               ))}

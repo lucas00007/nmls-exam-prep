@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Numbers Flashcard Deck — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#e8e0cc;--paper2:#ddd4bc;--paper3:#d2c8ae;--paper4:#c8bca0;
+  --accent:#1a3a7c;--gold:#b8860b;--gold2:#d4a017;
+  --red2:#b02020;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --tape:rgba(255,220,80,0.5);--gray:#5a4a30;--gray2:#7a6a50;
+  --border:rgba(0,0,0,.12);--shadow:rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#1e1508;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a3a7c;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a3a7cee,#1a3a7cbb);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.78);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,140,100,0.18) 27px,rgba(160,140,100,0.18) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 32px rgba(0,0,0,.45);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,80,80,.2);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+.footer-note{margin-top:36px;padding:14px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.78rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">STUDY TOOL</div>
+  <div class="hdr"><h1>Key Numbers Flashcard Deck</h1><p>50 Cards · Tap to Flip · Filter by Topic · Arrow Keys to Navigate</p></div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back to Dashboard</a>
+
+<style>
+.fc-intro{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:24px;}
+.fc-stats{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.fc-stat{background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:10px 16px;font-family:'DM Mono',monospace;font-size:.72rem;color:#5a4a30;}
+.fc-stat span{font-size:1.4rem;font-family:'DM Serif Display',serif;color:#b8860b;display:block;margin-bottom:2px;}
+.fc-area{display:flex;flex-direction:column;align-items:center;margin-bottom:24px;}
+.fc-card{
+  width:100%;max-width:500px;min-height:200px;
+  background:white;border:1px solid rgba(0,0,0,.12);border-radius:6px;
+  box-shadow:3px 4px 16px rgba(0,0,0,.18);
+  cursor:pointer;perspective:1000px;position:relative;
+  transition:transform .15s;
+}
+.fc-card:hover{transform:translateY(-2px);}
+.fc-inner{
+  width:100%;height:100%;min-height:200px;
+  position:relative;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-front,.fc-back{
+  position:absolute;width:100%;min-height:200px;
+  backface-visibility:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:28px 24px;border-radius:6px;text-align:center;
+}
+.fc-back{transform:rotateY(180deg);background:#fffbe8;}
+.fc-category{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#8a7a60;margin-bottom:12px;}
+.fc-question{font-family:'DM Serif Display',serif;font-size:1.2rem;color:#1a1108;line-height:1.4;}
+.fc-answer{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#b8860b;line-height:1.3;margin-bottom:10px;}
+.fc-explain{font-size:.8rem;color:#4a3a20;line-height:1.6;}
+.fc-hint{font-family:'DM Mono',monospace;font-size:.6rem;color:#bbb;margin-top:12px;}
+.fc-controls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;}
+.fc-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:9px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;text-transform:uppercase;}
+.fc-btn:hover{background:var(--paper3);}
+.fc-btn.primary{background:#b8860b;color:#fff;border-color:#b8860b;}
+.fc-btn.primary:hover{background:#d4a017;}
+.fc-progress{display:flex;align-items:center;gap:10px;margin-top:16px;font-family:'DM Mono',monospace;font-size:.68rem;color:#8a7a60;}
+.fc-bar{flex:1;height:4px;background:rgba(0,0,0,.1);border-radius:2px;overflow:hidden;}
+.fc-fill{height:100%;background:#b8860b;border-radius:2px;transition:width .3s;}
+.fc-counter{font-size:.72rem;color:#8a7a60;font-family:'DM Mono',monospace;text-align:center;margin-top:8px;}
+.fc-sections{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.fc-section-btn{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:5px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;transition:all .15s;text-transform:uppercase;}
+.fc-section-btn:hover,.fc-section-btn.active{background:#b8860b;color:#fff;border-color:#b8860b;}
+</style>
+
+<div class="fc-intro">Tap each card to flip and reveal the answer. Use the arrows to navigate. These are the numbers and rules that appear on almost every NMLS exam.</div>
+
+<div class="fc-stats">
+  <div class="fc-stat"><span id="fc-current">1</span>Current Card</div>
+  <div class="fc-stat"><span id="fc-total">50</span>Total Cards</div>
+  <div class="fc-stat"><span id="fc-seen">0</span>Seen</div>
+  <div class="fc-stat"><span id="fc-pct">0%</span>Progress</div>
+</div>
+
+<div class="fc-sections">
+  <button class="fc-section-btn active" onclick="filterCards('all')">All Cards</button>
+  <button class="fc-section-btn" onclick="filterCards('RESPA')">RESPA</button>
+  <button class="fc-section-btn" onclick="filterCards('TILA')">TILA</button>
+  <button class="fc-section-btn" onclick="filterCards('TRID')">TRID</button>
+  <button class="fc-section-btn" onclick="filterCards('ECOA')">ECOA</button>
+  <button class="fc-section-btn" onclick="filterCards('Texas')">Texas</button>
+  <button class="fc-section-btn" onclick="filterCards('BSA')">BSA</button>
+</div>
+
+<div class="fc-area">
+  <div class="fc-card" id="flashcard" onclick="flipCard()">
+    <div class="fc-inner">
+      <div class="fc-front">
+        <div class="fc-category" id="fc-cat"></div>
+        <div class="fc-question" id="fc-q"></div>
+        <div class="fc-hint">▼ tap to reveal answer</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-category" id="fc-cat2"></div>
+        <div class="fc-answer" id="fc-a"></div>
+        <div class="fc-explain" id="fc-ex"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-progress">
+    <div class="fc-bar"><div class="fc-fill" id="fc-prog"></div></div>
+  </div>
+  <div class="fc-counter" id="fc-count">Card 1 of 50</div>
+
+  <div class="fc-controls">
+    <button class="fc-btn" onclick="prevCard()">← Previous</button>
+    <button class="fc-btn" onclick="flipCard()">Flip Card</button>
+    <button class="fc-btn primary" onclick="nextCard()">Next →</button>
+    <button class="fc-btn" onclick="shuffleCards()">Shuffle</button>
+  </div>
+</div>
+
+<script>
+const ALL_CARDS = [
+  {cat:"RESPA",q:"What is the minimum dollar amount for a RESPA Section 8 violation?",a:"NO minimum",ex:"There is no de minimis exception. Even $1 exchanged for a referral violates RESPA Section 8."},
+  {cat:"RESPA",q:"How many days does a servicer have to ACKNOWLEDGE a QWR?",a:"5 business days",ex:"The servicer must acknowledge the Qualified Written Request within 5 business days of receipt."},
+  {cat:"RESPA",q:"How many days does a servicer have to RESPOND to a QWR?",a:"30 business days",ex:"Substantive response required within 30 business days. Extendable to 45 with written notice."},
+  {cat:"RESPA",q:"What is the maximum escrow cushion allowed under RESPA Section 10?",a:"2 months",ex:"Maximum cushion = 2 months of projected escrow payments. Excess must be refunded within 30 days."},
+  {cat:"RESPA",q:"What is the penalty for a RESPA Section 9 violation?",a:"3× the title insurance charge",ex:"Section 9 prohibits sellers from requiring buyers to use a specific title company. Penalty = 3 times the charge."},
+  {cat:"TILA",q:"What is the standard Right of Rescission period?",a:"3 business days",ex:"3 business days after closing for primary residence refinances. Saturday counts; Sundays and federal holidays do not."},
+  {cat:"TILA",q:"How long is the rescission period if proper notice was NOT given at closing?",a:"3 YEARS",ex:"If the lender failed to provide proper Notice of Right to Cancel at closing, the rescission period extends to 3 years from closing."},
+  {cat:"TILA",q:"What is the maximum DTI for a standard Qualified Mortgage?",a:"43%",ex:"Standard QM maximum back-end DTI is 43%. Some GSE-eligible loans may go to 50% with strong AUS approval."},
+  {cat:"TILA",q:"What is the QM points and fees cap for loans over $100,000?",a:"3% of loan amount",ex:"Total points and fees cannot exceed 3% of the loan amount. Exceeding this cap = loan is NOT a QM."},
+  {cat:"TILA",q:"What is the maximum loan term for a Qualified Mortgage?",a:"30 years",ex:"40-year mortgages are NOT QM. This is frequently tested — remember 30 years maximum."},
+  {cat:"TILA",q:"Does Saturday count as a business day for Right of Rescission?",a:"YES — Saturday counts",ex:"For rescission purposes, business days = all days EXCEPT Sundays and federal holidays. Saturday counts."},
+  {cat:"TILA",q:"Purchase money mortgages have a Right of Rescission — True or False?",a:"FALSE",ex:"The Right of Rescission applies ONLY to refinances, HELOCs, and home equity loans on a primary residence. NOT purchase money mortgages."},
+  {cat:"TRID",q:"How many elements trigger the Loan Estimate requirement?",a:"6 elements",ex:"Name · SSN · Income · Property Address · Estimated Value · Desired Loan Amount. Credit score is NOT one of them."},
+  {cat:"TRID",q:"Is credit score one of the 6 TRID application elements?",a:"NO — not one of the 6",ex:"This is the #1 most tested TRID fact. Credit score is NOT required to trigger the LE obligation."},
+  {cat:"TRID",q:"How many business days to deliver the Loan Estimate?",a:"3 business days",ex:"LE must be RECEIVED by the borrower within 3 business days of a complete application. Saturday counts."},
+  {cat:"TRID",q:"How many business days before closing must the CD be received?",a:"3 business days",ex:"The Closing Disclosure must be RECEIVED at least 3 business days before consummation."},
+  {cat:"TRID",q:"What is the minimum time between LE delivery and closing?",a:"7 calendar days",ex:"A minimum of 7 calendar days must pass between LE delivery and loan consummation."},
+  {cat:"TRID",q:"What is the cure window for TRID tolerance violations?",a:"3 calendar years",ex:"From the closing date — not from discovery. 3 CALENDAR years, not business years."},
+  {cat:"TRID",q:"Zero tolerance fees can increase by how much from LE to CD?",a:"$0 — cannot increase at all",ex:"Origination charges, points, and transfer taxes are zero tolerance. Even $1 increase = violation without valid changed circumstance."},
+  {cat:"TRID",q:"Are lender errors a valid changed circumstance under TRID?",a:"NO — never valid",ex:"Lender errors in estimating fees are explicitly NOT valid changed circumstances. The lender absorbs the cost of their own mistakes."},
+  {cat:"ECOA",q:"How many protected classes does ECOA have?",a:"8 protected classes",ex:"Race · Color · Religion · National Origin · Sex · Marital Status · Age · Receipt of Public Assistance"},
+  {cat:"ECOA",q:"Is Marital Status an ECOA protected class?",a:"YES — ECOA only",ex:"Marital Status is ECOA-protected but NOT Fair Housing Act protected. This distinction is tested constantly."},
+  {cat:"ECOA",q:"Is Familial Status an ECOA protected class?",a:"NO — FHA only",ex:"Familial Status (having children under 18) is Fair Housing Act protected — NOT ECOA. Know which class belongs to which law."},
+  {cat:"ECOA",q:"How many days for an adverse action notice after a complete application?",a:"30 days",ex:"ECOA requires adverse action notice within 30 days of a complete application with specific, actionable reasons."},
+  {cat:"ECOA",q:"How long must ECOA credit records be retained?",a:"25 months",ex:"From the date of credit decision notification — not application date. 25 months — not 12, not 36."},
+  {cat:"ECOA",q:"After adverse action based on credit report, how long to request free report?",a:"60 days",ex:"Borrower has 60 days to request a free copy of the credit report from the credit reporting agency."},
+  {cat:"ECOA",q:"Must public assistance income be counted at full value?",a:"YES — full value always",ex:"Cannot discount or exclude public assistance income. Must be counted the same as any other income source."},
+  {cat:"BSA",q:"What cash amount triggers a Currency Transaction Report (CTR)?",a:"Over $10,000",ex:"Cash transactions exceeding $10,000 in a single business day require a CTR filed within 15 days."},
+  {cat:"BSA",q:"Within how many days must a SAR be filed?",a:"30 days",ex:"Suspicious Activity Report must be filed within 30 days of detection. Extendable to 60 days to identify a subject."},
+  {cat:"BSA",q:"Is structuring cash transactions to stay under $10,000 legal if funds are legitimate?",a:"NO — always illegal",ex:"Structuring is a federal crime regardless of the legitimacy of the underlying funds. Intent to evade reporting = the crime."},
+  {cat:"BSA",q:"Can you tell a customer a SAR was filed about them?",a:"NO — tipping off is a crime",ex:"Disclosing SAR filing to the subject is 'tipping off' — a separate federal crime under BSA."},
+  {cat:"BSA",q:"How many pillars does a BSA AML program require?",a:"4 pillars",ex:"Written policies · Compliance officer · Employee training · Independent testing. All four required."},
+  {cat:"Texas",q:"What is the maximum CLTV for Texas Section 50(a)(6) home equity loans?",a:"80% CLTV",ex:"All liens combined cannot exceed 80% of the homestead's fair market value. Hard constitutional cap — no exceptions."},
+  {cat:"Texas",q:"What is the Texas 50(a)(6) fee cap?",a:"3% of loan amount",ex:"Total fees cannot exceed 3% of the original principal. Lender has 60 days to cure after written notice."},
+  {cat:"Texas",q:"What is the Texas 50(a)(6) mandatory waiting period?",a:"12 calendar days",ex:"12 CALENDAR days — not business days. From written application submission to closing."},
+  {cat:"Texas",q:"Where must Texas home equity loan closings occur?",a:"Lender, attorney, or title company",ex:"CANNOT close at the borrower's home — even if the borrower requests it. Constitutional violation."},
+  {cat:"Texas",q:"On which day do Texas non-judicial foreclosure sales occur?",a:"First Tuesday of the month",ex:"10 AM–4 PM at the county courthouse. Jan 1 or July 4 → moves to Wednesday. Only these two holidays."},
+  {cat:"Texas",q:"How many days advance notice for Texas foreclosure?",a:"21 days",ex:"Written notice via certified mail AND courthouse posting. Both required simultaneously."},
+  {cat:"Texas",q:"What is the TDSML maximum penalty per violation per day?",a:"$25,000 per violation per day",ex:"Texas Department of Savings and Mortgage Lending. Per-day structure makes ongoing violations extremely costly."},
+  {cat:"Texas",q:"How many pre-licensing hours does Texas require?",a:"23 hours total",ex:"20 federal hours (SAFE Act minimum) + 3 Texas-specific hours. Annual CE = 8 hours (7 federal + 1 Texas)."},
+  {cat:"Texas",q:"The SAFE Act permanent bar applies to any felony involving what?",a:"Fraud, dishonesty, or breach of trust",ex:"NO time limit — permanent. A 1990 mortgage fraud conviction still permanently bars licensure today."},
+  {cat:"Texas",q:"Any felony within how many years is a SAFE Act mandatory bar?",a:"7 years",ex:"Any felony within the preceding 7 years = mandatory denial. Category 2 (fraud) = permanent regardless of time."},
+  {cat:"RESPA",q:"HOEPA points-and-fees trigger threshold is what percentage?",a:"5% of loan amount",ex:"If total fees exceed 5% of the loan amount, HOEPA high-cost status is triggered. Any ONE of 3 tests alone triggers."},
+  {cat:"TILA",q:"SCRA caps pre-service interest at what percentage?",a:"6% — excess FORGIVEN",ex:"The excess above 6% is permanently FORGIVEN — not deferred. The servicemember never owes it."},
+  {cat:"TILA",q:"SCRA foreclosure protection continues for how long after active duty?",a:"1 year after service ends",ex:"Protection during active duty AND for 1 year after. In Texas (non-judicial state), lender must get court order."},
+  {cat:"ECOA",q:"What is the minimum NMLS SAFE exam passing score?",a:"75%",ex:"Must score 75% or higher. Below 75% = fail. After 3 failures, must wait 180 days before retesting."},
+  {cat:"Texas",q:"What is the 2024 standard conforming loan limit for 1-unit?",a:"$766,550",ex:"High-cost area limit = $1,149,825. Limit applies to LOAN AMOUNT — not purchase price."},
+  {cat:"TRID",q:"PMI automatically cancels when LTV reaches what percentage?",a:"78% of original purchase price",ex:"Based on ORIGINAL purchase price and ORIGINAL amortization schedule — not current appraised value."},
+  {cat:"TRID",q:"Borrower can REQUEST PMI cancellation at what LTV?",a:"80% of original purchase price",ex:"Request at 80%, automatic cancel at 78%. Both based on original values — not current appraised value."},
+  {cat:"ECOA",q:"Self-employed threshold under conforming guidelines is what ownership percentage?",a:"25% or more",ex:"Exactly 25% — not majority, not 51%. A 24% owner is NOT self-employed under conforming guidelines."},
+];
+
+let cards = [...ALL_CARDS];
+let current = 0;
+let seen = new Set();
+
+function showCard() {
+  const card = cards[current];
+  document.getElementById('flashcard').classList.remove('flipped');
+  setTimeout(() => {
+    document.getElementById('fc-cat').textContent = card.cat;
+    document.getElementById('fc-cat2').textContent = card.cat;
+    document.getElementById('fc-q').textContent = card.q;
+    document.getElementById('fc-a').textContent = card.a;
+    document.getElementById('fc-ex').textContent = card.ex;
+  }, 150);
+  seen.add(current);
+  updateStats();
+}
+
+function updateStats() {
+  const total = cards.length;
+  document.getElementById('fc-current').textContent = current + 1;
+  document.getElementById('fc-total').textContent = total;
+  document.getElementById('fc-seen').textContent = seen.size;
+  document.getElementById('fc-pct').textContent = Math.round(seen.size/total*100) + '%';
+  document.getElementById('fc-count').textContent = `Card ${current+1} of ${total}`;
+  document.getElementById('fc-prog').style.width = (seen.size/total*100) + '%';
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextCard() {
+  document.getElementById('flashcard').classList.remove('flipped');
+  current = (current + 1) % cards.length;
+  setTimeout(showCard, 200);
+}
+
+function prevCard() {
+  document.getElementById('flashcard').classList.remove('flipped');
+  current = (current - 1 + cards.length) % cards.length;
+  setTimeout(showCard, 200);
+}
+
+function shuffleCards() {
+  for(let i = cards.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [cards[i],cards[j]] = [cards[j],cards[i]];
+  }
+  current = 0;
+  seen.clear();
+  showCard();
+}
+
+function filterCards(category) {
+  document.querySelectorAll('.fc-section-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if(category === 'all') {
+    cards = [...ALL_CARDS];
+  } else {
+    cards = ALL_CARDS.filter(c => c.cat === category);
+  }
+  current = 0;
+  seen.clear();
+  showCard();
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight') nextCard();
+  if(e.key === 'ArrowLeft') prevCard();
+  if(e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+showCard();
+</script>
+
+  <div class="footer-note">NMLS Prep · nmlsprep.com · For exam preparation only</div>
+</div>
+</div>
+</body>
+</html>
