@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 Sample Practice Questions — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--shadow:rgba(0,0,0,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#6c3483;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#6c3483 0%,#6c3483dd 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.8);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.22);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);margin:28px 0 12px;padding-top:20px;border-top:1px dashed rgba(0,0,0,.12);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#3a2a10;line-height:1.75;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 20px;}
+li{font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:4px;}
+li strong{color:var(--red2);}
+.card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.card-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.25);}
+.highlight{background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;padding:12px 15px;margin:14px 0;font-size:.86rem;color:#3a2a10;line-height:1.65;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2rem;color:#6c3483;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#4a3a20;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.5px;}
+td{padding:8px 12px;border:1px solid var(--paper3);color:#3a2a10;vertical-align:top;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.q-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);}
+.q-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--gray2);margin-bottom:6px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.q-choices{display:flex;flex-direction:column;gap:6px;}
+.q-choice{font-size:.83rem;padding:8px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.1);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .15s;display:flex;gap:8px;}
+.q-choice:hover{background:var(--paper2);border-color:var(--gold2);}
+.q-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);}
+.q-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);}
+.q-choice.reveal{border-color:rgba(30,122,60,.35);}
+.q-choice:disabled{cursor:default;}
+.q-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.q-explain{display:none;margin-top:10px;padding:10px 13px;background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;font-size:.82rem;color:#3a2a10;line-height:1.6;}
+.q-explain.show{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.checklist{list-style:none;padding:0;margin:12px 0;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.87rem;color:#3a2a10;line-height:1.55;}
+.checklist li::before{content:'☐';font-size:1rem;color:var(--gray2);flex-shrink:0;margin-top:1px;}
+.checklist li.done::before{content:'✓';color:var(--green2);}
+.glossary-term{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:13px 16px;margin-bottom:8px;box-shadow:1px 2px 6px var(--shadow);}
+.g-term{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:4px;}
+.g-def{font-size:.83rem;color:#4a3a20;line-height:1.6;}
+.g-related{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);margin-top:5px;letter-spacing:.5px;}
+.footer-note{margin-top:32px;padding:16px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.8rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">PRACTICE</div>
+  <div class="hdr">
+    <h1>50 Sample Practice Questions</h1>
+    <p>Federal Law · Ethics · Loan Origination · Texas USC · All Major NMLS Topics</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+<div class="highlight">50 exam-style questions. Click an answer to see the explanation. These reflect the style and difficulty of the real NMLS SAFE exam.</div>
+<div class="q-card" id="q1">
+  <div class="q-num">QUESTION 01 / 50</div>
+  <div class="q-text">Under RESPA Section 8, what is the minimum dollar amount for a kickback violation?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q1',false,'A')"><span class="q-ltr">A.</span>$25</button>
+<button class="q-choice"  onclick="answer(this,'q1',false,'B')"><span class="q-ltr">B.</span>$50</button>
+<button class="q-choice"  onclick="answer(this,'q1',false,'C')"><span class="q-ltr">C.</span>$100</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q1',true,'D')"><span class="q-ltr">D.</span>There is no minimum</button>
+</div>
+  <div class="q-explain" id="q1-ex"><strong>Answer: D</strong> — There is NO minimum dollar threshold under RESPA Section 8. Even $5 exchanged for a referral is a violation. The exchange itself is the violation — the amount is irrelevant.</div>
+</div>
+<div class="q-card" id="q2">
+  <div class="q-num">QUESTION 02 / 50</div>
+  <div class="q-text">A Loan Estimate must be received by the borrower within how many business days of a complete application?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q2',false,'A')"><span class="q-ltr">A.</span>1 business day</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q2',true,'B')"><span class="q-ltr">B.</span>3 business days</button>
+<button class="q-choice"  onclick="answer(this,'q2',false,'C')"><span class="q-ltr">C.</span>5 business days</button>
+<button class="q-choice"  onclick="answer(this,'q2',false,'D')"><span class="q-ltr">D.</span>7 calendar days</button>
+</div>
+  <div class="q-explain" id="q2-ex"><strong>Answer: B</strong> — Under TRID, the LE must be RECEIVED within 3 business days of a complete application with all 6 elements. Saturday counts; Sundays and federal holidays do not.</div>
+</div>
+<div class="q-card" id="q3">
+  <div class="q-num">QUESTION 03 / 50</div>
+  <div class="q-text">Which is NOT one of the six TRID application elements?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q3',false,'A')"><span class="q-ltr">A.</span>Social Security Number</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q3',true,'B')"><span class="q-ltr">B.</span>Credit score</button>
+<button class="q-choice"  onclick="answer(this,'q3',false,'C')"><span class="q-ltr">C.</span>Property address</button>
+<button class="q-choice"  onclick="answer(this,'q3',false,'D')"><span class="q-ltr">D.</span>Desired loan amount</button>
+</div>
+  <div class="q-explain" id="q3-ex"><strong>Answer: B</strong> — Credit score is NOT one of the six elements. The six are: Name, SSN, Income, Property Address, Estimated Value, and Desired Loan Amount. This is the most tested TRID fact.</div>
+</div>
+<div class="q-card" id="q4">
+  <div class="q-num">QUESTION 04 / 50</div>
+  <div class="q-text">ECOA requires adverse action notices within how many days of a complete application?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q4',false,'A')"><span class="q-ltr">A.</span>10 business days</button>
+<button class="q-choice"  onclick="answer(this,'q4',false,'B')"><span class="q-ltr">B.</span>15 calendar days</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q4',true,'C')"><span class="q-ltr">C.</span>30 days</button>
+<button class="q-choice"  onclick="answer(this,'q4',false,'D')"><span class="q-ltr">D.</span>60 days</button>
+</div>
+  <div class="q-explain" id="q4-ex"><strong>Answer: C</strong> — ECOA requires adverse action notices within 30 days of a complete application with specific, actionable reasons — not vague conclusions.</div>
+</div>
+<div class="q-card" id="q5">
+  <div class="q-num">QUESTION 05 / 50</div>
+  <div class="q-text">The minimum passing score on the NMLS SAFE exam is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q5',false,'A')"><span class="q-ltr">A.</span>70%</button>
+<button class="q-choice"  onclick="answer(this,'q5',false,'B')"><span class="q-ltr">B.</span>72%</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q5',true,'C')"><span class="q-ltr">C.</span>75%</button>
+<button class="q-choice"  onclick="answer(this,'q5',false,'D')"><span class="q-ltr">D.</span>80%</button>
+</div>
+  <div class="q-explain" id="q5-ex"><strong>Answer: C</strong> — The minimum passing score is 75%. Below 75% is a failing score.</div>
+</div>
+<div class="q-card" id="q6">
+  <div class="q-num">QUESTION 06 / 50</div>
+  <div class="q-text">Which class is covered by ECOA but NOT by the Fair Housing Act?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q6',false,'A')"><span class="q-ltr">A.</span>Race</button>
+<button class="q-choice"  onclick="answer(this,'q6',false,'B')"><span class="q-ltr">B.</span>Disability</button>
+<button class="q-choice"  onclick="answer(this,'q6',false,'C')"><span class="q-ltr">C.</span>Familial Status</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q6',true,'D')"><span class="q-ltr">D.</span>Marital Status</button>
+</div>
+  <div class="q-explain" id="q6-ex"><strong>Answer: D</strong> — Marital Status is ECOA-protected only. Familial Status and Disability are FHA-protected only. This distinction is tested constantly.</div>
+</div>
+<div class="q-card" id="q7">
+  <div class="q-num">QUESTION 07 / 50</div>
+  <div class="q-text">Under SCRA, what happens to interest above 6% on a servicemember's pre-service debts?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q7',false,'A')"><span class="q-ltr">A.</span>It is deferred until after service</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q7',true,'B')"><span class="q-ltr">B.</span>It is permanently forgiven</button>
+<button class="q-choice"  onclick="answer(this,'q7',false,'C')"><span class="q-ltr">C.</span>It is added to principal</button>
+<button class="q-choice"  onclick="answer(this,'q7',false,'D')"><span class="q-ltr">D.</span>It is held in escrow</button>
+</div>
+  <div class="q-explain" id="q7-ex"><strong>Answer: B</strong> — The excess interest above 6% is permanently FORGIVEN — not deferred, not accumulated. The servicemember will never pay it. This is the most tested SCRA fact.</div>
+</div>
+<div class="q-card" id="q8">
+  <div class="q-num">QUESTION 08 / 50</div>
+  <div class="q-text">A BSA CTR is required for cash transactions exceeding:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q8',false,'A')"><span class="q-ltr">A.</span>$5,000</button>
+<button class="q-choice"  onclick="answer(this,'q8',false,'B')"><span class="q-ltr">B.</span>$8,000</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q8',true,'C')"><span class="q-ltr">C.</span>$10,000</button>
+<button class="q-choice"  onclick="answer(this,'q8',false,'D')"><span class="q-ltr">D.</span>$15,000</button>
+</div>
+  <div class="q-explain" id="q8-ex"><strong>Answer: C</strong> — CTRs are required for cash transactions exceeding $10,000 in a single business day. Structuring to stay below $10,000 is itself a federal crime.</div>
+</div>
+<div class="q-card" id="q9">
+  <div class="q-num">QUESTION 09 / 50</div>
+  <div class="q-text">The cure window for TRID tolerance violations is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q9',false,'A')"><span class="q-ltr">A.</span>30 days from closing</button>
+<button class="q-choice"  onclick="answer(this,'q9',false,'B')"><span class="q-ltr">B.</span>1 year from closing</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q9',true,'C')"><span class="q-ltr">C.</span>3 calendar years from closing</button>
+<button class="q-choice"  onclick="answer(this,'q9',false,'D')"><span class="q-ltr">D.</span>3 business years from discovery</button>
+</div>
+  <div class="q-explain" id="q9-ex"><strong>Answer: C</strong> — The cure window is 3 CALENDAR years from the closing date. This is frequently tested.</div>
+</div>
+<div class="q-card" id="q10">
+  <div class="q-num">QUESTION 10 / 50</div>
+  <div class="q-text">The maximum escrow cushion under RESPA Section 10 is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q10',false,'A')"><span class="q-ltr">A.</span>1 month of projected payments</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q10',true,'B')"><span class="q-ltr">B.</span>2 months of projected payments</button>
+<button class="q-choice"  onclick="answer(this,'q10',false,'C')"><span class="q-ltr">C.</span>3 months of projected payments</button>
+<button class="q-choice"  onclick="answer(this,'q10',false,'D')"><span class="q-ltr">D.</span>6 months of projected payments</button>
+</div>
+  <div class="q-explain" id="q10-ex"><strong>Answer: B</strong> — RESPA Section 10 limits the escrow cushion to 2 months of projected payments. Excess must be refunded within 30 days of the annual analysis.</div>
+</div>
+<div class="q-card" id="q11">
+  <div class="q-num">QUESTION 11 / 50</div>
+  <div class="q-text">Which transaction does NOT have a TILA Right of Rescission?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q11',false,'A')"><span class="q-ltr">A.</span>Refinance on primary residence</button>
+<button class="q-choice"  onclick="answer(this,'q11',false,'B')"><span class="q-ltr">B.</span>Home equity loan on primary residence</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q11',true,'C')"><span class="q-ltr">C.</span>Purchase money mortgage</button>
+<button class="q-choice"  onclick="answer(this,'q11',false,'D')"><span class="q-ltr">D.</span>HELOC on primary residence</button>
+</div>
+  <div class="q-explain" id="q11-ex"><strong>Answer: C</strong> — Purchase money mortgages do NOT have a right of rescission. The 3-day right applies to refinances, HELOCs, and home equity loans on primary residences only.</div>
+</div>
+<div class="q-card" id="q12">
+  <div class="q-num">QUESTION 12 / 50</div>
+  <div class="q-text">HMDA Code 2 means:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q12',false,'A')"><span class="q-ltr">A.</span>Loan originated</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q12',true,'B')"><span class="q-ltr">B.</span>Approved but not accepted by borrower</button>
+<button class="q-choice"  onclick="answer(this,'q12',false,'C')"><span class="q-ltr">C.</span>Application denied</button>
+<button class="q-choice"  onclick="answer(this,'q12',false,'D')"><span class="q-ltr">D.</span>Application withdrawn</button>
+</div>
+  <div class="q-explain" id="q12-ex"><strong>Answer: B</strong> — Code 2 = Approved but Not Accepted. The lender approved it; the borrower walked away after approval. Code 4 = borrower withdrew before the lender made a decision.</div>
+</div>
+<div class="q-card" id="q13">
+  <div class="q-num">QUESTION 13 / 50</div>
+  <div class="q-text">The maximum back-end DTI for a standard Qualified Mortgage is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q13',false,'A')"><span class="q-ltr">A.</span>36%</button>
+<button class="q-choice"  onclick="answer(this,'q13',false,'B')"><span class="q-ltr">B.</span>38%</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q13',true,'C')"><span class="q-ltr">C.</span>43%</button>
+<button class="q-choice"  onclick="answer(this,'q13',false,'D')"><span class="q-ltr">D.</span>50%</button>
+</div>
+  <div class="q-explain" id="q13-ex"><strong>Answer: C</strong> — The maximum back-end DTI for a standard QM is 43%. GSE-eligible loans may go to 50% with strong AUS approval.</div>
+</div>
+<div class="q-card" id="q14">
+  <div class="q-num">QUESTION 14 / 50</div>
+  <div class="q-text">Texas Section 50(a)(6) limits all liens combined to:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q14',false,'A')"><span class="q-ltr">A.</span>75% CLTV</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q14',true,'B')"><span class="q-ltr">B.</span>80% CLTV</button>
+<button class="q-choice"  onclick="answer(this,'q14',false,'C')"><span class="q-ltr">C.</span>85% CLTV</button>
+<button class="q-choice"  onclick="answer(this,'q14',false,'D')"><span class="q-ltr">D.</span>90% CLTV</button>
+</div>
+  <div class="q-explain" id="q14-ex"><strong>Answer: B</strong> — Texas Section 50(a)(6) caps all liens at 80% of the homestead's fair market value. This is a hard constitutional cap.</div>
+</div>
+<div class="q-card" id="q15">
+  <div class="q-num">QUESTION 15 / 50</div>
+  <div class="q-text">The LO Compensation Rule prohibits:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q15',false,'A')"><span class="q-ltr">A.</span>MLOs from receiving any lender compensation</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q15',true,'B')"><span class="q-ltr">B.</span>Dual compensation from lender and borrower on same transaction</button>
+<button class="q-choice"  onclick="answer(this,'q15',false,'C')"><span class="q-ltr">C.</span>MLOs from earning over $10,000 per transaction</button>
+<button class="q-choice"  onclick="answer(this,'q15',false,'D')"><span class="q-ltr">D.</span>Working with more than one lender</button>
+</div>
+  <div class="q-explain" id="q15-ex"><strong>Answer: B</strong> — The LO Compensation Rule prohibits dual compensation — receiving fees from both lender AND borrower on the same transaction. Also prohibits steering for higher pay.</div>
+</div>
+<div class="q-card" id="q16">
+  <div class="q-num">QUESTION 16 / 50</div>
+  <div class="q-text">HOEPA points-and-fees trigger threshold is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q16',false,'A')"><span class="q-ltr">A.</span>3% of loan amount</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q16',true,'B')"><span class="q-ltr">B.</span>5% of loan amount</button>
+<button class="q-choice"  onclick="answer(this,'q16',false,'C')"><span class="q-ltr">C.</span>6% of loan amount</button>
+<button class="q-choice"  onclick="answer(this,'q16',false,'D')"><span class="q-ltr">D.</span>8% of loan amount</button>
+</div>
+  <div class="q-explain" id="q16-ex"><strong>Answer: B</strong> — HOEPA's points-and-fees test triggers at 5% of the loan amount. Any ONE of HOEPA's three tests alone triggers high-cost status.</div>
+</div>
+<div class="q-card" id="q17">
+  <div class="q-num">QUESTION 17 / 50</div>
+  <div class="q-text">A SAR must be filed within how many days of detecting suspicious activity?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q17',false,'A')"><span class="q-ltr">A.</span>10 days</button>
+<button class="q-choice"  onclick="answer(this,'q17',false,'B')"><span class="q-ltr">B.</span>15 days</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q17',true,'C')"><span class="q-ltr">C.</span>30 days</button>
+<button class="q-choice"  onclick="answer(this,'q17',false,'D')"><span class="q-ltr">D.</span>60 days</button>
+</div>
+  <div class="q-explain" id="q17-ex"><strong>Answer: C</strong> — SARs must be filed within 30 days of detecting suspicious activity, extendable to 60 days to identify a subject.</div>
+</div>
+<div class="q-card" id="q18">
+  <div class="q-num">QUESTION 18 / 50</div>
+  <div class="q-text">ECOA Regulation B requires credit records to be retained for:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q18',false,'A')"><span class="q-ltr">A.</span>12 months</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q18',true,'B')"><span class="q-ltr">B.</span>25 months</button>
+<button class="q-choice"  onclick="answer(this,'q18',false,'C')"><span class="q-ltr">C.</span>36 months</button>
+<button class="q-choice"  onclick="answer(this,'q18',false,'D')"><span class="q-ltr">D.</span>7 years</button>
+</div>
+  <div class="q-explain" id="q18-ex"><strong>Answer: B</strong> — ECOA requires 25 months retention from the date of credit decision notification — for both approvals and denials.</div>
+</div>
+<div class="q-card" id="q19">
+  <div class="q-num">QUESTION 19 / 50</div>
+  <div class="q-text">Fannie Mae's automated underwriting system is called:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q19',false,'A')"><span class="q-ltr">A.</span>Loan Product Advisor (LPA)</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q19',true,'B')"><span class="q-ltr">B.</span>Desktop Underwriter (DU)</button>
+<button class="q-choice"  onclick="answer(this,'q19',false,'C')"><span class="q-ltr">C.</span>Total Scorecard</button>
+<button class="q-choice"  onclick="answer(this,'q19',false,'D')"><span class="q-ltr">D.</span>MISMO</button>
+</div>
+  <div class="q-explain" id="q19-ex"><strong>Answer: B</strong> — DU = Fannie Mae. LPA = Freddie Mac. Do not mix these up — it is tested constantly.</div>
+</div>
+<div class="q-card" id="q20">
+  <div class="q-num">QUESTION 20 / 50</div>
+  <div class="q-text">Texas non-judicial foreclosure sales occur on:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q20',false,'A')"><span class="q-ltr">A.</span>First Monday</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q20',true,'B')"><span class="q-ltr">B.</span>First Tuesday</button>
+<button class="q-choice"  onclick="answer(this,'q20',false,'C')"><span class="q-ltr">C.</span>Last Friday</button>
+<button class="q-choice"  onclick="answer(this,'q20',false,'D')"><span class="q-ltr">D.</span>Any weekday with 21 days notice</button>
+</div>
+  <div class="q-explain" id="q20-ex"><strong>Answer: B</strong> — Texas foreclosure sales must occur on the FIRST TUESDAY of the month, 10AM-4PM at the county courthouse. Jan 1 or July 4 moves the sale to Wednesday.</div>
+</div>
+<div class="q-card" id="q21">
+  <div class="q-num">QUESTION 21 / 50</div>
+  <div class="q-text">RESPA Section 9 prohibits:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q21',false,'A')"><span class="q-ltr">A.</span>Kickbacks in settlement services</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q21',true,'B')"><span class="q-ltr">B.</span>Sellers requiring buyers to use a specific title company</button>
+<button class="q-choice"  onclick="answer(this,'q21',false,'C')"><span class="q-ltr">C.</span>Lenders charging excessive escrow</button>
+<button class="q-choice"  onclick="answer(this,'q21',false,'D')"><span class="q-ltr">D.</span>Mortgage servicers ignoring QWRs</button>
+</div>
+  <div class="q-explain" id="q21-ex"><strong>Answer: B</strong> — Section 9 prohibits sellers from requiring a specific title company as a condition of sale. Penalty = 3 times the title insurance charge.</div>
+</div>
+<div class="q-card" id="q22">
+  <div class="q-num">QUESTION 22 / 50</div>
+  <div class="q-text">PMI automatically cancels when LTV reaches:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q22',false,'A')"><span class="q-ltr">A.</span>80% of current appraised value</button>
+<button class="q-choice"  onclick="answer(this,'q22',false,'B')"><span class="q-ltr">B.</span>78% of current appraised value</button>
+<button class="q-choice"  onclick="answer(this,'q22',false,'C')"><span class="q-ltr">C.</span>80% of original purchase price</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q22',true,'D')"><span class="q-ltr">D.</span>78% of original purchase price</button>
+</div>
+  <div class="q-explain" id="q22-ex"><strong>Answer: D</strong> — PMI auto-cancels at 78% LTV based on ORIGINAL purchase price and ORIGINAL amortization schedule — not current value, not extra payments.</div>
+</div>
+<div class="q-card" id="q23">
+  <div class="q-num">QUESTION 23 / 50</div>
+  <div class="q-text">When an MLO license expires, the MLO must stop originating:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q23',false,'A')"><span class="q-ltr">A.</span>After a 30-day CE grace period</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q23',true,'B')"><span class="q-ltr">B.</span>Immediately upon expiration</button>
+<button class="q-choice"  onclick="answer(this,'q23',false,'C')"><span class="q-ltr">C.</span>After a 60-day grace period</button>
+<button class="q-choice"  onclick="answer(this,'q23',false,'D')"><span class="q-ltr">D.</span>After notifying their employer</button>
+</div>
+  <div class="q-explain" id="q23-ex"><strong>Answer: B</strong> — Expired license = stop immediately. No grace period. Every transaction while unlicensed is a separate violation.</div>
+</div>
+<div class="q-card" id="q24">
+  <div class="q-num">QUESTION 24 / 50</div>
+  <div class="q-text">The maximum loan term for a Qualified Mortgage is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q24',false,'A')"><span class="q-ltr">A.</span>20 years</button>
+<button class="q-choice"  onclick="answer(this,'q24',false,'B')"><span class="q-ltr">B.</span>25 years</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q24',true,'C')"><span class="q-ltr">C.</span>30 years</button>
+<button class="q-choice"  onclick="answer(this,'q24',false,'D')"><span class="q-ltr">D.</span>40 years</button>
+</div>
+  <div class="q-explain" id="q24-ex"><strong>Answer: C</strong> — 30 years is the QM maximum term. 40-year mortgages are NOT QM — this is a frequently tested fact.</div>
+</div>
+<div class="q-card" id="q25">
+  <div class="q-num">QUESTION 25 / 50</div>
+  <div class="q-text">TDSML maximum civil penalty per violation per day is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q25',false,'A')"><span class="q-ltr">A.</span>$5,000</button>
+<button class="q-choice"  onclick="answer(this,'q25',false,'B')"><span class="q-ltr">B.</span>$10,000</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q25',true,'C')"><span class="q-ltr">C.</span>$25,000</button>
+<button class="q-choice"  onclick="answer(this,'q25',false,'D')"><span class="q-ltr">D.</span>$50,000</button>
+</div>
+  <div class="q-explain" id="q25-ex"><strong>Answer: C</strong> — TDSML can impose up to $25,000 per violation per day. The per-day structure makes ongoing violations extremely costly.</div>
+</div>
+<div class="q-card" id="q26">
+  <div class="q-num">QUESTION 26 / 50</div>
+  <div class="q-text">Steering under the Fair Housing Act means:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q26',false,'A')"><span class="q-ltr">A.</span>Refusing to lend in high-crime areas</button>
+<button class="q-choice"  onclick="answer(this,'q26',false,'B')"><span class="q-ltr">B.</span>Advertising exclusively in English</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q26',true,'C')"><span class="q-ltr">C.</span>Directing buyers to neighborhoods based on their race</button>
+<button class="q-choice"  onclick="answer(this,'q26',false,'D')"><span class="q-ltr">D.</span>Requiring minimum income for qualification</button>
+</div>
+  <div class="q-explain" id="q26-ex"><strong>Answer: C</strong> — Steering = directing buyers toward or away from neighborhoods based on race or other protected class. Violates FHA Section 3604.</div>
+</div>
+<div class="q-card" id="q27">
+  <div class="q-num">QUESTION 27 / 50</div>
+  <div class="q-text">An ad saying '6.75% rate available' with no other disclosures violates:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q27',false,'A')"><span class="q-ltr">A.</span>Nothing — rate ads are always permitted</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q27',true,'B')"><span class="q-ltr">B.</span>TILA — specific rate triggers 5 required disclosures</button>
+<button class="q-choice"  onclick="answer(this,'q27',false,'C')"><span class="q-ltr">C.</span>RESPA — no license number shown</button>
+<button class="q-choice"  onclick="answer(this,'q27',false,'D')"><span class="q-ltr">D.</span>ECOA — no equal housing language</button>
+</div>
+  <div class="q-explain" id="q27-ex"><strong>Answer: B</strong> — A specific rate is a TILA trigger term requiring all 5 disclosures: APR, down payment, repayment terms, payment amount, number of payments.</div>
+</div>
+<div class="q-card" id="q28">
+  <div class="q-num">QUESTION 28 / 50</div>
+  <div class="q-text">A RESPA QWR must be acknowledged within:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q28',false,'A')"><span class="q-ltr">A.</span>3 business days</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q28',true,'B')"><span class="q-ltr">B.</span>5 business days</button>
+<button class="q-choice"  onclick="answer(this,'q28',false,'C')"><span class="q-ltr">C.</span>10 business days</button>
+<button class="q-choice"  onclick="answer(this,'q28',false,'D')"><span class="q-ltr">D.</span>30 business days</button>
+</div>
+  <div class="q-explain" id="q28-ex"><strong>Answer: B</strong> — QWR must be acknowledged within 5 business days. Substantive response due within 30 business days (extendable to 45).</div>
+</div>
+<div class="q-card" id="q29">
+  <div class="q-num">QUESTION 29 / 50</div>
+  <div class="q-text">Which IS a valid TRID changed circumstance?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q29',false,'A')"><span class="q-ltr">A.</span>Lender estimated fees too low</button>
+<button class="q-choice"  onclick="answer(this,'q29',false,'B')"><span class="q-ltr">B.</span>Interest rates moved higher</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q29',true,'C')"><span class="q-ltr">C.</span>Natural disaster damaged the property</button>
+<button class="q-choice"  onclick="answer(this,'q29',false,'D')"><span class="q-ltr">D.</span>Lender wants to charge more</button>
+</div>
+  <div class="q-explain" id="q29-ex"><strong>Answer: C</strong> — A natural disaster is a valid changed circumstance. Lender errors and rate movements are NOT — the lender absorbs those costs.</div>
+</div>
+<div class="q-card" id="q30">
+  <div class="q-num">QUESTION 30 / 50</div>
+  <div class="q-text">SAFE Act minimum pre-licensing hours (federal) is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q30',false,'A')"><span class="q-ltr">A.</span>8 hours</button>
+<button class="q-choice"  onclick="answer(this,'q30',false,'B')"><span class="q-ltr">B.</span>12 hours</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q30',true,'C')"><span class="q-ltr">C.</span>20 hours</button>
+<button class="q-choice"  onclick="answer(this,'q30',false,'D')"><span class="q-ltr">D.</span>23 hours</button>
+</div>
+  <div class="q-explain" id="q30-ex"><strong>Answer: C</strong> — 20 hours federal minimum. Texas requires 23 (20 federal + 3 state). The 8-hour figure is the annual CE requirement.</div>
+</div>
+<div class="q-card" id="q31">
+  <div class="q-num">QUESTION 31 / 50</div>
+  <div class="q-text">A lender discounts public assistance income. This violates:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q31',false,'A')"><span class="q-ltr">A.</span>Nothing if documented</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q31',true,'B')"><span class="q-ltr">B.</span>ECOA — receipt of public assistance is a protected class</button>
+<button class="q-choice"  onclick="answer(this,'q31',false,'C')"><span class="q-ltr">C.</span>RESPA — income verification rules</button>
+<button class="q-choice"  onclick="answer(this,'q31',false,'D')"><span class="q-ltr">D.</span>TILA — ATR income calculation rules</button>
+</div>
+  <div class="q-explain" id="q31-ex"><strong>Answer: B</strong> — Public assistance income must be counted at full value under ECOA. Discounting it based on source violates ECOA.</div>
+</div>
+<div class="q-card" id="q32">
+  <div class="q-num">QUESTION 32 / 50</div>
+  <div class="q-text">A Texas home equity loan must close at:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q32',false,'A')"><span class="q-ltr">A.</span>The borrower's home</button>
+<button class="q-choice"  onclick="answer(this,'q32',false,'B')"><span class="q-ltr">B.</span>Any licensed notary location</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q32',true,'C')"><span class="q-ltr">C.</span>Lender office, attorney office, or title company</button>
+<button class="q-choice"  onclick="answer(this,'q32',false,'D')"><span class="q-ltr">D.</span>The county recorder's office</button>
+</div>
+  <div class="q-explain" id="q32-ex"><strong>Answer: C</strong> — Texas 50(a)(6) requires closing at the lender's office, attorney's office, or title company. Home closings are constitutionally prohibited.</div>
+</div>
+<div class="q-card" id="q33">
+  <div class="q-num">QUESTION 33 / 50</div>
+  <div class="q-text">When a face-to-face borrower declines to state race, the MLO must:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q33',false,'A')"><span class="q-ltr">A.</span>Leave the field blank</button>
+<button class="q-choice"  onclick="answer(this,'q33',false,'B')"><span class="q-ltr">B.</span>Record declined only</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q33',true,'C')"><span class="q-ltr">C.</span>Record both the refusal AND visual observation</button>
+<button class="q-choice"  onclick="answer(this,'q33',false,'D')"><span class="q-ltr">D.</span>Skip HMDA collection</button>
+</div>
+  <div class="q-explain" id="q33-ex"><strong>Answer: C</strong> — For face-to-face applications, MLO must record BOTH the refusal AND their visual observation of apparent race/ethnicity.</div>
+</div>
+<div class="q-card" id="q34">
+  <div class="q-num">QUESTION 34 / 50</div>
+  <div class="q-text">Which is prohibited in a HOEPA high-cost mortgage?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q34',false,'A')"><span class="q-ltr">A.</span>Fixed interest rate</button>
+<button class="q-choice"  onclick="answer(this,'q34',false,'B')"><span class="q-ltr">B.</span>30-year amortization</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q34',true,'C')"><span class="q-ltr">C.</span>Prepayment penalty</button>
+<button class="q-choice"  onclick="answer(this,'q34',false,'D')"><span class="q-ltr">D.</span>Escrow for taxes and insurance</button>
+</div>
+  <div class="q-explain" id="q34-ex"><strong>Answer: C</strong> — Prepayment penalties are prohibited in HOEPA loans. Also prohibited: balloon payments, negative amortization, due-on-demand clauses.</div>
+</div>
+<div class="q-card" id="q35">
+  <div class="q-num">QUESTION 35 / 50</div>
+  <div class="q-text">GLBA opt-out rights apply to sharing NPI with:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q35',false,'A')"><span class="q-ltr">A.</span>Affiliated companies</button>
+<button class="q-choice"  onclick="answer(this,'q35',false,'B')"><span class="q-ltr">B.</span>Government regulators</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q35',true,'C')"><span class="q-ltr">C.</span>Non-affiliated third parties</button>
+<button class="q-choice"  onclick="answer(this,'q35',false,'D')"><span class="q-ltr">D.</span>All parties without exception</button>
+</div>
+  <div class="q-explain" id="q35-ex"><strong>Answer: C</strong> — GLBA opt-out applies to NON-AFFILIATED third parties only. Exceptions include loan processing, legal compliance, and fraud prevention.</div>
+</div>
+<div class="q-card" id="q36">
+  <div class="q-num">QUESTION 36 / 50</div>
+  <div class="q-text">An MLO suspects falsified income documents. Correct action is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q36',false,'A')"><span class="q-ltr">A.</span>Note concern in file and proceed</button>
+<button class="q-choice"  onclick="answer(this,'q36',false,'B')"><span class="q-ltr">B.</span>Ask borrower for more verification</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q36',true,'C')"><span class="q-ltr">C.</span>Stop processing and report to compliance</button>
+<button class="q-choice"  onclick="answer(this,'q36',false,'D')"><span class="q-ltr">D.</span>Reduce the loan amount</button>
+</div>
+  <div class="q-explain" id="q36-ex"><strong>Answer: C</strong> — Stop and report to compliance immediately. Proceeding while knowing of fraud — even with notes — is knowing participation in mortgage fraud.</div>
+</div>
+<div class="q-card" id="q37">
+  <div class="q-num">QUESTION 37 / 50</div>
+  <div class="q-text">Conforming self-employed threshold is ownership of:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q37',false,'A')"><span class="q-ltr">A.</span>10% or more</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q37',true,'B')"><span class="q-ltr">B.</span>25% or more</button>
+<button class="q-choice"  onclick="answer(this,'q37',false,'C')"><span class="q-ltr">C.</span>50% or more</button>
+<button class="q-choice"  onclick="answer(this,'q37',false,'D')"><span class="q-ltr">D.</span>51% or more</button>
+</div>
+  <div class="q-explain" id="q37-ex"><strong>Answer: B</strong> — Exactly 25% ownership = self-employed. 24% = not self-employed. At 25%+, must provide 2 years of tax returns.</div>
+</div>
+<div class="q-card" id="q38">
+  <div class="q-num">QUESTION 38 / 50</div>
+  <div class="q-text">2024 standard conforming limit for 1-unit property is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q38',false,'A')"><span class="q-ltr">A.</span>$726,200</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q38',true,'B')"><span class="q-ltr">B.</span>$766,550</button>
+<button class="q-choice"  onclick="answer(this,'q38',false,'C')"><span class="q-ltr">C.</span>$800,000</button>
+<button class="q-choice"  onclick="answer(this,'q38',false,'D')"><span class="q-ltr">D.</span>$1,149,825</button>
+</div>
+  <div class="q-explain" id="q38-ex"><strong>Answer: B</strong> — $766,550 is the 2024 standard limit. High-cost area limit is $1,149,825.</div>
+</div>
+<div class="q-card" id="q39">
+  <div class="q-num">QUESTION 39 / 50</div>
+  <div class="q-text">Approving a loan solely based on credit score without verifying income:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q39',false,'A')"><span class="q-ltr">A.</span>Is acceptable for scores above 760</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q39',true,'B')"><span class="q-ltr">B.</span>Violates TILA ATR rule</button>
+<button class="q-choice"  onclick="answer(this,'q39',false,'C')"><span class="q-ltr">C.</span>Is compliant with LTV below 80%</button>
+<button class="q-choice"  onclick="answer(this,'q39',false,'D')"><span class="q-ltr">D.</span>Requires verbal income verification</button>
+</div>
+  <div class="q-explain" id="q39-ex"><strong>Answer: B</strong> — The ATR rule requires actual income verification. A credit score alone is NEVER sufficient to satisfy ATR.</div>
+</div>
+<div class="q-card" id="q40">
+  <div class="q-num">QUESTION 40 / 50</div>
+  <div class="q-text">Texas mandatory waiting period between HEL application and closing is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q40',false,'A')"><span class="q-ltr">A.</span>3 business days</button>
+<button class="q-choice"  onclick="answer(this,'q40',false,'B')"><span class="q-ltr">B.</span>7 calendar days</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q40',true,'C')"><span class="q-ltr">C.</span>12 calendar days</button>
+<button class="q-choice"  onclick="answer(this,'q40',false,'D')"><span class="q-ltr">D.</span>21 calendar days</button>
+</div>
+  <div class="q-explain" id="q40-ex"><strong>Answer: C</strong> — 12 CALENDAR days — not business days. This is in addition to the TRID CD waiting period.</div>
+</div>
+<div class="q-card" id="q41">
+  <div class="q-num">QUESTION 41 / 50</div>
+  <div class="q-text">Blockbusting under the Fair Housing Act means:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q41',false,'A')"><span class="q-ltr">A.</span>Refusing to show homes in certain neighborhoods</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q41',true,'B')"><span class="q-ltr">B.</span>Telling owners values will drop due to demographic changes</button>
+<button class="q-choice"  onclick="answer(this,'q41',false,'C')"><span class="q-ltr">C.</span>Advertising only in English</button>
+<button class="q-choice"  onclick="answer(this,'q41',false,'D')"><span class="q-ltr">D.</span>Requiring larger down payments from certain buyers</button>
+</div>
+  <div class="q-explain" id="q41-ex"><strong>Answer: B</strong> — Blockbusting = using racial change to induce panic selling. Violates FHA Section 3604.</div>
+</div>
+<div class="q-card" id="q42">
+  <div class="q-num">QUESTION 42 / 50</div>
+  <div class="q-text">A Closing Disclosure must be received at least how many days before closing?</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q42',false,'A')"><span class="q-ltr">A.</span>1 business day</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q42',true,'B')"><span class="q-ltr">B.</span>3 business days</button>
+<button class="q-choice"  onclick="answer(this,'q42',false,'C')"><span class="q-ltr">C.</span>5 business days</button>
+<button class="q-choice"  onclick="answer(this,'q42',false,'D')"><span class="q-ltr">D.</span>7 calendar days</button>
+</div>
+  <div class="q-explain" id="q42-ex"><strong>Answer: B</strong> — CD must be RECEIVED at least 3 business days before consummation. Three events restart the period: APR increase over 1/8%, loan product change, or prepayment penalty added.</div>
+</div>
+<div class="q-card" id="q43">
+  <div class="q-num">QUESTION 43 / 50</div>
+  <div class="q-text">Disparate impact under ECOA means:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q43',false,'A')"><span class="q-ltr">A.</span>Intentional discrimination based on protected class</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q43',true,'B')"><span class="q-ltr">B.</span>Neutral policy that disproportionately harms a protected class</button>
+<button class="q-choice"  onclick="answer(this,'q43',false,'C')"><span class="q-ltr">C.</span>Different service quality based on protected class</button>
+<button class="q-choice"  onclick="answer(this,'q43',false,'D')"><span class="q-ltr">D.</span>Using credit scores that disadvantage minorities</button>
+</div>
+  <div class="q-explain" id="q43-ex"><strong>Answer: B</strong> — Disparate impact = neutral policy with disproportionate adverse effect, even without intent. Both disparate treatment AND impact violate ECOA.</div>
+</div>
+<div class="q-card" id="q44">
+  <div class="q-num">QUESTION 44 / 50</div>
+  <div class="q-text">Structuring cash transactions to avoid CTR filing is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q44',false,'A')"><span class="q-ltr">A.</span>Legal if funds are legitimate</button>
+<button class="q-choice"  onclick="answer(this,'q44',false,'B')"><span class="q-ltr">B.</span>Legal if each transaction is under $10,000</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q44',true,'C')"><span class="q-ltr">C.</span>Illegal regardless of fund legitimacy</button>
+<button class="q-choice"  onclick="answer(this,'q44',false,'D')"><span class="q-ltr">D.</span>Legal if spread across multiple banks</button>
+</div>
+  <div class="q-explain" id="q44-ex"><strong>Answer: C</strong> — Structuring is a federal crime regardless of fund legitimacy. The crime is the INTENT to evade reporting requirements.</div>
+</div>
+<div class="q-card" id="q45">
+  <div class="q-num">QUESTION 45 / 50</div>
+  <div class="q-text">For Right of Rescission counting, Saturday is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q45',false,'A')"><span class="q-ltr">A.</span>Not counted</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q45',true,'B')"><span class="q-ltr">B.</span>Counted as a business day</button>
+<button class="q-choice"  onclick="answer(this,'q45',false,'C')"><span class="q-ltr">C.</span>Only counted if the lender is open</button>
+<button class="q-choice"  onclick="answer(this,'q45',false,'D')"><span class="q-ltr">D.</span>Counted only for purchase mortgages</button>
+</div>
+  <div class="q-explain" id="q45-ex"><strong>Answer: B</strong> — Saturday IS a business day for rescission counting. Only Sundays and federal holidays are excluded.</div>
+</div>
+<div class="q-card" id="q46">
+  <div class="q-num">QUESTION 46 / 50</div>
+  <div class="q-text">SAFE Act permanent bar applies to any felony involving:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q46',false,'A')"><span class="q-ltr">A.</span>Any felony</button>
+<button class="q-choice"  onclick="answer(this,'q46',false,'B')"><span class="q-ltr">B.</span>Financial misdemeanors</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q46',true,'C')"><span class="q-ltr">C.</span>Fraud, dishonesty, or breach of trust</button>
+<button class="q-choice"  onclick="answer(this,'q46',false,'D')"><span class="q-ltr">D.</span>DUI within 7 years</button>
+</div>
+  <div class="q-explain" id="q46-ex"><strong>Answer: C</strong> — Any felony EVER involving fraud, dishonesty, breach of trust, or money laundering = permanent bar with NO time limit.</div>
+</div>
+<div class="q-card" id="q47">
+  <div class="q-num">QUESTION 47 / 50</div>
+  <div class="q-text">Rental income used for qualifying under conforming guidelines is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q47',false,'A')"><span class="q-ltr">A.</span>100% of gross rent</button>
+<button class="q-choice"  onclick="answer(this,'q47',false,'B')"><span class="q-ltr">B.</span>85% of gross rent</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q47',true,'C')"><span class="q-ltr">C.</span>75% of gross rent</button>
+<button class="q-choice"  onclick="answer(this,'q47',false,'D')"><span class="q-ltr">D.</span>70% of gross rent</button>
+</div>
+  <div class="q-explain" id="q47-ex"><strong>Answer: C</strong> — 75% of gross rent is used. The 25% haircut accounts for vacancies, management costs, and maintenance.</div>
+</div>
+<div class="q-card" id="q48">
+  <div class="q-num">QUESTION 48 / 50</div>
+  <div class="q-text">A servicemember invokes SCRA on a 7.5% pre-service mortgage. The 1.5% above 6% is:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q48',false,'A')"><span class="q-ltr">A.</span>Added to principal</button>
+<button class="q-choice"  onclick="answer(this,'q48',false,'B')"><span class="q-ltr">B.</span>Deferred until after service</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q48',true,'C')"><span class="q-ltr">C.</span>Permanently forgiven</button>
+<button class="q-choice"  onclick="answer(this,'q48',false,'D')"><span class="q-ltr">D.</span>Held in government escrow</button>
+</div>
+  <div class="q-explain" id="q48-ex"><strong>Answer: C</strong> — Permanently FORGIVEN. The servicemember will NEVER owe it. The lender absorbs the difference.</div>
+</div>
+<div class="q-card" id="q49">
+  <div class="q-num">QUESTION 49 / 50</div>
+  <div class="q-text">The secondary mortgage market is where:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q49',false,'A')"><span class="q-ltr">A.</span>MLOs originate loans with borrowers</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q49',true,'B')"><span class="q-ltr">B.</span>Already-closed loans are bought and sold</button>
+<button class="q-choice"  onclick="answer(this,'q49',false,'C')"><span class="q-ltr">C.</span>FHA insures mortgage loans</button>
+<button class="q-choice"  onclick="answer(this,'q49',false,'D')"><span class="q-ltr">D.</span>Borrowers apply for refinances</button>
+</div>
+  <div class="q-explain" id="q49-ex"><strong>Answer: B</strong> — Secondary market = where already-closed loans are bought and sold. Fannie and Freddie operate here. MLOs work in the PRIMARY market.</div>
+</div>
+<div class="q-card" id="q50">
+  <div class="q-num">QUESTION 50 / 50</div>
+  <div class="q-text">Advertising 'Guaranteed lowest rates in Texas!' most likely violates:</div>
+  <div class="q-choices"><button class="q-choice"  onclick="answer(this,'q50',false,'A')"><span class="q-ltr">A.</span>RESPA Section 8</button>
+<button class="q-choice"  onclick="answer(this,'q50',false,'B')"><span class="q-ltr">B.</span>TILA trigger term rules</button>
+<button class="q-choice" data-correct="true" onclick="answer(this,'q50',true,'C')"><span class="q-ltr">C.</span>UDAP — deceptive claim</button>
+<button class="q-choice"  onclick="answer(this,'q50',false,'D')"><span class="q-ltr">D.</span>ECOA — targets only Texas borrowers</button>
+</div>
+  <div class="q-explain" id="q50-ex"><strong>Answer: C</strong> — Guaranteed rate claims are UDAP deceptive practices — rates cannot be guaranteed and the claim misleads reasonable consumers.</div>
+</div>
+
+  <div class="footer-note">NMLS Prep · Free Study Resource · nmlsprep.com · For exam preparation use only.</div>
+</div>
+</div>
+<script>
+function answer(btn, qId, correct, letter) {
+  const q = document.getElementById(qId);
+  q.querySelectorAll('.q-choice').forEach(b => b.disabled = true);
+  const correctEl = q.querySelector('[data-correct="true"]');
+  if(correctEl) correctEl.classList.add('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const ex = document.getElementById(qId + '-ex');
+  if(ex) ex.classList.add('show');
+}
+</script>
+</body>
+</html>

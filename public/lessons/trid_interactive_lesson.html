@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRID — The Case Files — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#0f7a6b;--accent2:#085040;--accent3:#d0f5ee;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#085040cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>TRID — The Case Files</h1>
+        <p>TILA-RESPA Integrated Disclosure · Loan Estimate · Closing Disclosure</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">TRID — the TILA-RESPA Integrated Disclosure rule — replaced the old GFE and HUD-1 in 2015. It governs the Loan Estimate and Closing Disclosure, and generates some of the most scenario-heavy questions on the entire exam.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">What Is TRID?</div>
+      <div class="ev-body">Effective October 2015. Replaced the Good Faith Estimate with the <strong>Loan Estimate</strong>, and the HUD-1 with the <strong>Closing Disclosure</strong>. Governed by Regulation Z and Regulation X.</div>
+      <span class="ev-tag tag-b">Foundation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> TRID is governed by BOTH Regulation Z (TILA) and Regulation X (RESPA) simultaneously. The LE replaced the GFE. The CD replaced the HUD-1. Know both replacements cold.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">The 6 Application Elements</div>
+      <div class="ev-body">Name · SSN · Income · Property Address · Estimated Value · Desired Loan Amount. When ALL 6 are present, lender must issue LE within 3 business days.</div>
+      <span class="ev-tag tag-r">Most tested</span>
+      <div class="ev-expand"><strong>Exam trap — the #1 TRID trap:</strong> Credit score is NOT one of the 6 elements. The exam lists it as a choice constantly. It is NOT required to trigger the LE obligation. Memorize the 6 elements without credit score.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">The 3 Tolerance Buckets</div>
+      <div class="ev-body">Zero tolerance — cannot increase at all. 10% aggregate — total increase capped at 10%. Unlimited tolerance — can increase freely. Which bucket a fee falls into determines whether a violation occurred.</div>
+      <span class="ev-tag tag-r">Exam math</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> The 10% tolerance is AGGREGATE — it applies to the TOTAL of all 10% category fees combined, not to each fee individually. Also: cure window for all violations = 3 CALENDAR years from closing.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">LE Delivery Timing</div>
+      <div class="ev-body">Loan Estimate must be received by the borrower within <strong>3 business days</strong> of receiving a complete application (all 6 elements). Saturday counts. Sundays and federal holidays do not.</div>
+      <span class="ev-tag tag-r">Critical deadline</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> The lender cannot collect ANY fees from the borrower (except a credit report fee) before the LE has been RECEIVED. Not just sent — received. If mailed, add 3 calendar days for presumed delivery.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">CD Delivery Timing</div>
+      <div class="ev-body">Closing Disclosure must be <strong>received</strong> by the borrower at least 3 business days before consummation (closing). This waiting period gives the borrower time to review final terms.</div>
+      <span class="ev-tag tag-r">Critical deadline</span>
+      <div class="ev-expand"><strong>3 things that restart the 3-day CD waiting period:</strong> (1) APR increases by more than 0.125%; (2) Loan product changes (e.g. fixed to ARM); (3) Prepayment penalty is added. Any of these = new 3-day waiting period.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">Zero Tolerance Fees</div>
+      <div class="ev-body">Cannot increase at ALL from LE to CD: Lender origination charges · Points · Transfer taxes · Required services where borrower cannot shop. Even $1 increase = violation.</div>
+      <span class="ev-tag tag-r">Zero = zero</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Lender errors are NEVER a valid changed circumstance. If the lender estimated wrong, they absorb the cost. The borrower cannot be charged more for a zero-tolerance item just because the lender made a mistake.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">10% Aggregate Tolerance</div>
+      <div class="ev-body">Recording fees and required services from the lender's approved list. The TOTAL of all 10% category fees combined cannot increase by more than 10% from LE to CD.</div>
+      <span class="ev-tag tag-a">Math question</span>
+      <div class="ev-expand"><strong>How to calculate:</strong> Add ALL 10% category fees on the LE. Multiply by 10%. That is the maximum allowed increase in total. If actual increase > that amount, cure = refund the excess within 3 calendar years.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">Valid Changed Circumstances</div>
+      <div class="ev-body">New information about the borrower · Borrower-requested changes · Natural disasters · New flood zone designation · Interest rate lock expiration. These allow a revised LE.</div>
+      <span class="ev-tag tag-g">Revised LE</span>
+      <div class="ev-expand"><strong>NOT valid:</strong> Lender errors, market rate movements, information available at application but not collected. Revised LE must be delivered within 3 business days of discovering the changed circumstance.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">LE to Closing Minimum</div>
+      <div class="ev-body">A minimum of <strong>7 calendar days</strong> must pass between LE delivery and loan consummation. This can only be waived for a bona fide personal financial emergency.</div>
+      <span class="ev-tag tag-a">7 calendar days</span>
+      <div class="ev-expand"><strong>Exam note:</strong> This 7-day wait is separate from the 3-day CD waiting period. Both must be satisfied independently. The waiver requires documented genuine emergency — not just borrower preference or scheduling convenience.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">Unlimited Tolerance Fees</div>
+      <div class="ev-body">These can increase without limit: Prepaid interest · Homeowner's insurance · Services the borrower independently shopped for. No tolerance limit applies.</div>
+      <span class="ev-tag tag-g">No limit</span>
+      <div class="ev-expand"><strong>Key distinction:</strong> If the borrower shops independently for a service (not from the lender's approved list), fees for that service have unlimited tolerance. The borrower takes on responsibility for cost variations when they shop independently.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">Cure Window</div>
+      <div class="ev-body">Tolerance violations must be cured by refunding the excess amount to the borrower. The cure window is <strong>3 CALENDAR years</strong> from the closing date.</div>
+      <span class="ev-tag tag-r">3 calendar years</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> The cure window is 3 CALENDAR years — not 3 business days, not 3 months, not 3 years from discovery. From CLOSING DATE. This is a frequently tested number because candidates confuse it with other 3-day deadlines in TRID.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — 6 APPLICATION ELEMENTS</div>
+    <p class="sc-text">A borrower calls a lender and provides their name, SSN, annual income, property address, estimated value of $385,000, and requested loan amount of $308,000. They do NOT provide their <mark>credit score</mark>. Must the lender issue a Loan Estimate within 3 business days?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>No — credit score is required before a complete application exists</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Yes — all 6 required application elements are present. Credit score is NOT one of the 6 elements. The LE must be issued within 3 business days.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>No — the lender needs to pull credit first to assess risk before issuing an LE</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>Yes — but only after the lender pulls credit and confirms the borrower qualifies</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — ZERO TOLERANCE VIOLATION</div>
+    <p class="sc-text">The Loan Estimate shows an origination fee of <mark>$1,400</mark>. At closing, the CD shows <mark>$1,650</mark>. The lender says rates moved and they need to charge more. No changed circumstance was documented. What is the cure amount?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>$0 — rate movements are valid changed circumstances that allow fee increases</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>$250 — origination fees are zero tolerance. The entire $250 increase must be refunded within 3 calendar years.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>$140 — only the amount above 10% of the original fee needs to be refunded</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>$250 — but only if the borrower requests a cure within 30 days of closing</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — 10% AGGREGATE TOLERANCE</div>
+    <p class="sc-text">Three fees in the 10% category on the LE: Recording fees <mark>$200</mark>, Pest Inspection <mark>$150</mark>, Title Search <mark>$180</mark>. Total = $530. On the CD these became $220, $165, and $200. Total = $585. Is there a violation?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>No — each individual fee increased by less than 10% so no violation occurred</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>Yes — 10% × $530 = $53 max allowed increase. Actual increase = $55. Exceeds by $2 — violation. Cure = refund $2.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>No — the increases are reasonable and within normal market fluctuation</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>Yes — recording fees are zero tolerance so any increase is automatically a violation</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">6</div><div class="fc-lbl">APPLICATION ELEMENTS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Name · SSN · Income · Property Address · Estimated Value · Loan Amount.<br><strong>Credit score is NOT one of them.</strong></div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">BUS. DAYS — LE DELIVERY</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Loan Estimate must be <strong>received</strong> within 3 business days of complete application.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">BUS. DAYS — CD WAIT</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">CD must be received at least <strong>3 business days</strong> before closing.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">7</div><div class="fc-lbl">CALENDAR DAYS MIN</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Minimum <strong>7 calendar days</strong> must pass between LE delivery and loan consummation.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">$0</div><div class="fc-lbl">ZERO TOLERANCE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Origination fees, points, transfer taxes — <strong>cannot increase at all</strong> without valid changed circumstance.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">10%</div><div class="fc-lbl">AGGREGATE TOLERANCE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Recording fees + lender-list services — total increase capped at <strong>10% of LE total</strong>.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3 yrs</div><div class="fc-lbl">CURE WINDOW</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Tolerance violations cured by refunding excess. Window = <strong>3 CALENDAR years</strong> from closing date.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">2015</div><div class="fc-lbl">TRID EFFECTIVE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">TRID effective <strong>October 3, 2015</strong>. Replaced GFE and HUD-1 with LE and CD.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five situations. Is it a tolerance VIOLATION or COMPLIANT? No looking back.</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">The LE shows a $180 recording fee. The CD shows $215. No other 10% category fees changed. Max allowed increase: 10% × $180 = $18. Actual increase: $35.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">A borrower requests to increase their loan amount from $280,000 to $310,000 after receiving the LE. The lender issues a revised LE with updated fees 2 business days later.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">A lender discovers at processing that their loan officer estimated the origination fee $400 too low on the LE. They issue a revised LE showing the higher fee, citing "changed circumstance."</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">The CD is delivered to the borrower on Monday. The scheduled closing is Thursday of the same week (3 days later). No federal holidays in the period.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">After the CD is delivered, the lender changes the loan product from a 30-year fixed to a 5/1 ARM to offer the borrower a lower rate. Closing is scheduled for the next day.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>Credit score is NOT one of the 6 elements</li><li>LE: 3 business days from complete application</li><li>CD: 3 business days before closing</li><li>Zero tolerance: $0 increase on origination fees</li><li>10% tolerance is aggregate — not per fee</li><li>Cure window: 3 calendar years from closing</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>Credit score trap — most tested TRID fact</li><li>Lender errors are NEVER changed circumstances</li><li>10% applies to total, not each fee separately</li><li>7 calendar day min between LE and closing</li><li>CD product change restarts 3-day wait</li><li>Rate movements are not changed circumstances</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> Credit score is NOT one of the 6 TRID application elements. The 6 are: Name, SSN, Income, Property Address, Estimated Value, Desired Loan Amount. All 6 are present here. The lender MUST issue the LE within 3 business days — they cannot delay to pull credit first.',
+    fail:'<strong>Not quite.</strong> Credit score is NOT one of the 6 TRID application elements. With all 6 elements present (Name, SSN, Income, Property Address, Estimated Value, Loan Amount), the lender is required to issue the Loan Estimate within 3 business days — regardless of credit score.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> Origination fees are zero tolerance — they cannot increase at all without a valid changed circumstance. Rate movements are NOT a valid changed circumstance. The full $250 increase is a violation. The lender must refund $250 within 3 calendar years of closing.',
+    fail:'<strong>Not quite.</strong> Origination fees are ZERO tolerance — any increase without a valid changed circumstance is a violation. Rate movements do NOT qualify as a changed circumstance. The lender must cure the full $250 increase by refunding it to the borrower within 3 calendar years.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> 10% tolerance is AGGREGATE: 10% × $530 = $53 maximum allowed. Actual increase = $585 − $530 = $55. Exceeds by $2 = violation. Cure = refund $2. Key trap avoided: the 10% applies to the TOTAL of all 10% fees combined — not each fee individually.',
+    fail:'<strong>Not quite.</strong> The 10% tolerance is AGGREGATE — it applies to the TOTAL of all 10% category fees combined, NOT each fee individually. 10% × $530 total = $53 max increase allowed. Actual increase = $55. That $2 excess is a violation requiring a $2 refund cure.'},
+};
+const RUA={
+  rul1:{v:true,
+    correct:'Violation. The $35 increase exceeds the 10% aggregate maximum of $18 by $17. The lender must cure by refunding $17 to the borrower within 3 calendar years of closing.',
+    wrong:'Actually a violation. 10% × $180 = $18 maximum allowed increase. The actual increase of $35 exceeds this by $17 — a TRID tolerance violation.'},
+  rul2:{v:false,
+    correct:'Compliant. A borrower-requested change to loan amount is a valid changed circumstance. The lender properly issued a revised LE within 3 business days of the change request.',
+    wrong:'Actually compliant. Borrower-requested changes to loan amount are explicitly valid changed circumstances under TRID. Issuing a revised LE within 3 business days of the change is exactly correct procedure.'},
+  rul3:{v:true,
+    correct:'Violation. Lender errors in estimating fees are NEVER a valid changed circumstance. The lender must honor the original LE origination fee and absorb the $400 difference — they cannot pass their mistake to the borrower.',
+    wrong:'Actually a violation. Lender errors are explicitly NOT valid changed circumstances under TRID. The lender must absorb the cost of their own estimating mistake. Trying to use it as a changed circumstance violates TRID.'},
+  rul4:{v:false,
+    correct:'Compliant. CD delivered Monday. Day 1 = Tuesday, Day 2 = Wednesday, Day 3 = Thursday. The borrower has received the CD 3 business days before closing. The waiting period is satisfied.',
+    wrong:'Actually compliant. Monday delivery: Day 1 = Tuesday, Day 2 = Wednesday, Day 3 = Thursday. Thursday closing is exactly 3 business days after Monday delivery — the waiting period is met.'},
+  rul5:{v:true,
+    correct:'Violation. Changing the loan product is one of the three events that triggers a new 3-day CD waiting period. The borrower must receive a new CD and wait 3 business days before closing — closing the next day violates TRID.',
+    wrong:'Actually a violation. A loan product change (fixed to ARM) is explicitly one of the three triggers requiring a new 3-day CD waiting period. Closing the next day after a product change violates the TRID CD waiting requirement.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advertising Rules — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#1a6b3a;--accent2:#0d4020;--accent3:#d5f5e3;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#0d4020cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>Advertising Rules</h1>
+        <p>TILA Triggers · NMLS Numbers · UDAP · ARM Disclosures · FHA/VA Ads</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">Advertising rules draw from TILA, RESPA, FHA, and the CFPB's UDAP authority. One wrong word in a mortgage ad can trigger federal violations across multiple laws. Master which terms trigger disclosures and what you can never say.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">Trigger Terms — TILA</div>
+      <div class="ev-body">Any specific rate, payment, loan amount, or down payment % in an ad triggers ALL 5 required TILA disclosures: APR · Down payment · Repayment terms · Payment amount · Number of payments.</div>
+      <span class="ev-tag tag-r">Most tested</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> APR alone can be advertised without triggering anything extra. But a specific interest rate requires APR to appear with equal or greater prominence. "6.5% rate" = triggers everything. "Competitive rates" = safe. Specific vs. vague is the key distinction.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">NMLS # Required</div>
+      <div class="ev-body">All mortgage advertisements must include the MLO's NMLS ID number AND the company's NMLS ID number. This applies to websites, business cards, flyers, email signatures, and social media.</div>
+      <span class="ev-tag tag-r">Always required</span>
+      <div class="ev-expand"><strong>Exam note:</strong> NMLS numbers must appear on ALL advertisements — not just formal printed materials. A Facebook post offering mortgage rates, a text message about a refinance deal, and an email promoting loan programs all require NMLS numbers to be compliant.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">UDAP — Unfair & Deceptive</div>
+      <div class="ev-body">CFPB prohibits Unfair, Deceptive, or Abusive Acts or Practices. "Guaranteed lowest rate," false urgency, bait-and-switch tactics, and misrepresenting loan costs all violate UDAP standards.</div>
+      <span class="ev-tag tag-r">CFPB enforcement</span>
+      <div class="ev-expand"><strong>Three UDAP standards:</strong> UNFAIR = causes substantial injury consumers cannot avoid. DECEPTIVE = likely to mislead a reasonable consumer about material facts. ABUSIVE = takes unreasonable advantage of consumer vulnerability. Any one of the three is enough for a violation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">Safe vs. Trigger Language</div>
+      <div class="ev-body">SAFE: "Low rates available" · "Flexible terms" · "Call for today's rates" · "Low down payment options." TRIGGER: "5.5% rate" · "Only $1,299/month" · "$0 down" · "5% down payment."</div>
+      <span class="ev-tag tag-r">Know the difference</span>
+      <div class="ev-expand"><strong>The rule:</strong> Specific numbers trigger. Vague descriptors are safe. "As low as 5%" is still a specific number — it triggers. "Competitive rates" is vague — it does not trigger. When in doubt: if a consumer could rely on the specific number to make a financial decision, it is a trigger term.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">ARM Advertising Rules</div>
+      <div class="ev-body">ARM ads must disclose that the rate may increase after the initial period. Cannot advertise only the low initial teaser rate without disclosing the adjustment feature clearly.</div>
+      <span class="ev-tag tag-r">ARM-specific</span>
+      <div class="ev-expand"><strong>Exam note:</strong> An ad showing "3.5% rate!" for a 5/1 ARM without disclosing that the rate adjusts after 5 years violates TILA advertising rules. The adjustable feature must be clearly disclosed — not hidden in fine print. "3.5% initial rate, then adjusts annually" is required.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">FHA/VA Loan Advertising</div>
+      <div class="ev-body">Cannot imply government endorsement or affiliation. Cannot use official government logos or seals without authorization. "FHA approved lender" is fine. "United States Government Mortgage Program" is deceptive.</div>
+      <span class="ev-tag tag-r">No false affiliation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Private lenders can advertise FHA and VA loan products but CANNOT create the impression they are government agencies or that the loans are government-operated programs. Envelopes and mailers designed to look like official government correspondence are a major CFPB enforcement focus.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">"No Closing Cost" Claims</div>
+      <div class="ev-body">Claiming "no closing costs" when costs are actually rolled into the rate or added to the loan balance is deceptive. The costs still exist — they're just paid differently. Must disclose how.</div>
+      <span class="ev-tag tag-r">Deceptive claim</span>
+      <div class="ev-expand"><strong>UDAP analysis:</strong> "No closing costs" is deceptive if costs are actually being rolled into a higher rate or added to the principal. A reasonable consumer would believe they are paying zero. The correct disclosure: "No out-of-pocket closing costs — costs are included in your rate" or similar.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">APR Prominence Rule</div>
+      <div class="ev-body">When a specific interest rate is advertised, the APR must appear with equal or greater prominence. APR in 6-point footnote text next to a large headline rate violates the clear and conspicuous standard.</div>
+      <span class="ev-tag tag-r">Equal prominence</span>
+      <div class="ev-expand"><strong>Clear and conspicuous standard:</strong> The APR must be in a size and placement comparable to the stated rate. If the rate is in 24-point bold headline text, the APR cannot be in 8-point footnote text. Both must be readily visible and readable to a reasonable consumer.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">False Urgency / Bait-and-Switch</div>
+      <div class="ev-body">Creating false urgency ("Your rate locks expire tonight!") or advertising one rate then switching to a worse one at application = UDAP abusive/deceptive practices enforced by the CFPB.</div>
+      <span class="ev-tag tag-r">UDAP violations</span>
+      <div class="ev-expand"><strong>VA loan mailers:</strong> The CFPB has taken major action against lenders sending mailers to veterans claiming VA benefits expire, rates are about to skyrocket, or that the letter is from a government agency. False urgency targeting veterans is a high-priority CFPB enforcement area.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">Social Media Requirements</div>
+      <div class="ev-body">All social media advertising (Facebook, Instagram, TikTok, LinkedIn posts about loan offers) must comply with the same TILA advertising rules as print ads — including NMLS numbers and trigger term disclosures.</div>
+      <span class="ev-tag tag-a">Digital ads same rules</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Character limits on social media do not create exceptions to advertising rules. If a tweet or post uses a trigger term, ALL required disclosures must appear in that same post or in an immediately accessible link with full disclosures. The medium does not change the obligation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">Guaranteed Rate Claims</div>
+      <div class="ev-body">"Guaranteed lowest rate in Texas!" or "Best rate in America!" — unverifiable absolute guarantees are UDAP deceptive practices. They are likely to mislead a reasonable consumer about a material fact.</div>
+      <span class="ev-tag tag-r">UDAP deceptive</span>
+      <div class="ev-expand"><strong>General puffery vs. specific guarantees:</strong> "We offer great rates" = general puffery, generally acceptable. "Guaranteed lowest rate" = specific, verifiable-sounding claim that cannot actually be guaranteed = UDAP deceptive. The more specific and verifiable-sounding the claim, the higher the UDAP risk.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — TRIGGER TERM ANALYSIS</div>
+    <p class="sc-text">A lender posts on Facebook: <mark>"Buy your dream home — 30-year fixed at 6.75%! Only $2,100/month! Call us today!"</mark> No APR, no other disclosures appear in the post. How many TILA violations are present?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>Zero — social media posts are exempt from TILA advertising rules</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Multiple violations — two trigger terms used (specific rate AND specific payment), requiring ALL 5 TILA disclosures in the same ad. None of the 5 required disclosures appear.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>One violation — only the interest rate is a trigger term, not the monthly payment</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>One violation — only the APR is missing, all other requirements are satisfied</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — ARM ADVERTISING</div>
+    <p class="sc-text">A lender's billboard reads: <mark>"Rates as low as 4.5%! 5/1 ARM available!"</mark> The fine print at the bottom (barely readable from a car) says "rate subject to change after initial period." Is this compliant?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>Yes — the fine print disclosure about rate changes satisfies TILA ARM advertising requirements</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>No — two violations: (1) "4.5%" is a trigger term requiring all 5 TILA disclosures; (2) ARM adjustment disclosure must be clear and conspicuous — tiny unreadable fine print fails the standard.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>Yes — "as low as" language qualifies as a range rather than a specific rate</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>No — billboard advertising is entirely prohibited for ARM products</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — NMLS NUMBER REQUIREMENT</div>
+    <p class="sc-text">An MLO hands out business cards that include their name, phone number, email, company logo, and the tagline <mark>"Helping families finance their dreams since 2015."</mark> No NMLS number appears. Is this compliant?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>Yes — NMLS numbers are only required on formal loan documents, not marketing materials</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>No — NMLS numbers must appear on ALL mortgage advertising materials including business cards. Both the individual MLO's NMLS ID and the company's NMLS ID must be present.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>Yes — taglines without specific rates do not trigger any disclosure requirements</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>No — but only because the tagline implies a guaranteed service quality</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">5</div><div class="fc-lbl">TILA REQUIRED DISCLOSURES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">When triggered: <strong>APR · Down payment · Repayment terms · Payment amount · Number of payments.</strong> All 5 in same ad.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">APR</div><div class="fc-lbl">SAFE TO ADVERTISE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">APR alone can be stated without triggering all 5 disclosures. But must be as prominent as any stated rate.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">NMLS#</div><div class="fc-lbl">ALWAYS REQUIRED</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">MLO and company NMLS numbers required on <strong>ALL</strong> advertising — business cards, social media, flyers, websites, email.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">UDAP STANDARDS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer"><strong>Unfair</strong> (substantial unavoidable injury) · <strong>Deceptive</strong> (misleads reasonable consumer) · <strong>Abusive</strong> (exploits vulnerability). Any one = violation.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">=</div><div class="fc-lbl">APR PROMINENCE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">APR must be at least <strong>equal in size and prominence</strong> to any stated interest rate in an advertisement.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">ARM</div><div class="fc-lbl">ADJUSTMENT DISCLOSURE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">ARM ads must disclose that the rate <strong>may increase after the initial period</strong> — clearly and conspicuously.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Gov</div><div class="fc-lbl">NO FALSE AFFILIATION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Cannot imply government endorsement or use official logos without authorization. Cannot make ads look like government correspondence.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Spec.</div><div class="fc-lbl">SPECIFIC = TRIGGERS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer"><strong>Specific numbers trigger</strong> TILA disclosures. Vague language ("competitive rates") does not. When in doubt — go vague.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five real mortgage advertisements. Compliant or violation? Make the call.</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">An ad states: <mark>"Call today — our current 30-year fixed rate is 6.875% APR."</mark> No other rate or APR is mentioned. No monthly payment or down payment is stated.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">A mailer is sent to veterans saying: <mark>"URGENT: Your VA loan benefits expire December 31st. Act now before it's too late!"</mark> VA entitlement does not expire.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">An MLO's Instagram post shows a beautiful home with the caption: <mark>"Dream homes deserve dream financing. DM me to explore your options! 🏠 NMLS#12345 | ABC Mortgage NMLS#67890."</mark></div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">A lender advertises <mark>"FHA loans available — backed by the full faith and credit of the U.S. Government!"</mark> alongside imagery resembling official government seals.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">An ad for a 5/1 ARM states: <mark>"5/1 ARM — Start at 4.25%! Rate fixed for first 5 years, then adjusts annually based on market index."</mark> Full TILA disclosures appear below the headline.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>Specific numbers trigger — vague language is safe</li><li>All 5 TILA disclosures must appear in same ad</li><li>NMLS numbers required on ALL advertising materials</li><li>ARM ads must disclose rate adjustment feature clearly</li><li>APR must be as prominent as any stated rate</li><li>UDAP: unfair, deceptive, or abusive = violation</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>Social media NOT exempt from TILA advertising rules</li><li>APR alone = safe. Specific rate = triggers everything</li><li>NMLS# on business cards, social media, everything</li><li>False VA urgency = major CFPB enforcement priority</li><li>No closing costs claim can be deceptive — explain how</li><li>Government-like appearance = false affiliation violation</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> Two trigger terms: "6.75%" (specific rate) AND "$2,100/month" (specific payment). Each one independently triggers all 5 required TILA disclosures. Social media gets NO exemption from TILA advertising rules. Missing disclosures: APR, down payment amount/%, repayment terms, number of payments, payment amount. Multiple TILA violations.',
+    fail:'<strong>Not quite.</strong> Both "6.75%" (specific rate) AND "$2,100/month" (specific payment) are trigger terms. Social media posts are NOT exempt from TILA. Each trigger term independently requires all 5 disclosures. With zero disclosures present, there are multiple TILA violations — not just one.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> Two problems: (1) "4.5%" is a specific rate — a trigger term requiring all 5 disclosures; (2) ARM ads must clearly disclose the adjustable nature — "barely readable from a car" fine print fails the clear and conspicuous standard. Both issues create TILA violations.',
+    fail:'<strong>Not quite.</strong> "As low as 4.5%" is still a specific rate — a trigger term. Also, ARM advertising requires the adjustable feature to be clearly and conspicuously disclosed. Fine print too small to read from a moving car does not satisfy the clear and conspicuous standard.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> NMLS numbers are required on ALL advertising materials — not just rate sheets or formal documents. Business cards are advertising. Both the individual MLO NMLS ID and the company NMLS ID must appear. This business card violates the NMLS advertising requirement regardless of whether any trigger terms appear.',
+    fail:'<strong>Not quite.</strong> NMLS numbers must appear on ALL mortgage advertising including business cards, flyers, social media, websites, and email signatures. The absence of trigger terms does not eliminate the NMLS number requirement — it is always required on mortgage advertising materials.'},
+};
+const RUA={
+  rul1:{v:false,
+    correct:'Compliant. The APR is being stated directly — not a note rate with APR hidden separately. Since the APR itself is the number being advertised (not a separate note rate), no trigger disclosures are required. APR alone can be advertised without triggering the 5-disclosure requirement.',
+    wrong:'Actually compliant. The ad is stating the APR directly — not a note rate alongside a separately disclosed APR. Advertising APR alone, without any other trigger terms (payment amount, loan amount, down payment %), does not require additional disclosures.'},
+  rul2:{v:true,
+    correct:'UDAP deceptive and abusive violation. VA entitlement does not expire — this statement is factually false. Creating false urgency about nonexistent expiration dates to pressure veterans into refinancing is a deceptive and abusive practice. The CFPB has taken major enforcement actions against exactly this type of VA mailer.',
+    wrong:'Major UDAP violation. VA entitlement does not expire. Stating it does is factually false (deceptive under UDAP). Creating false urgency to pressure veterans into unnecessary action is abusive. This is one of the CFPB\'s highest-priority advertising enforcement targets.'},
+  rul3:{v:false,
+    correct:'Compliant. No trigger terms are used — no specific rates, payments, amounts, or percentages. Both the individual MLO NMLS number and the company NMLS number are present. The general promotional language without specific numbers does not require additional TILA disclosures.',
+    wrong:'Actually compliant. The post contains no trigger terms (no specific rate, payment, or amount). Both required NMLS numbers are present. General promotional language is permitted. This is a properly structured social media post.'},
+  rul4:{v:true,
+    correct:'UDAP deceptive violation. While FHA loans are government-insured, the lender is NOT the U.S. Government. Claiming "backed by the full faith and credit" of the government for a private lender\'s advertisement, combined with government-like imagery, falsely implies government endorsement or affiliation.',
+    wrong:'UDAP violation. FHA loans are government-insured, but the lender originating them is a private company — not the U.S. Government. Implying government backing for a private lender\'s offering, combined with official-looking imagery, creates a false impression of government affiliation.'},
+  rul5:{v:false,
+    correct:'Compliant. The ARM adjustment feature is clearly and conspicuously disclosed ("adjusts annually based on market index"). The specific rate (4.25%) is a trigger term — and the full TILA disclosures appear below the headline. Both the ARM disclosure requirement and the trigger term disclosure requirement are satisfied.',
+    wrong:'Actually compliant. Two requirements are both met: (1) ARM adjustment clearly disclosed in the headline itself; (2) 4.25% is a trigger term and full TILA disclosures appear below. This is a correctly structured ARM advertisement.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

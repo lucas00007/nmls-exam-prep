@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAFE Act Overview — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--shadow:rgba(0,0,0,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a3a7c;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a3a7c 0%,#1a3a7cdd 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.8);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.22);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);margin:28px 0 12px;padding-top:20px;border-top:1px dashed rgba(0,0,0,.12);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#3a2a10;line-height:1.75;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 20px;}
+li{font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:4px;}
+li strong{color:var(--red2);}
+.card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.card-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.25);}
+.highlight{background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;padding:12px 15px;margin:14px 0;font-size:.86rem;color:#3a2a10;line-height:1.65;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2rem;color:#1a3a7c;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#4a3a20;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.5px;}
+td{padding:8px 12px;border:1px solid var(--paper3);color:#3a2a10;vertical-align:top;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.q-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);}
+.q-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--gray2);margin-bottom:6px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.q-choices{display:flex;flex-direction:column;gap:6px;}
+.q-choice{font-size:.83rem;padding:8px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.1);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .15s;display:flex;gap:8px;}
+.q-choice:hover{background:var(--paper2);border-color:var(--gold2);}
+.q-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);}
+.q-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);}
+.q-choice.reveal{border-color:rgba(30,122,60,.35);}
+.q-choice:disabled{cursor:default;}
+.q-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.q-explain{display:none;margin-top:10px;padding:10px 13px;background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;font-size:.82rem;color:#3a2a10;line-height:1.6;}
+.q-explain.show{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.checklist{list-style:none;padding:0;margin:12px 0;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.87rem;color:#3a2a10;line-height:1.55;}
+.checklist li::before{content:'☐';font-size:1rem;color:var(--gray2);flex-shrink:0;margin-top:1px;}
+.checklist li.done::before{content:'✓';color:var(--green2);}
+.glossary-term{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:13px 16px;margin-bottom:8px;box-shadow:1px 2px 6px var(--shadow);}
+.g-term{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:4px;}
+.g-def{font-size:.83rem;color:#4a3a20;line-height:1.6;}
+.g-related{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);margin-top:5px;letter-spacing:.5px;}
+.footer-note{margin-top:32px;padding:16px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.8rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">FEDERAL LAW</div>
+  <div class="hdr">
+    <h1>SAFE Act Overview</h1>
+    <p>Secure and Fair Enforcement for Mortgage Licensing Act · NMLS · Licensing Requirements</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<h2>What Is the SAFE Act?</h2>
+<p>The Secure and Fair Enforcement for Mortgage Licensing Act of 2008 — the SAFE Act — created a nationwide system for licensing and registering mortgage loan originators. It was Congress's response to the mortgage crisis, designed to increase accountability and reduce fraud in the mortgage industry.</p>
+<div class="highlight"><strong>Core purpose:</strong> Establish minimum standards for the licensing and registration of all mortgage loan originators — and create a nationwide database (NMLS) to track them.</div>
+
+<h2>The NMLS — Nationwide Multistate Licensing System</h2>
+<p>The NMLS is the central registry where all MLO license information is stored, verified, and made publicly accessible. Every licensed MLO has a unique NMLS ID number that follows them throughout their career.</p>
+<div class="grid">
+  <div class="num-card"><div class="num-big">1</div><div class="num-lbl">Unique ID</div><div class="num-desc">Every MLO gets one NMLS ID that never changes — even if they move states or change employers</div></div>
+  <div class="num-card"><div class="num-big">Public</div><div class="num-lbl">Consumer Access</div><div class="num-desc">Anyone can look up an MLO's license status, history, and disciplinary actions at nmlsconsumeraccess.org</div></div>
+  <div class="num-card"><div class="num-big">50</div><div class="num-lbl">States Covered</div><div class="num-desc">All 50 states plus DC use the NMLS system for licensing non-bank MLOs</div></div>
+</div>
+
+<h2>Who Must Be Licensed?</h2>
+<p>Any individual who takes a residential mortgage loan application OR offers or negotiates the terms of a residential mortgage loan for compensation must be licensed as an MLO — unless an exemption applies.</p>
+<div class="card"><div class="tag tag-r">Must be licensed</div><div class="card-title">Covered Activities</div><div class="card-body">Taking a loan application · Offering loan terms · Negotiating loan terms · Advising on loan terms for compensation</div></div>
+<div class="card"><div class="tag tag-g">Exempt from licensing</div><div class="card-title">Exempt Individuals</div><div class="card-body">Registered bank employees (they register, not license) · Real estate agents not receiving MLO compensation · Attorneys in incidental representation · Nonprofit housing counselors</div></div>
+
+<h2>Two Types of MLOs</h2>
+<table>
+  <tr><th>Type</th><th>Who They Are</th><th>How They Qualify</th><th>Where Tracked</th></tr>
+  <tr><td><strong>Licensed MLO</strong></td><td>Non-bank employees (mortgage companies, brokers)</td><td>Must meet all SAFE Act education, testing, and background requirements</td><td>State license via NMLS</td></tr>
+  <tr><td><strong>Registered MLO</strong></td><td>Federally regulated bank employees</td><td>Must register — less stringent than licensing</td><td>NMLS registration</td></tr>
+</table>
+
+<h2>Pre-Licensing Requirements</h2>
+<p>To obtain an MLO license, every candidate must complete ALL of the following:</p>
+<ul>
+  <li><strong>20 hours of pre-licensing education</strong> — 3 hrs federal law, 3 hrs ethics, 2 hrs non-traditional mortgage products, 12 hrs electives</li>
+  <li><strong>Pass the NMLS SAFE Test</strong> — National component with Uniform State Content (UST)</li>
+  <li><strong>Background check</strong> — fingerprints, criminal history, credit report</li>
+  <li><strong>State-specific requirements</strong> — Texas requires 3 additional hours (23 total)</li>
+</ul>
+<div class="highlight"><strong>Passing score:</strong> 75% or higher on the NMLS SAFE exam. The exam has a 3-year waiting period before retesting after 3 failed attempts.</div>
+
+<h2>Mandatory Bars to Licensure</h2>
+<div class="card"><div class="tag tag-r">Automatic denial — no exceptions</div><div class="card-title">Two Mandatory Bars</div><div class="card-body"><strong>Bar 1:</strong> Any felony conviction within the preceding 7 years — any felony, regardless of type.<br><br><strong>Bar 2:</strong> Any felony EVER involving fraud, dishonesty, breach of trust, or money laundering — NO time limit. A 1990 mortgage fraud conviction still permanently bars licensure today.</div></div>
+
+<h2>Continuing Education Requirements</h2>
+<p>Licensed MLOs must complete 8 hours of continuing education annually before renewing:</p>
+<ul>
+  <li>3 hours of federal law</li>
+  <li>2 hours of ethics</li>
+  <li>2 hours of non-traditional mortgage products</li>
+  <li>1 hour of electives (Texas: 1 hour Texas-specific content)</li>
+</ul>
+
+<h2>Key Numbers to Memorize</h2>
+<div class="grid">
+  <div class="num-card"><div class="num-big">20</div><div class="num-lbl">Pre-Licensing Hours</div><div class="num-desc">Federal minimum. Texas requires 23 (3 additional state hours)</div></div>
+  <div class="num-card"><div class="num-big">75%</div><div class="num-lbl">Passing Score</div><div class="num-desc">Required on NMLS SAFE exam. Below 75% = fail</div></div>
+  <div class="num-card"><div class="num-big">8</div><div class="num-lbl">Annual CE Hours</div><div class="num-desc">Required every year to maintain license. Texas = 8 hours (1 state-specific)</div></div>
+  <div class="num-card"><div class="num-big">7 yrs</div><div class="num-lbl">Felony Bar</div><div class="num-desc">Any felony within 7 years = mandatory denial. Fraud felony = permanent bar</div></div>
+  <div class="num-card"><div class="num-big">3 yrs</div><div class="num-lbl">Retesting Wait</div><div class="num-desc">Must wait 6 months after each failure. After 3 fails: 180-day wait</div></div>
+  <div class="num-card"><div class="num-big">Dec 31</div><div class="num-lbl">Renewal Deadline</div><div class="num-desc">Annual license renewal deadline for all states. CE must be complete before renewal</div></div>
+</div>
+
+  <div class="footer-note">NMLS Prep · Free Study Resource · nmlsprep.com · For exam preparation use only.</div>
+</div>
+</div>
+<script>
+function answer(btn, qId, correct, letter) {
+  const q = document.getElementById(qId);
+  q.querySelectorAll('.q-choice').forEach(b => b.disabled = true);
+  const correctEl = q.querySelector('[data-correct="true"]');
+  if(correctEl) correctEl.classList.add('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const ex = document.getElementById(qId + '-ex');
+  if(ex) ex.classList.add('show');
+}
+</script>
+</body>
+</html>

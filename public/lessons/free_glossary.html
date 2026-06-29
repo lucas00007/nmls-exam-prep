@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Terms Glossary — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--shadow:rgba(0,0,0,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a4a6b;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a4a6b 0%,#1a4a6bdd 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.8);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.22);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);margin:28px 0 12px;padding-top:20px;border-top:1px dashed rgba(0,0,0,.12);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#3a2a10;line-height:1.75;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 20px;}
+li{font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:4px;}
+li strong{color:var(--red2);}
+.card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.card-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.25);}
+.highlight{background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;padding:12px 15px;margin:14px 0;font-size:.86rem;color:#3a2a10;line-height:1.65;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2rem;color:#1a4a6b;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#4a3a20;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.5px;}
+td{padding:8px 12px;border:1px solid var(--paper3);color:#3a2a10;vertical-align:top;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.q-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);}
+.q-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--gray2);margin-bottom:6px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.q-choices{display:flex;flex-direction:column;gap:6px;}
+.q-choice{font-size:.83rem;padding:8px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.1);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .15s;display:flex;gap:8px;}
+.q-choice:hover{background:var(--paper2);border-color:var(--gold2);}
+.q-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);}
+.q-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);}
+.q-choice.reveal{border-color:rgba(30,122,60,.35);}
+.q-choice:disabled{cursor:default;}
+.q-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.q-explain{display:none;margin-top:10px;padding:10px 13px;background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;font-size:.82rem;color:#3a2a10;line-height:1.6;}
+.q-explain.show{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.checklist{list-style:none;padding:0;margin:12px 0;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.87rem;color:#3a2a10;line-height:1.55;}
+.checklist li::before{content:'☐';font-size:1rem;color:var(--gray2);flex-shrink:0;margin-top:1px;}
+.checklist li.done::before{content:'✓';color:var(--green2);}
+.glossary-term{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:13px 16px;margin-bottom:8px;box-shadow:1px 2px 6px var(--shadow);}
+.g-term{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:4px;}
+.g-def{font-size:.83rem;color:#4a3a20;line-height:1.6;}
+.g-related{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);margin-top:5px;letter-spacing:.5px;}
+.footer-note{margin-top:32px;padding:16px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.8rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">REFERENCE</div>
+  <div class="hdr">
+    <h1>Key Terms Glossary</h1>
+    <p>Over 50 Mortgage and Lending Terms Defined · NMLS SAFE Exam Vocabulary</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<div class="highlight">Over 50 key mortgage and lending terms defined in plain language. These are the words and concepts that appear on the NMLS SAFE exam. Know them cold.</div>
+<div style="font-family:DM Mono,monospace;font-size:.65rem;letter-spacing:1.5px;color:#8a7a60;margin-bottom:16px;text-transform:uppercase;">A through Z — 50 Terms</div>
+<div class="glossary-term">
+  <div class="g-term">Ability to Repay (ATR)</div>
+  <div class="g-def">A TILA requirement that lenders make a reasonable good-faith determination that a borrower can repay a loan before originating it. Requires verification of 8 factors including income, assets, employment, and credit history.</div>
+  <div class="g-related">Related: Regulation Z, QM</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Affiliated Business Arrangement (ABA)</div>
+  <div class="g-def">A RESPA-permitted arrangement where a settlement service provider refers business to a company in which they have an ownership interest. Requires written disclosure, free consumer choice, and no per-referral payment.</div>
+  <div class="g-related">Related: RESPA Section 8</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Annual Percentage Rate (APR)</div>
+  <div class="g-def">The true annual cost of credit, including the interest rate and certain fees spread over the loan term. Always equal to or greater than the note rate.</div>
+  <div class="g-related">Related: TILA, Regulation Z</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Adverse Action</div>
+  <div class="g-def">A denial of credit, a counteroffer, or any action taken that is unfavorable to a credit applicant. Requires a written notice with specific, actionable reasons within 30 days.</div>
+  <div class="g-related">Related: ECOA, FCRA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Blockbusting</div>
+  <div class="g-def">The illegal practice of inducing homeowners to sell by suggesting that property values will decline because members of a protected class are moving into the neighborhood.</div>
+  <div class="g-related">Related: Fair Housing Act Section 3604</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Changed Circumstance</div>
+  <div class="g-def">A valid event that allows a lender to issue a revised Loan Estimate with updated fees. Valid examples: borrower-requested changes, natural disasters, new flood zone designations. Lender errors are NOT valid.</div>
+  <div class="g-related">Related: TRID, Regulation Z</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Closing Disclosure (CD)</div>
+  <div class="g-def">A TRID document replacing the HUD-1 that must be received by the borrower at least 3 business days before closing. Shows final actual costs.</div>
+  <div class="g-related">Related: TRID, Regulation Z, Regulation X</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Combined Loan-to-Value (CLTV)</div>
+  <div class="g-def">The ratio of all liens on a property to its appraised value. Texas Section 50(a)(6) caps CLTV at 80%.</div>
+  <div class="g-related">Related: Underwriting</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Currency Transaction Report (CTR)</div>
+  <div class="g-def">A BSA-required report filed within 15 days for cash transactions exceeding $10,000 in a single business day.</div>
+  <div class="g-related">Related: Bank Secrecy Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Debt-to-Income Ratio (DTI)</div>
+  <div class="g-def">The percentage of gross monthly income used for debt payments. Back-end DTI includes all monthly debts. QM maximum is 43%.</div>
+  <div class="g-related">Related: Underwriting, ATR</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Disparate Impact</div>
+  <div class="g-def">A fair lending theory where a neutral policy has a disproportionate adverse effect on a protected class, even without discriminatory intent.</div>
+  <div class="g-related">Related: ECOA, Fair Housing Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Disparate Treatment</div>
+  <div class="g-def">Intentional discrimination — treating similarly situated borrowers differently based on a protected class characteristic.</div>
+  <div class="g-related">Related: ECOA, Fair Housing Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Desktop Underwriter (DU)</div>
+  <div class="g-def">Fannie Mae's automated underwriting system (AUS). Not to be confused with Freddie Mac's Loan Product Advisor (LPA).</div>
+  <div class="g-related">Related: Fannie Mae, Underwriting</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Familial Status</div>
+  <div class="g-def">An FHA-protected class: having children under 18 in the household. Protected by the Fair Housing Act but NOT by ECOA.</div>
+  <div class="g-related">Related: Fair Housing Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Good Faith Estimate (GFE)</div>
+  <div class="g-def">The predecessor to the Loan Estimate, replaced by TRID in October 2015.</div>
+  <div class="g-related">Related: TRID history</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">HUD-1 Settlement Statement</div>
+  <div class="g-def">The predecessor to the Closing Disclosure, replaced by TRID in October 2015.</div>
+  <div class="g-related">Related: TRID history</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">HOEPA</div>
+  <div class="g-def">Home Ownership and Equity Protection Act. Targets predatory lending. Three independent tests — any ONE triggers high-cost status with prohibited features including balloon payments, negative amortization, and prepayment penalties.</div>
+  <div class="g-related">Related: Regulation Z</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Homeowners Protection Act (HPA)</div>
+  <div class="g-def">Federal law requiring PMI cancellation at 80% LTV (upon request) and automatic cancellation at 78% LTV, based on original purchase price and original amortization schedule.</div>
+  <div class="g-related">Related: PMI</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Jumbo Loan</div>
+  <div class="g-def">A conventional mortgage that exceeds the FHFA conforming loan limit. Cannot be sold to Fannie Mae or Freddie Mac. Requires stricter qualifying standards.</div>
+  <div class="g-related">Related: Secondary Market</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Loan Estimate (LE)</div>
+  <div class="g-def">A TRID document replacing the GFE. Must be received by the borrower within 3 business days of a complete application (all 6 elements). Starts the tolerance clock.</div>
+  <div class="g-related">Related: TRID, Regulation Z</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Loan Product Advisor (LPA)</div>
+  <div class="g-def">Freddie Mac's automated underwriting system (AUS). Not to be confused with Fannie Mae's Desktop Underwriter (DU).</div>
+  <div class="g-related">Related: Freddie Mac, Underwriting</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Loan-to-Value (LTV)</div>
+  <div class="g-def">The ratio of the loan amount to the appraised value. PMI required when LTV exceeds 80%.</div>
+  <div class="g-related">Related: Underwriting</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Marketing Services Agreement (MSA)</div>
+  <div class="g-def">A written agreement where one settlement service provider pays another for marketing services. Scrutinized by CFPB for disguised kickback arrangements.</div>
+  <div class="g-related">Related: RESPA Section 8</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Negative Amortization</div>
+  <div class="g-def">A loan feature where monthly payments are insufficient to cover interest, causing the loan balance to increase over time. Prohibited in HOEPA and QM loans.</div>
+  <div class="g-related">Related: HOEPA, QM</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">NMLS</div>
+  <div class="g-def">Nationwide Multistate Licensing System. The central database for all MLO license and registration information. Consumer Access portal is publicly available.</div>
+  <div class="g-related">Related: SAFE Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Non-Judicial Foreclosure</div>
+  <div class="g-def">Foreclosure without court involvement. Texas permits non-judicial foreclosure, but SCRA requires court orders for active servicemembers.</div>
+  <div class="g-related">Related: Texas USC, SCRA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Points</div>
+  <div class="g-def">Prepaid interest. 1 point = 1% of the loan amount. Counted toward QM's 3% points-and-fees cap and HOEPA's 5% trigger.</div>
+  <div class="g-related">Related: TILA, HOEPA, QM</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Primary Market</div>
+  <div class="g-def">Where mortgage loans are originated — the direct transaction between lenders and borrowers. MLOs work in the primary market.</div>
+  <div class="g-related">Related: Secondary Market</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Private Mortgage Insurance (PMI)</div>
+  <div class="g-def">Insurance protecting the lender when LTV exceeds 80%. Required by conventional lenders. Cancellable under the HPA at 78% LTV.</div>
+  <div class="g-related">Related: HPA, Conforming Loans</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Qualified Mortgage (QM)</div>
+  <div class="g-def">A mortgage meeting specific CFPB standards that provides a legal safe harbor against ATR claims. Max 43% DTI, 3% fees, 30-year term, no balloon, no negative amortization.</div>
+  <div class="g-related">Related: TILA, ATR</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Qualified Written Request (QWR)</div>
+  <div class="g-def">A written borrower request to a loan servicer regarding loan servicing. Must be acknowledged in 5 business days and responded to substantively within 30 business days.</div>
+  <div class="g-related">Related: RESPA Section 6</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Redlining</div>
+  <div class="g-def">The illegal practice of refusing to lend in geographic areas based on the racial composition of those communities. Detected through HMDA data analysis.</div>
+  <div class="g-related">Related: ECOA, Fair Housing Act, HMDA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Regulation B</div>
+  <div class="g-def">The implementing regulation for ECOA, covering fair lending in credit transactions.</div>
+  <div class="g-related">Related: ECOA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Regulation C</div>
+  <div class="g-def">The implementing regulation for HMDA, covering mortgage data collection and reporting.</div>
+  <div class="g-related">Related: HMDA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Regulation X</div>
+  <div class="g-def">The implementing regulation for RESPA, covering settlement procedures and kickbacks.</div>
+  <div class="g-related">Related: RESPA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Regulation Z</div>
+  <div class="g-def">The implementing regulation for TILA, covering credit disclosures, APR, trigger terms, ATR, QM, and the LO Compensation Rule.</div>
+  <div class="g-related">Related: TILA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Right of Rescission</div>
+  <div class="g-def">A TILA right giving borrowers 3 business days to cancel refinances, HELOCs, and home equity loans on a primary residence. Extended to 3 years if proper notice not given at closing.</div>
+  <div class="g-related">Related: TILA Section 125</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">SAFE Act</div>
+  <div class="g-def">Secure and Fair Enforcement for Mortgage Licensing Act. Created the NMLS system and established minimum standards for MLO licensing. Requires 20 pre-licensing hours, background checks, and the NMLS exam.</div>
+  <div class="g-related">Related: Federal Law</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">SCRA</div>
+  <div class="g-def">Servicemembers Civil Relief Act. Caps interest at 6% on pre-service debts during active duty — excess permanently FORGIVEN. Prohibits non-judicial foreclosure during service and 1 year after.</div>
+  <div class="g-related">Related: Federal Law</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Secondary Market</div>
+  <div class="g-def">Where already-closed loans are bought and sold by investors. Fannie Mae and Freddie Mac operate in the secondary market.</div>
+  <div class="g-related">Related: Secondary Market</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Section 50(a)(6)</div>
+  <div class="g-def">Texas constitutional provision governing home equity lending: 80% CLTV cap, 3% fee cap, 12 calendar day wait, professional closing location, no prepayment penalty, one loan at a time.</div>
+  <div class="g-related">Related: Texas USC</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Steering</div>
+  <div class="g-def">The illegal practice of directing borrowers toward or away from neighborhoods or loan products based on their protected class status.</div>
+  <div class="g-related">Related: Fair Housing Act, ECOA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Structuring</div>
+  <div class="g-def">Deliberately breaking cash transactions into smaller amounts to avoid BSA CTR filing requirements. A federal crime regardless of whether underlying funds are legitimate.</div>
+  <div class="g-related">Related: Bank Secrecy Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Suspicious Activity Report (SAR)</div>
+  <div class="g-def">A BSA-required report filed within 30 days of detecting suspicious activity. Cannot be disclosed to the subject (tipping off is a separate federal crime).</div>
+  <div class="g-related">Related: Bank Secrecy Act</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">TDSML</div>
+  <div class="g-def">Texas Department of Savings and Mortgage Lending. Regulates non-bank mortgage companies and MLOs in Texas. Maximum penalty: $25,000 per violation per day.</div>
+  <div class="g-related">Related: Texas USC</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">TRID</div>
+  <div class="g-def">TILA-RESPA Integrated Disclosure. The 2015 rule combining the GFE and HUD-1 into the Loan Estimate and Closing Disclosure.</div>
+  <div class="g-related">Related: TILA, RESPA</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Trigger Terms</div>
+  <div class="g-def">Specific numbers in mortgage advertising (rate, payment, amount, down payment, closing costs) that require all 5 TILA disclosures to appear in the same ad.</div>
+  <div class="g-related">Related: TILA Advertising</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">UDAP</div>
+  <div class="g-def">Unfair, Deceptive, or Abusive Acts or Practices. CFPB enforcement authority. Any ONE of the three is sufficient for a violation.</div>
+  <div class="g-related">Related: CFPB</div>
+</div>
+<div class="glossary-term">
+  <div class="g-term">Zero Tolerance</div>
+  <div class="g-def">TRID category for fees that cannot increase at all from LE to CD without a valid changed circumstance: origination charges, points, transfer taxes, and required services where borrower cannot shop.</div>
+  <div class="g-related">Related: TRID</div>
+</div>
+
+
+  <div class="footer-note">NMLS Prep · Free Study Resource · nmlsprep.com · For exam preparation use only.</div>
+</div>
+</div>
+<script>
+function answer(btn, qId, correct, letter) {
+  const q = document.getElementById(qId);
+  q.querySelectorAll('.q-choice').forEach(b => b.disabled = true);
+  const correctEl = q.querySelector('[data-correct="true"]');
+  if(correctEl) correctEl.classList.add('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const ex = document.getElementById(qId + '-ex');
+  if(ex) ex.classList.add('show');
+}
+</script>
+</body>
+</html>

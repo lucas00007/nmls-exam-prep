@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Day Checklist — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--shadow:rgba(0,0,0,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a6b3a;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a6b3a 0%,#1a6b3add 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.8);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.22);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);margin:28px 0 12px;padding-top:20px;border-top:1px dashed rgba(0,0,0,.12);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#3a2a10;line-height:1.75;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 20px;}
+li{font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:4px;}
+li strong{color:var(--red2);}
+.card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.card-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.25);}
+.highlight{background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;padding:12px 15px;margin:14px 0;font-size:.86rem;color:#3a2a10;line-height:1.65;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2rem;color:#1a6b3a;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#4a3a20;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.5px;}
+td{padding:8px 12px;border:1px solid var(--paper3);color:#3a2a10;vertical-align:top;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.q-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);}
+.q-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--gray2);margin-bottom:6px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.q-choices{display:flex;flex-direction:column;gap:6px;}
+.q-choice{font-size:.83rem;padding:8px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.1);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .15s;display:flex;gap:8px;}
+.q-choice:hover{background:var(--paper2);border-color:var(--gold2);}
+.q-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);}
+.q-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);}
+.q-choice.reveal{border-color:rgba(30,122,60,.35);}
+.q-choice:disabled{cursor:default;}
+.q-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.q-explain{display:none;margin-top:10px;padding:10px 13px;background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;font-size:.82rem;color:#3a2a10;line-height:1.6;}
+.q-explain.show{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.checklist{list-style:none;padding:0;margin:12px 0;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.87rem;color:#3a2a10;line-height:1.55;}
+.checklist li::before{content:'☐';font-size:1rem;color:var(--gray2);flex-shrink:0;margin-top:1px;}
+.checklist li.done::before{content:'✓';color:var(--green2);}
+.glossary-term{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:13px 16px;margin-bottom:8px;box-shadow:1px 2px 6px var(--shadow);}
+.g-term{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:4px;}
+.g-def{font-size:.83rem;color:#4a3a20;line-height:1.6;}
+.g-related{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);margin-top:5px;letter-spacing:.5px;}
+.footer-note{margin-top:32px;padding:16px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.8rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">EXAM STRATEGY</div>
+  <div class="hdr">
+    <h1>Exam Day Checklist</h1>
+    <p>NMLS SAFE Exam Format · What to Bring · Strategy · Key Numbers Final Drill</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<h2>Know Your Exam</h2>
+<div class="grid">
+  <div class="num-card"><div class="num-big">120</div><div class="num-lbl">Total Questions</div><div class="num-desc">115 scored + 5 unscored pretest questions. You won't know which are which.</div></div>
+  <div class="num-card"><div class="num-big">190</div><div class="num-lbl">Minutes Allowed</div><div class="num-desc">3 hours 10 minutes total. About 95 seconds per question average.</div></div>
+  <div class="num-card"><div class="num-big">75%</div><div class="num-lbl">Passing Score</div><div class="num-desc">Must score 75% or higher. That means answering at least 86 of 115 scored questions correctly.</div></div>
+  <div class="num-card"><div class="num-big">180</div><div class="num-lbl">Day Wait</div><div class="num-desc">After 3 failed attempts, must wait 180 days before retesting. After each single failure: 30 days.</div></div>
+</div>
+
+<h2>Exam Content Breakdown</h2>
+<table>
+  <tr><th>Topic Area</th><th>% of Exam</th><th>Approx Questions</th></tr>
+  <tr><td>Federal Mortgage-Related Laws</td><td>23%</td><td>~26 questions</td></tr>
+  <tr><td>General Mortgage Knowledge</td><td>23%</td><td>~26 questions</td></tr>
+  <tr><td>Mortgage Loan Origination Activities</td><td>25%</td><td>~29 questions</td></tr>
+  <tr><td>Ethics</td><td>16%</td><td>~18 questions</td></tr>
+  <tr><td>Uniform State Content (Texas)</td><td>13%</td><td>~15 questions</td></tr>
+</table>
+<div class="highlight"><strong>Focus first on Ethics (16%) and Federal Laws (23%).</strong> Together they make up nearly 40% of the exam. Master these two areas and you have a huge head start.</div>
+
+<h2>The Week Before — Study Plan</h2>
+<ul class="checklist">
+  <li>Day 7: Review all 10 interactive lessons — focus on the exam traps sections</li>
+  <li>Day 6: Take the full 125-question mock exam under timed conditions</li>
+  <li>Day 5: Review every wrong answer from the mock exam — understand WHY</li>
+  <li>Day 4: Focus drill on your 2 weakest topics from the mock exam</li>
+  <li>Day 3: Review the key numbers cheat sheet — drill until automatic</li>
+  <li>Day 2: Light review only — no new material. Re-read takeaways from each lesson</li>
+  <li>Day 1: Rest. Short review of key numbers in the morning. Early bedtime.</li>
+</ul>
+
+<h2>The Night Before</h2>
+<ul class="checklist">
+  <li>Confirm your exam appointment time and testing center location</li>
+  <li>Prepare your two valid forms of ID (see requirements below)</li>
+  <li>Set TWO alarms — one as backup</li>
+  <li>Eat a real dinner — no studying after 8 PM</li>
+  <li>Get at least 7-8 hours of sleep</li>
+  <li>Lay out your clothes and everything you need the night before</li>
+</ul>
+
+<h2>What to Bring</h2>
+<div class="card"><div class="tag tag-g">Required</div><div class="card-title">Two Forms of Valid ID</div><div class="card-body"><strong>Primary ID (one required):</strong> Government-issued photo ID — driver's license, state ID, passport, military ID<br><br><strong>Secondary ID (one required):</strong> Credit card, debit card, or additional government ID with your name<br><br>Both IDs must have your name EXACTLY as it appears in NMLS. Name mismatches = denied entry.</div></div>
+<div class="card"><div class="tag tag-r">Do NOT bring</div><div class="card-title">Leave These at Home or in Your Car</div><div class="card-body">Phone · Smartwatch · Notes or study materials · Food or drinks · Bags or backpacks · Earbuds or headphones · Calculators (one is provided on screen)</div></div>
+
+<h2>What to Expect at the Testing Center</h2>
+<ul class="checklist">
+  <li>Arrive 30 minutes early — late arrivals may be denied entry</li>
+  <li>You will be asked to empty your pockets completely</li>
+  <li>Palm vein scan or fingerprint required at most Prometric centers</li>
+  <li>You'll be given a locker for your belongings</li>
+  <li>A whiteboard and marker (or scratch paper) will be provided — use it!</li>
+  <li>You can raise your hand to leave for a break — the clock keeps running</li>
+</ul>
+
+<h2>During the Exam — Strategy</h2>
+<ul class="checklist">
+  <li>Read every question fully — do not skim</li>
+  <li>Eliminate obviously wrong answers first</li>
+  <li>When stuck between two answers — trust your first instinct</li>
+  <li>Flag questions you are unsure about and come back</li>
+  <li>Do not leave any question blank — wrong answers count the same as blank</li>
+  <li>Pace yourself: check your time after every 30 questions</li>
+  <li>At 60 questions remaining: make sure you have at least 60 minutes left</li>
+</ul>
+
+<h2>The Key Numbers — Final Drill</h2>
+<p>Read these aloud before bed the night before:</p>
+<table>
+  <tr><th>Number</th><th>What It Means</th></tr>
+  <tr><td><strong>75%</strong></td><td>NMLS passing score</td></tr>
+  <tr><td><strong>3 bus. days</strong></td><td>LE delivery from complete application · CD waiting period before closing</td></tr>
+  <tr><td><strong>7 cal. days</strong></td><td>Minimum between LE delivery and closing</td></tr>
+  <tr><td><strong>3 cal. years</strong></td><td>TRID cure window</td></tr>
+  <tr><td><strong>5 bus. days</strong></td><td>QWR acknowledgment deadline</td></tr>
+  <tr><td><strong>30 bus. days</strong></td><td>QWR substantive response deadline</td></tr>
+  <tr><td><strong>25 months</strong></td><td>ECOA record retention</td></tr>
+  <tr><td><strong>2 months</strong></td><td>Maximum escrow cushion (RESPA)</td></tr>
+  <tr><td><strong>80% / 78%</strong></td><td>PMI request / auto-cancel (original purchase price)</td></tr>
+  <tr><td><strong>6%</strong></td><td>SCRA interest cap — excess FORGIVEN</td></tr>
+  <tr><td><strong>$10,000</strong></td><td>BSA CTR cash threshold</td></tr>
+  <tr><td><strong>30 days</strong></td><td>SAR filing deadline</td></tr>
+  <tr><td><strong>80% CLTV</strong></td><td>Texas 50(a)(6) hard cap</td></tr>
+  <tr><td><strong>3%</strong></td><td>Texas fee cap · QM points and fees cap</td></tr>
+  <tr><td><strong>12 cal. days</strong></td><td>Texas home equity waiting period</td></tr>
+  <tr><td><strong>21 days</strong></td><td>Texas foreclosure advance notice</td></tr>
+  <tr><td><strong>First Tuesday</strong></td><td>Texas foreclosure sale day</td></tr>
+</table>
+
+<h2>After the Exam</h2>
+<p>You will receive your pass/fail result immediately on screen at the testing center. A score report will also be available in your NMLS account.</p>
+<div class="highlight"><strong>If you pass:</strong> Complete your state license application in NMLS within the required timeframe. Submit employment sponsorship. You are almost there!<br><br><strong>If you need to retake:</strong> Wait the required period, review your score report to identify weak areas, and use the full course to drill those topics specifically before retesting.</div>
+
+  <div class="footer-note">NMLS Prep · Free Study Resource · nmlsprep.com · For exam preparation use only.</div>
+</div>
+</div>
+<script>
+function answer(btn, qId, correct, letter) {
+  const q = document.getElementById(qId);
+  q.querySelectorAll('.q-choice').forEach(b => b.disabled = true);
+  const correctEl = q.querySelector('[data-correct="true"]');
+  if(correctEl) correctEl.classList.add('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const ex = document.getElementById(qId + '-ex');
+  if(ex) ex.classList.add('show');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Advertising Rules — NMLS Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c14;
+  --bg2: #0f1220;
+  --bg3: #141828;
+  --orange: #c0580a;
+  --orange2: #e07020;
+  --orange3: #f5a040;
+  --cream: #f0ebe0;
+  --cream2: #c8c0b0;
+  --gray: #6b7a8d;
+  --gray2: #9aaabb;
+  --blue: #2980b9;
+  --blue2: #5dade2;
+  --green: #27ae60;
+  --green2: #82e0aa;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --purple: #8e44ad;
+  --purple2: #bb8fce;
+  --border: rgba(192,88,10,.18);
+  --border2: rgba(224,112,32,.38);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--cream);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+.hdr {
+  background: linear-gradient(135deg, #06080f 0%, #0a0c14 50%, #1a0c04 100%);
+  border-bottom: 2px solid var(--orange2);
+  padding: 48px 24px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hdr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(192,88,10,.025) 40px, rgba(192,88,10,.025) 80px);
+}
+.hdr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange3), transparent);
+}
+.hdr-label { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: 5px; text-transform: uppercase; color: var(--orange2); margin-bottom: 12px; position: relative; }
+.hdr h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; color: var(--orange3); position: relative; margin-bottom: 10px; line-height: 1.1; }
+.hdr-sub { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: rgba(240,235,224,.4); letter-spacing: 2px; text-transform: uppercase; position: relative; margin-bottom: 20px; }
+.hdr-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; position: relative; }
+.hpill { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; letter-spacing: 1px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border2); color: var(--orange3); background: rgba(192,88,10,.08); }
+
+.toc { max-width: 980px; margin: 32px auto; padding: 0 20px; }
+.toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.toc-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--cream2); font-size: .83rem; }
+.toc-item:hover { border-color: var(--orange2); color: var(--orange3); transform: translateY(-1px); }
+.toc-num { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; color: var(--orange2); flex-shrink: 0; }
+
+.content { max-width: 980px; margin: 0 auto; padding: 0 20px 60px; }
+.section { margin-bottom: 52px; }
+.section-hdr { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.section-num { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: 2px; color: var(--orange2); background: rgba(192,88,10,.1); border: 1px solid var(--border2); padding: 4px 10px; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: var(--orange3); font-weight: 700; }
+.section-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+.prose { font-size: .92rem; line-height: 1.75; color: rgba(240,235,224,.85); margin-bottom: 18px; }
+.prose strong { color: var(--orange3); font-weight: 600; }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--orange2), transparent); }
+.card-title { font-family: 'IBM Plex Mono', monospace; font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--orange2); margin-bottom: 10px; }
+.card-body { font-size: .87rem; color: rgba(240,235,224,.8); line-height: 1.65; }
+.card-body strong { color: var(--orange3); }
+
+.highlight { border-radius: 10px; padding: 18px 20px; margin-bottom: 18px; }
+.highlight.orange { background: rgba(192,88,10,.08); border: 1px solid var(--border2); border-left: 3px solid var(--orange3); }
+.highlight.blue { background: rgba(41,128,185,.07); border: 1px solid rgba(93,173,226,.25); border-left: 3px solid var(--blue2); }
+.highlight.green { background: rgba(39,174,96,.07); border: 1px solid rgba(130,224,170,.25); border-left: 3px solid var(--green2); }
+.highlight.red { background: rgba(192,57,43,.08); border: 1px solid rgba(231,76,60,.25); border-left: 3px solid var(--red2); }
+.highlight.purple { background: rgba(142,68,173,.07); border: 1px solid rgba(187,143,206,.25); border-left: 3px solid var(--purple2); }
+.highlight-title { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.highlight.orange .highlight-title { color: var(--orange3); }
+.highlight.blue .highlight-title { color: var(--blue2); }
+.highlight.green .highlight-title { color: var(--green2); }
+.highlight.red .highlight-title { color: var(--red2); }
+.highlight.purple .highlight-title { color: var(--purple2); }
+.highlight p, .highlight li { font-size: .88rem; line-height: 1.7; color: rgba(240,235,224,.85); }
+.highlight ul { padding-left: 18px; }
+.highlight li { margin-bottom: 5px; }
+.highlight strong { color: var(--orange3); }
+
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: .86rem; }
+.compare-table th { background: rgba(192,88,10,.12); border: 1px solid var(--border2); padding: 10px 14px; font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange3); text-align: left; }
+.compare-table td { border: 1px solid var(--border); padding: 10px 14px; color: rgba(240,235,224,.82); vertical-align: top; line-height: 1.55; }
+.compare-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+.compare-table tr:hover td { background: rgba(192,88,10,.04); }
+.td-label { font-weight: 600; color: var(--cream); font-size: .85rem; }
+.yes { color: var(--green2); font-weight: 600; }
+.no { color: #e07070; font-weight: 600; }
+
+.exam-alert { background: linear-gradient(135deg, rgba(192,88,10,.1) 0%, rgba(192,88,10,.05) 100%); border: 1px solid var(--border2); border-radius: 10px; padding: 20px 22px; margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start; }
+.exam-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.exam-title { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--orange3); margin-bottom: 6px; }
+.exam-text { font-size: .87rem; color: rgba(240,235,224,.85); line-height: 1.65; }
+.exam-text strong { color: var(--orange3); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+@media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+
+.bullet-list { list-style: none; padding: 0; margin-bottom: 16px; }
+.bullet-list li { padding: 5px 0 5px 20px; position: relative; font-size: .88rem; color: rgba(240,235,224,.82); line-height: 1.6; }
+.bullet-list li::before { content: '◆'; position: absolute; left: 0; color: var(--orange2); font-size: .5rem; top: 10px; }
+.bullet-list strong { color: var(--orange3); }
+
+/* ── TRIGGER TERM BOX ── */
+.trigger-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.trigger-card { border-radius: 10px; padding: 16px 18px; text-align: center; }
+.trigger-card.yes-trigger { background: rgba(192,57,43,.1); border: 2px solid rgba(231,76,60,.4); }
+.trigger-card.no-trigger { background: rgba(39,174,96,.08); border: 1px solid rgba(130,224,170,.25); }
+.trigger-card.neutral { background: rgba(41,128,185,.08); border: 1px solid rgba(93,173,226,.2); }
+.trigger-label { font-family: 'IBM Plex Mono', monospace; font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.trigger-card.yes-trigger .trigger-label { color: var(--red2); }
+.trigger-card.no-trigger .trigger-label { color: var(--green2); }
+.trigger-card.neutral .trigger-label { color: var(--blue2); }
+.trigger-examples { font-size: .82rem; color: rgba(240,235,224,.82); line-height: 1.6; }
+.trigger-examples strong { font-size: .85rem; }
+.trigger-card.yes-trigger .trigger-examples strong { color: #ff8080; }
+.trigger-card.no-trigger .trigger-examples strong { color: var(--green2); }
+.trigger-card.neutral .trigger-examples strong { color: var(--blue2); }
+
+/* ── AD SCENARIO ── */
+.ad-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; margin-bottom: 14px; }
+.ad-sample { background: rgba(255,255,255,.04); border: 1px dashed rgba(255,255,255,.15); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; font-style: italic; font-size: .88rem; color: var(--cream2); line-height: 1.6; }
+.ad-analysis { font-size: .86rem; color: rgba(240,235,224,.82); line-height: 1.65; }
+.ad-analysis strong { color: var(--orange3); }
+.verdict { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+.verdict.violation { background: rgba(192,57,43,.15); color: #ff7070; border: 1px solid rgba(192,57,43,.4); }
+.verdict.legal { background: rgba(39,174,96,.12); color: var(--green2); border: 1px solid rgba(39,174,96,.3); }
+.verdict.depends { background: rgba(230,126,34,.12); color: #f5b942; border: 1px solid rgba(230,126,34,.3); }
+
+.back-top { position: fixed; bottom: 24px; right: 24px; background: rgba(192,88,10,.15); border: 1px solid var(--border2); color: var(--orange3); font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: 1px; padding: 8px 14px; border-radius: 20px; cursor: pointer; text-decoration: none; transition: all .2s; backdrop-filter: blur(8px); }
+.back-top:hover { background: rgba(192,88,10,.25); color: var(--orange3); }
+
+.law-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: .6rem; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+.lb-tila { background: rgba(192,57,43,.12); color: #ff7070; border: 1px solid rgba(192,57,43,.3); }
+.lb-respa { background: rgba(41,128,185,.12); color: var(--blue2); border: 1px solid rgba(41,128,185,.3); }
+.lb-fha { background: rgba(39,174,96,.12); color: var(--green2); border: 1px solid rgba(39,174,96,.3); }
+.lb-safe { background: rgba(142,68,173,.12); color: var(--purple2); border: 1px solid rgba(142,68,173,.3); }
+.lb-ftc { background: rgba(230,126,34,.12); color: #f5b942; border: 1px solid rgba(230,126,34,.3); }
+</style>
+</head>
+<body>
+
+<div class="hdr" id="top">
+  <p class="hdr-label">NMLS SAFE Exam · Federal Mortgage Laws · Advertising Rules</p>
+  <h1>Mortgage Advertising Rules</h1>
+  <p class="hdr-sub">TILA Trigger Terms · Fair Housing · SAFE Act · RESPA · UDAP</p>
+  <div class="hdr-pills">
+    <span class="hpill">TILA Reg Z</span>
+    <span class="hpill">Trigger Terms</span>
+    <span class="hpill">APR Disclosure</span>
+    <span class="hpill">Fair Housing Ads</span>
+    <span class="hpill">SAFE Act NMLS#</span>
+    <span class="hpill">Clear & Conspicuous</span>
+    <span class="hpill">UDAP</span>
+    <span class="hpill">VA/FHA Advertising</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-grid">
+    <a href="#s1" class="toc-item"><span class="toc-num">01</span>Why Advertising Is Regulated</a>
+    <a href="#s2" class="toc-item"><span class="toc-num">02</span>TILA Trigger Terms</a>
+    <a href="#s3" class="toc-item"><span class="toc-num">03</span>Required Disclosures When Triggered</a>
+    <a href="#s4" class="toc-item"><span class="toc-num">04</span>APR — The Key Number</a>
+    <a href="#s5" class="toc-item"><span class="toc-num">05</span>Clear & Conspicuous Standard</a>
+    <a href="#s6" class="toc-item"><span class="toc-num">06</span>Fair Housing Act Advertising</a>
+    <a href="#s7" class="toc-item"><span class="toc-num">07</span>SAFE Act — NMLS# Requirements</a>
+    <a href="#s8" class="toc-item"><span class="toc-num">08</span>UDAP — Unfair & Deceptive Acts</a>
+    <a href="#s9" class="toc-item"><span class="toc-num">09</span>Real Ad Scenarios — Pass or Fail?</a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span>Exam Traps & Quick Reference</a>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ── SECTION 1 ── -->
+<div class="section" id="s1">
+  <div class="section-hdr">
+    <span class="section-num">01</span>
+    <span class="section-icon">📣</span>
+    <h2 class="section-title">Why Mortgage Advertising Is Regulated</h2>
+  </div>
+
+  <p class="prose">Mortgage advertising is one of the most regulated areas of consumer finance. Multiple federal laws overlap here — each targeting a different type of deception or discrimination. The NMLS exam tests advertising rules heavily because deceptive ads are a primary consumer harm in mortgage lending.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">📜 TILA / Regulation Z</div>
+      <div class="card-body">Governs <strong>cost disclosures in advertising</strong> — if you mention a specific cost or payment, you must also disclose the full picture. Prevents teaser rates from hiding the true cost of credit. Trigger terms and APR rules live here.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏠 Fair Housing Act</div>
+      <div class="card-body">Governs <strong>non-discrimination in advertising</strong> — ads cannot express preference for or exclude any protected class. Covers language, images, media selection, and implied targeting. HUD's Advertising Guidelines are the key reference.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔒 SAFE Act</div>
+      <div class="card-body">Requires MLOs to include their <strong>NMLS Unique Identifier</strong> in all advertisements. Allows consumers to verify credentials. Applies to all advertising media — print, digital, radio, TV, social media.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚠️ UDAP / CFPB</div>
+      <div class="card-body">The <strong>CFPB</strong> enforces prohibition on Unfair, Deceptive, or Abusive Acts or Practices (UDAAP). Ads that mislead consumers about loan terms, costs, or eligibility are actionable under UDAAP even if they technically pass TILA.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎖️ VA / FHA Rules</div>
+      <div class="card-body">Government loan programs have specific advertising restrictions — particularly for <strong>VA and FHA loans</strong>. These rules prevent lenders from implying government endorsement or misrepresenting program benefits. The VA has especially strict advertising regulations.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌐 State Laws</div>
+      <div class="card-body">Every state has its own advertising regulations on top of federal requirements. Texas (TDSML) has specific advertising rules including <strong>required disclosures</strong> in ads and prohibitions on misleading statements about rates or programs.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 2 ── -->
+<div class="section" id="s2">
+  <div class="section-hdr">
+    <span class="section-num">02</span>
+    <span class="section-icon">🔴</span>
+    <h2 class="section-title">TILA Trigger Terms</h2>
+  </div>
+
+  <p class="prose">This is the <strong>most heavily tested advertising concept</strong> on the NMLS exam. Under TILA Regulation Z, certain words and numbers in an advertisement are called <strong>"trigger terms"</strong> — when any ONE trigger term appears, ALL required additional disclosures must also appear in the same advertisement.</p>
+
+  <div class="highlight red">
+    <div class="highlight-title">⚡ The Core Rule — One Trigger Pulls Them All</div>
+    <p>If ANY trigger term appears in a mortgage ad, the ad MUST also include: <strong>(1) APR</strong> · <strong>(2) amount or percentage of down payment</strong> · <strong>(3) repayment terms</strong> · <strong>(4) amount of each payment</strong> · <strong>(5) number of payments</strong>. Using ONE trigger term without the full required disclosures is a TILA violation.</p>
+  </div>
+
+  <div class="trigger-grid">
+    <div class="trigger-card yes-trigger">
+      <div class="trigger-label">🔴 Trigger Terms — Pull ALL Disclosures</div>
+      <div class="trigger-examples">
+        <strong>"$1,499/month"</strong><br>Any specific monthly payment amount<br><br>
+        <strong>"5% down"</strong><br>Any specific down payment amount or %<br><br>
+        <strong>"5.5% interest rate"</strong><br>Any specific interest rate (note rate)<br><br>
+        <strong>"$300,000 loan"</strong><br>Any specific loan amount<br><br>
+        <strong>"Only $500 to close"</strong><br>Any specific closing cost amount<br><br>
+        <strong>"$0 closing costs"</strong><br>Specific statement about closing costs
+      </div>
+    </div>
+    <div class="trigger-card no-trigger">
+      <div class="trigger-label">✅ Safe — Do NOT Trigger Additional Disclosures</div>
+      <div class="trigger-examples">
+        <strong>"Low monthly payments"</strong><br>Vague — no specific amount<br><br>
+        <strong>"Competitive rates"</strong><br>Vague — no specific rate<br><br>
+        <strong>"Low down payment options"</strong><br>Vague — no specific amount<br><br>
+        <strong>"Flexible financing available"</strong><br>General statement only<br><br>
+        <strong>"Call us for today's rates"</strong><br>Invites inquiry, no specific terms<br><br>
+        <strong>"Easy qualify program"</strong><br>General — no specific numbers
+      </div>
+    </div>
+    <div class="trigger-card neutral">
+      <div class="trigger-label">📋 APR — Special Rules Apply</div>
+      <div class="trigger-examples">
+        <strong>APR can be stated alone</strong><br>without triggering all other disclosures<br><br>
+        BUT: APR must be stated <strong>clearly and conspicuously</strong><br><br>
+        AND: If a specific interest rate is stated, <strong>APR must also be stated</strong> with equal prominence<br><br>
+        APR is both a <strong>safe harbor</strong> AND a <strong>required disclosure</strong> when trigger terms are used
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-alert">
+    <span class="exam-icon">🎯</span>
+    <div class="exam-content">
+      <div class="exam-title">Most Tested Trigger Term Scenario</div>
+      <p class="exam-text">An ad says: <strong>"30-year mortgage — 6.5% interest rate — only $1,500/month!"</strong> This ad has <strong>TWO trigger terms</strong> (specific interest rate + specific monthly payment) but includes <strong>NONE</strong> of the required additional disclosures. This is a TILA violation. The fix: either (a) remove all specific numbers and use only vague language, or (b) include ALL required disclosures — APR, down payment, repayment terms, number/amount of payments.</p>
+    </div>
+  </div>
+
+  <div class="highlight orange">
+    <div class="highlight-title">📺 Trigger Terms Apply to ALL Advertising Media</div>
+    <ul>
+      <li>Print ads (newspapers, magazines, flyers, mailers)</li>
+      <li>Online advertising (websites, banner ads, social media posts)</li>
+      <li>Radio and TV commercials</li>
+      <li>Email campaigns</li>
+      <li>Text message marketing</li>
+      <li>Outdoor advertising (billboards, bus wraps, yard signs)</li>
+      <li><strong>Exception:</strong> One-on-one oral communication (phone call, in-person conversation) is NOT advertising — different rules apply</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SECTION 3 ── -->
+<div class="section" id="s3">
+  <div class="section-hdr">
+    <span class="section-num">03</span>
+    <span class="section-icon">📋</span>
+    <h2 class="section-title">Required Disclosures When Triggered</h2>
+  </div>
+
+  <p class="prose">When a trigger term appears, all of these must appear in the same advertisement. Missing even one is a TILA violation.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Required Disclosure</th>
+        <th>Examples / Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--orange2);font-weight:600;">1</td>
+        <td class="td-label">Annual Percentage Rate (APR)</td>
+        <td>Must be stated clearly. If the APR can increase (ARM), that fact must be disclosed. APR must be given at least as much prominence as the interest rate.</td>
+      </tr>
+      <tr>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--orange2);font-weight:600;">2</td>
+        <td class="td-label">Amount or percentage of down payment</td>
+        <td>"5% down payment required" or "$15,000 down payment." Must be stated clearly.</td>
+      </tr>
+      <tr>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--orange2);font-weight:600;">3</td>
+        <td class="td-label">Repayment terms</td>
+        <td>"30-year fixed," "5/1 ARM adjusts after 5 years," "15-year term." The loan's structure must be described.</td>
+      </tr>
+      <tr>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--orange2);font-weight:600;">4</td>
+        <td class="td-label">Amount of each payment</td>
+        <td>The actual periodic payment amount. If it varies (ARM), describe how it can change.</td>
+      </tr>
+      <tr>
+        <td style="font-family:'IBM Plex Mono',monospace;color:var(--orange2);font-weight:600;">5</td>
+        <td class="td-label">Number of payments</td>
+        <td>"360 monthly payments" for a 30-year mortgage. Tells the consumer the total repayment obligation.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div class="highlight green">
+      <div class="highlight-title">✅ Compliant Ad Example</div>
+      <p>"Purchase your dream home with a 30-year fixed rate mortgage at <strong>6.5% interest rate (6.82% APR)</strong>. Only <strong>5% down payment</strong> required. <strong>360 monthly payments</strong> of approximately <strong>$1,558</strong> on a $250,000 loan. Rates subject to qualification."</p>
+      <p style="margin-top:10px; font-size:.8rem; color:rgba(240,235,224,.6);">This ad uses trigger terms (rate, payment, down payment) but provides ALL required disclosures — APR, down payment %, repayment terms, number and amount of payments. ✓</p>
+    </div>
+    <div class="highlight red">
+      <div class="highlight-title">🚫 Violation Ad Example</div>
+      <p>"Purchase your dream home! Only <strong>$1,558/month</strong>! <strong>5% down</strong>! Call us today!"</p>
+      <p style="margin-top:10px; font-size:.8rem; color:rgba(240,235,224,.6);">This ad uses TWO trigger terms (specific monthly payment + specific down payment) but provides NONE of the required additional disclosures — no APR, no loan term, no number of payments. TILA violation. ✗</p>
+    </div>
+  </div>
+
+  <div class="exam-alert">
+    <span class="exam-icon">🎯</span>
+    <div class="exam-content">
+      <div class="exam-title">ARM Advertising — Special Additional Rule</div>
+      <p class="exam-text">When advertising an <strong>adjustable-rate mortgage</strong>, the ad must also disclose: (1) that the rate CAN increase after the fixed period, (2) the amount of any payment increase, and (3) if a promotional (teaser) rate is used, the rate and payment at the time of the first adjustment must also be disclosed. You cannot advertise only the low initial ARM rate without disclosing that it adjusts.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 4 ── -->
+<div class="section" id="s4">
+  <div class="section-hdr">
+    <span class="section-num">04</span>
+    <span class="section-icon">📊</span>
+    <h2 class="section-title">APR — The Key Disclosure Number</h2>
+  </div>
+
+  <p class="prose">The <strong>Annual Percentage Rate (APR)</strong> is the centerpiece of TILA advertising compliance. It is designed to give consumers a <strong>standardized true cost of credit</strong> that includes both the interest rate AND certain fees — making loan comparisons apples-to-apples.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">What APR Includes (Finance Charges)</div>
+      <div class="card-body">
+        ✅ Interest rate<br>
+        ✅ Origination fees / points<br>
+        ✅ Mortgage insurance premiums (PMI/MIP)<br>
+        ✅ Prepaid interest<br>
+        ✅ Certain broker fees<br><br>
+        <strong>APR is always higher than the note rate</strong> (because it includes fees)
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">What APR Excludes (Not Finance Charges)</div>
+      <div class="card-body">
+        ❌ Appraisal fee<br>
+        ❌ Title insurance<br>
+        ❌ Recording fees<br>
+        ❌ Survey fees<br>
+        ❌ Transfer taxes<br>
+        ❌ Homeowner's insurance<br><br>
+        These are third-party charges excluded from APR calculation
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">APR Advertising Rules</div>
+      <div class="card-body">
+        ✓ APR alone can be stated without triggering all other required disclosures<br><br>
+        ✓ If a specific interest RATE is advertised, APR must ALSO appear with equal or greater prominence<br><br>
+        ✓ APR must be stated <strong>clearly and conspicuously</strong> — not buried in tiny footnotes<br><br>
+        ✓ For ARMs: disclose that APR may increase
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight blue">
+    <div class="highlight-title">💡 Rate vs. APR — Why Both Matter on the Exam</div>
+    <p>A lender advertises <strong>"5.5% rate!"</strong> in large font with <strong>"6.21% APR"</strong> in tiny footnote text. This violates the <strong>clear and conspicuous</strong> standard — APR must be given at least as much visual prominence as the interest rate. The exam will ask whether this is compliant. Answer: <strong>No</strong> — the APR disclosure must be equally prominent, not hidden in a footnote while the teaser rate dominates the ad.</p>
+  </div>
+
+  <div class="exam-alert">
+    <span class="exam-icon">🎯</span>
+    <div class="exam-content">
+      <div class="exam-title">Key APR Comparison — Exam Scenario</div>
+      <p class="exam-text">Lender A: 6.0% rate, $4,000 in fees → <strong>APR 6.38%</strong><br>Lender B: 6.25% rate, $0 fees → <strong>APR 6.25%</strong><br><br>Which has the lower true cost? <strong>Lender B</strong> — its APR (6.25%) is lower than Lender A's APR (6.38%). Even though Lender A has a lower note rate, its fees make it more expensive overall. This is exactly why TILA requires APR disclosure — it enables true comparison shopping.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 5 ── -->
+<div class="section" id="s5">
+  <div class="section-hdr">
+    <span class="section-num">05</span>
+    <span class="section-icon">🔍</span>
+    <h2 class="section-title">The "Clear and Conspicuous" Standard</h2>
+  </div>
+
+  <p class="prose">TILA requires that required disclosures be made <strong>"clearly and conspicuously."</strong> This is not just about including the information — it is about HOW it is presented. The CFPB has brought enforcement actions against lenders who technically included required disclosures but buried them in fine print.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">✅ Clear and Conspicuous Means</div>
+      <div class="card-body">
+        • Font size comparable to the trigger term<br>
+        • Not hidden in footnotes<br>
+        • Readable contrast against background<br>
+        • Not obscured by other design elements<br>
+        • Placed where a consumer would naturally see it<br>
+        • APR at least as large as the advertised rate<br>
+        • In the same field of vision as the trigger term
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🚫 NOT Clear and Conspicuous</div>
+      <div class="card-body">
+        • APR in 6-point font while rate is in 48-point font<br>
+        • Required disclosures only in a separate linked page<br>
+        • Light gray text on white background<br>
+        • Disclosures below a "fold" requiring scrolling<br>
+        • Fast fine-print disclaimer at end of radio ad<br>
+        • Required terms in a pop-up window that auto-closes<br>
+        • Disclosures that require a magnifying glass to read
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight orange">
+    <div class="highlight-title">📺 Media-Specific Clear & Conspicuous Rules</div>
+    <ul>
+      <li><strong>Print ads:</strong> APR and disclosures must appear in comparable font size to trigger terms. Footnotes with tiny text do not satisfy the standard when the trigger term appears in large headline font.</li>
+      <li><strong>Radio/TV:</strong> Required disclosures must be read at a speed and volume that allows a consumer to understand them. Super-fast fine-print disclaimers at end of a spot violate the standard.</li>
+      <li><strong>Digital/Online:</strong> Disclosures must be on the same page or screen. Hyperlinks to required disclosures on another page may not satisfy the standard for trigger term situations.</li>
+      <li><strong>Outdoor (billboards):</strong> Generally must include APR if a trigger term is used, though space limitations may affect format requirements.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SECTION 6 ── -->
+<div class="section" id="s6">
+  <div class="section-hdr">
+    <span class="section-num">06</span>
+    <span class="section-icon">🏠</span>
+    <h2 class="section-title">Fair Housing Act Advertising Rules</h2>
+  </div>
+
+  <p class="prose">The Fair Housing Act <strong>Section 3604(c)</strong> specifically prohibits advertising that indicates any preference, limitation, or discrimination based on a protected class. HUD's advertising guidelines (HUD Memorandum 1995) provide detailed guidance on compliant advertising.</p>
+
+  <div class="highlight red">
+    <div class="highlight-title">🏛️ FHA Section 3604(c) — The Advertising Prohibition</div>
+    <p>It is unlawful to make, print, or publish — or cause to be made, printed, or published — any notice, statement, or advertisement with respect to the sale or rental of a dwelling that <strong>indicates any preference, limitation, or discrimination</strong> based on race, color, national origin, religion, sex, familial status, or disability.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">🚫 Prohibited in Advertising</div>
+      <div class="card-body">
+        • Language expressing preference ("ideal for young professionals")<br>
+        • Exclusive racial/ethnic imagery (all-White models in all photos)<br>
+        • Religious references that exclude others<br>
+        • Descriptions that limit by familial status ("adult community" unless actually 55+)<br>
+        • Steering language ("great for couples without children")<br>
+        • Neighborhood descriptions with racial connotations<br>
+        • Marketing only through media serving one demographic<br>
+        • "Perfect for" language implying only certain groups welcome
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Compliant Advertising Practices</div>
+      <div class="card-body">
+        • Use the Fair Housing logo and equal opportunity statement<br>
+        • Use diverse human models reflecting community demographics<br>
+        • Market through channels reaching all community segments<br>
+        • Describe property features — not who should live there<br>
+        • Avoid any language suggesting protected class preference<br>
+        • Include the Equal Housing Opportunity slogan and logo<br>
+        • Advertise in media serving all groups equitably
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight blue">
+    <div class="highlight-title">👥 HUD's Human Models Guidelines</div>
+    <p>HUD's advertising guidelines address the use of human models in real estate advertising:</p>
+    <ul>
+      <li>Models should <strong>reflect the racial and ethnic diversity of the community</strong></li>
+      <li>All-White models in every photo signals exclusion to minority buyers</li>
+      <li>Models should represent people of <strong>both sexes and various age groups</strong></li>
+      <li>Persons with disabilities should be included if the community serves them</li>
+      <li>Models should appear in all areas of the property — not just certain rooms based on race</li>
+      <li>Using <strong>exclusively one racial group</strong> in all marketing materials violates FHA Section 3604(c)</li>
+    </ul>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Advertising Element</th>
+        <th>Potentially Problematic</th>
+        <th>Compliant Alternative</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-label">Neighborhood Description</td>
+        <td>"Located in a charming, traditional neighborhood"</td>
+        <td>"Located near schools, parks, and shopping" (objective features)</td>
+      </tr>
+      <tr>
+        <td class="td-label">Target Audience</td>
+        <td>"Perfect for young professionals" or "Ideal for families"</td>
+        <td>Describe the property's features without suggesting who should buy it</td>
+      </tr>
+      <tr>
+        <td class="td-label">Media Selection</td>
+        <td>Advertising only in English-language media in a diverse market</td>
+        <td>Advertising in multiple languages and media reaching all demographics</td>
+      </tr>
+      <tr>
+        <td class="td-label">Religious References</td>
+        <td>"Minutes from [specific religious institution]" implying preference</td>
+        <td>"Minutes from schools, houses of worship, and community centers"</td>
+      </tr>
+      <tr>
+        <td class="td-label">Models/Images</td>
+        <td>All marketing photos showing exclusively one racial group</td>
+        <td>Diverse models reflecting community demographics throughout all materials</td>
+      </tr>
+      <tr>
+        <td class="td-label">Loan Program Marketing</td>
+        <td>Marketing a beneficial program only through channels reaching one ethnicity</td>
+        <td>Marketing all programs through media reaching all community segments equitably</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="exam-alert">
+    <span class="exam-icon">🎯</span>
+    <div class="exam-content">
+      <div class="exam-title">Exam Trap — "No Children" Language</div>
+      <p class="exam-text">An ad saying <strong>"No children allowed"</strong> or <strong>"Adult community"</strong> is illegal familial status discrimination UNLESS the community qualifies as legitimate senior housing (55+ housing under the HOPA exemption). The NMLS exam tests whether candidates know that familial status (having children under 18) is an FHA-protected class — you cannot restrict housing to adults or exclude families with children in general housing advertising.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 7 ── -->
+<div class="section" id="s7">
+  <div class="section-hdr">
+    <span class="section-num">07</span>
+    <span class="section-icon">🔒</span>
+    <h2 class="section-title">SAFE Act — NMLS# in Advertising</h2>
+  </div>
+
+  <p class="prose">The <strong>SAFE Act</strong> (Secure and Fair Enforcement for Mortgage Licensing Act) requires all licensed and registered MLOs to include their <strong>NMLS Unique Identifier</strong> in all mortgage loan advertising. This allows consumers to verify the MLO's credentials before doing business with them.</p>
+
+  <div class="two-col">
+    <div class="highlight orange">
+      <div class="highlight-title">📋 When NMLS# Is Required</div>
+      <ul>
+        <li>All mortgage loan advertising</li>
+        <li>Business cards</li>
+        <li>Websites (personal or company)</li>
+        <li>Social media profiles and posts promoting mortgage services</li>
+        <li>Email signatures when used for business solicitation</li>
+        <li>Brochures and flyers</li>
+        <li>Print advertisements</li>
+        <li>Applications taken from consumers</li>
+        <li>Any solicitation for mortgage business</li>
+      </ul>
+    </div>
+    <div class="highlight green">
+      <div class="highlight-title">✅ How to Display NMLS#</div>
+      <ul>
+        <li>Format: <strong>"NMLS# 123456"</strong> or <strong>"NMLS ID 123456"</strong></li>
+        <li>Must be clearly visible — not hidden or in micro-print</li>
+        <li>Company NMLS# and individual MLO NMLS# may both be required</li>
+        <li>State licensing number may also be required by state law</li>
+        <li>Consumers can verify at <strong>nmlsconsumeraccess.org</strong></li>
+        <li>Both the company AND the individual MLO's NMLS# typically appear</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight purple">
+    <div class="highlight-title">🌐 Social Media — Special Considerations</div>
+    <ul>
+      <li>Personal social media posts promoting mortgage services require NMLS# disclosure</li>
+      <li>"Liking" a post is generally not advertising — but posting loan offers, rates, or promotions is</li>
+      <li>Bio/profile section of mortgage-related social media accounts must include NMLS#</li>
+      <li>Posts comparing loan products, advertising rates, or soliciting applications require NMLS#</li>
+      <li>The lender's social media policy governs what employees can post — employees may also need approval for mortgage-related social media content</li>
+      <li>Character limits (like on Twitter/X) do not exempt from NMLS# requirement</li>
+    </ul>
+  </div>
+
+  <div class="exam-alert">
+    <span class="exam-icon">🎯</span>
+    <div class="exam-content">
+      <div class="exam-title">Exam Scenario — Missing NMLS#</div>
+      <p class="exam-text">An MLO creates a Facebook post: <strong>"Ask me about our new first-time homebuyer program! Great rates available now!"</strong> with no NMLS number. This <strong>violates the SAFE Act</strong> — soliciting mortgage business on social media requires the MLO's NMLS Unique Identifier. The post is advertising mortgage services and must include the NMLS# to be compliant.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 8 ── -->
+<div class="section" id="s8">
+  <div class="section-hdr">
+    <span class="section-num">08</span>
+    <span class="section-icon">⚠️</span>
+    <h2 class="section-title">UDAP / UDAAP — Unfair & Deceptive Practices</h2>
+  </div>
+
+  <p class="prose">Beyond specific trigger term rules, the <strong>CFPB enforces UDAAP</strong> (Unfair, Deceptive, or Abusive Acts or Practices) against any mortgage advertising that misleads consumers — even if it technically avoids using trigger terms. UDAAP is the catch-all for advertising that "tricks" consumers.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">🚫 Unfair Practice</div>
+      <div class="card-body">An act or practice that <strong>causes or is likely to cause substantial injury</strong> to consumers that they could not reasonably avoid, and the harm is not outweighed by benefits to consumers or competition.<br><br>Example: Bait-and-switch — advertising one rate then substituting a higher rate at closing.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🚫 Deceptive Practice</div>
+      <div class="card-body">A representation, omission, act, or practice that is likely to <strong>mislead a reasonable consumer</strong> and is material to their decision-making.<br><br>Example: "No closing costs!" when costs are actually rolled into the rate. Or claiming "VA-approved lender" implying government endorsement.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🚫 Abusive Practice</div>
+      <div class="card-body">Takes <strong>unreasonable advantage</strong> of consumers' lack of understanding, inability to protect themselves, or reasonable reliance on the company.<br><br>Example: Targeting elderly borrowers with misleading high-cost refinance offers that obscure the true cost of the loan.</div>
+    </div>
+  </div>
+
+  <div class="highlight orange">
+    <div class="highlight-title">🎯 Common UDAAP Advertising Violations in Mortgage</div>
+    <ul>
+      <li><strong>"Government approved"</strong> — implies federal endorsement that doesn't exist for private lenders</li>
+      <li><strong>"Guaranteed approval"</strong> — no lender can guarantee approval before reviewing qualifications</li>
+      <li><strong>"No closing costs"</strong> without disclosing costs are rolled into the rate or balance</li>
+      <li><strong>"Rates as low as 3%"</strong> when that rate is unavailable to virtually anyone in the market</li>
+      <li><strong>"Skip 3 payments!"</strong> for a refinance without disclosing those payments add to the loan balance</li>
+      <li><strong>"Your home equity is free money"</strong> — misleadingly characterizing debt as free</li>
+      <li><strong>"Lower your payment by $500"</strong> without disclosing an extended loan term means more total interest paid</li>
+      <li><strong>"VA benefit expiring"</strong> — false urgency to pressure veterans into unnecessary refinancing (VA IRRRL scam)</li>
+    </ul>
+  </div>
+
+  <div class="highlight red">
+    <div class="highlight-title">🎖️ VA Advertising — Extra Strict Rules</div>
+    <ul>
+      <li>VA loans have specific advertising restrictions under <strong>38 CFR Part 36</strong></li>
+      <li>Cannot imply the VA endorses or sponsors the lender</li>
+      <li>Cannot misrepresent VA loan benefits or eligibility</li>
+      <li>Cannot use official-sounding names like "VA Mortgage Center" implying government connection</li>
+      <li>The CFPB has brought enforcement actions against lenders sending mailers designed to look like official VA correspondence</li>
+      <li>VA IRRRL (streamline refinance) advertising is heavily regulated — cannot claim interest savings without disclosing break-even period and recoupment</li>
+      <li>Lenders targeting veterans with misleading offers face UDAAP enforcement AND VA program sanctions</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SECTION 9 ── -->
+<div class="section" id="s9">
+  <div class="section-hdr">
+    <span class="section-num">09</span>
+    <span class="section-icon">📝</span>
+    <h2 class="section-title">Real Ad Scenarios — Pass or Fail?</h2>
+  </div>
+
+  <p class="prose">These are the types of scenarios the NMLS exam presents. For each, identify the violation and the law broken.</p>
+
+  <div class="ad-box">
+    <div class="ad-sample">"Buy your new home for only $1,299/month! Call us today!"</div>
+    <div class="verdict violation">⚠ TILA Violation</div>
+    <div class="ad-analysis"><strong>Problem:</strong> "$1,299/month" is a TILA trigger term (specific monthly payment amount). Using it without the required additional disclosures (APR, down payment, repayment terms, number of payments) violates Regulation Z.<br><strong>Fix:</strong> Either remove the specific dollar amount ("low monthly payments available") OR include ALL required disclosures alongside the trigger term.</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"30-year fixed mortgage at 6.5% interest rate. 6.82% APR. 5% down payment required. 360 monthly payments of approximately $1,342 on a $250,000 loan. Rate available to qualified borrowers. NMLS# 123456."</div>
+    <div class="verdict legal">✅ Compliant</div>
+    <div class="ad-analysis"><strong>Why it passes:</strong> Uses trigger terms (interest rate, monthly payment, down payment) but includes ALL required disclosures: APR ✓, down payment amount ✓, repayment terms (30-year fixed) ✓, monthly payment amount ✓, number of payments (360) ✓. Also includes NMLS# as required by SAFE Act. ✓</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"Get a 5.5% mortgage rate!" [large font] — with at the bottom in very small text: "6.21% APR. Available to borrowers with 800+ FICO, 30% down, on $1.5M minimum loan amounts."</div>
+    <div class="verdict violation">⚠ TILA Violation + UDAAP Concern</div>
+    <div class="ad-analysis"><strong>Problem 1 (TILA):</strong> The APR is disclosed but NOT clearly and conspicuously — it is in tiny footnote text while the 5.5% rate appears in large font. TILA requires APR to be given equal or greater prominence than the interest rate.<br><strong>Problem 2 (UDAAP):</strong> The 5.5% rate is available only to an extremely narrow group (800+ FICO, 30% down, $1.5M+ loans). Advertising a rate that virtually no consumer can qualify for is deceptive.</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"FHA-approved lender! Government-backed mortgage program. Low rates for everyone — GUARANTEED APPROVAL! Call 800-555-HOME"</div>
+    <div class="verdict violation">⚠ Multiple Violations — UDAAP + FHA Rules</div>
+    <div class="ad-analysis"><strong>Problem 1:</strong> "Government-backed" implies the lender itself has government backing — it is the LOAN that is government-backed, not the lender. This is misleading (UDAAP).<br><strong>Problem 2:</strong> "Guaranteed Approval" — no lender can guarantee loan approval before reviewing a borrower's qualifications. This is a deceptive practice under UDAAP.<br><strong>Problem 3:</strong> No NMLS# disclosed as required by the SAFE Act.<br><strong>Problem 4:</strong> No trigger terms here, but if a rate or payment were stated, TILA disclosures would also be needed.</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"Perfect neighborhood for young professionals and couples — no kids running around! Great starter homes starting at $285,000. Call for financing information."</div>
+    <div class="verdict violation">⚠ Fair Housing Act Violation</div>
+    <div class="ad-analysis"><strong>Problem:</strong> "Young professionals and couples" and "no kids" language is illegal familial status discrimination under the Fair Housing Act Section 3604(c). Advertising that implies families with children are unwelcome violates FHA's familial status protections (unless this is a legitimate 55+ senior housing community, which the ad does not indicate).<br><strong>Note:</strong> "Starting at $285,000" does NOT trigger TILA disclosures because it is a purchase price, not a loan amount, rate, or payment — it is a property price statement, not a credit term.</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"Competitive mortgage rates available for qualified buyers. Call us for today's rates. Our MLOs are ready to help you achieve homeownership! NMLS# 456789"</div>
+    <div class="verdict legal">✅ Compliant</div>
+    <div class="ad-analysis"><strong>Why it passes:</strong> Uses ONLY vague language — "competitive rates," "qualified buyers," "today's rates." None of these are TILA trigger terms (no specific rate, payment, loan amount, or down payment stated). Includes NMLS# as required by SAFE Act. No Fair Housing issues. This type of ad can run without any additional disclosures. ✓</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">An email blast to a list of Spanish-speaking borrowers: "Préstamos hipotecarios disponibles! 7.2% APR. Llámenos hoy!"</div>
+    <div class="verdict depends">⚠ Potentially Compliant — But Review Required</div>
+    <div class="ad-analysis"><strong>APR only:</strong> Stating only the APR (not a specific interest rate or monthly payment) does NOT trigger all required disclosures — APR can stand alone. So this ad may be TILA-compliant.<br><strong>Fair Housing concern:</strong> If this lender ONLY markets in Spanish and never markets to English-speaking communities, that selective marketing could raise Fair Housing concerns about discriminatory targeting (or discriminatory exclusion of other groups). Marketing in multiple languages is fine — marketing exclusively to one ethnic group is problematic.<br><strong>Missing NMLS#:</strong> No NMLS# is shown — SAFE Act violation.</div>
+  </div>
+
+  <div class="ad-box">
+    <div class="ad-sample">"VETERANS: Your VA benefit is EXPIRING! Act now before your eligibility ends! Rates at 5.5% — refinance today! Limited time offer!"</div>
+    <div class="verdict violation">⚠ UDAAP + VA Advertising Rules Violation</div>
+    <div class="ad-analysis"><strong>Problem 1 (UDAAP — Deceptive):</strong> "Your VA benefit is EXPIRING" — VA entitlement does not expire. This is false urgency designed to pressure veterans into unnecessary refinancing. This is exactly the type of mailer that has resulted in major CFPB enforcement actions.<br><strong>Problem 2 (UDAAP — Abusive):</strong> Creating false urgency exploits veterans' trust in communications that appear official and urgent.<br><strong>Problem 3 (TILA):</strong> "5.5%" is a trigger term requiring APR and all other required disclosures.<br><strong>Problem 4:</strong> No NMLS# disclosed — SAFE Act violation.</div>
+  </div>
+</div>
+
+<!-- ── SECTION 10 ── -->
+<div class="section" id="s10">
+  <div class="section-hdr">
+    <span class="section-num">10</span>
+    <span class="section-icon">🎯</span>
+    <h2 class="section-title">Exam Traps & Quick Reference</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">🪤 Trap #1 — APR Alone Is Safe</div>
+      <div class="card-body">Advertising ONLY the APR (without stating the note rate) does <strong>NOT trigger</strong> the requirement for all other disclosures. The APR can stand alone. But if you state a specific interest rate, APR must also appear with equal prominence.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #2 — "Low Payments" Is Safe</div>
+      <div class="card-body"><strong>Vague language does NOT trigger</strong> TILA disclosures. "Low monthly payments," "competitive rates," "flexible terms" are safe. It is only specific dollar amounts, specific rates, or specific percentages that trigger the requirement.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #3 — Purchase Price ≠ Trigger Term</div>
+      <div class="card-body">Advertising a property purchase price ("homes from $300,000") is NOT a TILA trigger term. TILA trigger terms are about <strong>credit terms</strong> — loan amounts, rates, payments, and closing costs — not property prices.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #4 — All Media Counts</div>
+      <div class="card-body">TILA trigger term rules apply to ALL advertising media — print, digital, radio, TV, social media, email. The only exception is one-on-one oral communication, which is not "advertising."</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #5 — NMLS# Required Everywhere</div>
+      <div class="card-body">NMLS# is required in ALL mortgage advertising — not just formal ads. Business cards, email signatures, social media posts promoting mortgage services, and websites all require NMLS# disclosure under the SAFE Act.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #6 — FHA Covers Ads Not Just Transactions</div>
+      <div class="card-body">The Fair Housing Act applies to advertising ITSELF — not just to the actual sale or lending transaction. Publishing a discriminatory ad violates Section 3604(c) even if no borrower is ultimately harmed by the transaction.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #7 — "No Closing Costs" Is Deceptive</div>
+      <div class="card-body">Advertising "no closing costs" is UDAAP-problematic if costs are simply rolled into the interest rate or loan balance. Costs didn't disappear — they were shifted. The ad must either be accurate or disclose how costs are handled.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪤 Trap #8 — Footnotes Don't Fix Violations</div>
+      <div class="card-body">A trigger term in large headline font with required disclosures buried in tiny footnote text is still a TILA violation. "Clear and conspicuous" means the disclosures must be visually comparable to the trigger terms — footnotes in micro-print fail this standard.</div>
+    </div>
+  </div>
+
+  <div class="highlight green">
+    <div class="highlight-title">⚡ Quick Reference — Which Law Governs What</div>
+    <table style="width:100%; border-collapse:collapse; margin-top:8px;">
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Trigger terms / APR disclosure</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">TILA / Regulation Z</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Clear and conspicuous standard</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">TILA / Regulation Z</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Discriminatory ad content / imagery</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">Fair Housing Act § 3604(c)</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">NMLS# in advertising</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">SAFE Act</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Misleading / deceptive claims</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">UDAAP (CFPB enforcement)</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Misrepresenting VA benefits</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">UDAAP + VA advertising rules (38 CFR 36)</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">ARM teaser rate disclosure</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">TILA / Regulation Z (must disclose adjustment)</td>
+      </tr>
+      <tr>
+        <td style="padding:6px 10px; font-size:.83rem; color:rgba(240,235,224,.85); font-weight:600;">Exclusive demographic marketing</td>
+        <td style="padding:6px 10px; font-size:.83rem; color:var(--green2);">Fair Housing Act + ECOA (potential redlining)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="highlight orange">
+    <div class="highlight-title">⚡ Last-Minute Memory Anchors</div>
+    <ul>
+      <li><strong>Any specific number in a mortgage ad = potential trigger term</strong> — specific rate, payment, loan amount, down payment, or closing cost</li>
+      <li><strong>One trigger term = ALL five disclosures required</strong> in the same ad</li>
+      <li><strong>APR can stand alone</strong> without triggering all other required disclosures</li>
+      <li><strong>APR must be as prominent as the interest rate</strong> — footnote APR next to headline rate = violation</li>
+      <li><strong>Vague language = safe</strong> — "low payments," "competitive rates," "flexible terms" trigger nothing</li>
+      <li><strong>NMLS# required in ALL advertising</strong> — including social media, email, business cards</li>
+      <li><strong>FHA prohibits ALL ads indicating preference/limitation</strong> based on any protected class — even through imagery alone</li>
+      <li><strong>UDAAP is the catch-all</strong> — even if TILA is technically satisfied, misleading content is still actionable</li>
+      <li><strong>"Guaranteed approval"</strong> is always deceptive UDAAP — no lender can guarantee approval pre-qualification</li>
+      <li><strong>VA benefit does NOT expire</strong> — any ad claiming so is false and actionable</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /content -->
+<a href="#top" class="back-top">↑ Top</a>
+</body>
+</html>

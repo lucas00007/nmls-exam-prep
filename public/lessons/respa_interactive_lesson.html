@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RESPA: The Case Files</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1108;
+  --paper: #f5efe0;
+  --paper2: #ede5cf;
+  --paper3: #e2d8c0;
+  --red: #c0392b;
+  --red2: #8b1a1a;
+  --stamp-green: #1a5c2e;
+  --stamp-blue: #1a3a5c;
+  --gold: #b8860b;
+  --gold2: #d4a017;
+  --tape: rgba(255,230,100,0.55);
+  --shadow: rgba(0,0,0,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: #2a1f14;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── DESK SURFACE ── */
+.desk {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  position: relative;
+}
+
+/* ── HEADER FOLDER ── */
+.folder-header {
+  background: #c9a84c;
+  background-image: linear-gradient(135deg, #d4a017 0%, #b8860b 50%, #9a7209 100%);
+  border-radius: 4px 4px 0 0;
+  padding: 20px 32px 14px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  margin-bottom: -2px;
+}
+.folder-tab {
+  position: absolute;
+  top: -28px;
+  left: 40px;
+  background: #d4a017;
+  padding: 6px 28px 8px;
+  border-radius: 6px 6px 0 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: 3px;
+  color: #4a3000;
+  border: 1px solid #9a7209;
+  border-bottom: none;
+}
+.folder-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 2rem;
+  color: #2a1500;
+  letter-spacing: 2px;
+}
+.folder-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .7rem;
+  color: #5a3a00;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+.folder-meta {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+}
+.case-number {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  color: #5a3a00;
+  letter-spacing: 1px;
+}
+.confidential-stamp {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.1rem;
+  color: var(--red2);
+  border: 2px solid var(--red2);
+  padding: 3px 10px;
+  display: inline-block;
+  transform: rotate(-8deg);
+  opacity: .85;
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+/* ── MAIN CONTENT PAPER ── */
+.paper {
+  background: var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,160,120,0.15) 27px, rgba(180,160,120,0.15) 28px);
+  border-radius: 0 0 2px 2px;
+  box-shadow: 4px 8px 30px rgba(0,0,0,0.45), inset 0 0 60px rgba(0,0,0,0.03);
+  padding: 32px 40px 40px;
+  position: relative;
+}
+.paper::before {
+  content: '';
+  position: absolute;
+  left: 72px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(180,100,100,0.3);
+}
+
+/* ── PROGRESS BAR ── */
+.progress-strip {
+  background: var(--paper3);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.progress-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: 2px;
+  color: #5a4a30;
+  flex-shrink: 0;
+}
+.progress-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--stamp-green), #2ecc71);
+  border-radius: 4px;
+  transition: width .6s cubic-bezier(.34,1.56,.64,1);
+}
+.progress-pct {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .75rem;
+  color: var(--stamp-green);
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 36px;
+}
+.xp-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  background: var(--gold2);
+  color: #2a1500;
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* ── SECTION TABS ── */
+.section-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .62rem;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border: 1px solid rgba(0,0,0,0.18);
+  background: var(--paper2);
+  color: #5a4a30;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all .18s;
+  position: relative;
+}
+.tab-btn:hover { background: var(--paper3); color: var(--ink); transform: translateY(-1px); }
+.tab-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tab-btn.done::after {
+  content: '✓';
+  position: absolute;
+  top: -6px; right: -6px;
+  background: var(--stamp-green);
+  color: white;
+  font-size: .55rem;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── CONTENT SECTIONS ── */
+.section { display: none; animation: pageFlip .3s ease; }
+.section.active { display: block; }
+@keyframes pageFlip {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION HEADER ── */
+.section-heading {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-heading .tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 2px;
+  background: var(--stamp-blue);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.section-intro {
+  font-size: 1.0rem;
+  color: #4a3a20;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  padding-left: 82px;
+}
+
+/* ── EVIDENCE CARDS ── */
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-left: 82px;
+}
+.evidence-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 3px;
+  padding: 16px 18px;
+  position: relative;
+  box-shadow: 2px 3px 10px var(--shadow);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  cursor: pointer;
+  overflow: hidden;
+}
+.evidence-card:hover {
+  transform: translateY(-3px) rotate(0.3deg);
+  box-shadow: 4px 8px 20px var(--shadow);
+}
+.evidence-card.expanded {
+  transform: translateY(-4px) rotate(0deg) !important;
+  border-color: var(--gold2);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+  grid-column: span 1;
+}
+.evidence-card::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 16px;
+  background: var(--tape);
+  border-radius: 2px;
+}
+/* click hint */
+.ev-click-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .52rem;
+  letter-spacing: 1px;
+  color: #bba88a;
+  margin-top: 10px;
+  transition: opacity .2s;
+}
+.evidence-card.expanded .ev-click-hint { display: none; }
+
+/* exam note — hidden until expanded */
+.ev-exam-note {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #fffbe8;
+  border-left: 3px solid var(--gold2);
+  border-radius: 0 3px 3px 0;
+  font-size: .85rem;
+  color: #4a3800;
+  line-height: 1.6;
+  animation: slideDown .25s ease;
+}
+.evidence-card.expanded .ev-exam-note { display: block; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ev-exam-note strong { color: var(--red2); }
+.ev-exam-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ev-number {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: 2px;
+  color: #8a7050;
+  margin-bottom: 6px;
+}
+.ev-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.ev-body {
+  font-size: .9rem;
+  color: #3a2a10;
+  line-height: 1.6;
+}
+.ev-body strong { color: var(--red2); }
+.ev-tag {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+.tag-critical { background: #fee; color: var(--red2); border: 1px solid var(--red); }
+.tag-exam { background: #ffe; color: #7a5000; border: 1px solid var(--gold); }
+.tag-key { background: #efe; color: var(--stamp-green); border: 1px solid #2a7a3a; }
+
+/* ── SCENARIO CHALLENGE ── */
+.scenario-box {
+  background: #fff9f0;
+  border: 2px solid var(--gold2);
+  border-radius: 4px;
+  padding: 22px 26px;
+  margin: 0 0 20px 82px;
+  position: relative;
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.12);
+}
+.scenario-box::before {
+  content: 'SCENARIO';
+  position: absolute;
+  top: -11px; left: 20px;
+  background: var(--gold2);
+  color: #2a1500;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 3px;
+  padding: 2px 10px;
+}
+.scenario-text {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.0rem;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.scenario-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.choice-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .95rem;
+  font-weight: 500;
+  text-align: left;
+  padding: 10px 16px;
+  background: var(--paper);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .18s;
+  color: var(--ink);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.choice-letter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .75rem;
+  color: #8a7050;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.choice-btn:hover { background: var(--paper3); border-color: var(--gold2); transform: translateX(4px); }
+.choice-btn.correct { background: #efffef; border-color: var(--stamp-green); border-width: 2px; }
+.choice-btn.correct .choice-letter { color: var(--stamp-green); }
+.choice-btn.wrong { background: #fff0f0; border-color: var(--red); }
+.choice-btn.wrong .choice-letter { color: var(--red); }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+.verdict {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 3px;
+  font-size: .92rem;
+  line-height: 1.6;
+}
+.verdict.show { display: block; animation: fadeIn .3s ease; }
+.verdict.pass { background: #efffef; border-left: 3px solid var(--stamp-green); color: #1a4a20; }
+.verdict.fail { background: #fff0f0; border-left: 3px solid var(--red); color: #5a0000; }
+.verdict strong { font-weight: 700; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── NUMBER FLASHCARDS ── */
+.flashcard-deck {
+  padding-left: 82px;
+  margin-bottom: 24px;
+}
+.flashcard-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.flashcard {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 3px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 3px 8px var(--shadow);
+  transition: all .2s;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  perspective: 600px;
+}
+.flashcard:hover { transform: translateY(-2px); box-shadow: 3px 6px 16px var(--shadow); }
+.fc-front, .fc-back {
+  width: 100%;
+  transition: opacity .25s;
+}
+.fc-back { display: none; }
+.flashcard.flipped .fc-front { display: none; }
+.flashcard.flipped .fc-back { display: block; animation: revealBack .25s ease; }
+@keyframes revealBack { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+.fc-number {
+  font-family: 'Special Elite', cursive;
+  font-size: 2rem;
+  color: var(--stamp-blue);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.fc-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 1px;
+  color: #8a7050;
+}
+.fc-answer {
+  font-size: .88rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.fc-answer strong { color: var(--stamp-blue); font-size: 1rem; }
+.flip-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .55rem;
+  color: #aaa;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* ── VIOLATION DETECTOR GAME ── */
+.vd-intro {
+  font-size: .95rem;
+  color: #4a3a20;
+  margin-bottom: 16px;
+  padding-left: 82px;
+  line-height: 1.6;
+}
+.vd-cards {
+  padding-left: 82px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.vd-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 3px;
+  padding: 16px 20px;
+  box-shadow: 2px 3px 8px var(--shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.vd-scenario {
+  flex: 1;
+  font-size: .95rem;
+  color: var(--ink);
+  line-height: 1.55;
+  font-family: 'Special Elite', cursive;
+}
+.vd-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.vd-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: 1px;
+  padding: 7px 14px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: var(--paper2);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .15s;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.vd-btn:hover { transform: scale(1.04); }
+.vd-btn.v-violation:hover { background: #fee; border-color: var(--red); }
+.vd-btn.v-clean:hover { background: #efe; border-color: var(--stamp-green); }
+.vd-result {
+  display: none;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: .85rem;
+  line-height: 1.5;
+  font-family: 'Rajdhani', sans-serif;
+}
+.vd-result.show { display: block; }
+.vd-result.correct-v { background: #fee; border-left: 3px solid var(--red); color: #5a0000; }
+.vd-result.correct-c { background: #efe; border-left: 3px solid var(--stamp-green); color: #1a4a20; }
+.vd-result.wrong { background: #ffe; border-left: 3px solid var(--gold); color: #5a3a00; }
+
+/* ── COMPLETE SECTION ── */
+.complete-section {
+  padding-left: 82px;
+  text-align: center;
+}
+.complete-stamp {
+  display: inline-block;
+  font-family: 'Special Elite', cursive;
+  font-size: 3rem;
+  color: var(--stamp-green);
+  border: 4px solid var(--stamp-green);
+  padding: 10px 30px;
+  transform: rotate(-5deg);
+  margin: 20px 0;
+  opacity: .9;
+  letter-spacing: 4px;
+  box-shadow: 3px 3px 0 rgba(0,100,0,0.15);
+}
+.complete-msg {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.2rem;
+  color: var(--ink);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 24px;
+}
+.score-tally {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .9rem;
+  color: var(--stamp-blue);
+  background: var(--paper2);
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+/* ── NAV BUTTONS ── */
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 82px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(0,0,0,0.15);
+}
+.nav-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: 2px;
+  padding: 10px 22px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: var(--paper2);
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all .18s;
+}
+.nav-btn:hover { background: var(--ink); color: var(--paper); }
+.nav-btn.primary { background: var(--ink); color: var(--paper); }
+.nav-btn.primary:hover { background: #3a2a10; }
+.nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* ── RUBBER STAMP ── */
+.rubber-stamp {
+  position: absolute;
+  font-family: 'Special Elite', cursive;
+  letter-spacing: 3px;
+  border: 3px solid;
+  padding: 4px 12px;
+  border-radius: 4px;
+  opacity: .18;
+  pointer-events: none;
+  transform: rotate(-12deg);
+}
+
+/* ── STICKY NOTE ── */
+.sticky {
+  background: #ffffa0;
+  padding: 14px 16px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+  font-family: 'Special Elite', cursive;
+  font-size: .9rem;
+  color: #3a3000;
+  line-height: 1.6;
+  position: relative;
+  margin: 0 0 20px 82px;
+  max-width: 380px;
+  transform: rotate(1.5deg);
+}
+.sticky::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 36px; height: 20px;
+  background: rgba(255,230,50,0.7);
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+/* ── HANDWRITTEN UNDERLINE ── */
+.hw-underline {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--red);
+}
+
+/* ── HIGHLIGHT ── */
+.hl-yellow { background: rgba(255,235,50,0.5); padding: 0 3px; }
+.hl-green { background: rgba(100,220,120,0.35); padding: 0 3px; }
+.hl-pink { background: rgba(255,150,150,0.35); padding: 0 3px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .evidence-grid, .scenario-box, .flashcard-deck, .vd-cards, .vd-intro, .nav-row, .complete-section, .sticky, .section-intro, .progress-strip { padding-left: 20px; }
+  .paper::before { display: none; }
+  .folder-meta { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="desk">
+
+  <!-- FOLDER HEADER -->
+  <div style="position:relative; margin-top:40px;">
+    <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+    <div class="folder-header">
+      <div class="folder-title">RESPA — The Enforcement Files</div>
+      <div class="folder-subtitle">Real Estate Settlement Procedures Act · Regulation X · CFPB Enforcement</div>
+      <div class="folder-meta">
+        <div class="case-number">CASE NO. FML-001-RESPA</div>
+        <div class="case-number">CLASSIFICATION: EXAM CRITICAL</div>
+        <div class="confidential-stamp">MUST KNOW</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAPER -->
+  <div class="paper">
+
+    <!-- PROGRESS -->
+    <div class="progress-strip">
+      <span class="progress-label">CASE PROGRESS</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <span class="progress-pct" id="prog-pct">0%</span>
+      <span class="xp-badge" id="xp-badge">0 XP</span>
+    </div>
+
+    <!-- TABS -->
+    <div class="section-tabs">
+      <button class="tab-btn active" onclick="goSection(0)" id="tab-0">📋 THE MISSION</button>
+      <button class="tab-btn" onclick="goSection(1)" id="tab-1">🔍 EVIDENCE</button>
+      <button class="tab-btn" onclick="goSection(2)" id="tab-2">🎯 SCENARIO</button>
+      <button class="tab-btn" onclick="goSection(3)" id="tab-3">🔢 KEY NUMBERS</button>
+      <button class="tab-btn" onclick="goSection(4)" id="tab-4">⚡ VIOLATION DETECTOR</button>
+      <button class="tab-btn" onclick="goSection(5)" id="tab-5">✅ CASE CLOSED</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 0: THE MISSION -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section active" id="sec-0">
+      <div class="section-heading">
+        <span>Your Mission, Agent.</span>
+        <span class="tag">BRIEFING</span>
+      </div>
+
+      <div class="sticky">
+        📌 From the desk of the CFPB:<br><br>
+        "Master RESPA Section 8 or lose your license. The exam is watching."
+      </div>
+
+      <p class="section-intro">
+        RESPA — the <span class="hl-yellow">Real Estate Settlement Procedures Act</span> — is the federal law that keeps dirty money out of the mortgage closing process. Enacted in <strong>1974</strong>, implemented through <strong>Regulation X</strong>, enforced by the <strong>CFPB</strong>.
+        <br><br>
+        Your job? Learn to spot violations, know the penalties, and never let a kickback scheme slide past you on exam day.
+      </p>
+
+      <div class="evidence-grid">
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">EXHIBIT A</div>
+          <div class="ev-title">The Core Mission</div>
+          <div class="ev-body">Protect consumers from <strong>abusive settlement practices</strong>. Three areas: kickbacks, cost disclosure, and loan servicing. The CFPB is the enforcer since 2011.</div>
+          <span class="ev-tag tag-key">FOUNDATIONAL</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            RESPA was originally enforced by HUD — it transferred to the <strong>CFPB in 2011</strong> under Dodd-Frank. If the exam asks who enforces RESPA today, the answer is <strong>CFPB</strong>.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">EXHIBIT B</div>
+          <div class="ev-title">Section 8 — The Big One</div>
+          <div class="ev-body"><strong>Never give or receive anything of value for a referral.</strong> No dollar threshold. No de minimis exception. $5 gift card = $5,000 cash. The exchange is the crime.</div>
+          <span class="ev-tag tag-critical">CRITICAL</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            The exam loves to use small dollar amounts to trick you. <strong>There is NO de minimis exception</strong> — ever. Even a $2 gift card exchanged for a referral is a full Section 8 violation. Don't let the small amount fool you.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">EXHIBIT C</div>
+          <div class="ev-title">The Penalty</div>
+          <div class="ev-body">Civil liability = <strong>3× the charge for the settlement service</strong> (not 3× the kickback). Criminal: up to $10,000 fine + 1 year imprisonment per violation.</div>
+          <span class="ev-tag tag-exam">EXAM MATH</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM TRAP</span>
+            This trips up almost everyone. The civil penalty is <strong>3× the settlement SERVICE FEE</strong> — not 3× the kickback amount. Example: $10 kickback on a $400 title service = <strong>$1,200 civil penalty</strong>, not $30.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" disabled>← PREVIOUS</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 1 OF 6</span>
+        <button class="nav-btn primary" onclick="goSection(1)">OPEN EVIDENCE →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 1: EVIDENCE -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="sec-1">
+      <div class="section-heading">
+        <span>Evidence Files</span>
+        <span class="tag">STUDY</span>
+      </div>
+      <p class="section-intro">Each card is a key concept. Read it. Internalize it. These are the building blocks of every RESPA scenario question.</p>
+
+      <div class="evidence-grid">
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 001</div>
+          <div class="ev-title">Things of Value</div>
+          <div class="ev-body">Cash · Gift cards · Meals · Golf outings · Travel · Software · Below-market rent · Discounts · <strong>Business referrals back</strong>. All count. Any of them exchanged for a referral = Section 8 violation.</div>
+          <span class="ev-tag tag-critical">BROAD DEFINITION</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            The one that surprises people: <strong>a business referral back is itself a thing of value.</strong> Two companies trading referrals with each other — no cash involved at all — still violates Section 8.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 002</div>
+          <div class="ev-title">ABA — 3 Requirements</div>
+          <div class="ev-body">Affiliated Business Arrangements are legal ONLY if: <strong>(1)</strong> Written disclosure at referral · <strong>(2)</strong> Consumer has genuine free choice · <strong>(3)</strong> Only return on ownership — no per-referral payments. Miss any one = violation.</div>
+          <span class="ev-tag tag-exam">ALL 3 REQUIRED</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM TRAP</span>
+            The exam often gives you a scenario where the written disclosure IS provided but the borrower is steered or required to use the affiliated company. <strong>Written disclosure alone is not enough</strong> — all 3 must be met simultaneously.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 003</div>
+          <div class="ev-title">MSAs — The Gray Zone</div>
+          <div class="ev-body">Marketing Services Agreements are legal only if the payment <strong>reflects fair market value of actual services performed</strong>. Paying $800/month for 2 social media posts = disguised kickback. CFPB scrutinizes heavily.</div>
+          <span class="ev-tag tag-exam">CFPB FAVORITE</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            The CFPB's test: <strong>Is the payment proportionate to the actual service provided?</strong> Inflated payments for minimal services = disguised referral fee. The label "marketing agreement" doesn't protect it.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 004</div>
+          <div class="ev-title">Section 9 — Title</div>
+          <div class="ev-body">Sellers <strong>cannot require</strong> buyers to use a specific title company as a condition of sale. Penalty = <strong>3× the title insurance charge</strong>. Exam tip: seller dictates title company = Section 9.</div>
+          <span class="ev-tag tag-exam">3× PENALTY</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            Section 9 is short but heavily tested. The penalty formula is <strong>3× the title insurance CHARGE</strong> — not 3× the kickback or 3× the savings. If title insurance cost $600, penalty = $1,800.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 005</div>
+          <div class="ev-title">Section 10 — Escrow</div>
+          <div class="ev-body">Maximum escrow cushion = <strong>2 months</strong> of projected payments. Annual analysis required. Surplus above 2 months must be <strong>refunded within 30 days</strong>.</div>
+          <span class="ev-tag tag-key">2 MONTHS MAX</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            Two numbers to know: <strong>2 months</strong> (max cushion) and <strong>30 days</strong> (refund deadline if surplus found). Annual analysis is required — lenders can't just hold excess indefinitely.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 006</div>
+          <div class="ev-title">Section 6 — QWR</div>
+          <div class="ev-body">Qualified Written Request from borrower to servicer. <strong>Acknowledge: 5 business days.</strong> <strong>Respond: 30 business days</strong> (extendable to 45 with notice). Failure = up to $2,000 damages per violation.</div>
+          <span class="ev-tag tag-critical">KEY DEADLINES</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM TRAP</span>
+            These are <strong>BUSINESS days</strong> — not calendar days. The 30-day window can extend to <strong>45 days</strong> only if the servicer sends written notice of the extension BEFORE the 30-day deadline passes. They can't extend after the deadline.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 007</div>
+          <div class="ev-title">Exempt — Employer→Employee</div>
+          <div class="ev-body">A company paying its <strong>own employees</strong> production bonuses is NOT a Section 8 violation. RESPA targets payments between <strong>different companies</strong>. Internal compensation = exempt.</div>
+          <span class="ev-tag tag-exam">EXAM TRAP</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM TRAP</span>
+            The exam frames this as: "Lender pays MLO a $500 bonus for each closed loan." Sounds like a kickback — but it's <strong>exempt</strong>. The exemption applies only when it's the SAME company paying its OWN employee. Cross-company payments are never exempt.
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+        <div class="evidence-card" onclick="toggleCard(this)">
+          <div class="ev-number">FILE 008</div>
+          <div class="ev-title">The Pattern Test</div>
+          <div class="ev-body">One dinner with an agent may be innocent. <strong>Eight dinners — each followed by referrals within days</strong> — is a kickback arrangement. The CFPB looks at patterns, not individual incidents.</div>
+          <span class="ev-tag tag-critical">PATTERN MATTERS</span>
+          <div class="ev-exam-note">
+            <span class="ev-exam-label">⚡ EXAM NOTE</span>
+            The CFPB examines patterns across time. A single isolated dinner is hard to prove as a kickback. A consistent pattern of entertainment → referrals → entertainment → referrals is strong evidence of an arrangement. <strong>Frequency + timing = the tell.</strong>
+          </div>
+          <div class="ev-click-hint">▼ TAP TO EXPAND</div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="goSection(0)">← MISSION</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 2 OF 6</span>
+        <button class="nav-btn primary" onclick="goSection(2)">TEST YOURSELF →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 2: SCENARIO CHALLENGE -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="sec-2">
+      <div class="section-heading">
+        <span>Scenario Challenge</span>
+        <span class="tag">INTERACTIVE</span>
+      </div>
+      <p class="section-intro">Three real-world scenarios. Read the facts. Make the call. These mirror actual NMLS exam question styles.</p>
+
+      <!-- SCENARIO 1 -->
+      <div class="scenario-box" id="sc1">
+        <p class="scenario-text">A title company sends <span class="hl-pink">$50 gift cards</span> to real estate agents each time they refer a buyer who closes at the title company. The title company's owner argues: "It's only $50 — that's totally de minimis and can't possibly be a RESPA violation." Is the owner correct?</p>
+        <div class="scenario-choices">
+          <button class="choice-btn" onclick="answer(this,'sc1',false,'A')" id="sc1-A">
+            <span class="choice-letter">A.</span>
+            Yes — RESPA has a $100 de minimis exception for small gifts
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc1',true,'B')" id="sc1-B">
+            <span class="choice-letter">B.</span>
+            No — RESPA Section 8 has NO dollar threshold and NO de minimis exception. Even $5 exchanged for a referral is a violation.
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc1',false,'C')" id="sc1-C">
+            <span class="choice-letter">C.</span>
+            Yes — gift cards are not "money" so they are excluded from RESPA's definition of "thing of value"
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc1',false,'D')" id="sc1-D">
+            <span class="choice-letter">D.</span>
+            It depends on whether the agents are licensed real estate professionals
+          </button>
+        </div>
+        <div class="verdict" id="sc1-verdict"></div>
+      </div>
+
+      <!-- SCENARIO 2 -->
+      <div class="scenario-box" id="sc2">
+        <p class="scenario-text">A mortgage company <span class="hl-pink">owns 40%</span> of a title company. Loan officers refer all borrowers to the title company. They provide a written ABA disclosure at the time of referral. However, the loan officers <span class="hw-underline">verbally tell borrowers</span> "we strongly recommend you use our title company — other companies can cause delays." Is this ABA arrangement valid?</p>
+        <div class="scenario-choices">
+          <button class="choice-btn" onclick="answer(this,'sc2',false,'A')" id="sc2-A">
+            <span class="choice-letter">A.</span>
+            Yes — written disclosure was provided so the ABA requirements are fully met
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc2',true,'B')" id="sc2-B">
+            <span class="choice-letter">B.</span>
+            No — ABA requires genuine free consumer choice. Steering borrowers away from alternatives eliminates that choice, violating the second ABA requirement.
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc2',false,'C')" id="sc2-C">
+            <span class="choice-letter">C.</span>
+            Yes — 40% ownership is below majority so RESPA does not apply to this arrangement
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc2',false,'D')" id="sc2-D">
+            <span class="choice-letter">D.</span>
+            No — ABA arrangements are always illegal regardless of the disclosures provided
+          </button>
+        </div>
+        <div class="verdict" id="sc2-verdict"></div>
+      </div>
+
+      <!-- SCENARIO 3 -->
+      <div class="scenario-box" id="sc3">
+        <p class="scenario-text">A servicer receives a Qualified Written Request on <span class="hl-yellow">March 1st</span>. They send an acknowledgment on <span class="hl-yellow">March 7th</span> and a full substantive response on <span class="hl-yellow">April 5th</span>. No extension notice was sent. Are both deadlines met?</p>
+        <div class="scenario-choices">
+          <button class="choice-btn" onclick="answer(this,'sc3',false,'A')" id="sc3-A">
+            <span class="choice-letter">A.</span>
+            Yes — both the acknowledgment and response were sent promptly within normal business operations
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc3',false,'B')" id="sc3-B">
+            <span class="choice-letter">B.</span>
+            No — both deadlines were missed. The acknowledgment must be within 5 business days and the response within 10 business days.
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc3',true,'C')" id="sc3-C">
+            <span class="choice-letter">C.</span>
+            Partially — acknowledgment on March 7th is within 5 business days ✓, but 30 business days from March 1st falls around April 10th. April 5th is within 30 business days ✓. Both deadlines met.
+          </button>
+          <button class="choice-btn" onclick="answer(this,'sc3',false,'D')" id="sc3-D">
+            <span class="choice-letter">D.</span>
+            No — acknowledgment on March 7th (6 calendar days later) misses the 5 business day window
+          </button>
+        </div>
+        <div class="verdict" id="sc3-verdict"></div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="goSection(1)">← EVIDENCE</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 3 OF 6</span>
+        <button class="nav-btn primary" onclick="goSection(3)">KEY NUMBERS →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 3: KEY NUMBERS FLASHCARDS -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="sec-3">
+      <div class="section-heading">
+        <span>Key Numbers — Flip to Reveal</span>
+        <span class="tag">MEMORIZE</span>
+      </div>
+      <p class="section-intro">Tap each card to reveal what the number means. These numbers appear on almost every NMLS exam. Quiz yourself until you can recall them instantly.</p>
+
+      <div class="flashcard-deck">
+        <div class="flashcard-row">
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">$0</div>
+              <div class="fc-hint">SECTION 8 THRESHOLD</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>No dollar threshold.</strong><br>Any amount given for a referral violates Section 8. $5 = same as $5,000.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">3×</div>
+              <div class="fc-hint">SECTION 8 CIVIL PENALTY</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>3× the settlement service fee</strong><br>(not 3× the kickback). $400 service + $10 kickback = $1,200 max civil penalty.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">3×</div>
+              <div class="fc-hint">SECTION 9 PENALTY</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>3× the title insurance charge.</strong><br>Applies when seller illegally requires buyer to use specific title company.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">2</div>
+              <div class="fc-hint">MONTHS — SECTION 10</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>Maximum escrow cushion = 2 months</strong> of projected payments. Surplus above this must be refunded within 30 days.</div>
+            </div>
+          </div>
+        </div>
+        <div class="flashcard-row">
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">5</div>
+              <div class="fc-hint">BUSINESS DAYS — QWR</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>QWR Acknowledgment deadline</strong> = 5 business days from receipt of the written request.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">30</div>
+              <div class="fc-hint">BUSINESS DAYS — QWR</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>QWR Substantive Response deadline</strong> = 30 business days. Extendable to 45 with written notice before deadline.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">$2,000</div>
+              <div class="fc-hint">QWR DAMAGES</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>Maximum statutory damages</strong> for QWR violations = $2,000 per violation + actual damages + attorney fees.</div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="flipCard(this)">
+            <div class="fc-front">
+              <div class="fc-number">3</div>
+              <div class="fc-hint">ABA REQUIREMENTS</div>
+              <div class="flip-hint">TAP TO REVEAL</div>
+            </div>
+            <div class="fc-back">
+              <div class="fc-answer"><strong>ALL 3 must be met:</strong><br>(1) Written disclosure<br>(2) Genuine free choice<br>(3) Return on ownership only</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="goSection(2)">← SCENARIO</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 4 OF 6</span>
+        <button class="nav-btn primary" onclick="goSection(4)">VIOLATION DETECTOR →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 4: VIOLATION DETECTOR -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="sec-4">
+      <div class="section-heading">
+        <span>⚡ Violation Detector</span>
+        <span class="tag">GAME</span>
+      </div>
+      <p class="vd-intro">Read each situation. Is it a <strong style="color:var(--red2)">VIOLATION</strong> or <strong style="color:var(--stamp-green)">CLEAN</strong>? Tap your verdict. No looking back.</p>
+
+      <div class="vd-cards">
+
+        <div class="vd-card" id="vd1">
+          <div class="vd-scenario">"First National Mortgage pays its loan officers a $200 bonus for each loan they close this month." — RESPA violation?</div>
+          <div>
+            <div class="vd-btns">
+              <button class="vd-btn v-violation" onclick="vdAnswer('vd1',false,'violation')">🚨 VIOLATION</button>
+              <button class="vd-btn v-clean" onclick="vdAnswer('vd1',true,'clean')">✅ CLEAN</button>
+            </div>
+            <div class="vd-result" id="vd1-result"></div>
+          </div>
+        </div>
+
+        <div class="vd-card" id="vd2">
+          <div class="vd-scenario">"A title company pays a real estate agency $1,500/month for a desk in their office. The title company gets 90% of its referrals from agents in that office." — RESPA violation?</div>
+          <div>
+            <div class="vd-btns">
+              <button class="vd-btn v-violation" onclick="vdAnswer('vd2',false,'violation')">🚨 VIOLATION</button>
+              <button class="vd-btn v-clean" onclick="vdAnswer('vd2',true,'clean')">✅ CLEAN</button>
+            </div>
+            <div class="vd-result" id="vd2-result"></div>
+          </div>
+        </div>
+
+        <div class="vd-card" id="vd3">
+          <div class="vd-scenario">"A lender's sales rep takes a real estate agent to an MLB game ($180 tickets). Two days later the agent sends 3 referrals. This has happened 6 times in the past 4 months." — RESPA violation?</div>
+          <div>
+            <div class="vd-btns">
+              <button class="vd-btn v-violation" onclick="vdAnswer('vd3',true,'violation')">🚨 VIOLATION</button>
+              <button class="vd-btn v-clean" onclick="vdAnswer('vd3',false,'clean')">✅ CLEAN</button>
+            </div>
+            <div class="vd-result" id="vd3-result"></div>
+          </div>
+        </div>
+
+        <div class="vd-card" id="vd4">
+          <div class="vd-scenario">"A builder requires all buyers in their new development to use the builder's affiliated title company. A written ABA disclosure is provided to every buyer before contract." — RESPA violation?</div>
+          <div>
+            <div class="vd-btns">
+              <button class="vd-btn v-violation" onclick="vdAnswer('vd4',true,'violation')">🚨 VIOLATION</button>
+              <button class="vd-btn v-clean" onclick="vdAnswer('vd4',false,'clean')">✅ CLEAN</button>
+            </div>
+            <div class="vd-result" id="vd4-result"></div>
+          </div>
+        </div>
+
+        <div class="vd-card" id="vd5">
+          <div class="vd-scenario">"A mortgage servicer receives a QWR on Monday. They acknowledge it on Wednesday (2 business days later) and fully respond on day 28." — RESPA violation?</div>
+          <div>
+            <div class="vd-btns">
+              <button class="vd-btn v-violation" onclick="vdAnswer('vd5',false,'violation')">🚨 VIOLATION</button>
+              <button class="vd-btn v-clean" onclick="vdAnswer('vd5',true,'clean')">✅ CLEAN</button>
+            </div>
+            <div class="vd-result" id="vd5-result"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="goSection(3)">← NUMBERS</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 5 OF 6</span>
+        <button class="nav-btn primary" onclick="goSection(5)">CLOSE THE CASE →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 5: CASE CLOSED -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="section" id="sec-5">
+      <div class="section-heading">
+        <span>Case Closed</span>
+        <span class="tag">COMPLETE</span>
+      </div>
+
+      <div class="complete-section">
+        <div class="complete-stamp" id="final-stamp">CASE CLOSED</div>
+        <div class="score-tally" id="score-tally">Loading score...</div>
+        <div class="complete-msg" id="complete-msg">Loading...</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:600px;margin:0 auto 24px;text-align:left;">
+          <div style="background:var(--paper2);border:1px solid rgba(0,0,0,0.1);padding:14px 16px;border-radius:3px;">
+            <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:#8a7050;margin-bottom:8px;">KEY TAKEAWAYS</div>
+            <div style="font-size:.88rem;line-height:1.7;color:var(--ink);">
+              ✦ Section 8: <span class="hl-yellow">No dollar threshold</span><br>
+              ✦ ABA: All <span class="hl-yellow">3 requirements</span> must be met<br>
+              ✦ MSA: Must reflect <span class="hl-yellow">fair market value</span><br>
+              ✦ Escrow cushion: max <span class="hl-yellow">2 months</span><br>
+              ✦ QWR: <span class="hl-yellow">5 days</span> ack / <span class="hl-yellow">30 days</span> respond
+            </div>
+          </div>
+          <div style="background:var(--paper2);border:1px solid rgba(0,0,0,0.1);padding:14px 16px;border-radius:3px;">
+            <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:#8a7050;margin-bottom:8px;">EXAM TRAPS TO REMEMBER</div>
+            <div style="font-size:.88rem;line-height:1.7;color:var(--ink);">
+              ⚠ $5 gift card IS a violation<br>
+              ⚠ Pattern of dinners = kickback<br>
+              ⚠ Employer→Employee = exempt<br>
+              ⚠ ABA needs FREE choice<br>
+              ⚠ Civil = 3× <em>service fee</em>, not kickback
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-btn primary" onclick="restartAll()" style="font-size:.75rem;padding:12px 28px;">↺ REVIEW AGAIN</button>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" onclick="goSection(4)">← DETECTOR</button>
+        <span style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:#8a7050;">SECTION 6 OF 6</span>
+        <button class="nav-btn" disabled>COMPLETE ✓</button>
+      </div>
+    </div>
+
+  </div><!-- /paper -->
+</div><!-- /desk -->
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────
+let currentSection = 0;
+let xp = 0;
+let scenariosAnswered = 0;
+let scenariosCorrect = 0;
+let vdAnswered = 0;
+let vdCorrect = 0;
+let sectionsVisited = new Set([0]);
+
+const VERDICTS = {
+  sc1: {
+    correct: 'B',
+    pass: '<strong>Correct! ✓</strong> RESPA Section 8 has absolutely NO dollar threshold and NO de minimis exception. The owner is completely wrong. Even a $5 gift card given in exchange for a referral is a full Section 8 violation. The amount is irrelevant — the exchange is the violation.',
+    fail: '<strong>Not quite.</strong> RESPA Section 8 has NO dollar threshold and NO de minimis exception. Any amount — even $1 — given in exchange for a referral violates Section 8. Gift cards are explicitly "things of value" under the broad RESPA definition. The $50 amount is completely irrelevant.'
+  },
+  sc2: {
+    correct: 'B',
+    pass: '<strong>Correct! ✓</strong> An ABA requires genuine free consumer choice. When loan officers tell borrowers "we strongly recommend our title company" and imply alternatives cause problems, they are steering — eliminating the free choice that is an absolute requirement of ABA validity. The written disclosure alone is not sufficient.',
+    fail: '<strong>Not quite.</strong> ABA validity requires ALL THREE requirements simultaneously: (1) written disclosure ✓, (2) GENUINE FREE CHOICE ✗ — the verbal steering eliminates this, (3) return on ownership only. Since requirement 2 is violated by the steering behavior, this ABA arrangement violates RESPA.'
+  },
+  sc3: {
+    correct: 'C',
+    pass: '<strong>Correct! ✓</strong> QWR acknowledgment = 5 BUSINESS days. March 7th is approximately 5 business days from March 1st ✓. Substantive response = 30 BUSINESS days. 30 business days from March 1st is approximately April 10th. April 5th is BEFORE April 10th ✓. Both deadlines are met. Key reminder: these are BUSINESS days, not calendar days.',
+    fail: '<strong>Not quite.</strong> Remember: QWR deadlines are in BUSINESS days, not calendar days. Acknowledgment: 5 business days from March 1st ≈ March 7th or 8th. March 7th is within 5 business days ✓. Response: 30 business days from March 1st ≈ April 10th. April 5th is within 30 business days ✓. Both deadlines are actually met.'
+  }
+};
+
+const VD_ANSWERS = {
+  vd1: {
+    isViolation: false,
+    explanation: '✅ CLEAN — This is exempt under RESPA Section 8(c)(2). Employer-to-employee payments within the SAME company are not kickbacks. RESPA targets payments between DIFFERENT companies. Internal production bonuses are standard and completely permissible.',
+    wrongMsg: '⚠️ Actually CLEAN. Employer→employee payments within the same company are EXEMPT from Section 8. RESPA targets payments between different settlement service providers, not internal compensation.'
+  },
+  vd2: {
+    isViolation: false,
+    explanation: '✅ CLEAN (probably) — Paying fair market value rent for genuine office space is generally permissible under RESPA. The key question is whether $1,500/month is true fair market value for the space. If it is, the referrals that result are coincidental. But if the rent is inflated to reward referrals — that changes the analysis.',
+    wrongMsg: '⚠️ This is actually a GRAY AREA. Paying genuine fair market rent for real office space is generally permissible. The CFPB would scrutinize whether $1,500 truly reflects market value for the space. Mere coincidence of referrals doesn\'t automatically make fair-market rent illegal.'
+  },
+  vd3: {
+    isViolation: true,
+    explanation: '🚨 VIOLATION — The pattern is the smoking gun. Six repetitions of "entertainment → referrals within days" over 4 months establishes a clear quid pro quo arrangement. The CFPB evaluates patterns, not just individual incidents. This consistent pattern demonstrates the games/tickets are being exchanged FOR referrals.',
+    wrongMsg: '⚠️ Actually a VIOLATION. One baseball game might be innocent — but SIX repetitions of "entertainment → referrals within days" over 4 months establishes a clear kickback pattern. The CFPB looks at patterns, and this one is unmistakable.'
+  },
+  vd4: {
+    isViolation: true,
+    explanation: '🚨 VIOLATION — The second ABA requirement is broken. Written disclosure alone is not enough. The builder REQUIRES buyers to use the affiliated company — "requires" means no genuine free choice. ABA requirement #2 (genuine free consumer choice) is completely eliminated. This is a textbook ABA violation even with the written disclosure.',
+    wrongMsg: '⚠️ Actually a VIOLATION. The written disclosure satisfies ABA requirement #1, but requiring buyers to use the affiliated company eliminates ABA requirement #2 (genuine free choice). All three requirements must be met simultaneously. "Requires" + written disclosure ≠ valid ABA.'
+  },
+  vd5: {
+    isViolation: false,
+    explanation: '✅ CLEAN — Both deadlines met. Acknowledgment on Wednesday = approximately 2 business days from Monday ✓ (within the 5 business day window). Response on day 28 = within the 30 business day window ✓. No violation on either count.',
+    wrongMsg: '⚠️ Actually CLEAN. 2 business days for acknowledgment is well within the 5 business day requirement. Day 28 for the substantive response is within the 30 business day window. Both RESPA Section 6 deadlines are satisfied.'
+  }
+};
+
+// ── EVIDENCE CARD TOGGLE ─────────────────────────────────────────
+function toggleCard(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  // Close all other cards first
+  document.querySelectorAll('.evidence-card.expanded').forEach(c => {
+    c.classList.remove('expanded');
+  });
+  // Toggle this one
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+    addXP(15);
+    document.getElementById('tab-1').classList.add('done');
+    updateProgress();
+  }
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────
+function goSection(n) {
+  document.getElementById(`sec-${currentSection}`).classList.remove('active');
+  document.getElementById(`tab-${currentSection}`).classList.remove('active');
+  currentSection = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  document.getElementById(`tab-${n}`).classList.add('active');
+  sectionsVisited.add(n);
+  if (n === 5) buildSummary();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── SCENARIO ANSWERS ──────────────────────────────────────────────
+function answer(btn, scId, isCorrect, letter) {
+  const allBtns = btn.closest('.scenario-choices').querySelectorAll('.choice-btn');
+  allBtns.forEach(b => b.disabled = true);
+  const verdict = VERDICTS[scId];
+  const correctBtn = document.getElementById(`${scId}-${verdict.correct}`);
+  correctBtn.classList.add('correct');
+  if (!isCorrect) btn.classList.add('wrong');
+
+  const vEl = document.getElementById(`${scId}-verdict`);
+  vEl.innerHTML = isCorrect ? verdict.pass : verdict.fail;
+  vEl.className = `verdict show ${isCorrect ? 'pass' : 'fail'}`;
+
+  scenariosAnswered++;
+  if (isCorrect) { scenariosCorrect++; addXP(150); }
+  else addXP(50);
+
+  document.getElementById(`tab-2`).classList.add('done');
+  updateProgress();
+}
+
+// ── VIOLATION DETECTOR ────────────────────────────────────────────
+function vdAnswer(id, isViolation, choice) {
+  const card = document.getElementById(id);
+  const btns = card.querySelectorAll('.vd-btn');
+  btns.forEach(b => { b.disabled = true; b.style.opacity = '.5'; });
+  const ans = VD_ANSWERS[id];
+  const correct = (isViolation === ans.isViolation);
+  const resEl = document.getElementById(`${id}-result`);
+  resEl.innerHTML = correct ? ans.explanation : ans.wrongMsg;
+  resEl.className = `vd-result show ${correct ? (isViolation ? 'correct-v' : 'correct-c') : 'wrong'}`;
+  vdAnswered++;
+  if (correct) { vdCorrect++; addXP(120); }
+  else addXP(40);
+  document.getElementById(`tab-4`).classList.add('done');
+  updateProgress();
+}
+
+// ── FLASHCARD FLIP ────────────────────────────────────────────────
+function flipCard(card) {
+  card.classList.toggle('flipped');
+  if (card.classList.contains('flipped')) addXP(20);
+  document.getElementById(`tab-3`).classList.add('done');
+}
+
+// ── XP + PROGRESS ─────────────────────────────────────────────────
+function addXP(amount) {
+  xp += amount;
+  document.getElementById('xp-badge').textContent = xp + ' XP';
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = 8 + 3 + 8 + 5;  // cards + scenarios + flashcards + vd
+  const done = Math.min(sectionsVisited.size * 3 + scenariosAnswered * 8 + vdAnswered * 6, total * 3);
+  const pct = Math.min(Math.round((sectionsVisited.size / 6) * 40 + (scenariosAnswered / 3) * 30 + (vdAnswered / 5) * 30), 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  // Mark visited tabs
+  sectionsVisited.forEach(n => {
+    if (n > 0) document.getElementById(`tab-${n}`).classList.add('done');
+  });
+}
+
+// ── SUMMARY ───────────────────────────────────────────────────────
+function buildSummary() {
+  const totalQ = scenariosAnswered + vdAnswered;
+  const totalCorrect = scenariosCorrect + vdCorrect;
+  const pct = totalQ > 0 ? Math.round((totalCorrect / totalQ) * 100) : 0;
+  document.getElementById('score-tally').innerHTML =
+    `SCORE: ${totalCorrect} / ${totalQ} correct &nbsp;·&nbsp; ${pct}% &nbsp;·&nbsp; ${xp} XP earned`;
+  const stamp = document.getElementById('final-stamp');
+  const msg = document.getElementById('complete-msg');
+  if (pct >= 80) {
+    stamp.textContent = 'CASE CLOSED';
+    stamp.style.color = 'var(--stamp-green)';
+    stamp.style.borderColor = 'var(--stamp-green)';
+    msg.innerHTML = 'Outstanding work, Agent. You have demonstrated solid command of RESPA. The Section 8 patterns, ABA requirements, and QWR deadlines are locked in. You are ready for exam questions on this material.';
+  } else if (pct >= 60) {
+    stamp.textContent = 'REVIEW NEEDED';
+    stamp.style.color = 'var(--gold)';
+    stamp.style.borderColor = 'var(--gold)';
+    msg.innerHTML = 'Good effort. A few concepts need reinforcing — go back through the Evidence Files and pay special attention to the cards you missed. Then hit the Violation Detector again.';
+  } else {
+    stamp.textContent = 'REOPEN CASE';
+    stamp.style.color = 'var(--red2)';
+    stamp.style.borderColor = 'var(--red2)';
+    msg.innerHTML = 'This case needs more work. Go back to The Mission, re-read the Evidence Files carefully, then work through the scenarios and Violation Detector again. RESPA is heavily tested — it\'s worth the extra time.';
+  }
+}
+
+// ── RESTART ───────────────────────────────────────────────────────
+function restartAll() {
+  xp = 0; scenariosAnswered = 0; scenariosCorrect = 0; vdAnswered = 0; vdCorrect = 0;
+  sectionsVisited = new Set([0]);
+  document.querySelectorAll('.choice-btn').forEach(b => { b.disabled = false; b.className = 'choice-btn'; });
+  document.querySelectorAll('.verdict').forEach(v => v.className = 'verdict');
+  document.querySelectorAll('.vd-btn').forEach(b => { b.disabled = false; b.style.opacity = '1'; });
+  document.querySelectorAll('.vd-result').forEach(r => r.className = 'vd-result');
+  document.querySelectorAll('.flashcard').forEach(c => c.classList.remove('flipped'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent = '0 XP';
+  goSection(0);
+}
+
+updateProgress();
+</script>
+</body>
+</html>

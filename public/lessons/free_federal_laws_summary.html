@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Mortgage Laws Summary — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--shadow:rgba(0,0,0,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#17856f;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#17856f 0%,#17856fdd 100%);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.8);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.22);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);margin:28px 0 12px;padding-top:20px;border-top:1px dashed rgba(0,0,0,.12);}
+h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);margin:18px 0 8px;}
+p{font-size:.9rem;color:#3a2a10;line-height:1.75;margin-bottom:12px;}
+ul,ol{margin:10px 0 14px 20px;}
+li{font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:4px;}
+li strong{color:var(--red2);}
+.card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:36px;height:14px;background:var(--tape);border-radius:2px;}
+.card-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.card-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-bottom:8px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:.5px solid rgba(176,32,32,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:.5px solid rgba(30,92,153,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:.5px solid rgba(176,120,0,.25);}
+.highlight{background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;padding:12px 15px;margin:14px 0;font-size:.86rem;color:#3a2a10;line-height:1.65;}
+.highlight strong{color:var(--red2);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0;}
+.num-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);text-align:center;}
+.num-big{font-family:'DM Serif Display',serif;font-size:2rem;color:#17856f;line-height:1;}
+.num-lbl{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--gray2);margin-top:4px;text-transform:uppercase;}
+.num-desc{font-size:.78rem;color:#4a3a20;margin-top:6px;line-height:1.5;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem;}
+th{background:var(--paper3);color:var(--ink);font-weight:600;padding:8px 12px;text-align:left;border:1px solid var(--paper4);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.5px;}
+td{padding:8px 12px;border:1px solid var(--paper3);color:#3a2a10;vertical-align:top;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.q-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 18px;margin-bottom:12px;box-shadow:2px 3px 8px var(--shadow);}
+.q-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--gray2);margin-bottom:6px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.q-choices{display:flex;flex-direction:column;gap:6px;}
+.q-choice{font-size:.83rem;padding:8px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.1);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .15s;display:flex;gap:8px;}
+.q-choice:hover{background:var(--paper2);border-color:var(--gold2);}
+.q-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);}
+.q-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);}
+.q-choice.reveal{border-color:rgba(30,122,60,.35);}
+.q-choice:disabled{cursor:default;}
+.q-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.q-explain{display:none;margin-top:10px;padding:10px 13px;background:#fffbe8;border-left:3px solid var(--gold2);border-radius:3px;font-size:.82rem;color:#3a2a10;line-height:1.6;}
+.q-explain.show{display:block;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.checklist{list-style:none;padding:0;margin:12px 0;}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.87rem;color:#3a2a10;line-height:1.55;}
+.checklist li::before{content:'☐';font-size:1rem;color:var(--gray2);flex-shrink:0;margin-top:1px;}
+.checklist li.done::before{content:'✓';color:var(--green2);}
+.glossary-term{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:13px 16px;margin-bottom:8px;box-shadow:1px 2px 6px var(--shadow);}
+.g-term{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--ink);margin-bottom:4px;}
+.g-def{font-size:.83rem;color:#4a3a20;line-height:1.6;}
+.g-related{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);margin-top:5px;letter-spacing:.5px;}
+.footer-note{margin-top:32px;padding:16px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.8rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">FEDERAL LAW</div>
+  <div class="hdr">
+    <h1>Federal Mortgage Laws Summary</h1>
+    <p>RESPA · TILA · TRID · ECOA · HMDA · HOEPA · BSA · Quick-Reference Cheat Sheet</p>
+  </div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<h2>The Big 8 Federal Mortgage Laws</h2>
+<p>These are the laws that appear on nearly every NMLS exam. Know each law, its regulation, its enforcer, and its key provisions cold.</p>
+
+<table>
+  <tr><th>Law</th><th>Regulation</th><th>Enforcer</th><th>Core Purpose</th></tr>
+  <tr><td><strong>RESPA</strong></td><td>Regulation X</td><td>CFPB</td><td>Prohibit kickbacks in settlement services · Escrow rules · QWR</td></tr>
+  <tr><td><strong>TILA</strong></td><td>Regulation Z</td><td>CFPB</td><td>Disclose true cost of credit (APR) · Trigger terms · Right of Rescission · ATR/QM</td></tr>
+  <tr><td><strong>TRID</strong></td><td>Reg Z + Reg X</td><td>CFPB</td><td>Loan Estimate + Closing Disclosure · Tolerance buckets · Changed circumstances</td></tr>
+  <tr><td><strong>ECOA</strong></td><td>Regulation B</td><td>CFPB</td><td>Prohibit credit discrimination · Adverse action notices · 8 protected classes</td></tr>
+  <tr><td><strong>HMDA</strong></td><td>Regulation C</td><td>CFPB</td><td>Collect and report mortgage data to detect discrimination</td></tr>
+  <tr><td><strong>Fair Housing Act</strong></td><td>—</td><td>HUD / DOJ</td><td>Prohibit housing discrimination · 7 protected classes</td></tr>
+  <tr><td><strong>HOEPA</strong></td><td>Regulation Z</td><td>CFPB</td><td>Protect against predatory lending on high-cost mortgages</td></tr>
+  <tr><td><strong>BSA / PATRIOT Act</strong></td><td>—</td><td>FinCEN</td><td>Prevent money laundering · CTR and SAR requirements</td></tr>
+</table>
+
+<h2>RESPA — Quick Reference</h2>
+<div class="card"><div class="tag tag-r">Section 8 — Most Tested</div><div class="card-title">No Kickbacks Rule</div><div class="card-body">Never give or receive anything of value in exchange for a referral of settlement service business. NO dollar threshold — even $5 is a violation. The EXCHANGE is the violation, not the amount.</div></div>
+<div class="card"><div class="tag tag-a">Key Numbers</div><div class="card-title">RESPA Numbers</div><div class="card-body">Section 9 penalty: 3× title charge · Max escrow cushion: 2 months · QWR acknowledge: 5 business days · QWR respond: 30 business days</div></div>
+
+<h2>TILA — Quick Reference</h2>
+<div class="card"><div class="tag tag-r">Trigger Terms</div><div class="card-title">What Triggers Full Disclosure</div><div class="card-body">Specific rate · Specific payment · Specific loan amount · Specific down payment · Specific closing costs. Any ONE triggers all 5 required disclosures: APR, down payment, repayment terms, payment amount, number of payments.</div></div>
+<div class="card"><div class="tag tag-a">Key Numbers</div><div class="card-title">TILA Numbers</div><div class="card-body">Rescission: 3 business days (primary residence refi only) · Rescission if no notice: 3 YEARS · QM DTI: 43% max · QM fees: 3% of loan amount · QM term: 30 years max</div></div>
+
+<h2>TRID — Quick Reference</h2>
+<div class="highlight"><strong>The 6 Application Elements:</strong> Name · SSN · Income · Property Address · Estimated Value · Loan Amount. Credit score is NOT one of them — this is the #1 TRID exam trap.</div>
+<div class="card"><div class="tag tag-a">Key Deadlines</div><div class="card-title">TRID Timeline</div><div class="card-body">LE delivery: 3 business days from complete application · CD delivery: 3 business days BEFORE closing · Min LE to closing: 7 calendar days · Cure window: 3 CALENDAR years</div></div>
+
+<h2>ECOA vs Fair Housing Act — Protected Classes</h2>
+<table>
+  <tr><th>ECOA (Regulation B)</th><th>Fair Housing Act</th></tr>
+  <tr><td>Race</td><td>Race</td></tr>
+  <tr><td>Color</td><td>Color</td></tr>
+  <tr><td>Religion</td><td>Religion</td></tr>
+  <tr><td>National Origin</td><td>National Origin</td></tr>
+  <tr><td>Sex</td><td>Sex</td></tr>
+  <tr><td><strong>Marital Status ← ECOA only</strong></td><td><strong>Familial Status ← FHA only</strong></td></tr>
+  <tr><td><strong>Age ← ECOA only</strong></td><td><strong>Disability ← FHA only</strong></td></tr>
+  <tr><td><strong>Public Assistance ← ECOA only</strong></td><td>—</td></tr>
+</table>
+
+<h2>HMDA Action Codes</h2>
+<table>
+  <tr><th>Code</th><th>Meaning</th><th>Who Stopped It?</th></tr>
+  <tr><td><strong>1</strong></td><td>Loan Originated</td><td>—</td></tr>
+  <tr><td><strong>2</strong></td><td>Approved but Not Accepted</td><td>Borrower (after approval)</td></tr>
+  <tr><td><strong>3</strong></td><td>Application Denied</td><td>Lender</td></tr>
+  <tr><td><strong>4</strong></td><td>Application Withdrawn</td><td>Borrower (before decision)</td></tr>
+  <tr><td><strong>5</strong></td><td>File Closed for Incompleteness</td><td>—</td></tr>
+  <tr><td><strong>6</strong></td><td>Loan Purchased by Institution</td><td>—</td></tr>
+</table>
+
+<h2>HOEPA — High-Cost Mortgage Triggers</h2>
+<p>ANY ONE of three tests triggers HOEPA high-cost status:</p>
+<ul>
+  <li><strong>APR test:</strong> First lien: APOR + 6.5% · Second lien: APOR + 8.5%</li>
+  <li><strong>Points-and-fees test:</strong> Fees exceed 5% of loan amount</li>
+  <li><strong>Prepayment penalty test:</strong> Penalty exceeds certain thresholds</li>
+</ul>
+<div class="highlight"><strong>Prohibited in HOEPA loans:</strong> Balloon payments · Negative amortization · Prepayment penalties · Due-on-demand clauses · Single-premium credit insurance</div>
+
+<h2>BSA Key Numbers</h2>
+<div class="grid">
+  <div class="num-card"><div class="num-big">$10K</div><div class="num-lbl">CTR Threshold</div><div class="num-desc">Cash transactions over $10,000 require Currency Transaction Report. Filed within 15 days.</div></div>
+  <div class="num-card"><div class="num-big">30</div><div class="num-lbl">SAR Days</div><div class="num-desc">Suspicious Activity Report must be filed within 30 days of detection. Extendable to 60 days.</div></div>
+</div>
+
+  <div class="footer-note">NMLS Prep · Free Study Resource · nmlsprep.com · For exam preparation use only.</div>
+</div>
+</div>
+<script>
+function answer(btn, qId, correct, letter) {
+  const q = document.getElementById(qId);
+  q.querySelectorAll('.q-choice').forEach(b => b.disabled = true);
+  const correctEl = q.querySelector('[data-correct="true"]');
+  if(correctEl) correctEl.classList.add('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const ex = document.getElementById(qId + '-ex');
+  if(ex) ex.classList.add('show');
+}
+</script>
+</body>
+</html>

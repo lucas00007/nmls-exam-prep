@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HMDA & Fair Housing — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#c0580a;--accent2:#8a3500;--accent3:#fde8d0;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#8a3500cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>HMDA & Fair Housing</h1>
+        <p>Data Reporting · Discrimination · Steering · Redlining</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">Two laws, one lesson. HMDA requires lenders to collect and report mortgage data so regulators can detect discriminatory patterns. The Fair Housing Act prohibits discrimination in housing transactions including lending. Together they form the cornerstone of fair lending enforcement.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">What Is HMDA?</div>
+      <div class="ev-body">Home Mortgage Disclosure Act. Requires mortgage lenders to collect and report data on loan applications. Purpose: enable regulators to identify potential discrimination and monitor lending patterns.</div>
+      <span class="ev-tag tag-b">Data transparency</span>
+      <div class="ev-expand"><strong>Exam note:</strong> HMDA does not make lending decisions — it collects data for ANALYSIS. A disparity in HMDA data triggers investigation but is not itself proof of discrimination. HMDA is the starting point for fair lending examination, not the conclusion.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">Fair Housing Act — 7 Classes</div>
+      <div class="ev-body">Race · Color · National Origin · Religion · Sex · <strong>Familial Status</strong> · <strong>Disability</strong>. Prohibits discrimination in selling, renting, and financing residential property.</div>
+      <span class="ev-tag tag-r">7 protected classes</span>
+      <div class="ev-expand"><strong>Key distinction:</strong> Familial status (having children under 18) and Disability are FHA-protected but NOT ECOA-protected (ECOA has age and marital status instead). The exam tests which classes belong to which law constantly.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">HMDA Action Codes</div>
+      <div class="ev-body">Code 1=Originated · Code 2=Approved not accepted · Code 3=Denied · Code 4=Withdrawn · Code 5=Incomplete · Code 6=Purchased by institution. Report the outcome that actually occurred.</div>
+      <span class="ev-tag tag-r">Memorize codes</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Code 2 = lender APPROVED but borrower did not accept (walked away after approval). Code 4 = borrower WITHDREW before a decision. These are frequently confused. The distinguishing factor: who stopped the process — the lender (denial) or the borrower (withdrawal)?</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">Redlining</div>
+      <div class="ev-body">Refusing to lend in certain geographic areas based on the racial composition of those areas. BOTH the FHA Section 3604 AND ECOA prohibit redlining. HMDA data is used to detect it.</div>
+      <span class="ev-tag tag-r">Illegal practice</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Redlining is identified by comparing a lender's lending patterns to demographic maps. If a lender consistently avoids majority-minority neighborhoods while serving similar white neighborhoods, HMDA data will reveal the pattern — triggering a fair lending examination.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">Steering</div>
+      <div class="ev-body">Directing borrowers toward or away from certain neighborhoods or loan products based on their race, ethnicity, or other protected class. FHA Section 3604(e) prohibits steering.</div>
+      <span class="ev-tag tag-r">FHA violation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Steering has two forms: (1) geographic steering — directing buyers to neighborhoods based on race; (2) product steering — directing certain groups to subprime/HOEPA products when they qualify for prime. Both violate FHA and potentially ECOA.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">Blockbusting</div>
+      <div class="ev-body">Using racial change in a neighborhood to induce panic selling. "The neighborhood is changing — you should sell now before property values drop." Violates Fair Housing Act Section 3604(e).</div>
+      <span class="ev-tag tag-r">FHA violation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Blockbusting is primarily a real estate agent issue but mortgage professionals can be implicated if they participate in the scheme. It is the deliberate exploitation of racial fear to generate real estate transactions.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">HMDA Face-to-Face Collection</div>
+      <div class="ev-body">For in-person applications, MLO must: (1) ask the borrower to self-identify race/ethnicity, and (2) if borrower declines, record BOTH the refusal AND their visual observation of the borrower's apparent characteristics.</div>
+      <span class="ev-tag tag-a">Visual observation</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Visual observation is REQUIRED for face-to-face applications when borrower refuses to self-identify — NOT optional. For non-face-to-face (phone/online), visual observation is impossible, so "information not provided" is recorded instead.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">FHA Advertising — Section 3604(c)</div>
+      <div class="ev-body">Ads cannot indicate any preference, limitation, or discrimination based on protected classes. Applies to language, human models, and media selection. ALL-white photo models in all marketing signals exclusion.</div>
+      <span class="ev-tag tag-r">Ad discrimination</span>
+      <div class="ev-expand"><strong>Exam note:</strong> HUD guidelines require advertising models to reflect the racial/ethnic diversity of the community. Using exclusively one racial group in all marketing materials indicates a preference that violates FHA Section 3604(c) — even without explicitly discriminatory language.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">Disparate Impact Under FHA</div>
+      <div class="ev-body">A neutral policy with a disproportionate adverse effect on a protected class can violate the FHA even without discriminatory intent. Statistical analysis of HMDA data is the primary detection tool.</div>
+      <span class="ev-tag tag-a">No intent needed</span>
+      <div class="ev-expand"><strong>Three-step test:</strong> (1) Does the policy have disparate impact on a protected class? (2) Is the policy justified by a legitimate business necessity? (3) Could a less discriminatory alternative achieve the same result? All three steps matter.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">HMDA Reporting Threshold</div>
+      <div class="ev-body">Generally applies to lenders that originate at least 25 covered closed-end loans OR 100 covered open-end lines in each of the two preceding calendar years and meet other criteria.</div>
+      <span class="ev-tag tag-a">Who must report</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Small lenders below the threshold are generally exempt from HMDA reporting. However, the exam typically assumes lenders ARE subject to HMDA and focuses on HOW to report rather than WHEN reporting applies.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">Familial Status Protection</div>
+      <div class="ev-body">Familial status = having children under 18 in the household. Cannot discriminate against families with children in housing or mortgage lending. Exception: legitimate 55+ senior housing communities.</div>
+      <span class="ev-tag tag-r">FHA only class</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> "No children allowed" or "adults only" advertising is ILLEGAL under FHA familial status protection — UNLESS the community qualifies as a legitimate 55+ senior housing community under the Housing for Older Persons Act (HOPA). Age-restricted communities have a narrow, documented exemption.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — HMDA ACTION CODES</div>
+    <p class="sc-text">A mortgage application is approved by the lender on August 5th. The borrower reviews the final terms and decides <mark>not to proceed</mark>, notifying the lender on August 10th before any closing documents are signed. What HMDA action code applies?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>Code 3 — Application denied, since the loan did not close</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Code 2 — Application approved but not accepted by the applicant. The lender approved it; the borrower chose not to proceed after approval.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>Code 4 — Application withdrawn by applicant, since the borrower stopped the process</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>Code 1 — Loan originated, since the approval was issued</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — FAIR HOUSING ADVERTISING</div>
+    <p class="sc-text">A lender's marketing materials contain 40 photographs. All 40 photos show <mark>exclusively White families</mark>. A fair housing organization files a complaint under FHA Section 3604(c). Is there merit to the complaint?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>No — photo selection is artistic choice and not regulated by federal law</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>Yes — FHA Section 3604(c) prohibits advertising that indicates any preference or limitation based on race. Using exclusively White models in all 40 photos signals racial exclusion to minority buyers.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>No — the ads contain no explicitly discriminatory language so no violation occurred</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>Yes — but only if minority applicants can show they were actually deterred from applying</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — STEERING SCENARIO</div>
+    <p class="sc-text">An MLO reviews two applications with identical credit profiles and incomes. She directs the <mark>White applicant</mark> to a 6.5% conventional loan. She directs the <mark>Hispanic applicant</mark> to a 8.5% subprime product. Both qualify for the conventional loan. What violation occurred?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>No violation — the MLO used judgment about which product fits each borrower</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>Product steering — directing a protected class to a more expensive loan product when they qualify for a better one violates both the Fair Housing Act and ECOA Regulation B.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>RESPA violation — the interest rate difference constitutes an undisclosed kickback</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>TILA violation — different rates for similar borrowers violates APR disclosure rules</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">7</div><div class="fc-lbl">FHA PROTECTED CLASSES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Race · Color · National Origin · Religion · Sex · <strong>Familial Status · Disability</strong>. Familial status and disability are FHA-only.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">8</div><div class="fc-lbl">ECOA PROTECTED CLASSES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Race · Color · National Origin · Religion · Sex · <strong>Marital Status · Age · Public Assistance</strong>. Marital status and age are ECOA-only.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">1</div><div class="fc-lbl">HMDA CODE — ORIGINATED</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Code 1 = <strong>Loan originated</strong>. The loan closed and was funded.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">2</div><div class="fc-lbl">HMDA CODE — NOT ACCEPTED</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Code 2 = <strong>Approved but not accepted</strong>. Lender said yes; borrower walked away after approval.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">HMDA CODE — DENIED</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Code 3 = <strong>Application denied</strong> by the financial institution.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">4</div><div class="fc-lbl">HMDA CODE — WITHDRAWN</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Code 4 = <strong>Withdrawn by applicant</strong> — borrower stopped process BEFORE lender decision.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3604c</div><div class="fc-lbl">FHA ADVERTISING</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">FHA Section 3604(c) prohibits advertising indicating any preference based on protected class — including through <strong>imagery alone</strong>.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">HOPA</div><div class="fc-lbl">55+ EXEMPTION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Housing for Older Persons Act — allows legitimate <strong>55+ senior communities</strong> to restrict to older residents. Must meet specific requirements.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five fair lending situations. Violation or compliant? Make the call.</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">A real estate agent tells Black homebuyers: <mark>"That neighborhood is changing — I think you'd be more comfortable in the Eastside area."</mark> and only shows them homes in predominantly Black neighborhoods.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">A lender's HMDA data shows that loan approval rates for minority applicants are 15% lower than for White applicants with similar incomes. The lender has not reviewed the data for fair lending compliance.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">An online mortgage application system allows borrowers to voluntarily self-identify race and ethnicity. A borrower who applies online leaves those fields blank. The lender records "information not provided."</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">A retirement community advertises "For Residents 55 and Older — No Children Under 18." The community meets all HOPA requirements for senior housing designation.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">An MLO reviews a face-to-face application. The borrower declines to provide race/ethnicity information. The MLO records only "declined to provide" with no other notation.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>FHA: 7 classes including familial status and disability</li><li>ECOA: 8 classes including marital status and age</li><li>HMDA codes 1-6 — know each one cold</li><li>Steering: directing based on protected class = FHA violation</li><li>Redlining detected through HMDA geographic patterns</li><li>Disparate impact can violate FHA without intent</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>Code 2 vs Code 4 — who stopped the process?</li><li>FHA vs ECOA — which class belongs to which law</li><li>Visual observation required face-to-face only</li><li>All-white photos in ads = FHA 3604(c) violation</li><li>HMDA disparity triggers investigation, not automatic violation</li><li>55+ communities have HOPA exemption from familial status</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> Code 2 = Approved but not accepted. The KEY distinction: the LENDER approved the loan. The BORROWER chose not to proceed after receiving the approval. Code 4 (withdrawn) would apply if the borrower pulled out BEFORE the lender made a decision.',
+    fail:'<strong>Not quite.</strong> Code 2 = Approved but not accepted (lender said yes, borrower walked away after approval). Code 4 = Withdrawn (borrower stopped the process BEFORE the lender made a decision). Here the lender already approved — so it\'s Code 2, not Code 4.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> FHA Section 3604(c) prohibits advertising that indicates any preference based on race — including through imagery alone. HUD guidelines require models to reflect community diversity. Using exclusively White models in all 40 photos communicates a racial preference that violates FHA, regardless of the absence of explicit discriminatory language.',
+    fail:'<strong>Not quite.</strong> FHA Section 3604(c) covers more than explicit language — it covers any advertising that "indicates" a preference. Using exclusively White models in all marketing materials communicates racial exclusion to minority buyers, violating FHA even without explicit language.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> Product steering is a form of discrimination that violates both FHA and ECOA. Directing a Hispanic applicant to a subprime 8.5% product when they qualify for a 6.5% conventional loan — while directing a White applicant with identical profile to the conventional product — is textbook discriminatory product steering.',
+    fail:'<strong>Not quite.</strong> Product steering — directing protected class members to more expensive/less favorable products when they qualify for better options — violates both the Fair Housing Act and ECOA. Identical financial profiles, different product recommendations based on race/ethnicity = discrimination.'},
+};
+const RUA={
+  rul1:{v:true,
+    correct:'Fair Housing Act violation — geographic steering. The agent is directing buyers toward and away from neighborhoods based on racial composition. This is textbook steering under FHA Section 3604(e), regardless of how "helpful" the agent believes they are being.',
+    wrong:'Actually a violation. Directing buyers to or from neighborhoods based on their race or the racial composition of neighborhoods is illegal steering under FHA Section 3604(e). The agent\'s intent to be "helpful" is irrelevant — the conduct itself is the violation.'},
+  rul2:{v:true,
+    correct:'Fair lending concern — potential ECOA/FHA violation. HMDA disparities trigger a fair lending examination. The lender\'s failure to monitor and analyze their own HMDA data for compliance patterns is itself a compliance management deficiency.',
+    wrong:'Actually a violation concern. HMDA disparities trigger regulatory scrutiny and fair lending examinations. A 15% approval rate gap for similar income profiles is a significant red flag. Failing to monitor HMDA data for compliance is also a compliance management failure.'},
+  rul3:{v:false,
+    correct:'Compliant. For non-face-to-face applications (online, phone), visual observation is not possible. When a borrower does not self-identify, "information not provided" is the correct HMDA recording. This differs from face-to-face applications where visual observation is required.',
+    wrong:'Actually compliant. For online applications, the lender cannot observe the applicant. When borrowers decline to self-identify, "information not provided" is the proper HMDA code for non-face-to-face applications. Visual observation is only required for in-person applications.'},
+  rul4:{v:false,
+    correct:'Compliant. The Housing for Older Persons Act (HOPA) provides a specific exemption from FHA familial status protection for qualifying 55+ senior communities. Communities meeting HOPA requirements may legally restrict to older residents.',
+    wrong:'Actually compliant. HOPA (Housing for Older Persons Act) creates a specific exemption from FHA\'s familial status protection for qualifying 55+ communities. When a community meets all HOPA requirements, age-based restrictions on children are permitted.'},
+  rul5:{v:true,
+    correct:'HMDA violation. For face-to-face applications where borrowers decline to self-identify, MLOs must record BOTH the refusal AND their visual observation of the applicant\'s apparent race and ethnicity. Recording only "declined" without the visual observation is incomplete HMDA reporting.',
+    wrong:'Actually a violation. HMDA requires that for face-to-face applications with borrower refusal to self-identify, the MLO must record BOTH the refusal AND their visual observation of apparent race/ethnicity. Omitting the visual observation portion is a HMDA reporting deficiency.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

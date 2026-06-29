@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLO Focus Quiz — Weak Areas & Key Numbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628; --navy2: #0f2040; --navy3: #162a4a;
+    --gold: #c9a84c; --gold2: #e8c96a; --gold3: #f5e099;
+    --cream: #f5f0e8; --white: #ffffff;
+    --green: #2d7a4f; --green-light: #d4edda; --green-dark: #1a5c35;
+    --red: #8b2020; --red-light: #fde8e8; --red-dark: #7a1a1a;
+    --gray: #6b7280; --gray2: #9ca3af;
+    --border: rgba(201,168,76,0.2);
+    --border2: rgba(201,168,76,0.4);
+    --accent-blue: #1e4a8c; --accent-blue2: #2563c4;
+    --accent-teal: #0d6e6e; --accent-teal2: #0f9999;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--navy); color: var(--cream); min-height: 100vh; }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: linear-gradient(135deg, #061020 0%, #0f2040 60%, #1a3a5c 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 28px 32px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(201,168,76,0.025) 50px, rgba(201,168,76,0.025) 100px);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+  }
+  .header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px; position: relative;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; color: var(--gold2);
+    letter-spacing: 0.5px; position: relative; margin-bottom: 8px;
+  }
+  .header-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem; color: rgba(245,240,232,0.5);
+    letter-spacing: 2px; text-transform: uppercase; position: relative;
+  }
+  .header-badges {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-top: 14px; position: relative;
+  }
+  .hbadge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+    border: 1px solid var(--border2); color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* ─── TOPIC SCREEN ─── */
+  #topic-screen { max-width: 860px; margin: 36px auto; padding: 0 20px; }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px; padding-left: 2px;
+  }
+  .topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px; }
+
+  .topic-card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 14px;
+    position: relative; overflow: hidden;
+  }
+  .topic-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: transparent; transition: background 0.2s;
+  }
+  .topic-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .topic-card:hover::before { background: var(--gold); }
+  .topic-card.active { border-color: var(--gold2); background: rgba(201,168,76,0.1); }
+  .topic-card.active::before { background: var(--gold2); }
+  .topic-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .topic-info h3 { font-size: 0.88rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+  .topic-info span { font-size: 0.72rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
+  .topic-count {
+    margin-left: auto; flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    padding: 3px 8px; border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  .btn-start {
+    display: block; width: 100%; max-width: 340px; margin: 24px auto 0;
+    padding: 15px 32px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+    color: var(--navy); font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700; font-size: 0.95rem; letter-spacing: 1.5px;
+    text-transform: uppercase; border: none; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,0.3); }
+  .btn-start:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ─── QUIZ SCREEN ─── */
+  #quiz-screen { display: none; max-width: 760px; margin: 36px auto; padding: 0 20px; }
+
+  .quiz-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+  }
+  .topic-badge {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border2);
+    padding: 5px 14px; border-radius: 20px;
+  }
+  .progress-text { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--gray); }
+  .score-live {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
+    color: var(--gold2); background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px;
+  }
+
+  .prog-wrap { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-bottom: 28px; }
+  .prog-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 2px; transition: width 0.4s ease; }
+
+  .q-card {
+    background: var(--navy2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 30px 32px; margin-bottom: 18px;
+    animation: fadeUp 0.3s ease;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .q-meta { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+  .q-type { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray2); }
+  .q-category {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .cat-weak { background: rgba(37,99,196,0.15); color: #7ab3f0; border: 1px solid rgba(37,99,196,0.3); }
+  .cat-num  { background: rgba(15,153,153,0.15); color: #5dd6d6; border: 1px solid rgba(15,153,153,0.3); }
+
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; line-height: 1.65; color: var(--cream); margin-bottom: 22px;
+  }
+
+  .opts { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .opt-btn {
+    width: 100%; text-align: left;
+    padding: 13px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 8px; color: var(--cream);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.18s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,0.07); }
+  .opt-lbl {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 600;
+    flex-shrink: 0; transition: all 0.18s;
+  }
+  .opt-btn.correct { border-color: var(--green); background: var(--green-light); color: var(--green-dark); }
+  .opt-btn.correct .opt-lbl { background: var(--green); color: white; }
+  .opt-btn.wrong { border-color: var(--red); background: var(--red-light); color: var(--red-dark); }
+  .opt-btn.wrong .opt-lbl { background: var(--red); color: white; }
+  .opt-btn.reveal { border-color: var(--green); background: rgba(45,122,79,0.12); color: var(--cream); }
+  .opt-btn:disabled { cursor: default; }
+
+  .explain {
+    display: none; margin-top: 18px; padding: 16px 18px;
+    border-radius: 8px; border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.05);
+    animation: fadeUp 0.25s ease;
+  }
+  .explain.show { display: block; }
+  .explain strong {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+    display: block; margin-bottom: 7px;
+  }
+  .explain p { font-size: 0.875rem; line-height: 1.65; color: rgba(245,240,232,0.82); }
+  .explain .key-num {
+    display: inline-block; margin-top: 8px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
+    color: var(--gold2); background: rgba(201,168,76,0.1);
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 6px;
+  }
+  .btn-nav {
+    padding: 11px 26px; border-radius: 7px;
+    font-family: 'IBM Plex Sans', sans-serif; font-weight: 600;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .btn-next { background: var(--gold); color: var(--navy); }
+  .btn-next:hover { background: var(--gold2); }
+  .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-back { background: transparent; border: 1px solid var(--border); color: var(--gray); }
+  .btn-back:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── SCORE SCREEN ─── */
+  #score-screen {
+    display: none; max-width: 560px;
+    margin: 60px auto; padding: 0 20px; text-align: center;
+  }
+  .score-ring {
+    width: 150px; height: 150px; border-radius: 50%;
+    border: 3px solid var(--gold);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  .score-big { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--gold2); line-height: 1; }
+  .score-of { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--gray); margin-top: 2px; }
+  .grade-pill {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 7px 20px; border-radius: 20px;
+    display: inline-block; margin-bottom: 24px;
+  }
+  .pass { background: rgba(45,122,79,0.2); color: #4caf82; border: 1px solid #2d7a4f; }
+  .fail { background: rgba(139,32,32,0.2); color: #e07070; border: 1px solid #8b2020; }
+  .score-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--cream); margin-bottom: 10px; }
+  .score-msg { color: var(--gray); font-size: 0.88rem; line-height: 1.65; margin-bottom: 28px; }
+
+  .breakdown {
+    background: var(--navy2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; text-align: left;
+  }
+  .breakdown-title {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .breakdown-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.83rem;
+  }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-row span:first-child { color: var(--cream); }
+  .breakdown-score { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; }
+  .bs-good { color: #4caf82; }
+  .bs-bad  { color: #e07070; }
+
+  .score-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-retry { background: var(--gold); color: var(--navy); padding: 12px 26px; border: none; border-radius: 7px; font-weight: 700; cursor: pointer; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem; }
+  .btn-retry:hover { background: var(--gold2); }
+  .btn-menu { background: transparent; border: 1px solid var(--border); color: var(--cream); padding: 12px 26px; border-radius: 7px; cursor: pointer; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem; }
+  .btn-menu:hover { border-color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <p class="header-eyebrow">NMLS SAFE Exam — Targeted Practice</p>
+  <h1>Focus Quiz</h1>
+  <p class="header-sub">Weak Areas &amp; Key Numbers · Exam-Style Questions</p>
+  <div class="header-badges">
+    <span class="hbadge">ARM &amp; Adjustments</span>
+    <span class="hbadge">TRID Tolerances</span>
+    <span class="hbadge">RESPA Section 8</span>
+    <span class="hbadge">ECOA vs FHA</span>
+    <span class="hbadge">Waiting Periods</span>
+    <span class="hbadge">DTI Calculation</span>
+    <span class="hbadge">Pre-Qual vs Pre-Approval</span>
+    <span class="hbadge">Key Numbers</span>
+  </div>
+</div>
+
+<div id="topic-screen">
+  <div style="max-width:860px; margin:36px auto; padding:0 20px;">
+    <p class="section-label">⚡ Targeted study sessions — choose a category</p>
+    <div class="topics-grid" id="topics-grid"></div>
+    <div class="divider"></div>
+    <button class="btn-start" id="btn-start" disabled>Start Quiz →</button>
+  </div>
+</div>
+
+<div id="quiz-screen">
+  <div class="quiz-topbar">
+    <span class="topic-badge" id="topic-badge"></span>
+    <span class="progress-text" id="progress-text"></span>
+    <span class="score-live" id="score-live">Score: 0</span>
+  </div>
+  <div class="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
+  <div class="q-card" id="q-card">
+    <div class="q-meta">
+      <span class="q-type" id="q-type"></span>
+      <span class="q-category" id="q-cat"></span>
+    </div>
+    <div class="q-text" id="q-text"></div>
+    <ul class="opts" id="opts"></ul>
+    <div class="explain" id="explain">
+      <strong>Explanation</strong>
+      <p id="explain-text"></p>
+    </div>
+  </div>
+  <div class="quiz-nav">
+    <button class="btn-nav btn-back" id="btn-back">← Topics</button>
+    <button class="btn-nav btn-next" id="btn-next" disabled>Next →</button>
+  </div>
+</div>
+
+<div id="score-screen">
+  <div class="score-ring">
+    <span class="score-big" id="score-big">0</span>
+    <span class="score-of" id="score-of">/ 0</span>
+  </div>
+  <div class="grade-pill" id="grade-pill"></div>
+  <h2 class="score-title" id="score-title"></h2>
+  <p class="score-msg" id="score-msg"></p>
+  <div class="breakdown" id="breakdown"></div>
+  <div class="score-btns">
+    <button class="btn-retry" id="btn-retry">Retry Topic</button>
+    <button class="btn-menu" id="btn-menu">All Topics</button>
+  </div>
+</div>
+
+<script>
+const TOPICS = [
+  { id:0, icon:'📈', name:'ARM Adjustments, Caps & Indexes',    short:'Weak area', cat:'weak' },
+  { id:1, icon:'📋', name:'TRID Tolerance Categories',          short:'Weak area', cat:'weak' },
+  { id:2, icon:'🚫', name:'RESPA Section 8 Kickbacks',          short:'Weak area', cat:'weak' },
+  { id:3, icon:'⚖️', name:'ECOA vs Fair Housing Act',           short:'Weak area', cat:'weak' },
+  { id:4, icon:'⏳', name:'Waiting Periods — Bankruptcy & Foreclosure', short:'Weak area', cat:'weak' },
+  { id:5, icon:'📊', name:'DTI — Front-End vs Back-End',        short:'Weak area', cat:'weak' },
+  { id:6, icon:'🔍', name:'Pre-Qualification vs Pre-Approval',  short:'Weak area', cat:'weak' },
+  { id:7, icon:'🔢', name:'Key Numbers — Must Know Cold',        short:'High-yield', cat:'num'  },
+];
+
+const ALL_Q = [
+
+// ═══════════════════════════════════════
+// TOPIC 0 — ARM Adjustments, Caps & Indexes
+// ═══════════════════════════════════════
+{t:0,type:'mc',text:'In a 5/1 ARM with a 2/2/5 cap structure, what does the first "2" represent?',opts:['The lifetime cap on rate increases','The maximum rate change at the first adjustment after the fixed period','The margin added to the index','The number of years before the first adjustment'],ans:1,exp:'In a 2/2/5 cap structure: the first number (2) is the initial adjustment cap — the max the rate can change at the FIRST adjustment after the fixed period ends. The second 2 is the periodic cap for each subsequent adjustment, and 5 is the lifetime cap.',key:null},
+{t:0,type:'mc',text:'A borrower has a 5/1 ARM with a 2/2/5 cap, starting rate of 4%, and the index rises 3% at the first adjustment. What is the new rate?',opts:['7%','6%','9%','5%'],ans:1,exp:'The initial adjustment cap is 2%, so even though the index rose 3%, the rate can only increase by 2% at the first adjustment. 4% + 2% = 6%. The cap protects the borrower from the full index increase.',key:'Initial cap limits first adjustment — not the full index change'},
+{t:0,type:'tf',text:'True or False: The "margin" on an ARM is the portion of the interest rate that changes with the market index.',opts:['True','False'],ans:1,exp:'The MARGIN is the fixed portion added to the index — it never changes over the life of the loan. The INDEX is the variable portion that moves with the market. Rate = Index + Margin. The margin is set at origination and stays constant.',key:'Rate = Index + Margin (margin is FIXED; index FLOATS)'},
+{t:0,type:'mc',text:'Which index is most commonly used for conventional ARM products today, having replaced LIBOR?',opts:['Prime Rate','Treasury Constant Maturity (TCM)','Secured Overnight Financing Rate (SOFR)','11th District Cost of Funds Index (COFI)'],ans:2,exp:'SOFR (Secured Overnight Financing Rate) replaced LIBOR as the dominant ARM index after LIBOR was phased out. SOFR is based on overnight U.S. Treasury repurchase agreement transactions and is considered more reliable and transparent.',key:'SOFR replaced LIBOR — know this for the exam'},
+{t:0,type:'mc',text:'A borrower\'s 5/1 ARM has a lifetime cap of 5% and a start rate of 3.5%. What is the maximum rate this loan can ever reach?',opts:['8%','8.5%','9%','5%'],ans:1,exp:'The lifetime cap limits the total increase over the initial rate. 3.5% (start rate) + 5% (lifetime cap) = 8.5% maximum. The lifetime cap applies to the TOTAL movement from the starting rate, not from a later adjusted rate.',key:'Max rate = Start rate + Lifetime cap'},
+{t:0,type:'tf',text:'True or False: On an ARM, the "fully indexed rate" is calculated by adding the margin to the current index value.',opts:['True','False'],ans:0,exp:'The fully indexed rate = current index value + margin. This is the rate the loan would adjust to if it adjusted today without caps. Lenders qualify borrowers at the fully indexed rate or the initial rate — whichever is higher — to ensure they can afford future adjustments.',key:'Fully indexed rate = Index + Margin'},
+{t:0,type:'mc',text:'What does the "periodic cap" on an ARM protect against?',opts:['The rate rising above the initial rate ever','Large rate jumps at each individual adjustment period after the first','The loan balance increasing due to negative amortization','Rate changes during the initial fixed period'],ans:1,exp:'The periodic (or adjustment) cap limits how much the rate can change at EACH adjustment period after the first. In a 2/2/5 cap structure, the second "2" means the rate cannot rise or fall more than 2% at any single subsequent adjustment.',key:null},
+{t:0,type:'mc',text:'A borrower is qualifying for a 7/1 ARM at an initial rate of 3.75%. The fully indexed rate is 5.5%. How should the lender qualify the borrower?',opts:['At 3.75% — the initial note rate','At 5.5% — the fully indexed rate','At 6.75% — the initial rate plus the periodic cap','At the average of 3.75% and 5.5%'],ans:1,exp:'Per Fannie Mae guidelines, borrowers must be qualified at the GREATER of the note rate or the fully indexed rate. Since 5.5% > 3.75%, the lender qualifies at 5.5%. This ensures the borrower can afford the loan when it adjusts.',key:'Qualify at the HIGHER of note rate or fully indexed rate'},
+{t:0,type:'tf',text:'True or False: A "payment cap" on an ARM limits how much the monthly payment can increase, which can lead to negative amortization.',opts:['True','False'],ans:0,exp:'A payment cap limits the dollar amount of monthly payment increases. If the interest rate rises but the payment cap prevents the full payment increase, the unpaid interest is added to the loan balance — creating negative amortization. Negative amortization is prohibited on Qualified Mortgages.',key:'Payment cap can cause negative amortization — not allowed on QM loans'},
+{t:0,type:'mc',text:'In an ARM, what is the "adjustment period"?',opts:['The initial fixed-rate period before any adjustment','How frequently the interest rate can change after the fixed period ends','The time between application and first payment','The period during which the borrower can lock in a rate'],ans:1,exp:'The adjustment period defines how frequently the rate changes after the initial fixed period. A 5/1 ARM adjusts every 1 year. A 5/6 ARM adjusts every 6 months. The adjustment period determines how often the borrower\'s rate — and often their payment — changes.',key:null},
+{t:0,type:'mc',text:'Which of the following is TRUE about ARM "teaser rates"?',opts:['They are permanent introductory rates that never change','They are initial rates below the fully indexed rate used to attract borrowers, after which the rate adjusts upward','They are only available on government-backed ARM loans','They are prohibited under Dodd-Frank on all ARM products'],ans:1,exp:'A teaser rate is an artificially low initial rate below the fully indexed rate. They attract borrowers with lower initial payments but can lead to payment shock when the rate adjusts. Lenders must qualify borrowers at the fully indexed rate — not the teaser rate — to prevent predatory lending.',key:null},
+{t:0,type:'tf',text:'True or False: The 2/2/5 cap structure means the rate can never increase more than 2% total over the life of the loan.',opts:['True','False'],ans:1,exp:'In 2/2/5: 2 = initial adjustment cap, 2 = periodic adjustment cap, 5 = LIFETIME cap. The lifetime cap is 5% — meaning the rate can never increase more than 5% from the starting rate over the entire life of the loan. Not 2%.',key:'2/2/5: Initial cap / Periodic cap / LIFETIME cap = 5%'},
+{t:0,type:'mc',text:'What happens to an ARM borrower\'s rate if the index DECREASES at an adjustment date?',opts:['The rate stays the same — it can only go up','The rate decreases by the index change, subject to the periodic cap and any floor','The lender can choose whether to pass the decrease to the borrower','The rate automatically resets to the original start rate'],ans:1,exp:'ARM caps work in BOTH directions. If the index falls, the rate can decrease — but is subject to the periodic cap (max change per period) and may be subject to a floor (minimum rate). A 2% periodic cap means the rate can drop by no more than 2% at any single adjustment.',key:'Caps limit movement UP and DOWN'},
+{t:0,type:'mc',text:'What is "payment shock" in the context of ARM loans?',opts:['When a borrower misses multiple payments and the lender demands full repayment','The sudden large increase in monthly payment when an ARM adjusts from the teaser rate to the fully indexed rate','When closing costs are significantly higher than disclosed on the Loan Estimate','The surprise of a balloon payment at end of loan term'],ans:1,exp:'Payment shock occurs when a borrower\'s monthly payment jumps significantly — often at the first adjustment after a teaser rate period. To prevent this, Dodd-Frank requires lenders to qualify borrowers at the fully indexed rate and document their ability to repay at that higher level.',key:null},
+{t:0,type:'tf',text:'True or False: On a 5/1 ARM, the interest rate can change as frequently as every month during the initial 5-year fixed period.',opts:['True','False'],ans:1,exp:'During the initial fixed period of any ARM (the "5" in a 5/1 ARM), the rate is completely fixed and does NOT change. Rate adjustments only begin after the fixed period ends. The "1" means it adjusts once per year AFTER the initial 5 years.',key:'Fixed period = NO changes. Adjustments begin only after fixed period ends.'},
+
+// ═══════════════════════════════════════
+// TOPIC 1 — TRID Tolerance Categories
+// ═══════════════════════════════════════
+{t:1,type:'mc',text:'Under TRID, which of the following fees is subject to ZERO tolerance — meaning it cannot increase at all from the Loan Estimate to the Closing Disclosure?',opts:['Homeowner\'s insurance premium','Pest inspection fee chosen by the borrower','Lender origination charges and discount points','Title services selected by the borrower from a list'],ans:2,exp:'Lender origination charges (including origination fees, underwriting fees, and discount points) are zero-tolerance items. They cannot increase from the LE to the CD under any circumstance — even if the lender made an error. Other zero-tolerance items include required services where the lender selects the provider and transfer taxes.',key:'Zero tolerance: LENDER fees, transfer taxes, required lender-chosen services'},
+{t:1,type:'mc',text:'A lender estimates title insurance at $900 on the Loan Estimate. The borrower uses the lender\'s preferred title company. At closing, the actual charge is $1,050. What is the tolerance violation amount?',opts:['$0 — title insurance is unlimited tolerance','$150 — the full difference','$90 — 10% of the original estimate','$105 — 10% of the final amount'],ans:1,exp:'When the borrower uses a lender-selected service provider, the fee is subject to 10% aggregate tolerance — not unlimited. However, the $150 increase on a single item exceeds the 10% threshold ($90). The total of ALL 10% tolerance items combined cannot increase by more than 10%. The lender must cure any excess above 10%.',key:'10% tolerance: aggregate of all such fees cannot increase more than 10%'},
+{t:1,type:'tf',text:'True or False: Prepaid homeowner\'s insurance is a zero-tolerance item under TRID.',opts:['True','False'],ans:1,exp:'Prepaid homeowner\'s insurance falls in the UNLIMITED tolerance category. It can change from LE to CD without limit because the actual premium is determined by the insurance company, not the lender. Unlimited tolerance items include prepaids, initial escrow deposits, and optional owner\'s title insurance.',key:'Homeowner\'s insurance = UNLIMITED tolerance (can change freely)'},
+{t:1,type:'mc',text:'Which of the following is a valid "changed circumstance" that allows a lender to issue a revised Loan Estimate with updated fees?',opts:['The borrower asks for a lower interest rate','The lender underestimated the title fees due to an internal error','A natural disaster damages the property, requiring a new appraisal','The lender decides to charge a higher origination fee'],ans:2,exp:'Valid changed circumstances include: extraordinary events beyond anyone\'s control (like natural disasters), new information not available at application, or borrower-requested changes. Lender errors are NOT valid changed circumstances — the lender must absorb the cost of their own mistakes.',key:'Lender errors are NOT changed circumstances — lender eats the cost'},
+{t:1,type:'mc',text:'A borrower selects their own title company (not from the lender\'s written list of providers). What tolerance category applies to that title fee?',opts:['Zero tolerance','10% tolerance','Unlimited tolerance','No tolerance rule applies'],ans:2,exp:'When a borrower selects a settlement service provider NOT on the lender\'s written list of approved providers, the fee becomes an unlimited tolerance item. The lender has no control over what that provider charges, so no cap applies to changes from LE to CD.',key:'Borrower-chosen provider (NOT on list) = UNLIMITED tolerance'},
+{t:1,type:'tf',text:'True or False: Transfer taxes are subject to 10% aggregate tolerance under TRID.',opts:['True','False'],ans:1,exp:'Transfer taxes are ZERO tolerance items — they cannot increase at all from the LE to the CD. Transfer taxes are set by state and local governments and the lender should know the exact amount. Any increase must be cured by the lender within 3 calendar years of closing.',key:'Transfer taxes = ZERO tolerance (cannot increase at all)'},
+{t:1,type:'mc',text:'If a zero-tolerance fee increases improperly between the Loan Estimate and Closing Disclosure, how must the lender cure the violation?',opts:['Issue a new Loan Estimate within 3 business days','Refund the excess amount to the borrower within 3 calendar years of consummation','Reduce the interest rate by 0.125% as compensation','File a report with the CFPB within 30 days'],ans:1,exp:'TRID cures require the lender to refund the amount exceeding the tolerance to the borrower no later than 3 calendar years after consummation. The borrower keeps the refund — it is not applied to the loan balance. This is a significant penalty that motivates accurate LE disclosure.',key:'Cure = refund excess within 3 CALENDAR YEARS of closing'},
+{t:1,type:'mc',text:'Recording fees on the Closing Disclosure ended up $45 higher than estimated on the Loan Estimate. The lender also over-estimated pest inspection by $60. Looking at 10% tolerance items in aggregate, is there a violation?',opts:['Yes — any increase in recording fees is a zero-tolerance violation','No — as long as the total 10% tolerance category does not increase more than 10% in aggregate','Yes — the pest inspection alone exceeds limits','No — recording fees are unlimited tolerance'],ans:1,exp:'Recording fees are 10% tolerance items. Tolerance is measured in AGGREGATE across all 10% items — not per line item. You add up ALL increases and decreases in the 10% bucket. If the net increase across all 10% items is within 10% of the total estimated for that category, there is no violation.',key:'10% tolerance = AGGREGATE across all such items, not per-item'},
+{t:1,type:'tf',text:'True or False: If the borrower\'s loan amount changes significantly after the Loan Estimate is issued, this is a valid changed circumstance allowing revised fees.',opts:['True','False'],ans:0,exp:'A significant change in loan amount or property value — such as when a borrower decides to put more money down or the appraised value comes in different — qualifies as new information and is a valid changed circumstance. The lender may issue a revised LE within 3 business days of learning of the change.',key:null},
+{t:1,type:'mc',text:'Which THREE events trigger a mandatory new 3-business-day waiting period when a revised Closing Disclosure is issued?',opts:['APR increases >1/8%, loan product changes (fixed to ARM), prepayment penalty added','APR increases >1/4%, borrower name changes, property address changes','Any fee increase, any rate lock extension, any change in closing date','Escrow amount changes, title company changes, appraiser changes'],ans:0,exp:'Only three events require a new 3-day waiting period with a revised CD: (1) APR increases more than 1/8% (0.125%) for fixed-rate or 1/4% for variable-rate; (2) loan product changes (e.g., fixed to ARM); (3) a prepayment penalty is added. All other changes can be disclosed without restarting the clock.',key:'3 triggers for new CD waiting period: APR increase / product change / prepayment penalty added'},
+{t:1,type:'mc',text:'Initial escrow deposits collected at closing for taxes and insurance are which tolerance category under TRID?',opts:['Zero tolerance','10% aggregate tolerance','Unlimited tolerance','Not covered by TRID tolerance rules'],ans:2,exp:'Initial escrow deposits (reserves collected at closing for future tax and insurance payments) are unlimited tolerance items. The actual amounts needed depend on when taxes and insurance are due — factors outside lender control — so they can change freely from LE to CD.',key:'Initial escrow deposits = UNLIMITED tolerance'},
+{t:1,type:'tf',text:'True or False: A lender fee that was omitted entirely from the Loan Estimate can be added to the Closing Disclosure if a valid changed circumstance occurred.',opts:['True','False'],ans:1,exp:'Fees omitted from the LE cannot be added at closing using a changed circumstance unless the omission itself was caused by the changed circumstance. If the lender simply forgot to disclose a fee, they cannot charge it at closing — it is a zero-tolerance violation because the fee was not disclosed.',key:'Omitted lender fees cannot be added at closing — lender absorbs them'},
+{t:1,type:'mc',text:'An appraisal fee was estimated at $500 on the Loan Estimate. The lender selected the appraiser. At closing, the fee is $575. What is the result?',opts:['No violation — appraisal fees are unlimited tolerance','Violation — the $75 increase must be included in the 10% aggregate calculation','Violation — appraisal is zero tolerance','No violation — a $75 increase is always within acceptable range'],ans:1,exp:'When the LENDER selects the service provider (the appraiser in this case), the fee is a 10% aggregate tolerance item. The $75 increase must be counted in the running total of all 10% tolerance items. If the aggregate increase across all such items exceeds 10% of the total estimated, the excess must be cured.',key:null},
+{t:1,type:'mc',text:'Optional owner\'s title insurance purchased by the buyer falls into which TRID tolerance category?',opts:['Zero tolerance','10% tolerance','Unlimited tolerance','No tolerance applies since it is optional'],ans:2,exp:'Optional owner\'s title insurance is an unlimited tolerance item. Because it is optional — the buyer chooses whether to purchase it — and they can select their own provider, the cost can change freely from LE to CD without any tolerance violation.',key:"Owner's title insurance (optional) = UNLIMITED tolerance"},
+{t:1,type:'tf',text:'True or False: TRID tolerance rules apply to all mortgage loan types including HELOCs and reverse mortgages.',opts:['True','False'],ans:1,exp:'TRID specifically exempts certain loan types: HELOCs (which use different disclosures), reverse mortgages (which use HUD-required disclosures), mobile home loans not secured by real property, and certain no-interest loans. TRID applies to most closed-end consumer mortgage loans secured by real property.',key:'TRID exempts: HELOCs, reverse mortgages, mobile home loans not secured by real property'},
+
+// ═══════════════════════════════════════
+// TOPIC 2 — RESPA Section 8 Kickbacks
+// ═══════════════════════════════════════
+{t:2,type:'mc',text:'Under RESPA Section 8, which of the following arrangements is LEGAL?',opts:['A title company pays a real estate agent $200 for every closing referral','An MLO receives a $50 gift card from a title company as a thank-you for referrals','A mortgage company pays a marketing company a flat fee for genuine marketing services actually performed','An appraiser reduces their fee in exchange for more referrals from a lender'],ans:2,exp:'Paying for ACTUAL, reasonable services genuinely performed (like marketing, lead generation, or processing) is legal under RESPA as long as compensation is for real services and not a disguised referral fee. Payments solely for referrals — regardless of amount — are illegal kickbacks.',key:'Payment for ACTUAL services = legal. Payment for referrals only = illegal.'},
+{t:2,type:'tf',text:'True or False: Under RESPA Section 8, a $25 gift given by a title company to an agent at a holiday party constitutes an illegal kickback.',opts:['True','False'],ans:1,exp:'RESPA does not provide a de minimis (small amount) exception. However, CFPB enforcement typically focuses on things of value given in exchange FOR referrals. A nominal holiday gift not connected to specific referral activity is generally not pursued — but technically anything of value given in exchange for a referral violates Section 8. Context and intent matter.',key:'No de minimis exception — but enforcement focuses on referral-connected payments'},
+{t:2,type:'mc',text:'A real estate brokerage and a mortgage company share office space under a written agreement where the mortgage company pays fair market rent. Is this arrangement permitted under RESPA?',opts:['No — any shared office space between settlement service providers violates RESPA','Yes — paying fair market value rent for genuine office space is not considered a thing of value for referrals','No — the lender must have a completely separate location from any real estate company','Yes — only if the real estate brokerage also pays the mortgage company rent in return'],ans:1,exp:'Paying fair market rent for office space is a legitimate business arrangement and does not violate RESPA, provided the rent is genuinely at market value and not a disguised referral payment. If the rent is below market in exchange for referrals, it becomes an illegal kickback.',key:'Fair market rent = legal. Below-market rent in exchange for referrals = illegal.'},
+{t:2,type:'mc',text:'What is an "Affiliated Business Arrangement" (ABA) under RESPA, and what must be disclosed?',opts:['Any business where two providers share the same customer base — no disclosure required','An arrangement where settlement service providers have an ownership interest in each other — requires written disclosure to the consumer','A marketing agreement between two unrelated companies — disclosure optional','A joint venture between a bank and a title company — automatically prohibited by RESPA'],ans:1,exp:'An ABA exists when a settlement service provider has an ownership interest in another provider and refers business to them. RESPA requires: (1) written disclosure of the arrangement and ownership interest at or before referral; (2) the consumer must not be required to use the affiliated provider; (3) the only thing of value exchanged is a return on ownership interest.',key:'ABA requires: written disclosure + consumer choice + return on ownership only'},
+{t:2,type:'tf',text:'True or False: Under RESPA Section 8, splitting a fee between two settlement service providers is legal as long as both providers perform actual services.',opts:['True','False'],ans:0,exp:'Fee splitting is permitted under RESPA when BOTH parties perform actual, bona fide services and the split reflects the value of services each provides. What is prohibited is splitting fees where one party does nothing — receiving a portion solely for the referral. Legitimate fee splits (like co-brokers sharing a commission) are allowed.',key:'Fee split OK if BOTH parties perform actual services'},
+{t:2,type:'mc',text:'A mortgage company gives real estate agents branded merchandise (notepads, pens, calendars) worth approximately $15 each. Under RESPA, this is:',opts:['Always illegal — any item of value violates Section 8','Potentially legal if it is normal marketing activity and not conditioned on referrals','Legal only if each item costs under $10','Automatically legal because the value is under $25'],ans:1,exp:'Normal marketing and promotional materials (notepads, pens, branded items) are generally viewed as acceptable marketing activity as long as they are not conditioned on making referrals. The key distinction is whether the item is general marketing vs. payment for specific referrals. There is no official dollar threshold in RESPA itself.',key:'Normal marketing materials ≠ kickback. Conditional on referrals = kickback.'},
+{t:2,type:'mc',text:'Which federal agency is the primary enforcer of RESPA Section 8 violations?',opts:['HUD (Department of Housing and Urban Development)','FDIC (Federal Deposit Insurance Corporation)','CFPB (Consumer Financial Protection Bureau)','FTC (Federal Trade Commission)'],ans:2,exp:'The CFPB became the primary enforcer of RESPA when it was created by Dodd-Frank in 2010. HUD previously enforced RESPA before the CFPB\'s creation. State attorneys general also have authority to enforce RESPA violations against entities in their state.',key:'CFPB enforces RESPA (took over from HUD in 2010)'},
+{t:2,type:'tf',text:'True or False: A lender that violates RESPA Section 8 may face criminal penalties including fines and imprisonment.',opts:['True','False'],ans:0,exp:'RESPA Section 8 violations can result in civil liability (up to three times the amount of any charge paid for the settlement service), criminal penalties including a fine up to $10,000 and/or imprisonment up to 1 year, and regulatory actions including license suspension or revocation.',key:'RESPA Section 8 criminal penalty: up to $10,000 fine + 1 year imprisonment'},
+{t:2,type:'mc',text:'A mortgage company pays a real estate agent $500/month for "marketing services" — but the agent only displays the lender\'s brochures in their office and makes referrals. Is this legal?',opts:['Yes — any written marketing agreement is acceptable under RESPA','No — if the $500 is not commensurate with genuine marketing services actually performed, it is a disguised referral fee violating Section 8','Yes — as long as a written MSA (Marketing Services Agreement) is in place','No — all agreements between lenders and real estate agents are prohibited by RESPA'],ans:1,exp:'Marketing Services Agreements (MSAs) are highly scrutinized by the CFPB. Simply displaying brochures does not justify $500/month. The key test: is the payment commensurate with the ACTUAL value of services performed? If the "marketing" is minimal and the real purpose is compensating for referrals, it violates Section 8.',key:'MSAs scrutinized: payment must match ACTUAL services — not be a disguised referral fee'},
+{t:2,type:'mc',text:'Under RESPA, a seller requiring a buyer to use a specific title company as a condition of the sale violates which section?',opts:['Section 6 — Servicing Disclosure','Section 8 — Kickbacks and Referral Fees','Section 9 — Seller-Required Title Insurance','Section 10 — Escrow Account Limits'],ans:2,exp:'RESPA Section 9 specifically prohibits sellers from requiring buyers to purchase title insurance from a particular company as a condition of the sale. Violations of Section 9 expose the seller to liability for up to three times the amount of the title insurance charge.',key:'Section 9 = Seller cannot require buyer to use specific title company'},
+{t:2,type:'tf',text:'True or False: A real estate agent referring clients to their own affiliated mortgage company is always a RESPA violation.',opts:['True','False'],ans:1,exp:'Referrals to an affiliated company are allowed under RESPA\'s Affiliated Business Arrangement (ABA) exemption, provided: (1) the consumer receives written disclosure of the affiliation and estimated charges; (2) the consumer is NOT required to use the affiliated provider; (3) the only compensation is a return on ownership interest (not a per-referral fee).',key:'Affiliated referrals OK with: disclosure + consumer choice + ownership return only'},
+{t:2,type:'mc',text:'A title company sponsors a "lunch and learn" for real estate agents costing $300 total for 10 agents. What is the RESPA concern?',opts:['No concern — educational events are always exempt from RESPA','Potential concern if attendance at the lunch correlates with referral activity to the title company','Definite violation — any meal provided by a settlement service provider violates RESPA','No concern as long as each agent\'s share is under $50'],ans:1,exp:'The CFPB looks at whether items of value (meals, events, entertainment) are part of a pattern where referrals follow. A one-time genuine educational event is generally acceptable. Recurring meals, entertainment, or lavish events where referral activity correlates with receipt of the benefit suggest an illegal arrangement.',key:'Pattern of meals + referral correlation = potential RESPA violation'},
+{t:2,type:'tf',text:'True or False: RESPA Section 8 applies only to lenders and does not cover real estate agents, title companies, or appraisers.',opts:['True','False'],ans:1,exp:'RESPA Section 8 applies to ALL settlement service providers — lenders, mortgage brokers, real estate agents/brokers, title companies, appraisers, attorneys, home inspectors, and anyone else involved in a federally related mortgage transaction. Both the giver AND receiver of an illegal kickback can face penalties.',key:'Section 8 covers ALL settlement service providers — both giver and receiver liable'},
+{t:2,type:'mc',text:'What is the civil penalty for a RESPA Section 8 violation?',opts:['Equal to the fee charged for the settlement service','Up to two times the amount of any charge paid for the settlement service','Up to three times the amount of any charge paid for the settlement service','A flat fine of $10,000 per violation'],ans:2,exp:'RESPA Section 8(d) provides for civil liability of up to THREE TIMES the amount of the charge paid for the settlement service in which the kickback occurred. Additionally, the court may award costs and attorney fees. This treble-damages provision creates a strong deterrent.',key:'Civil penalty = up to 3x the settlement service charge'},
+{t:2,type:'tf',text:'True or False: Under RESPA, an employer paying their own employees for work they actually perform in connection with mortgage loans is a permitted payment.',opts:['True','False'],ans:0,exp:'RESPA Section 8(c) explicitly permits payments to employees by their employers for work they actually perform. This covers a lender paying their own MLO or processor. What is prohibited is paying employees of OTHER companies for referrals — that crosses into kickback territory.',key:'Employer paying OWN employees for work performed = legal under RESPA Section 8(c)'},
+
+// ═══════════════════════════════════════
+// TOPIC 3 — ECOA vs Fair Housing Act
+// ═══════════════════════════════════════
+{t:3,type:'mc',text:'Which protected class is covered by the Fair Housing Act but NOT by ECOA?',opts:['Race','National origin','Familial status (having children under 18)','Sex'],ans:2,exp:'Familial status (having children under 18, being pregnant, or in the process of adopting) is a Fair Housing Act protected class but is NOT covered by ECOA. ECOA covers marital status and age instead — two classes the FHA does not explicitly include.',key:'FHA adds: familial status, disability. ECOA adds: marital status, age.'},
+{t:3,type:'mc',text:'Which protected class is covered by ECOA but NOT by the Fair Housing Act?',opts:['Religion','Disability','Marital status','Familial status'],ans:2,exp:'Marital status (single, married, divorced, widowed) is an ECOA-protected class but is NOT a Fair Housing Act protected class. ECOA also protects based on age and receipt of public assistance income — neither of which are FHA protected classes.',key:'ECOA-only: marital status, age, receipt of public assistance'},
+{t:3,type:'tf',text:'True or False: Both ECOA and the Fair Housing Act prohibit discrimination based on disability.',opts:['True','False'],ans:1,exp:'Disability is a Fair Housing Act protected class — it is NOT an ECOA protected class. ECOA\'s protected classes are: race, color, religion, national origin, sex, marital status, age, and receipt of public assistance. Disability is not among them.',key:'Disability = FHA only (not ECOA)'},
+{t:3,type:'mc',text:'A lender denies a loan because the applicant is 70 years old, claiming older borrowers are higher risk. Which law does this violate?',opts:['Fair Housing Act only','ECOA only','Both ECOA and Fair Housing Act','Neither — age is not a protected class'],ans:1,exp:'Age is an ECOA-protected class. Denying credit because of age — or assuming older borrowers are higher risk based solely on age — violates ECOA (Regulation B). Age is NOT a Fair Housing Act protected class, so only ECOA is violated here.',key:'Age discrimination = ECOA violation (not FHA)'},
+{t:3,type:'mc',text:'A lender refuses to make loans in a specific ZIP code because the area is predominantly Hispanic. This practice is called:',opts:['Steering','Redlining','Disparate impact','Blockbusting'],ans:1,exp:'Redlining is refusing to lend (or charging worse terms) in geographic areas based on their racial or ethnic composition. It violates both the Fair Housing Act and ECOA. The term comes from the historical practice of drawing red lines around minority neighborhoods on maps.',key:'Refusing to lend in an area based on race/ethnicity = REDLINING'},
+{t:3,type:'tf',text:'True or False: Under ECOA, a lender may ask about a loan applicant\'s religion to assess creditworthiness.',opts:['True','False'],ans:1,exp:'Religion is an ECOA-protected class. A lender may NEVER ask about religion, nor may they use it in any credit decision. Asking about religion in a credit application is itself an ECOA violation regardless of how the information would be used.',key:'Asking about religion = ECOA violation even before any decision is made'},
+{t:3,type:'mc',text:'Which law specifically prohibits a lender from discouraging a borrower from applying because of their race through advertising or statements?',opts:['ECOA only','Fair Housing Act only','Both ECOA and Fair Housing Act','HMDA'],ans:2,exp:'Both laws prohibit discouraging applications based on protected characteristics. The Fair Housing Act Section 3604 prohibits discriminatory representations in advertising. ECOA Regulation B prohibits discouraging applicants. Both laws can apply simultaneously — ECOA focuses on credit decisions; FHA on housing access broadly.',key:'Both ECOA and FHA prohibit discouraging applicants based on protected class'},
+{t:3,type:'mc',text:'A lender approves loans for White applicants with a 680 credit score but requires Hispanic applicants with the same score to put down 20% instead of 10%. This is an example of:',opts:['Disparate impact','Disparate treatment','Redlining','Reverse discrimination'],ans:1,exp:'Disparate treatment is intentional discrimination — treating similarly situated applicants differently based on a protected class. Applying different requirements to Hispanic vs. White applicants with identical credit profiles is textbook disparate treatment, violating both ECOA and the Fair Housing Act.',key:'Different treatment of same-qualified applicants = DISPARATE TREATMENT (intentional)'},
+{t:3,type:'tf',text:'True or False: The Fair Housing Act covers disability as a protected class, requiring lenders to make "reasonable accommodations" for disabled applicants.',opts:['True','False'],ans:0,exp:'The Fair Housing Act includes disability as a protected class and requires reasonable accommodations in rules, policies, and procedures to afford persons with disabilities equal opportunity to use and enjoy housing. In lending, this might mean accepting alternative forms of communication or adjusting application processes.',key:'FHA: disability = protected. Reasonable accommodation required.'},
+{t:3,type:'mc',text:'Under ECOA, how many protected classes are explicitly listed?',opts:['5','7','8','10'],ans:2,exp:'ECOA lists 8 protected classes: race, color, religion, national origin, sex, marital status, age, and receipt of income from a public assistance program. The Fair Housing Act lists 7: race, color, national origin, religion, sex, familial status, and disability.',key:'ECOA = 8 classes. FHA = 7 classes. Know the difference!'},
+{t:3,type:'mc',text:'"Steering" in the context of fair lending means:',opts:['Directing all borrowers to fixed-rate loans regardless of their needs','Directing borrowers from protected classes toward higher-cost or less favorable loan products when they qualify for better terms','Refusing to accept applications from borrowers in certain geographic areas','Charging borrowers different application fees based on loan type'],ans:1,exp:'Steering violates both ECOA and the Fair Housing Act. It involves directing borrowers — particularly those from protected classes — toward subprime, high-cost, or less favorable products when they actually qualify for better terms. This is often motivated by higher MLO compensation on those products.',key:'Steering = directing protected class borrowers to worse products when better ones are available'},
+{t:3,type:'tf',text:'True or False: Sex is a protected class under both ECOA and the Fair Housing Act.',opts:['True','False'],ans:0,exp:'Sex (gender) is a protected class under BOTH ECOA and the Fair Housing Act. A lender cannot treat applicants differently based on sex in either their lending decisions (ECOA) or their marketing and access to housing finance (FHA). Sex-based discrimination is among the most commonly enforced fair lending violations.',key:'Sex = protected under BOTH ECOA and FHA'},
+{t:3,type:'mc',text:'A lender\'s facially neutral policy of declining all loans below $75,000 results in disproportionately denying applications from minority borrowers in a low-income area. This is potentially:',opts:['Legal — neutral policies cannot be discriminatory','Illegal disparate treatment','Illegal disparate impact','Redlining only'],ans:2,exp:'Disparate impact occurs when a facially neutral policy disproportionately harms a protected class — even without discriminatory intent. A minimum loan amount policy that disproportionately excludes minority borrowers can constitute illegal disparate impact under both the Fair Housing Act and ECOA, unless the lender can demonstrate a legitimate business necessity.',key:'Facially neutral policy + disproportionate harm = DISPARATE IMPACT'},
+{t:3,type:'tf',text:'True or False: National origin is a protected class under both ECOA and the Fair Housing Act.',opts:['True','False'],ans:0,exp:'National origin is protected under BOTH ECOA and the Fair Housing Act. A lender cannot discriminate based on where a person is from, their ancestry, their ethnicity, or their accent. This applies to both the credit decision (ECOA) and access to housing finance broadly (FHA).',key:'National origin = protected under BOTH laws'},
+{t:3,type:'mc',text:'Under ECOA, which of the following is a lender PERMITTED to ask on a credit application?',opts:['The applicant\'s religion','The applicant\'s race (for HMDA monitoring purposes only, with proper disclosure)','The applicant\'s marital status — but only if they are applying jointly with a spouse','Whether the applicant is pregnant'],ans:1,exp:'For HMDA monitoring purposes, lenders ARE required to ask about race, ethnicity, and sex on applications secured by real estate — but must use a specific government monitoring form and notify applicants the information is collected for federal reporting only and will not affect the credit decision. Marital status may only be asked if the borrower applies jointly or lives in a community property state.',key:'Race/ethnicity collected for HMDA monitoring — with disclosure it does not affect the decision'},
+
+// ═══════════════════════════════════════
+// TOPIC 4 — Waiting Periods
+// ═══════════════════════════════════════
+{t:4,type:'mc',text:'For a conventional loan (Fannie Mae), what is the standard waiting period after a Chapter 7 bankruptcy discharge?',opts:['1 year','2 years','4 years','7 years'],ans:2,exp:'Fannie Mae requires a 4-year waiting period from the DISCHARGE date of a Chapter 7 bankruptcy for conventional loans. With documented extenuating circumstances (job loss, serious illness), this can be reduced to 2 years. The clock starts from the discharge date — not the filing date.',key:'Conventional Ch. 7 = 4 years from discharge (2 years with extenuating circumstances)'},
+{t:4,type:'mc',text:'For an FHA loan, what is the waiting period after a Chapter 7 bankruptcy discharge?',opts:['1 year','2 years','3 years','4 years'],ans:1,exp:'FHA requires only a 2-year waiting period from the Chapter 7 DISCHARGE date. With extenuating circumstances, this can be reduced to 1 year. The borrower must also have re-established good credit and qualify under FHA guidelines after the waiting period.',key:'FHA Ch. 7 = 2 years from discharge (1 year with extenuating circumstances)'},
+{t:4,type:'tf',text:'True or False: For conventional loans, a Chapter 13 bankruptcy has the same waiting period as a Chapter 7 bankruptcy.',opts:['True','False'],ans:1,exp:'Chapter 13 has SHORTER waiting periods than Chapter 7 for conventional loans. Fannie Mae requires 2 years from the Chapter 13 DISCHARGE date (or 4 years from dismissal). Chapter 7 requires 4 years from discharge. Chapter 13 is treated more favorably because the borrower repaid creditors through the court.',key:'Ch. 13 discharge = 2 years (conventional). Ch. 7 discharge = 4 years (conventional)'},
+{t:4,type:'mc',text:'For a conventional loan, what is the standard waiting period after a foreclosure is completed?',opts:['2 years','3 years','5 years','7 years'],ans:3,exp:'Fannie Mae requires a 7-year waiting period from the completion date of a foreclosure for a conventional loan. This is the longest waiting period in mortgage lending. With extenuating circumstances, it can be reduced to 3 years — but with additional restrictions (max 90% LTV and primary residence only).',key:'Conventional foreclosure = 7 years (3 years with extenuating circumstances + LTV restrictions)'},
+{t:4,type:'mc',text:'For an FHA loan, what is the waiting period after a foreclosure?',opts:['1 year','2 years','3 years','5 years'],ans:2,exp:'FHA requires a 3-year waiting period from the date the foreclosure was completed (transferred out of borrower\'s name). With extenuating circumstances, there is no reduced waiting period for FHA foreclosures — the full 3 years is required in most cases.',key:'FHA foreclosure = 3 years (no reduction for extenuating circumstances typically)'},
+{t:4,type:'tf',text:'True or False: For conventional loans, a short sale has the same waiting period as a foreclosure (7 years).',opts:['True','False'],ans:1,exp:'A short sale has a SHORTER waiting period than a foreclosure for conventional loans. Fannie Mae requires 4 years from a short sale (2 years with extenuating circumstances). The 7-year period applies only to standard foreclosures. Short sales are viewed more favorably because the borrower cooperated with the lender.',key:'Short sale = 4 years (conventional). Foreclosure = 7 years (conventional).'},
+{t:4,type:'mc',text:'The waiting period clock for bankruptcy starts from which event?',opts:['The filing date of the bankruptcy petition','The discharge date (Chapter 7) or discharge or dismissal date (Chapter 13)','The date all creditors are paid','The date the court approves the repayment plan'],ans:1,exp:'The clock starts from the DISCHARGE date for Chapter 7 (when debts are legally eliminated). For Chapter 13, waiting periods are measured from either the discharge date (shorter wait) or the dismissal date (longer wait). The filing date does NOT start the clock — only the resolution date matters.',key:'Clock starts at DISCHARGE (not filing). Dismissal date also matters for Ch. 13.'},
+{t:4,type:'mc',text:'For a VA loan, what is the waiting period after a Chapter 7 bankruptcy?',opts:['1 year','2 years','3 years','No waiting period required'],ans:1,exp:'VA loans require a 2-year waiting period from the Chapter 7 discharge date — same as FHA. The veteran must have re-established satisfactory credit and demonstrate the bankruptcy was due to circumstances beyond their control. VA is generally more flexible than conventional guidelines.',key:'VA Ch. 7 = 2 years from discharge (same as FHA)'},
+{t:4,type:'tf',text:'True or False: A borrower who included a mortgage in their bankruptcy and later had the property foreclosed must wait from the foreclosure completion date — not the bankruptcy discharge date.',opts:['True','False'],ans:0,exp:'When a mortgage is included in a bankruptcy and the property is later foreclosed, Fannie Mae uses the LATER of the two events: either the bankruptcy discharge date or the foreclosure completion date. This is called the "mortgage included in bankruptcy" rule and effectively means the borrower waits from whichever event happened last.',key:'Mortgage in bankruptcy + later foreclosure = wait from LATER of the two events'},
+{t:4,type:'mc',text:'What does "extenuating circumstances" mean in the context of mortgage waiting periods?',opts:['The borrower has a high credit score that offsets the bankruptcy','A nonrecurring event beyond the borrower\'s control that caused a significant reduction in income or increase in financial obligations','The borrower is a veteran applying for a VA loan','The borrower has been current on all obligations for 12 months after the event'],ans:1,exp:'Extenuating circumstances are nonrecurring events BEYOND the borrower\'s control — such as serious illness, job loss due to plant closure, death of a wage earner, or divorce — that caused the financial hardship. Job loss due to quitting, lifestyle choices, or poor financial management do NOT qualify as extenuating circumstances.',key:'Extenuating circumstances = nonrecurring, beyond borrower\'s control (illness, layoff, death of wage earner)'},
+{t:4,type:'mc',text:'For a USDA Rural Development loan, what is the waiting period after a Chapter 7 bankruptcy discharge?',opts:['1 year','2 years','3 years','4 years'],ans:2,exp:'USDA Rural Development requires a 3-year waiting period from the Chapter 7 discharge date. This is longer than FHA\'s 2-year requirement and matches USDA\'s generally more conservative credit guidelines. After the waiting period, the borrower must demonstrate re-established credit.',key:'USDA Ch. 7 = 3 years from discharge (longer than FHA\'s 2 years)'},
+{t:4,type:'tf',text:'True or False: After the waiting period following bankruptcy, a borrower automatically qualifies — no additional credit requirements apply.',opts:['True','False'],ans:1,exp:'Meeting the waiting period is just the first hurdle. After the waiting period, borrowers must ALSO: re-establish acceptable credit, meet minimum credit score requirements, demonstrate current financial stability, and qualify under all other applicable guidelines. The waiting period is a minimum requirement, not a guarantee of approval.',key:'Waiting period met ≠ automatic approval. Must also re-establish credit and meet all guidelines.'},
+{t:4,type:'mc',text:'For a conventional Fannie Mae loan, what is the waiting period after a deed-in-lieu of foreclosure?',opts:['2 years','4 years','5 years','7 years'],ans:1,exp:'A deed-in-lieu of foreclosure has a 4-year waiting period for conventional loans — shorter than the 7-year foreclosure period because the borrower cooperated by voluntarily transferring the property. With extenuating circumstances, this can be reduced to 2 years with LTV and occupancy restrictions.',key:'Deed-in-lieu = 4 years (conventional). Less than foreclosure\'s 7 years.'},
+{t:4,type:'mc',text:'Which loan type has the most LENIENT waiting period requirements after major derogatory credit events?',opts:['Conventional (Fannie Mae/Freddie Mac)','FHA','VA','USDA'],ans:2,exp:'VA loans generally have the most flexible/lenient waiting period requirements. VA\'s guidelines emphasize the veteran\'s overall creditworthiness and circumstances rather than rigid waiting periods. VA also allows lenders to grant exceptions with strong compensating factors in ways that conventional loans typically do not.',key:'VA = most lenient waiting periods. Conventional = strictest (7 years for foreclosure).'},
+{t:4,type:'tf',text:'True or False: A Chapter 13 bankruptcy that was DISMISSED (not discharged) has a shorter waiting period than one that was discharged.',opts:['True','False'],ans:1,exp:'A dismissal (where the court terminates the case without granting a discharge, often due to non-compliance with the repayment plan) is treated MORE harshly than a discharge. For conventional loans: Chapter 13 discharge = 2-year wait; Chapter 13 DISMISSAL = 4-year wait. Discharge is more favorable because the borrower completed the plan.',key:'Dismissal = LONGER wait than discharge. Discharge = shorter wait (borrower completed the plan).'},
+
+// ═══════════════════════════════════════
+// TOPIC 5 — DTI Front-End vs Back-End
+// ═══════════════════════════════════════
+{t:5,type:'mc',text:'A borrower earns $6,000 gross monthly income. Their proposed housing payment (PITI) is $1,500. What is their front-end DTI ratio?',opts:['20%','25%','30%','15%'],ans:1,exp:'Front-end (housing) DTI = PITI ÷ Gross Monthly Income. $1,500 ÷ $6,000 = 0.25 = 25%. The front-end ratio includes ONLY the housing payment — principal, interest, taxes, insurance, HOA dues, and mortgage insurance. No other debts are included.',key:'Front-end DTI = PITI only ÷ Gross Monthly Income'},
+{t:5,type:'mc',text:'Using the same borrower (GMI $6,000, PITI $1,500) who also has: $400 car payment, $200 student loan, $100 credit card minimum. What is the back-end DTI?',opts:['25%','36.7%','37%','45%'],ans:1,exp:'Back-end DTI = (PITI + all monthly obligations) ÷ GMI. ($1,500 + $400 + $200 + $100) ÷ $6,000 = $2,200 ÷ $6,000 = 36.67% ≈ 36.7%. Back-end includes ALL recurring monthly debt obligations plus the housing payment.',key:'Back-end DTI = (PITI + ALL monthly debts) ÷ Gross Monthly Income'},
+{t:5,type:'tf',text:'True or False: Utility payments (electricity, gas, water) are included in the back-end DTI calculation.',opts:['True','False'],ans:1,exp:'Utility payments are NOT included in DTI calculations. DTI only includes CREDIT OBLIGATIONS — payments that appear on a credit report or are legally binding financial obligations. Utilities are not credit obligations and are excluded from both front-end and back-end DTI.',key:'DTI includes: credit obligations only. NOT utilities, food, phone, or living expenses.'},
+{t:5,type:'mc',text:'What is the maximum back-end DTI typically allowed by Fannie Mae\'s Desktop Underwriter for a conventional loan?',opts:['36%','43%','45%','50%'],ans:2,exp:'Fannie Mae\'s DU typically allows back-end DTI up to 45% for automated approvals. With strong compensating factors (excellent credit score, significant reserves), DU may approve up to 50%. The 43% threshold applies to manually underwritten Qualified Mortgages. Always qualify at the AUS-approved DTI.',key:'DU approval: up to 45% DTI (50% with strong compensating factors)'},
+{t:5,type:'mc',text:'A borrower has a student loan in deferment with a $0 current payment and $45,000 balance. For conventional loan DTI purposes, what monthly obligation should be used?',opts:['$0 — the payment is deferred','1% of the balance = $450 per month','The fully amortized payment from the loan documents','0.5% of the balance = $225 per month'],ans:0,exp:'For conventional (Fannie Mae) loans, the lender must use either the actual documented payment OR if the payment is $0 or unavailable, 1% of the outstanding balance ($450/month). For FHA, the required payment is the greater of 1% of the balance or the actual documented payment. The $0 payment cannot be used if the loan will eventually require repayment.',key:'Deferred student loan: use 1% of balance if no documented payment amount (Fannie Mae)'},
+{t:5,type:'tf',text:'True or False: Alimony and child support payments are included in the back-end DTI calculation.',opts:['True','False'],ans:0,exp:'Court-ordered alimony and child support ARE included as monthly obligations in the back-end DTI calculation. They represent legally binding financial obligations that affect the borrower\'s capacity to repay the mortgage. Failure to disclose these on the application is considered material misrepresentation.',key:'Alimony and child support = MUST be included in DTI (legally binding obligations)'},
+{t:5,type:'mc',text:'Which income is used as the denominator in the DTI calculation?',opts:['Net (after-tax) monthly income','Gross (before-tax) monthly income','Annual income divided by 12','Take-home pay after all deductions'],ans:1,exp:'DTI always uses GROSS monthly income — income before taxes and deductions. This is why a borrower\'s actual take-home pay is not relevant to the DTI calculation. Lenders use gross income because it is verifiable and consistent across borrowers regardless of their tax situations.',key:'DTI denominator = GROSS (pre-tax) monthly income — always'},
+{t:5,type:'mc',text:'A self-employed borrower shows $120,000 net income on Schedule C but took $24,000 in depreciation deductions. What income is used for qualifying?',opts:['$120,000 ($10,000/month)','$96,000 ($8,000/month) — depreciation is subtracted','$144,000 ($12,000/month) — depreciation is added back','The lender chooses whichever is lower'],ans:2,exp:'Depreciation is a non-cash deduction that reduces taxable income without representing an actual cash outflow. Lenders ADD BACK non-cash deductions like depreciation, depletion, and amortization to the net income from Schedule C. $120,000 + $24,000 = $144,000 ÷ 12 = $12,000/month qualifying income.',key:'Self-employed income: add back depreciation (non-cash deduction) to Schedule C net income'},
+{t:5,type:'tf',text:'True or False: HOA dues are included in the front-end (housing) DTI calculation.',opts:['True','False'],ans:0,exp:'HOA (Homeowners Association) dues ARE included in the front-end DTI calculation as part of the total housing payment. PITI + HOA = the total housing expense. This is particularly important for condo purchases where HOA fees can be significant and meaningfully affect qualifying ratios.',key:'HOA dues are INCLUDED in front-end DTI (part of PITI + HOA = total housing payment)'},
+{t:5,type:'mc',text:'A borrower\'s gross monthly income is $8,000. Their back-end DTI is 43%. What is their total monthly debt obligation including the proposed mortgage?',opts:['$2,880','$3,200','$3,440','$3,600'],ans:2,exp:'Total monthly obligations = DTI × GMI. 43% × $8,000 = $3,440. This is the TOTAL of all monthly debts including the proposed housing payment. To find the maximum housing payment, you would subtract all non-housing monthly debts from $3,440.',key:'Total monthly obligations = DTI% × Gross Monthly Income'},
+{t:5,type:'mc',text:'Which of the following is NOT included in the DTI calculation?',opts:['Credit card minimum payments','401(k) loan repayment deducted from paycheck','Car lease payment','Homeowner\'s insurance premium (included in PITI)'],ans:1,exp:'401(k) loan repayments deducted directly from payroll are NOT included in DTI for Fannie Mae conventional loans. The rationale is that the borrower is repaying themselves and the income used in DTI already accounts for this reduction. FHA may include it — check guidelines. Homeowner\'s insurance IS included (as part of PITI).',key:'401(k) loan repayments excluded from DTI for conventional loans (you\'re repaying yourself)'},
+{t:5,type:'tf',text:'True or False: Income from part-time employment can be used in DTI qualification if documented for at least 2 years.',opts:['True','False'],ans:0,exp:'Part-time income can be used for qualifying if: (1) the borrower has received it for at least 2 years; (2) there is reasonable expectation it will continue; and (3) the income is properly documented with 2 years of tax returns, W-2s, or pay stubs. A 2-year history establishes the income as stable and reliable.',key:'Part-time income: need 2-year history to use for qualifying'},
+{t:5,type:'mc',text:'A borrower has a gross monthly income of $5,000. Maximum front-end DTI is 28% and maximum back-end DTI is 36%. What is the maximum allowed for non-housing monthly debts?',opts:['$1,400','$800','$400','$1,800'],ans:1,exp:'Max housing payment = 28% × $5,000 = $1,400. Max total debts = 36% × $5,000 = $1,800. Non-housing debt allowance = $1,800 - $1,400 = $400. Understanding this relationship helps MLOs quickly tell borrowers how much debt they can carry and still qualify for a target home price.',key:'Max non-housing debt = (Back-end% × GMI) − (Front-end% × GMI)'},
+{t:5,type:'mc',text:'Social Security income is grossed up by what percentage for conventional loan qualification purposes?',opts:['It cannot be used for qualifying','It is used at face value (100%) — no gross-up','It is grossed up by 25% (divided by 0.75) because it is non-taxable','It is grossed up by 15% to reflect the actual purchasing power'],ans:2,exp:'Non-taxable income — including Social Security, disability payments, and certain pension income — can be "grossed up" by 25% for conventional loans (dividing by 0.75). This reflects that the borrower keeps 100% of it vs. taxable income. Example: $2,000/month SS income grossed up = $2,000 ÷ 0.75 = $2,667/month for qualifying.',key:'Non-taxable income gross-up: divide by 0.75 (increases qualifying income by ~25%)'},
+{t:5,type:'tf',text:'True or False: The front-end DTI ratio is also known as the "housing expense ratio" or "housing ratio."',opts:['True','False'],ans:0,exp:'The front-end DTI is commonly called the housing expense ratio or housing ratio because it measures only housing costs as a percentage of gross income. The back-end ratio is called the total debt ratio or debt ratio. Some lenders use the terms interchangeably with front-end/back-end DTI.',key:'Front-end DTI = housing expense ratio. Back-end DTI = total debt ratio.'},
+
+// ═══════════════════════════════════════
+// TOPIC 6 — Pre-Qualification vs Pre-Approval
+// ═══════════════════════════════════════
+{t:6,type:'mc',text:'What is the primary difference between a pre-qualification and a pre-approval?',opts:['Pre-qualification is issued by the lender; pre-approval by the borrower\'s bank','Pre-qualification is based on unverified self-reported information; pre-approval involves verified documentation and often a credit pull','Pre-qualification is binding on the lender; pre-approval is not','Pre-qualification requires a full appraisal; pre-approval does not'],ans:1,exp:'A pre-qualification is a preliminary estimate based on information the borrower provides — income, assets, debts — without verification. A pre-approval involves actually verifying the information (pay stubs, tax returns, bank statements, credit report) and is a much stronger commitment from the lender.',key:'Pre-qual = unverified. Pre-approval = verified documents + credit check.'},
+{t:6,type:'tf',text:'True or False: Issuing a pre-qualification letter constitutes a formal loan application that triggers TRID disclosure requirements.',opts:['True','False'],ans:1,exp:'A pre-qualification does NOT trigger a formal loan application or TRID disclosures. A loan application is only triggered when 6 specific pieces of information are collected: name, SSN, income, property address, estimated value, and desired loan amount. Pre-qualifications typically lack the property address and are considered informal assessments.',key:'Pre-qualification ≠ formal application. TRID triggered only when all 6 application elements are received.'},
+{t:6,type:'mc',text:'A real estate agent tells buyers they should get a pre-approval rather than just a pre-qualification before making an offer. What is the agent\'s likely reasoning?',opts:['Pre-approvals are free; pre-qualifications have a cost','Pre-approvals are based on verified information and signal to sellers that the buyer is a serious, qualified buyer','Pre-approvals lock in the interest rate; pre-qualifications do not','Pre-approvals are required by law before any purchase offer can be made'],ans:1,exp:'Sellers and their agents strongly prefer pre-approvals because they are based on verified documentation and an actual credit review — giving much higher confidence that the buyer can actually close. A pre-qualification based on unverified self-reported information provides much weaker assurance.',key:'Pre-approval = verified = stronger in competitive markets'},
+{t:6,type:'mc',text:'Which of the following would typically be included in a pre-approval but NOT in a pre-qualification?',opts:['The borrower\'s stated income','An estimate of the maximum loan amount','A tri-merge credit report pull and review of actual pay stubs and bank statements','The general loan program the borrower might use'],ans:2,exp:'The defining feature of a pre-approval is that documentation is actually collected and reviewed — pay stubs, W-2s, bank statements, and a tri-merge credit report are pulled and verified. Pre-qualifications rely entirely on what the borrower says without documentation, making them much less reliable.',key:'Pre-approval = actual docs reviewed + credit report pulled'},
+{t:6,type:'tf',text:'True or False: A pre-approval from a lender is a binding commitment to lend money to the borrower.',opts:['True','False'],ans:1,exp:'A pre-approval is NOT a binding commitment. It is a conditional statement of intent subject to: final underwriting review, satisfactory appraisal, verification that nothing has changed in the borrower\'s financial situation, clear title, and property approval. The loan can still be denied after pre-approval if new information surfaces.',key:'Pre-approval = conditional only. NOT a binding commitment to lend.'},
+{t:6,type:'mc',text:'An MLO gives a borrower a "pre-qualification letter" without pulling their credit report. A seller accepts an offer based on this letter. Later, the borrower\'s credit pulls reveal serious derogatory marks that disqualify them. What is the main problem here?',opts:['The MLO violated RESPA by not disclosing credit check fees','The pre-qualification was misleading because it was issued without verifying the borrower\'s actual creditworthiness','The MLO violated TILA by not disclosing the APR in the pre-qualification letter','There is no problem — pre-qualifications are always accurate enough for seller reliance'],ans:1,exp:'Issuing a pre-qualification without reviewing credit is ethically problematic because it may give the borrower (and seller) false confidence. While not necessarily a regulatory violation, an MLO should conduct at minimum a credit review before opining on a borrower\'s ability to qualify, especially in a purchase transaction where the seller may rely on the letter.',key:'Pre-qual without credit check can create false confidence and harm all parties'},
+{t:6,type:'mc',text:'What is a "pre-approval letter" most useful for?',opts:['Locking in a mortgage interest rate before finding a property','Demonstrating to sellers that a buyer has been vetted and is financially capable of purchasing','Guaranteeing the borrower qualifies for a specific loan amount with no further requirements','Replacing the formal loan application and Loan Estimate process'],ans:1,exp:'Pre-approval letters are primarily used in the home buying process to demonstrate financial readiness to sellers. In competitive markets, having a strong pre-approval letter can make the difference in having an offer accepted. It shows the buyer has been vetted by a lender — not just made estimates.',key:'Pre-approval primary use: demonstrating financial readiness to sellers'},
+{t:6,type:'tf',text:'True or False: An MLO can charge a fee for issuing a pre-approval letter.',opts:['True','False'],ans:1,exp:'MLOs generally should NOT charge fees for pre-qualifications or pre-approvals since no formal application has been triggered. The one fee that may be collected before a formal application is processed is the credit report fee. Charging fees for a pre-qualification or pre-approval letter — before any application exists — would be highly unusual and potentially problematic.',key:'No fees for pre-qual/pre-approval (except possibly credit report fee for pre-approval)'},
+{t:6,type:'mc',text:'When does a pre-approval become a formal loan application that triggers TRID?',opts:['Immediately upon credit pull','When the borrower signs the pre-approval letter','When the borrower identifies a specific property and all 6 TRID application elements are present','30 days after the pre-approval is issued'],ans:2,exp:'The pre-approval transitions to a formal application — and triggers TRID\'s 3-business-day Loan Estimate requirement — when all 6 elements are present: borrower name, SSN, income, property address, estimated property value, and loan amount requested. The property address is typically the missing element that converts a pre-approval to a full application.',key:'Formal app triggered when all 6 elements present — usually when property address is added'},
+{t:6,type:'mc',text:'A pre-qualification vs. pre-approval — which provides the lender with more protection against claims of discrimination under ECOA?',opts:['Pre-qualification — it involves less lender commitment','Pre-approval — because it is based on documented, objective criteria applied consistently','Both provide equal protection under ECOA','Neither provides protection since both must comply with ECOA'],ans:1,exp:'Pre-approvals based on documented, verified, and consistently applied criteria provide better fair lending compliance because the decision is tied to objective data. Pre-qualifications based on verbal information are harder to document as consistent across applicants, creating potential fair lending exposure if certain groups are given more favorable informal assessments.',key:'Pre-approval = documented objective criteria = better fair lending compliance'},
+{t:6,type:'tf',text:'True or False: A pre-approval is valid indefinitely as long as nothing changes in the borrower\'s financial situation.',opts:['True','False'],ans:1,exp:'Pre-approvals are typically valid for 60-90 days, after which the credit report and financial information must be refreshed. Credit reports and employment status can change, so lenders require updated information after the expiration period. In a rising rate environment, the qualifying loan amount may also decrease if rates have risen.',key:'Pre-approvals expire in 60-90 days — must be refreshed with updated docs and credit'},
+{t:6,type:'mc',text:'Which statement BEST describes the underwriting significance of a pre-approval versus a pre-qualification?',opts:['Both are reviewed by an underwriter and have equal underwriting significance','A pre-approval may have been reviewed by an underwriter (DU run) and reflects actual data; a pre-qualification has no underwriting review','A pre-qualification is reviewed by an underwriter; a pre-approval is only reviewed by the MLO','Both have the same underwriting significance since neither guarantees final approval'],ans:1,exp:'A strong pre-approval — especially one where the file has been run through DU/LPA and key documents verified — provides genuine underwriting-level insight. A pre-qualification is an MLO-level opinion based on stated data with no underwriting review. The closer a pre-approval is to full underwriting, the more reliable it is.',key:'Strong pre-approval = DU/LPA run + docs verified. Pre-qual = no underwriting review.'},
+{t:6,type:'tf',text:'True or False: RESPA and TILA disclosures are required when issuing a pre-qualification letter.',opts:['True','False'],ans:1,exp:'TRID disclosures (Loan Estimate and Closing Disclosure) are only required after a formal loan application is received. A pre-qualification letter — which does not constitute an application — does not trigger TRID requirements. However, any advertising or rate quotes in connection with the pre-qualification must still comply with TILA advertising rules.',key:'Pre-qual does NOT trigger TRID. Formal application triggers TRID.'},
+{t:6,type:'mc',text:'A borrower received a pre-approval letter for $350,000 three months ago. They now want to make an offer on a $340,000 home. What should the MLO do?',opts:['Issue the purchase contract immediately — the pre-approval covers this amount','Refresh the credit report, verify current income and assets, and re-run AUS before confirming the pre-approval is still valid','Do nothing — pre-approvals are always valid for 6 months','Issue a new pre-qualification letter to save time'],ans:1,exp:'Even though the home is within the pre-approved amount, three months is a significant time period. The MLO should refresh the credit report (can change significantly in 90 days), verify employment and income are current, confirm assets are still sufficient, and re-run AUS. This protects the borrower, the seller, and the lender from surprises at underwriting.',key:'Refresh pre-approval: new credit pull + verify current employment/income/assets before offer'},
+{t:6,type:'mc',text:'In a competitive seller\'s market, which type of buyer is most attractive to a seller?',opts:['A buyer with a pre-qualification letter from any bank','A buyer with a pre-approval letter from a well-known local lender, ideally with DU approval','A buyer who is paying cash with no financing contingency — pre-approval is irrelevant here','A buyer with a pre-approval letter, but only if it was issued within 7 days'],ans:1,exp:'In a competitive market, sellers rank buyers by certainty of closing. Cash buyers are strongest, but among financed buyers, a pre-approval from a reputable lender — especially one with DU approval and fully verified docs — is far more attractive than a basic pre-qualification. Sellers don\'t want deals falling through due to financing.',key:'Seller preference: cash > strong pre-approval > basic pre-qual'},
+
+// ═══════════════════════════════════════
+// TOPIC 7 — Key Numbers
+// ═══════════════════════════════════════
+{t:7,type:'mc',text:'How many hours of pre-licensing education are required by the SAFE Act before obtaining a state MLO license?',opts:['10 hours','15 hours','20 hours','40 hours'],ans:2,exp:'The SAFE Act mandates 20 hours of pre-licensing education: 3 hours of federal mortgage law, 3 hours of ethics (fraud, consumer protection, fair lending), 2 hours of non-traditional mortgage products, and 12 hours of elective content. This is the minimum — states may require additional hours.',key:'Pre-licensing: 20 hours total (3 fed law + 3 ethics + 2 non-traditional + 12 elective)'},
+{t:7,type:'mc',text:'How many hours of continuing education must a state-licensed MLO complete each year to maintain their license?',opts:['4 hours','6 hours','8 hours','12 hours'],ans:2,exp:'Annual continuing education requires 8 hours: 3 hours of federal law, 2 hours of ethics, 2 hours of non-traditional mortgage products, and 1 hour of elective content. The same course cannot be taken in consecutive years to encourage ongoing learning.',key:'Annual CE: 8 hours (3 fed law + 2 ethics + 2 non-traditional + 1 elective)'},
+{t:7,type:'mc',text:'Under TRID, within how many business days of receiving a completed application must the lender deliver the Loan Estimate?',opts:['1 business day','3 business days','5 business days','7 business days'],ans:1,exp:'The Loan Estimate must be DELIVERED (not just sent) within 3 business days of receiving the application. "Business days" for the LE include all calendar days except Sundays and federal public holidays. The borrower must have received and reviewed the LE before the lender can collect most fees.',key:'Loan Estimate: delivered within 3 BUSINESS DAYS of application'},
+{t:7,type:'mc',text:'Under TRID, the borrower must RECEIVE the Closing Disclosure at least how many business days before consummation?',opts:['1 business day','2 business days','3 business days','5 business days'],ans:2,exp:'The Closing Disclosure must be RECEIVED by the borrower at least 3 business days before consummation (closing). "Business days" for the CD include all calendar days except Sundays and federal public holidays. Mailing the CD adds 3 calendar days for assumed delivery, meaning lenders typically send it 6+ days before closing.',key:'Closing Disclosure: RECEIVED at least 3 business days before closing'},
+{t:7,type:'mc',text:'Under ECOA, within how many days must a lender notify an applicant of an adverse action on a completed application?',opts:['15 days','20 days','30 days','45 days'],ans:2,exp:'ECOA requires adverse action notification within 30 days of receiving a COMPLETED application. For incomplete applications, the lender has 30 days from receiving the completed application or from the notice of incompleteness. The notice must provide specific reasons for the denial.',key:'ECOA adverse action: within 30 days of completed application'},
+{t:7,type:'mc',text:'The Right of Rescission under TILA gives a borrower how many business days to cancel a refinance on their primary residence?',opts:['1 business day','2 business days','3 business days','5 business days'],ans:2,exp:'The Right of Rescission gives borrowers 3 business days to cancel a refinance or home equity loan on their primary residence. For rescission, "business days" means ALL calendar days except Sundays and federal holidays. This means closing on Thursday gives the borrower until midnight Monday to rescind.',key:'Right of Rescission: 3 business days (all days except Sundays + federal holidays). Refinances ONLY — not purchases.'},
+{t:7,type:'mc',text:'Under RESPA, what is the maximum escrow cushion (reserve) a lender may require in an impound account?',opts:['1 month of projected payments','2 months of projected payments','3 months of projected payments','There is no limit'],ans:1,exp:'RESPA limits the escrow cushion to 2 months of projected escrow payments. This is the maximum buffer above the amount needed for expected disbursements that the lender can collect. Lenders must conduct annual escrow analyses and refund any excess over the cushion amount to the borrower.',key:'RESPA escrow cushion: maximum 2 months of projected payments'},
+{t:7,type:'mc',text:'What is the minimum credit score required for an FHA loan with a 3.5% down payment?',opts:['500','540','580','620'],ans:2,exp:'FHA requires a minimum credit score of 580 for the 3.5% down payment option. Borrowers with scores of 500-579 can still qualify for FHA but must put down at least 10%. Below 500, FHA financing is generally unavailable. Many lenders add "overlays" requiring 620+ for their own risk management.',key:'FHA 3.5% down = 580 minimum FICO. FHA 10% down = 500 minimum FICO.'},
+{t:7,type:'mc',text:'What is the minimum credit score required to obtain an FHA loan with a 10% down payment?',opts:['460','500','540','580'],ans:1,exp:'Borrowers with credit scores between 500 and 579 can obtain an FHA loan if they make a 10% down payment. Below 500, FHA will not insure the loan at all. This two-tier system (580/3.5% or 500/10%) is a key FHA feature that helps borrowers with challenged credit access homeownership.',key:'FHA 10% down tier: minimum 500 FICO (scores 500-579)'},
+{t:7,type:'mc',text:'The Qualified Mortgage rule limits total points and fees to what percentage of the loan amount (for loans of $100,000 or more)?',opts:['2%','3%','4%','5%'],ans:1,exp:'The QM rule caps total points and fees at 3% of the loan amount for loans of $100,000 or more. For smaller loans, the cap is expressed as higher dollar amounts to account for fixed costs. Exceeding this cap disqualifies the loan as a QM, exposing the lender to significantly greater legal liability under the ATR rule.',key:'QM points and fees cap: 3% of loan amount ($100K+ loans)'},
+{t:7,type:'mc',text:'After failing the NMLS National Test for the third time, how long must a candidate wait before retesting?',opts:['30 days','60 days','90 days','180 days'],ans:3,exp:'After the first two failures, candidates must wait 30 days between retakes. After the third and any subsequent failures, the waiting period extends to 180 days (6 months). There is no limit on total attempts, but the extended waiting period after three failures creates a strong incentive to prepare thoroughly.',key:'NMLS retake: 30 days (1st and 2nd failure) → 180 days (3rd+ failure)'},
+{t:7,type:'mc',text:'What is the minimum passing score on the NMLS National Test with Uniform State Content?',opts:['70%','72%','75%','80%'],ans:2,exp:'The SAFE Act requires a minimum passing score of 75% on the NMLS National Test Component with Uniform State Content. The test has 125 total questions but only 115 are scored (10 are pilot questions). You need approximately 86 correct answers out of 115 scored questions to pass.',key:'NMLS passing score: 75% (approx. 86/115 scored questions)'},
+{t:7,type:'mc',text:'Under the Bank Secrecy Act, within how many days must a financial institution file a Suspicious Activity Report (SAR)?',opts:['10 days','20 days','30 days','60 days'],ans:2,exp:'A SAR must be filed within 30 days of detecting the suspicious activity. If more time is needed to identify a suspect, the filing deadline can be extended to 60 days. SARs are filed with FinCEN (Financial Crimes Enforcement Network) and are kept confidential — the subject cannot be notified.',key:'SAR filing deadline: 30 days (60 days if additional time needed to identify suspect)'},
+{t:7,type:'mc',text:'The VA funding fee for a first-time VA purchase loan with no down payment for an active-duty service member is approximately:',opts:['0% — veterans pay no funding fee','1.25% of the loan amount','2.15% of the loan amount','3.3% of the loan amount'],ans:2,exp:'For a first-time use VA purchase loan with 0% down, the funding fee is approximately 2.15% of the loan amount for active-duty/veterans. For subsequent use, it increases to about 3.3%. The fee can be financed into the loan. Veterans with service-connected disabilities rated 10%+ are exempt from the funding fee entirely.',key:'VA funding fee (1st use, 0% down): ~2.15%. Subsequent use: ~3.3%. Disabled veterans: EXEMPT.'},
+{t:7,type:'mc',text:'How many total questions are on the NMLS National Test, and how many are actually scored?',opts:['100 total, 90 scored','115 total, 105 scored','125 total, 115 scored','130 total, 120 scored'],ans:2,exp:'The NMLS National Test has 125 total questions and 190 minutes to complete. Of those 125 questions, only 115 are scored — 10 are unscored pilot questions being evaluated for future tests. You cannot identify which questions are pilot questions, so answer all questions as if they count.',key:'125 total questions, 115 scored, 10 unscored pilot questions. 190 minutes.'},
+{t:7,type:'mc',text:'Under the SAFE Act, after failing the NMLS test for the FIRST time, how many days must a candidate wait before retaking it?',opts:['7 days','14 days','30 days','60 days'],ans:2,exp:'After the first failure, candidates must wait 30 days before retaking the NMLS test. The same 30-day waiting period applies after the second failure. After the third or subsequent failure, the waiting period extends to 180 days. This is designed to ensure candidates adequately prepare before each attempt.',key:'1st and 2nd failures: 30-day wait. 3rd+ failures: 180-day wait.'},
+];
+
+let selTopic = null;
+let curQ = 0;
+let score = 0;
+let answered = false;
+let tqList = [];
+let catCorrect = {weak:0, weakTotal:0, num:0, numTotal:0};
+
+const grid = document.getElementById('topics-grid');
+TOPICS.forEach(tp => {
+  const card = document.createElement('div');
+  card.className = 'topic-card';
+  card.dataset.id = tp.id;
+  const qCount = ALL_Q.filter(q => q.t === tp.id).length;
+  card.innerHTML = `
+    <span class="topic-icon">${tp.icon}</span>
+    <div class="topic-info"><h3>${tp.name}</h3><span>${tp.short}</span></div>
+    <span class="topic-count">${qCount}Q</span>`;
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    selTopic = tp.id;
+    document.getElementById('btn-start').disabled = false;
+  });
+  grid.appendChild(card);
+});
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  tqList = ALL_Q.filter(q => q.t === selTopic);
+  curQ = 0; score = 0; answered = false;
+  showQuiz();
+});
+
+function showQuiz() {
+  document.getElementById('topic-screen').style.display = 'none';
+  document.getElementById('score-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  renderQ();
+}
+
+let shuffledOpts = [];
+let correctShuffledIdx = -1;
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderQ() {
+  answered = false;
+  const q = tqList[curQ];
+  const total = tqList.length;
+  const tp = TOPICS[selTopic];
+  document.getElementById('topic-badge').textContent = tp.name;
+  document.getElementById('progress-text').textContent = `${curQ + 1} / ${total}`;
+  document.getElementById('score-live').textContent = `Score: ${score}`;
+  document.getElementById('prog-fill').style.width = `${(curQ / total) * 100}%`;
+  document.getElementById('q-type').textContent = q.type === 'tf' ? '✦ True / False' : '◈ Multiple Choice';
+  const catEl = document.getElementById('q-cat');
+  catEl.textContent = tp.cat === 'weak' ? 'Weak Area' : 'Key Number';
+  catEl.className = `q-category ${tp.cat === 'weak' ? 'cat-weak' : 'cat-num'}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const correctText = q.opts[q.ans];
+
+  if (q.type === 'tf') {
+    shuffledOpts = [...q.opts];
+  } else {
+    const indices = [0,1,2,3];
+    const shuffledIndices = shuffleArray(indices);
+    shuffledOpts = shuffledIndices.map(i => q.opts[i]);
+  }
+  correctShuffledIdx = shuffledOpts.indexOf(correctText);
+
+  const opts = document.getElementById('opts');
+  opts.innerHTML = '';
+  const lbls = q.type === 'tf' ? ['T','F'] : ['A','B','C','D'];
+  shuffledOpts.forEach((opt, i) => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-lbl">${lbls[i]}</span>${opt}`;
+    btn.addEventListener('click', () => handleAns(i));
+    li.appendChild(btn);
+    opts.appendChild(li);
+  });
+  document.getElementById('explain').classList.remove('show');
+  document.getElementById('btn-next').disabled = true;
+}
+
+function handleAns(idx) {
+  if (answered) return;
+  answered = true;
+  const q = tqList[curQ];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === correctShuffledIdx) btn.classList.add(idx === correctShuffledIdx ? 'correct' : 'reveal');
+    if (i === idx && idx !== correctShuffledIdx) btn.classList.add('wrong');
+  });
+  if (idx === correctShuffledIdx) score++;
+  const expEl = document.getElementById('explain');
+  let html = `<strong>Explanation</strong><p>${q.exp}</p>`;
+  if (q.key) html += `<span class="key-num">⚡ ${q.key}</span>`;
+  expEl.innerHTML = html;
+  expEl.classList.add('show');
+  const isLast = curQ === tqList.length - 1;
+  const btn = document.getElementById('btn-next');
+  btn.textContent = isLast ? 'See Results →' : 'Next →';
+  btn.disabled = false;
+}
+
+document.getElementById('btn-next').addEventListener('click', () => {
+  curQ++;
+  if (curQ >= tqList.length) showScore();
+  else renderQ();
+});
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('topic-screen').style.display = 'block';
+});
+
+function showScore() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('score-screen').style.display = 'block';
+  const total = tqList.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('score-big').textContent = score;
+  document.getElementById('score-of').textContent = `/ ${total}`;
+  const pass = pct >= 75;
+  const pill = document.getElementById('grade-pill');
+  pill.textContent = pass ? `${pct}% — PASSING` : `${pct}% — NEEDS REVIEW`;
+  pill.className = `grade-pill ${pass ? 'pass' : 'fail'}`;
+  document.getElementById('score-title').textContent = pass ? 'Solid Work!' : 'Keep Drilling';
+  document.getElementById('score-msg').textContent = pass
+    ? `You scored ${score}/${total} on "${TOPICS[selTopic].name}." If you hit 75%+ on every focused topic, you are ready for the real exam. Move to the next topic.`
+    : `You scored ${score}/${total} on "${TOPICS[selTopic].name}." Review every explanation carefully — especially the ⚡ key number callouts. Retry until you hit 75%+ consistently.`;
+
+  const breakdown = document.getElementById('breakdown');
+  breakdown.innerHTML = `<div class="breakdown-title">Score Breakdown</div>
+    <div class="breakdown-row"><span>Topic</span><span>${TOPICS[selTopic].name}</span></div>
+    <div class="breakdown-row"><span>Correct answers</span><span class="breakdown-score ${pass?'bs-good':'bs-bad'}">${score} / ${total}</span></div>
+    <div class="breakdown-row"><span>Percentage</span><span class="breakdown-score ${pass?'bs-good':'bs-bad'}">${pct}%</span></div>
+    <div class="breakdown-row"><span>NMLS pass threshold</span><span class="breakdown-score">75%</span></div>
+    <div class="breakdown-row"><span>Status</span><span class="breakdown-score ${pass?'bs-good':'bs-bad'}">${pass?'✓ Passing':'✗ Below threshold'}</span></div>`;
+}
+
+document.getElementById('btn-retry').addEventListener('click', () => {
+  curQ = 0; score = 0;
+  showQuiz();
+});
+document.getElementById('btn-menu').addEventListener('click', () => {
+  document.getElementById('score-screen').style.display = 'none';
+  document.getElementById('topic-screen').style.display = 'block';
+  document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('btn-start').disabled = true;
+  selTopic = null;
+});
+</script>
+</body>
+</html>

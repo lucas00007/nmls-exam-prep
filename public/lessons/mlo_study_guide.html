@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMLS SAFE Exam — Master Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #07111f;
+  --navy2:  #0c1d30;
+  --navy3:  #112540;
+  --navy4:  #163050;
+  --gold:   #c9a84c;
+  --gold2:  #e8c96a;
+  --gold3:  #f5e6a3;
+  --cream:  #f0ebe0;
+  --cream2: #d8d0bc;
+  --white:  #ffffff;
+  --gray:   #7a8494;
+  --gray2:  #9aa3b0;
+  --border: rgba(201,168,76,0.18);
+  --border2:rgba(201,168,76,0.35);
+
+  --c0: #4e9af1; /* intro */
+  --c1: #e07070; /* fed law */
+  --c2: #70c4a0; /* origination */
+  --c3: #f0a050; /* products */
+  --c4: #a080e0; /* underwriting */
+  --c5: #60c8d0; /* appraisal */
+  --c6: #e07090; /* ethics */
+  --c7: #80c060; /* closing */
+  --c8: #f0d060; /* usc */
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;line-height:1.6;}
+
+/* ── HEADER ── */
+.site-header{
+  background:linear-gradient(160deg,#040d18 0%,#0c1d30 50%,#163050 100%);
+  border-bottom:2px solid var(--gold);
+  padding:36px 24px 28px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(60deg,transparent,transparent 60px,rgba(201,168,76,.02) 60px,rgba(201,168,76,.02) 120px);
+}
+.site-header::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:200px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);
+}
+.header-eye{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;position:relative;}
+.site-header h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold2);position:relative;margin-bottom:8px;}
+.site-header p{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(240,235,224,.45);position:relative;}
+
+/* ── EXAM STATS BAR ── */
+.stats-bar{
+  background:var(--navy2);border-bottom:1px solid var(--border);
+  padding:14px 24px;
+  display:flex;gap:0;justify-content:center;flex-wrap:wrap;
+}
+.stat{
+  padding:8px 20px;border-right:1px solid var(--border);
+  text-align:center;flex:1;min-width:120px;max-width:180px;
+}
+.stat:last-child{border-right:none;}
+.stat-val{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:600;color:var(--gold2);display:block;}
+.stat-lbl{font-size:.68rem;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;}
+
+/* ── NAV TABS ── */
+.nav-wrap{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy2);border-bottom:1px solid var(--border);
+  padding:0 16px;overflow-x:auto;
+  display:flex;gap:2px;
+  scrollbar-width:none;
+}
+.nav-wrap::-webkit-scrollbar{display:none;}
+.nav-tab{
+  flex-shrink:0;
+  padding:12px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gray);background:transparent;border:none;
+  border-bottom:2px solid transparent;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.nav-tab:hover{color:var(--gold);}
+.nav-tab.active{color:var(--gold2);border-bottom-color:var(--gold2);}
+
+/* ── LAYOUT ── */
+.main{max-width:1000px;margin:0 auto;padding:32px 20px 80px;}
+
+/* ── TOPIC SECTION ── */
+.topic-section{margin-bottom:56px;scroll-margin-top:60px;}
+.topic-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:1px solid var(--border);
+}
+.topic-number{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:2px;color:var(--gray);
+}
+.topic-icon-wrap{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+}
+.topic-title-wrap h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:2px;}
+.topic-weight{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:1px;text-transform:uppercase;color:var(--gray2);
+}
+
+/* ── CARDS ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px;}
+
+.card{
+  background:var(--navy2);border:1px solid var(--border);
+  border-radius:10px;padding:18px 20px;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+}
+.card-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;
+}
+.card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;}
+.card li{
+  font-size:.85rem;color:rgba(240,235,224,.82);
+  padding-left:14px;position:relative;line-height:1.5;
+}
+.card li::before{content:'—';position:absolute;left:0;color:var(--gray);}
+.card li strong{color:var(--cream);font-weight:600;}
+
+/* ── NUMBER PILLS ── */
+.numbers-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.num-pill{
+  display:flex;flex-direction:column;align-items:center;
+  background:var(--navy3);border:1px solid var(--border2);
+  border-radius:10px;padding:12px 16px;min-width:110px;
+  text-align:center;flex:1;
+}
+.num-val{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:var(--gold2);line-height:1;}
+.num-lbl{font-size:.68rem;color:var(--gray2);margin-top:5px;line-height:1.3;}
+
+/* ── COMPARISON TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:.83rem;}
+.compare-table th{
+  background:var(--navy3);
+  font-family:'IBM Plex Mono',monospace;font-size:.63rem;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:10px 14px;text-align:left;color:var(--gold);
+  border-bottom:1px solid var(--border2);
+}
+.compare-table td{
+  padding:9px 14px;border-bottom:1px solid var(--border);
+  color:rgba(240,235,224,.82);vertical-align:top;
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:hover td{background:rgba(255,255,255,.02);}
+.compare-table .row-label{font-weight:600;color:var(--cream);white-space:nowrap;}
+
+/* ── ALERT BOXES ── */
+.alert{
+  border-radius:8px;padding:14px 16px;margin-bottom:14px;
+  border-left:3px solid;font-size:.85rem;line-height:1.6;
+}
+.alert-gold{background:rgba(201,168,76,.08);border-color:var(--gold);color:rgba(240,235,224,.9);}
+.alert-red {background:rgba(224,112,112,.08);border-color:#e07070;color:rgba(240,235,224,.9);}
+.alert-green{background:rgba(112,196,160,.08);border-color:#70c4a0;color:rgba(240,235,224,.9);}
+.alert-blue{background:rgba(78,154,241,.08);border-color:#4e9af1;color:rgba(240,235,224,.9);}
+.alert strong{font-weight:600;}
+
+/* ── TOPIC COLOR THEMES ── */
+.t0 .card::before,.t0 .topic-icon-wrap{background:var(--c0);}
+.t0 .topic-icon-wrap{background:rgba(78,154,241,.15);}
+.t0 .card-title{color:var(--c0);}
+.t0 .num-val{color:var(--c0);}
+
+.t1 .card::before,.t1 .topic-icon-wrap{background:var(--c1);}
+.t1 .topic-icon-wrap{background:rgba(224,112,112,.15);}
+.t1 .card-title{color:var(--c1);}
+.t1 .num-val{color:var(--c1);}
+
+.t2 .card::before{background:var(--c2);}
+.t2 .topic-icon-wrap{background:rgba(112,196,160,.15);}
+.t2 .card-title{color:var(--c2);}
+.t2 .num-val{color:var(--c2);}
+
+.t3 .card::before{background:var(--c3);}
+.t3 .topic-icon-wrap{background:rgba(240,160,80,.15);}
+.t3 .card-title{color:var(--c3);}
+.t3 .num-val{color:var(--c3);}
+
+.t4 .card::before{background:var(--c4);}
+.t4 .topic-icon-wrap{background:rgba(160,128,224,.15);}
+.t4 .card-title{color:var(--c4);}
+.t4 .num-val{color:var(--c4);}
+
+.t5 .card::before{background:var(--c5);}
+.t5 .topic-icon-wrap{background:rgba(96,200,208,.15);}
+.t5 .card-title{color:var(--c5);}
+.t5 .num-val{color:var(--c5);}
+
+.t6 .card::before{background:var(--c6);}
+.t6 .topic-icon-wrap{background:rgba(224,112,144,.15);}
+.t6 .card-title{color:var(--c6);}
+.t6 .num-val{color:var(--c6);}
+
+.t7 .card::before{background:var(--c7);}
+.t7 .topic-icon-wrap{background:rgba(128,192,96,.15);}
+.t7 .card-title{color:var(--c7);}
+.t7 .num-val{color:var(--c7);}
+
+.t8 .card::before{background:var(--c8);}
+.t8 .topic-icon-wrap{background:rgba(240,208,96,.15);}
+.t8 .card-title{color:var(--c8);}
+.t8 .num-val{color:var(--c8);}
+
+/* ── FULL WIDTH CARD ── */
+.card-full{grid-column:1/-1;}
+
+/* ── SCENARIO BANNER ── */
+.scenario-banner{
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.05));
+  border:1px solid var(--border2);border-radius:10px;
+  padding:16px 20px;margin-bottom:20px;
+}
+.scenario-banner .sb-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;
+}
+.scenario-banner p{font-size:.85rem;color:rgba(240,235,224,.85);line-height:1.6;}
+.scenario-banner strong{color:var(--gold2);}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:20px 0;}
+
+/* ── BACK TO TOP ── */
+.back-top{
+  position:fixed;bottom:24px;right:24px;
+  width:42px;height:42px;border-radius:50%;
+  background:var(--gold);color:var(--navy);
+  border:none;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(201,168,76,.4);
+  transition:all .2s;z-index:200;
+}
+.back-top:hover{background:var(--gold2);transform:translateY(-2px);}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <p class="header-eye">NMLS SAFE National Test — Uniform State Content</p>
+  <h1>Master Study Guide</h1>
+  <p>Facts · Numbers · Key Distinctions · Scenario Triggers · Texas USC</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><span class="stat-val">125</span><span class="stat-lbl">Total Questions</span></div>
+  <div class="stat"><span class="stat-val">115</span><span class="stat-lbl">Scored</span></div>
+  <div class="stat"><span class="stat-val">75%</span><span class="stat-lbl">Pass Score</span></div>
+  <div class="stat"><span class="stat-val">190</span><span class="stat-lbl">Minutes</span></div>
+  <div class="stat"><span class="stat-val">~86</span><span class="stat-lbl">Correct to Pass</span></div>
+</div>
+
+<nav class="nav-wrap" id="nav-wrap">
+  <button class="nav-tab active" onclick="scrollTo('t0',this)">Intro & SAFE</button>
+  <button class="nav-tab" onclick="scrollTo('t1',this)">Federal Laws</button>
+  <button class="nav-tab" onclick="scrollTo('t2',this)">Origination</button>
+  <button class="nav-tab" onclick="scrollTo('t3',this)">Products</button>
+  <button class="nav-tab" onclick="scrollTo('t4',this)">Underwriting</button>
+  <button class="nav-tab" onclick="scrollTo('t5',this)">Appraisal</button>
+  <button class="nav-tab" onclick="scrollTo('t6',this)">Ethics</button>
+  <button class="nav-tab" onclick="scrollTo('t7',this)">Closing</button>
+  <button class="nav-tab" onclick="scrollTo('t8',this)">Texas USC</button>
+</nav>
+
+<div class="main">
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 0 — INTRO & SAFE ACT              -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t0" id="t0">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">🏛️</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 01</span>
+      <h2>Introduction to Mortgage Lending & SAFE Act</h2>
+      <span class="topic-weight">Exam Weight: ~10% — Foundation knowledge</span>
+    </div>
+  </div>
+
+  <div class="numbers-row">
+    <div class="num-pill"><span class="num-val">20</span><span class="num-lbl">Pre-licensing hours required</span></div>
+    <div class="num-pill"><span class="num-val">8</span><span class="num-lbl">Annual CE hours</span></div>
+    <div class="num-pill"><span class="num-val">75%</span><span class="num-lbl">NMLS passing score</span></div>
+    <div class="num-pill"><span class="num-val">30</span><span class="num-lbl">Days — 1st/2nd retake wait</span></div>
+    <div class="num-pill"><span class="num-val">180</span><span class="num-lbl">Days — 3rd+ retake wait</span></div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Pre-Licensing Hours Breakdown</div>
+      <ul>
+        <li><strong>3 hours</strong> — Federal mortgage law</li>
+        <li><strong>3 hours</strong> — Ethics (fraud, consumer protection, fair lending)</li>
+        <li><strong>2 hours</strong> — Non-traditional mortgage products</li>
+        <li><strong>12 hours</strong> — Electives (state may add more)</li>
+        <li><strong>Total: 20 hours minimum</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Annual CE Hours Breakdown</div>
+      <ul>
+        <li><strong>3 hours</strong> — Federal law</li>
+        <li><strong>2 hours</strong> — Ethics</li>
+        <li><strong>2 hours</strong> — Non-traditional products</li>
+        <li><strong>1 hour</strong> — Elective</li>
+        <li><strong>Total: 8 hours minimum per year</strong></li>
+        <li>Cannot repeat same course in consecutive years</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Who Needs an MLO License</div>
+      <ul>
+        <li>State-licensed: non-bank MLOs must be fully licensed</li>
+        <li>Federally registered: bank/CU employees register only (no state license)</li>
+        <li>Bank subsidiaries: must get state license (not exempt)</li>
+        <li>Clerical/admin only: exempt from licensing</li>
+        <li>Temporary authority: can originate while new state app pending</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Secondary Market Players</div>
+      <ul>
+        <li><strong>Fannie Mae (FNMA)</strong> — buys conventional conforming loans</li>
+        <li><strong>Freddie Mac (FHLMC)</strong> — buys conventional conforming loans</li>
+        <li><strong>Ginnie Mae (GNMA)</strong> — guarantees MBS backed by FHA/VA/USDA loans; government agency</li>
+        <li>Fannie & Freddie = GSEs (not government agencies)</li>
+        <li>Securitization frees up capital for new loans</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">NMLS License Facts</div>
+      <ul>
+        <li>Unique Identifier: public-facing ID on all loan docs</li>
+        <li>Consumer Access: free public database to verify MLOs</li>
+        <li>Felony involving fraud/dishonesty within 7 years = denial</li>
+        <li>Financial crimes = permanent bar</li>
+        <li>Renew by December 31 each year</li>
+        <li>Sponsorship required — cannot originate without active sponsor</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Lender Types</div>
+      <ul>
+        <li><strong>Retail lender</strong> — funds own loans, sells to secondary market</li>
+        <li><strong>Mortgage broker</strong> — originates, never funds; uses wholesale lenders</li>
+        <li><strong>Correspondent lender</strong> — funds in own name, then sells</li>
+        <li><strong>Portfolio lender</strong> — keeps loans on own books</li>
+        <li><strong>Wholesale lender</strong> — funds broker-originated loans</li>
+        <li>Warehouse line = short-term funding until loan is sold</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-gold"><strong>⚡ Exam Trap:</strong> Bank employees REGISTER with NMLS — they do NOT get a state license. Bank SUBSIDIARIES must get a state license. This distinction appears frequently in scenario questions.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 1 — FEDERAL MORTGAGE LAWS         -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t1" id="t1">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">⚖️</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 02</span>
+      <h2>Federal Mortgage Laws</h2>
+      <span class="topic-weight">Exam Weight: 23% — Highest weighted topic</span>
+    </div>
+  </div>
+
+  <div class="numbers-row">
+    <div class="num-pill"><span class="num-val">3</span><span class="num-lbl">Business days — Loan Estimate delivery</span></div>
+    <div class="num-pill"><span class="num-val">3</span><span class="num-lbl">Business days — CD before closing</span></div>
+    <div class="num-pill"><span class="num-val">30</span><span class="num-lbl">Days — ECOA adverse action</span></div>
+    <div class="num-pill"><span class="num-val">3</span><span class="num-lbl">Business days — Right of Rescission</span></div>
+    <div class="num-pill"><span class="num-val">2</span><span class="num-lbl">Months — Max RESPA escrow cushion</span></div>
+    <div class="num-pill"><span class="num-val">3x</span><span class="num-lbl">RESPA Section 8 civil penalty</span></div>
+  </div>
+
+  <table class="compare-table">
+    <thead><tr><th>Law</th><th>Full Name</th><th>Regulation</th><th>Key Purpose</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">RESPA</td><td>Real Estate Settlement Procedures Act</td><td>Regulation X</td><td>Prohibit kickbacks; require cost disclosures</td></tr>
+      <tr><td class="row-label">TILA</td><td>Truth in Lending Act</td><td>Regulation Z</td><td>Disclose true cost of credit (APR)</td></tr>
+      <tr><td class="row-label">TRID</td><td>TILA-RESPA Integrated Disclosure Rule</td><td>Combines X + Z</td><td>Loan Estimate + Closing Disclosure</td></tr>
+      <tr><td class="row-label">ECOA</td><td>Equal Credit Opportunity Act</td><td>Regulation B</td><td>Prohibit credit discrimination</td></tr>
+      <tr><td class="row-label">HMDA</td><td>Home Mortgage Disclosure Act</td><td>Regulation C</td><td>Collect/report lending data; detect redlining</td></tr>
+      <tr><td class="row-label">FHA</td><td>Fair Housing Act</td><td>None (HUD/DOJ)</td><td>Prohibit housing discrimination</td></tr>
+      <tr><td class="row-label">HOEPA</td><td>Home Ownership & Equity Protection Act</td><td>Amendment to TILA</td><td>Extra protection for high-cost mortgages</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">ECOA vs Fair Housing Act — Protected Classes</div>
+      <ul>
+        <li><strong>Both laws:</strong> race, color, religion, national origin, sex</li>
+        <li><strong>ECOA only:</strong> marital status, age, receipt of public assistance</li>
+        <li><strong>FHA only:</strong> familial status, disability</li>
+        <li>ECOA = 8 classes total | FHA = 7 classes total</li>
+        <li>Enforced by: ECOA→CFPB | FHA→HUD and DOJ</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">TRID Tolerance Categories</div>
+      <ul>
+        <li><strong>Zero tolerance (cannot increase):</strong> lender fees, transfer taxes, required lender-selected services</li>
+        <li><strong>10% aggregate tolerance:</strong> recording fees, required borrower-selected from list</li>
+        <li><strong>Unlimited tolerance:</strong> prepaids, escrow deposits, optional owner's title, borrower-chosen providers NOT on list</li>
+        <li>Cure = refund excess within <strong>3 calendar years</strong> of closing</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">3 Events That Reset CD 3-Day Clock</div>
+      <ul>
+        <li>APR increases more than <strong>1/8% (0.125%)</strong> for fixed</li>
+        <li>APR increases more than <strong>1/4% (0.25%)</strong> for variable</li>
+        <li>Loan <strong>product changes</strong> (e.g., fixed → ARM)</li>
+        <li><strong>Prepayment penalty</strong> is added</li>
+        <li>All other changes do NOT restart the clock</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">RESPA Section 8 — Key Rules</div>
+      <ul>
+        <li>No kickbacks or referral fees among settlement providers</li>
+        <li>No de minimis exception — any thing of value = violation</li>
+        <li>Fee splits OK only if BOTH parties perform actual services</li>
+        <li>ABA: must disclose + consumer must have choice + return on ownership only</li>
+        <li>Section 9: seller cannot require specific title company</li>
+        <li>Civil penalty = <strong>3x the charge</strong> + criminal: $10K fine / 1 yr jail</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Right of Rescission (TILA)</div>
+      <ul>
+        <li>Applies to: refinances, HELOCs on PRIMARY residence</li>
+        <li>Does NOT apply to: purchase money mortgages</li>
+        <li>3 business days = all days except Sundays + federal holidays</li>
+        <li>If rescission rights not properly disclosed: extended to 3 YEARS</li>
+        <li>Lender must return ALL finance charges upon valid rescission</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">TRID Exemptions</div>
+      <ul>
+        <li>Reverse mortgages (HECMs) — use HUD disclosures</li>
+        <li>HELOCs — use separate Reg Z disclosures</li>
+        <li>Mobile home loans not secured by real property</li>
+        <li>Certain no-interest loans</li>
+        <li>Commercial/business purpose loans</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-red"><strong>⚡ Most Tested Scenario:</strong> An MLO receives something of value from a title company. Always ask: Was it for an actual service performed? If YES → potentially legal. If it's for referrals → RESPA Section 8 violation. Amount does NOT matter.</div>
+  <div class="alert alert-blue"><strong>⚡ ECOA Timing:</strong> Adverse action notice must be sent within <strong>30 days</strong> of a COMPLETED application. Must state SPECIFIC reasons — vague reasons are a violation.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 2 — LOAN ORIGINATION              -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t2" id="t2">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">📋</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 03</span>
+      <h2>Loan Origination & Application Process</h2>
+      <span class="topic-weight">Exam Weight: 25% — Single highest weighted topic</span>
+    </div>
+  </div>
+
+  <div class="numbers-row">
+    <div class="num-pill"><span class="num-val">6</span><span class="num-lbl">Application trigger elements</span></div>
+    <div class="num-pill"><span class="num-val">3</span><span class="num-lbl">Business days — LE delivery</span></div>
+    <div class="num-pill"><span class="num-val">10</span><span class="num-lbl">Business days — LE expiration</span></div>
+    <div class="num-pill"><span class="num-val">3%</span><span class="num-lbl">QM points & fees cap</span></div>
+    <div class="num-pill"><span class="num-val">43%</span><span class="num-lbl">Max DTI for manual QM</span></div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">6 Application Trigger Elements (TRID)</div>
+      <ul>
+        <li><strong>1.</strong> Borrower's name</li>
+        <li><strong>2.</strong> Social Security number</li>
+        <li><strong>3.</strong> Income</li>
+        <li><strong>4.</strong> Property address</li>
+        <li><strong>5.</strong> Estimated property value</li>
+        <li><strong>6.</strong> Desired loan amount</li>
+        <li>All 6 present → Loan Estimate required within 3 business days</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Pre-Qual vs Pre-Approval</div>
+      <ul>
+        <li><strong>Pre-qualification:</strong> unverified, self-reported info only</li>
+        <li><strong>Pre-approval:</strong> verified docs + credit report pulled</li>
+        <li>Neither is a binding commitment to lend</li>
+        <li>Neither triggers TRID (no property address yet)</li>
+        <li>Pre-approval expires in 60–90 days</li>
+        <li>Pre-approval = stronger signal to sellers in competitive markets</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">DTI Calculations</div>
+      <ul>
+        <li><strong>Front-end (housing) DTI</strong> = PITI ÷ Gross Monthly Income</li>
+        <li><strong>Back-end (total) DTI</strong> = (PITI + ALL debts) ÷ GMI</li>
+        <li>Uses GROSS (pre-tax) income — never net</li>
+        <li>Includes: credit cards, car, student loans, alimony, child support</li>
+        <li>Excludes: utilities, phone, food, 401(k) loan repayments (conventional)</li>
+        <li>HOA dues: included in front-end DTI</li>
+        <li>Deferred student loans: use 1% of balance if no payment stated</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">LO Compensation Rule (Reg Z)</div>
+      <ul>
+        <li>MLO cannot be paid by BOTH borrower AND lender on same loan</li>
+        <li>Cannot be compensated based on loan TERMS (rate, fees, LTV)</li>
+        <li>CAN be paid based on loan volume or fixed amounts</li>
+        <li>Prevents steering borrowers to higher-cost products for higher MLO pay</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Income Documentation</div>
+      <ul>
+        <li><strong>W-2 employee:</strong> 2 years W-2s + 30 days pay stubs + VOE</li>
+        <li><strong>Self-employed (25%+ ownership):</strong> 2 years personal + business tax returns</li>
+        <li><strong>Commission/bonus:</strong> 2-year history required</li>
+        <li><strong>Part-time:</strong> 2-year history required</li>
+        <li><strong>Social Security:</strong> can gross up by 25% (÷ 0.75)</li>
+        <li><strong>Rental income:</strong> 75% of gross rents (25% vacancy factor)</li>
+        <li>Self-employed: add back depreciation to Schedule C net income</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Rate Lock &amp; Intent to Proceed</div>
+      <ul>
+        <li>Intent to proceed required before collecting most fees</li>
+        <li>Credit report fee: only fee collectible BEFORE intent to proceed</li>
+        <li>Rate lock = lender guarantees rate for set period (30–60 days typical)</li>
+        <li>Changed circumstance: allows revised LE with updated fees</li>
+        <li>Lender errors are NOT valid changed circumstances</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-green"><strong>⚡ Exam Trap:</strong> The exam loves testing what IS and IS NOT in the DTI. Remember: utilities, subscriptions, and living expenses are NEVER in DTI. Only credit obligations with required monthly payments count.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 3 — MORTGAGE PRODUCTS             -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t3" id="t3">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">🏠</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 04</span>
+      <h2>Mortgage Products & Loan Types</h2>
+      <span class="topic-weight">Exam Weight: ~14% — Know all government loan programs</span>
+    </div>
+  </div>
+
+  <table class="compare-table">
+    <thead><tr><th>Program</th><th>Min Down</th><th>Min Credit</th><th>Key Feature</th><th>Insurance</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">FHA</td><td>3.5% (580+) / 10% (500–579)</td><td>500</td><td>Low down payment, flexible credit</td><td>MIP: 1.75% upfront + annual</td></tr>
+      <tr><td class="row-label">VA</td><td>0%</td><td>None (lender overlay)</td><td>Veterans/active duty only; no PMI</td><td>Funding fee (~2.15% 1st use)</td></tr>
+      <tr><td class="row-label">USDA</td><td>0%</td><td>None (typically 640+)</td><td>Rural/suburban eligible areas; income limits</td><td>Guarantee fee + annual fee</td></tr>
+      <tr><td class="row-label">Conventional</td><td>3% (HomeReady/HomePossible) / 5% standard</td><td>620+</td><td>Below 20% down → PMI required</td><td>PMI cancels at 80% LTV</td></tr>
+      <tr><td class="row-label">Jumbo</td><td>10–20%+</td><td>700+</td><td>Exceeds FHFA conforming limit</td><td>No government backing</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">ARM Structure — 2/2/5 Cap</div>
+      <ul>
+        <li><strong>First 2</strong> = initial adjustment cap (1st change after fixed period)</li>
+        <li><strong>Second 2</strong> = periodic cap (each subsequent adjustment)</li>
+        <li><strong>5</strong> = lifetime cap (max total change from start rate)</li>
+        <li>Rate = Index + Margin (margin is FIXED; index floats)</li>
+        <li>Qualify at: HIGHER of note rate or fully indexed rate</li>
+        <li>SOFR replaced LIBOR as dominant ARM index</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">FHA Key Facts</div>
+      <ul>
+        <li>MIP: 1.75% upfront (can be financed) + annual monthly premium</li>
+        <li>MIP for life of loan if LTV > 90% at origination</li>
+        <li>MIP removed at 11 years if 10%+ down at origination</li>
+        <li>Max seller concessions: <strong>6%</strong> of purchase price</li>
+        <li>203(k): purchase + renovation in one loan</li>
+        <li>Streamline refinance: no appraisal, minimal docs, must net tangible benefit</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">VA Key Facts</div>
+      <ul>
+        <li>No down payment, no PMI, no minimum credit score (VA)</li>
+        <li>Funding fee: ~2.15% first use / ~3.3% subsequent use (0% down)</li>
+        <li>Disabled veterans (10%+ rating): EXEMPT from funding fee</li>
+        <li>IRRRL (streamline refi): minimal docs, no appraisal typically</li>
+        <li>Entitlement can be restored and reused after payoff</li>
+        <li>VA loans are assumable</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">USDA Key Facts</div>
+      <ul>
+        <li>100% financing — no down payment</li>
+        <li>Property must be in USDA-eligible rural/suburban area</li>
+        <li>Income limit: typically 115% of area median income</li>
+        <li>Section 502 Guaranteed: most common program</li>
+        <li>Waiting period after Ch. 7: <strong>3 years</strong> (longer than FHA's 2 years)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Conventional PMI Rules</div>
+      <ul>
+        <li>Required when LTV > 80% (down payment less than 20%)</li>
+        <li>Homeowners Protection Act: auto-cancel at 78% LTV</li>
+        <li>Borrower can request cancellation at 80% LTV</li>
+        <li>Piggyback (80-10-10): avoids PMI by keeping 1st mortgage at 80%</li>
+        <li>PMI protects the LENDER — not the borrower</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Qualified Mortgage (QM) Rules</div>
+      <ul>
+        <li>Points and fees cap: <strong>3%</strong> of loan amount ($100K+)</li>
+        <li>No negative amortization</li>
+        <li>No balloon payments (most cases)</li>
+        <li>No interest-only payments</li>
+        <li>Max loan term: 30 years</li>
+        <li>Manual underwrite QM: max 43% DTI</li>
+        <li>DU/AUS approval: up to 45–50% DTI</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-gold"><strong>⚡ Key Distinction:</strong> USDA and VA both offer 0% down — but USDA is for rural areas with income limits; VA is for eligible veterans with no income limit or geographic restriction. Know which is which in scenarios.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 4 — UNDERWRITING                  -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t4" id="t4">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">📊</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 05</span>
+      <h2>Underwriting & Qualifying Borrowers</h2>
+      <span class="topic-weight">Exam Weight: ~14% — Focus on waiting periods and credit rules</span>
+    </div>
+  </div>
+
+  <table class="compare-table">
+    <thead><tr><th>Event</th><th>Conventional</th><th>FHA</th><th>VA</th><th>USDA</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">Chapter 7 Bankruptcy</td><td>4 years (discharge)</td><td>2 years (discharge)</td><td>2 years (discharge)</td><td>3 years (discharge)</td></tr>
+      <tr><td class="row-label">Chapter 13 Discharge</td><td>2 years</td><td>1 year (in-plan)</td><td>1 year (in-plan)</td><td>1 year (in-plan)</td></tr>
+      <tr><td class="row-label">Chapter 13 Dismissal</td><td>4 years</td><td>2 years</td><td>2 years</td><td>3 years</td></tr>
+      <tr><td class="row-label">Foreclosure</td><td>7 years</td><td>3 years</td><td>2 years</td><td>3 years</td></tr>
+      <tr><td class="row-label">Short Sale</td><td>4 years</td><td>3 years</td><td>2 years</td><td>3 years</td></tr>
+      <tr><td class="row-label">Deed-in-Lieu</td><td>4 years</td><td>3 years</td><td>2 years</td><td>3 years</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">The Four C's of Credit</div>
+      <ul>
+        <li><strong>Credit</strong> — payment history, score, derogatory marks</li>
+        <li><strong>Capacity</strong> — income, employment, DTI ratios</li>
+        <li><strong>Capital</strong> — assets, down payment, reserves</li>
+        <li><strong>Collateral</strong> — property value, condition, type</li>
+        <li>Underwriter makes final approve/suspend/deny decision — NOT the MLO</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Credit Score Rules</div>
+      <ul>
+        <li>Tri-merge: pull all 3 bureaus; use the <strong>middle score</strong></li>
+        <li>Two borrowers: use lower of the two middle scores</li>
+        <li>FHA 3.5% down: <strong>580</strong> minimum</li>
+        <li>FHA 10% down: <strong>500</strong> minimum</li>
+        <li>Conventional: typically <strong>620</strong> minimum</li>
+        <li>VA/USDA: no official minimum (lender overlays apply)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Reserves</div>
+      <ul>
+        <li>Reserves = liquid assets REMAINING after closing</li>
+        <li>Measured in months of PITI</li>
+        <li>Seasoned funds: in account at least <strong>60 days</strong></li>
+        <li>Non-vested stock options: NOT acceptable reserves</li>
+        <li>401(k) vested: acceptable at 60% of value (penalty haircut)</li>
+        <li>Gift funds: cannot be used as reserves (must be borrower's own)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">AUS Systems</div>
+      <ul>
+        <li><strong>DU (Desktop Underwriter)</strong> = Fannie Mae's AUS</li>
+        <li><strong>LPA (Loan Product Advisor)</strong> = Freddie Mac's AUS</li>
+        <li><strong>TOTAL Scorecard</strong> = FHA's AUS</li>
+        <li>AUS findings: Approve/Eligible, Refer, Refer with Caution</li>
+        <li>"Refer" = file goes to manual underwriting</li>
+        <li>DU max DTI: 45% (50% with strong compensating factors)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Extenuating Circumstances</div>
+      <ul>
+        <li>Must be: nonrecurring + beyond borrower's control</li>
+        <li>Qualifies: serious illness, layoff, death of wage earner, natural disaster</li>
+        <li>Does NOT qualify: quitting job, lifestyle choice, poor money management</li>
+        <li>With extenuating circumstances: waiting periods reduced (see table above)</li>
+        <li>Must document with letter of explanation + supporting evidence</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Income Rules</div>
+      <ul>
+        <li>All DTI uses GROSS monthly income</li>
+        <li>Social Security gross-up: divide by 0.75 (+25%)</li>
+        <li>Self-employed: 2-year average from tax returns; add back depreciation</li>
+        <li>Rental income: 75% of gross (25% vacancy)</li>
+        <li>4506-C: IRS transcript verification — key fraud prevention tool</li>
+        <li>Mortgage included in BK + later foreclosure: wait from LATER event</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-red"><strong>⚡ Exam Trap:</strong> Waiting periods start from the DISCHARGE date (Ch. 7) or DISCHARGE/DISMISSAL date (Ch. 13) — NOT the filing date. Conventional foreclosure = 7 years. This is the longest waiting period in all of mortgage lending.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 5 — APPRAISAL                     -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t5" id="t5">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">🔍</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 06</span>
+      <h2>Appraisal & Property Valuation</h2>
+      <span class="topic-weight">Exam Weight: ~8% — Know the three approaches and independence rules</span>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Three Appraisal Approaches</div>
+      <ul>
+        <li><strong>Sales Comparison</strong> — primary for residential (1-4 family)</li>
+        <li><strong>Cost Approach</strong> — used for new construction, special-use properties</li>
+        <li><strong>Income Approach</strong> — used for investment/income-producing properties</li>
+        <li>Appraiser RECONCILES the approaches — does NOT average them</li>
+        <li>Value = NOI ÷ Cap Rate (Income Approach)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Appraiser Independence</div>
+      <ul>
+        <li>HVCC + Dodd-Frank: lenders cannot pressure appraisers</li>
+        <li>AMC (Appraisal Management Company): manages independence</li>
+        <li>MLOs cannot select, hire, or communicate with appraiser about value</li>
+        <li>Collateral Underwriter (CU): Fannie Mae's appraisal risk tool</li>
+        <li>ROV (Reconsideration of Value): formal request with missed comps</li>
+        <li>Contingent fee (paying based on value reached) = USPAP violation</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Appraisal Facts</div>
+      <ul>
+        <li>USPAP: ethical standards all appraisers must follow</li>
+        <li>Preferred comps: within <strong>6 months</strong> and <strong>1 mile</strong></li>
+        <li>Appraisal valid for: <strong>12 months</strong> maximum</li>
+        <li>ECOA: borrower must receive appraisal copy promptly — no later than 3 days before closing</li>
+        <li>GLA: above-grade, heated/cooled finished square footage only</li>
+        <li>Subject property = the property being appraised</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Types of Depreciation</div>
+      <ul>
+        <li><strong>Physical deterioration</strong> — wear and tear, deferred maintenance</li>
+        <li><strong>Functional obsolescence</strong> — outdated features (1 bath in 4BR home)</li>
+        <li><strong>External/economic obsolescence</strong> — nearby landfill, highway noise</li>
+        <li>As-is value = current condition</li>
+        <li>As-repaired/subject-to = value after specified repairs complete</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-blue"><strong>⚡ Key Distinction:</strong> An appraisal estimates market value for the LENDER'S benefit. A home inspection examines physical condition for the BUYER'S benefit. They serve completely different purposes and neither replaces the other.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 6 — ETHICS & FRAUD                -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t6" id="t6">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">🛡️</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 07</span>
+      <h2>Ethics & Fraud Prevention</h2>
+      <span class="topic-weight">Exam Weight: 16% — Scenario-heavy; know fraud types cold</span>
+    </div>
+  </div>
+
+  <div class="numbers-row">
+    <div class="num-pill"><span class="num-val">30</span><span class="num-lbl">Days — SAR filing deadline</span></div>
+    <div class="num-pill"><span class="num-val">60</span><span class="num-lbl">Days — SAR if suspect ID needed</span></div>
+    <div class="num-pill"><span class="num-val">7</span><span class="num-lbl">Years — felony bar (fraud/dishonesty)</span></div>
+    <div class="num-pill"><span class="num-val">∞</span><span class="num-lbl">Permanent bar — financial crimes</span></div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Fraud for Profit vs Fraud for Housing</div>
+      <ul>
+        <li><strong>Fraud for profit</strong> = industry insiders (MLO, appraiser, title) extracting money</li>
+        <li><strong>Fraud for housing</strong> = borrower misrepresenting to get a loan they don't qualify for</li>
+        <li>Both are federal crimes</li>
+        <li>Fraud for profit is more heavily prosecuted</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Common Fraud Schemes</div>
+      <ul>
+        <li><strong>Straw buyer</strong> — using someone else's credit to get a loan</li>
+        <li><strong>Occupancy fraud</strong> — calling investment property a primary residence</li>
+        <li><strong>Chunking</strong> — multiple investors, multiple simultaneous loans, hidden from lenders</li>
+        <li><strong>Equity stripping / loan flipping</strong> — repeated refis to extract equity via fees</li>
+        <li><strong>Inflated appraisal</strong> — appraiser overvalues to enable larger loan</li>
+        <li><strong>Double-selling</strong> — same loan sold to two different investors</li>
+        <li><strong>Wire fraud</strong> — fake closing instructions redirecting funds</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Fair Lending Violations</div>
+      <ul>
+        <li><strong>Redlining</strong> — refusing to lend in area based on racial composition</li>
+        <li><strong>Steering</strong> — directing protected class borrowers to worse loan products</li>
+        <li><strong>Disparate treatment</strong> — intentionally treating applicants differently</li>
+        <li><strong>Disparate impact</strong> — neutral policy disproportionately harms protected class</li>
+        <li>Both disparate treatment AND impact can be illegal</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">BSA/AML Requirements</div>
+      <ul>
+        <li>SAR (Suspicious Activity Report): file within <strong>30 days</strong> of detecting suspicious activity</li>
+        <li>Extension to <strong>60 days</strong> if time needed to identify suspect</li>
+        <li>File with FinCEN (Financial Crimes Enforcement Network)</li>
+        <li>Subject of SAR CANNOT be notified it was filed</li>
+        <li>USA PATRIOT Act: KYC (Know Your Customer) / CIP requirements</li>
+        <li>Real estate = known vehicle for money laundering</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Predatory Lending Indicators</div>
+      <ul>
+        <li>Excessive fees not justified by services</li>
+        <li>Loan flipping / churning (repeated refis)</li>
+        <li>Negative amortization products</li>
+        <li>Balloon payments targeting vulnerable borrowers</li>
+        <li>High-pressure sales tactics</li>
+        <li>Targeting elderly or minority borrowers with worse terms</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">GLBA Privacy (Gramm-Leach-Bliley)</div>
+      <ul>
+        <li>NPI (non-public personal information) must be protected</li>
+        <li>Annual privacy notices required to consumers</li>
+        <li>Can share NPI for: loan servicing, legal compliance, service providers under agreement</li>
+        <li>Cannot share for marketing to unaffiliated third parties without opt-out</li>
+        <li>FCRA: if credit report used in adverse action → must name bureau + provide dispute rights</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-red"><strong>⚡ Ethics Exam Rule:</strong> In ANY ethics scenario, ask: Did the MLO put their interest above the borrower's? Was there undisclosed compensation? Was a borrower steered based on protected class? Yes to any = violation.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 7 — CLOSING & SETTLEMENT          -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t7" id="t7">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">📝</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 08</span>
+      <h2>Closing & Settlement</h2>
+      <span class="topic-weight">Exam Weight: ~8% — Know documents and timing</span>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Key Closing Documents</div>
+      <ul>
+        <li><strong>Promissory Note</strong> — borrower's promise to repay; personal obligation</li>
+        <li><strong>Deed of Trust / Mortgage</strong> — security instrument; pledges property as collateral</li>
+        <li><strong>Closing Disclosure</strong> — final itemized costs; 3 business days before closing</li>
+        <li><strong>Title Commitment</strong> — pre-closing title insurance binder</li>
+        <li>Note and deed of trust are SEPARATE documents</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Title Insurance</div>
+      <ul>
+        <li><strong>Owner's policy</strong> — protects buyer from past title defects</li>
+        <li><strong>Lender's policy</strong> — protects lender only; required for most loans</li>
+        <li>Both are ONE-TIME premiums (historical risk doesn't renew annually)</li>
+        <li>Title search: examines public records for liens and encumbrances</li>
+        <li>Recordation: filing deed + mortgage with county recorder establishes public notice</li>
+        <li>Satisfaction/release: must be recorded within 20–30 days of payoff</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Closing Costs Breakdown</div>
+      <ul>
+        <li><strong>Prepaids</strong> = prepaid interest, homeowner's insurance, initial escrow deposits</li>
+        <li><strong>Cash to close</strong> = down payment + closing costs − credits − deposits paid</li>
+        <li>APR on CD should be HIGHER than note rate (includes fees)</li>
+        <li>Proration: ongoing costs split between buyer/seller by ownership date</li>
+        <li>Per diem interest: daily interest from closing date to end of month</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Wet vs Dry Closing</div>
+      <ul>
+        <li><strong>Wet closing</strong> — funds disbursed same day as signing</li>
+        <li><strong>Dry closing</strong> — documents signed but funds disbursed later</li>
+        <li>Escrow states (CA, OR, WA) typically use dry closings</li>
+        <li>Attorney states (TX, NY, FL) typically use wet closings</li>
+        <li>Clear to close (CTC) = underwriter's final sign-off; all conditions met</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-green"><strong>⚡ Key Distinction:</strong> The promissory note = the DEBT (I promise to repay). The deed of trust = the SECURITY (if I don't repay, you can take the property). Both signed at closing. Both are separate. Both are critical.</div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- TOPIC 8 — TEXAS UNIFORM STATE CONTENT   -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section t8" id="t8">
+  <div class="topic-header">
+    <div class="topic-icon-wrap">⭐</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">TOPIC 09</span>
+      <h2>Texas Uniform State Content (USC)</h2>
+      <span class="topic-weight">Exam Weight: 13% — Often overlooked; high value to study</span>
+    </div>
+  </div>
+
+  <div class="alert alert-gold" style="margin-bottom:20px;"><strong>⭐ This is the area most test-takers under-prepare for.</strong> The USC component covers Texas-specific mortgage laws, state licensing requirements, and Texas foreclosure procedures. At 13% of the exam it can be the difference between passing and failing.</div>
+
+  <div class="numbers-row">
+    <div class="num-pill"><span class="num-val">TDSML</span><span class="num-lbl">Texas Dept of Savings & Mortgage Lending</span></div>
+    <div class="num-pill"><span class="num-val">21</span><span class="num-lbl">Days — TX foreclosure notice</span></div>
+    <div class="num-pill"><span class="num-val">1st Tue</span><span class="num-lbl">TX foreclosure sale day (each month)</span></div>
+    <div class="num-pill"><span class="num-val">3</span><span class="num-lbl">Years — TX homestead equity loan wait after prior equity loan</span></div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Texas Regulatory Structure</div>
+      <ul>
+        <li><strong>TDSML</strong> — Texas Dept of Savings and Mortgage Lending: primary state regulator for non-bank MLOs</li>
+        <li><strong>Texas Finance Commission</strong> — governs TDSML and state financial regulations</li>
+        <li><strong>Texas DOB</strong> — Dept of Banking: regulates state-chartered banks</li>
+        <li>All TX MLO licenses administered through NMLS</li>
+        <li>TX mortgage company license required to operate in Texas</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Texas Foreclosure Process</div>
+      <ul>
+        <li>Texas uses <strong>non-judicial foreclosure</strong> (deed of trust + power of sale)</li>
+        <li>No court action required — faster than judicial foreclosure states</li>
+        <li>Notice of default + <strong>21-day notice</strong> to borrower required</li>
+        <li>Foreclosure sale: <strong>first Tuesday of each month</strong> at county courthouse</li>
+        <li>No statutory right of redemption after foreclosure sale in TX</li>
+        <li>Deficiency judgment: lender may pursue borrower for shortfall</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Texas Homestead Laws</div>
+      <ul>
+        <li>Texas homestead = strongest property protections in the US</li>
+        <li>Home equity loans (Texas Section 50(a)(6)) have strict rules:</li>
+        <li>Max 80% CLTV on home equity loans</li>
+        <li>Only ONE home equity loan at a time</li>
+        <li>Must wait <strong>12 days</strong> after application before closing</li>
+        <li>Must wait <strong>1 year</strong> before refinancing a 50(a)(6) loan</li>
+        <li>3% fee cap on home equity loans</li>
+        <li>12-day right of rescission (longer than federal 3-day)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Texas-Specific Loan Rules</div>
+      <ul>
+        <li>Texas does NOT allow deficiency on certain purchase money loans</li>
+        <li>Agriculture exemptions: some farm land loans exempt from RESPA</li>
+        <li>Texas veterans land board: separate state programs for TX veterans</li>
+        <li>Prepayment penalties: generally prohibited on residential loans in TX</li>
+        <li>Texas home equity line of credit: governed by TX Constitution Article XVI Section 50</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">TX MLO License Requirements</div>
+      <ul>
+        <li>Apply through NMLS + TDSML approval</li>
+        <li>Background check + credit check required</li>
+        <li>Texas requires <strong>3 hours</strong> of TX-specific pre-licensing education (above the 20-hour federal minimum)</li>
+        <li>Surety bond required for mortgage companies</li>
+        <li>Annual renewal by December 31</li>
+        <li>CE: federal 8 hours + any TX-specific additional hours</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Texas Home Equity — 50(a)(6) Key Numbers</div>
+      <ul>
+        <li>Maximum LTV: <strong>80%</strong> (cannot exceed)</li>
+        <li>Fees cap: <strong>3%</strong> of loan amount</li>
+        <li>Waiting period after application: <strong>12 days</strong></li>
+        <li>Right of rescission: <strong>3 business days</strong> (same as federal)</li>
+        <li>Time between equity loans: <strong>12 months</strong></li>
+        <li>Conversion to 50(a)(4) rate/term refi: allowed after 1 year</li>
+      </ul>
+    </div>
+    <div class="card card-full">
+      <div class="card-title">Texas USC — Exam Scenario Triggers</div>
+      <ul>
+        <li>Any scenario involving a Texas homeowner borrowing against their home equity → think 50(a)(6) rules: 80% max LTV, 3% fee cap, 12-day wait</li>
+        <li>Any scenario involving foreclosure in Texas → non-judicial, 21-day notice, first Tuesday sale</li>
+        <li>Any scenario about state licensing or regulation of non-bank MLOs in Texas → TDSML governs</li>
+        <li>Any scenario about a Texas veteran → check both VA program AND Texas Veterans Land Board programs</li>
+        <li>Any scenario about refinancing a Texas home equity loan → must wait 12 months; converts to 50(a)(4)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- MASTER NUMBERS REFERENCE                -->
+<!-- ════════════════════════════════════════ -->
+<section class="topic-section" id="numbers" style="scroll-margin-top:60px;">
+  <div class="topic-header">
+    <div class="topic-icon-wrap" style="background:rgba(240,208,96,.15);">🔢</div>
+    <div class="topic-title-wrap">
+      <span class="topic-number">REFERENCE</span>
+      <h2>Master Numbers Reference — Know These Cold</h2>
+      <span class="topic-weight">High-frequency exam topics — memorize every number on this list</span>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">SAFE Act & Licensing</div>
+      <ul>
+        <li>Pre-licensing: <strong>20 hours</strong> (3+3+2+12)</li>
+        <li>Annual CE: <strong>8 hours</strong> (3+2+2+1)</li>
+        <li>NMLS passing score: <strong>75%</strong></li>
+        <li>Test: <strong>125 questions total / 115 scored / 10 unscored</strong></li>
+        <li>Test time: <strong>190 minutes</strong></li>
+        <li>1st/2nd failure retake wait: <strong>30 days</strong></li>
+        <li>3rd+ failure retake wait: <strong>180 days</strong></li>
+        <li>Felony bar: <strong>7 years</strong> (financial crimes = permanent)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">TRID / Disclosure Timelines</div>
+      <ul>
+        <li>Loan Estimate delivery: within <strong>3 business days</strong> of application</li>
+        <li>Closing Disclosure received: at least <strong>3 business days</strong> before closing</li>
+        <li>Right of Rescission: <strong>3 business days</strong> (refi/HELOC on primary only)</li>
+        <li>If rescission rights not disclosed: extended to <strong>3 years</strong></li>
+        <li>TRID tolerance cure: within <strong>3 calendar years</strong> of closing</li>
+        <li>ECOA adverse action: within <strong>30 days</strong> of completed application</li>
+        <li>ECOA record retention: <strong>25 months</strong> (consumer) / 12 months (business)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">FHA / VA / USDA Numbers</div>
+      <ul>
+        <li>FHA min credit score (3.5% down): <strong>580</strong></li>
+        <li>FHA min credit score (10% down): <strong>500</strong></li>
+        <li>FHA upfront MIP: <strong>1.75%</strong> of loan amount</li>
+        <li>FHA max seller concession: <strong>6%</strong></li>
+        <li>VA funding fee (1st use, 0% down): <strong>~2.15%</strong></li>
+        <li>VA funding fee (subsequent use, 0% down): <strong>~3.3%</strong></li>
+        <li>VA disabled veterans: <strong>EXEMPT</strong> from funding fee</li>
+        <li>USDA income limit: <strong>115%</strong> of area median income</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">Underwriting / Credit Numbers</div>
+      <ul>
+        <li>Conventional PMI required: LTV above <strong>80%</strong></li>
+        <li>PMI auto-cancels: at <strong>78%</strong> LTV (Homeowners Protection Act)</li>
+        <li>DU max DTI: <strong>45%</strong> (50% with compensating factors)</li>
+        <li>QM manual underwrite max DTI: <strong>43%</strong></li>
+        <li>QM points & fees cap: <strong>3%</strong> of loan amount</li>
+        <li>Seasoned funds: in account at least <strong>60 days</strong></li>
+        <li>SS income gross-up: divide by <strong>0.75</strong> (adds ~25%)</li>
+        <li>Rental income: use <strong>75%</strong> of gross rents</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">RESPA Numbers</div>
+      <ul>
+        <li>Escrow cushion max: <strong>2 months</strong> of projected payments</li>
+        <li>RESPA Section 8 civil penalty: <strong>3x</strong> the charge paid</li>
+        <li>Section 8 criminal penalty: up to <strong>$10,000 fine + 1 year</strong> imprisonment</li>
+        <li>RESPA Section 9: seller cannot require specific title company</li>
+        <li>QWR acknowledgment: within <strong>5 business days</strong></li>
+        <li>QWR substantive response: within <strong>30 business days</strong> (extendable to 45)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(240,208,96,.35);">
+      <div class="card-title" style="color:#f0d060;">Ethics / Fraud Numbers</div>
+      <ul>
+        <li>SAR filing deadline: <strong>30 days</strong> from detecting suspicious activity</li>
+        <li>SAR extension: up to <strong>60 days</strong> if suspect ID needed</li>
+        <li>Texas homestead equity max LTV: <strong>80%</strong></li>
+        <li>Texas home equity fee cap: <strong>3%</strong></li>
+        <li>Texas home equity waiting period: <strong>12 days</strong> after application</li>
+        <li>Texas foreclosure notice: <strong>21 days</strong></li>
+        <li>Texas foreclosure sale: <strong>first Tuesday</strong> of each month</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- end .main -->
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function scrollTo(id, btn) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Auto-highlight nav on scroll
+const sections = document.querySelectorAll('.topic-section');
+const tabs = document.querySelectorAll('.nav-tab');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  tabs.forEach((tab, i) => {
+    const ids = ['t0','t1','t2','t3','t4','t5','t6','t7','t8'];
+    tab.classList.toggle('active', ids[i] === current);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Math — NMLS Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090f;--bg2:#0d1020;--cream:#f0ebe0;--cream2:#c8c0b0;--gray:#6b7a8d;--gray2:#9aaabb;--green:#27ae60;--green2:#82e0aa;--green3:#d5f5e3;--border:rgba(39,174,96,.18);--border2:rgba(130,224,170,.35);--gold:#c9a84c;--gold2:#e8c96a;--red2:#e74c3c;--red3:#ff6b6b;--blue2:#2471a3;--blue3:#5dade2;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;}
+.hdr{background:linear-gradient(135deg,#03050c,#07090f 50%,#001a08);border-bottom:2px solid var(--green);padding:44px 24px 32px;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(39,174,96,.06),transparent 70%);}
+.hdr-eye{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--green2);margin-bottom:10px;position:relative;}
+.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:var(--green2);margin-bottom:8px;position:relative;}
+.hdr-sub{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:rgba(240,235,224,.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;position:relative;}
+.hdr-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
+.hpill{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--green2);background:rgba(39,174,96,.07);}
+.toc{max-width:960px;margin:28px auto;padding:0 20px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;}
+.ti{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--cream2);font-size:.83rem;}
+.ti:hover{border-color:var(--green);color:var(--green2);transform:translateY(-1px);}
+.ti-num{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--green2);flex-shrink:0;}
+.content{max-width:960px;margin:0 auto;padding:0 20px 60px;}
+.section{margin-bottom:50px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.sn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:2px;color:var(--green2);background:rgba(39,174,96,.08);border:1px solid var(--border2);padding:4px 10px;border-radius:4px;flex-shrink:0;}
+.stitle{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--green2);font-weight:700;}
+.prose{font-size:.91rem;line-height:1.75;color:rgba(240,235,224,.85);margin-bottom:16px;}
+.prose strong{color:var(--green2);}
+/* FORMULA BOX */
+.formula{background:var(--bg2);border:1px solid var(--border2);border-left:3px solid var(--green);border-radius:10px;padding:18px 22px;margin-bottom:16px;}
+.formula-title{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--green2);margin-bottom:10px;}
+.formula-eq{font-family:'IBM Plex Mono',monospace;font-size:1.05rem;color:var(--cream);background:rgba(39,174,96,.06);padding:10px 14px;border-radius:6px;margin-bottom:10px;line-height:1.7;}
+.formula-note{font-size:.82rem;color:var(--gray2);line-height:1.6;}
+.formula-note strong{color:var(--green2);}
+/* CALCULATOR */
+.calc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:18px;}
+.calc-title{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--green2);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px;}
+.calc-field{display:flex;flex-direction:column;gap:5px;}
+.calc-field label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--gray2);}
+.calc-input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--cream);font-family:'IBM Plex Mono',monospace;font-size:.85rem;padding:8px 10px;outline:none;transition:border-color .2s;width:100%;}
+.calc-input:focus{border-color:var(--green);}
+.calc-btn{background:linear-gradient(135deg,var(--green),#1a7a42);color:white;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;padding:9px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:opacity .2s;}
+.calc-btn:hover{opacity:.85;}
+.calc-result{display:none;margin-top:12px;padding:14px 16px;background:rgba(39,174,96,.07);border:1px solid var(--border2);border-radius:8px;}
+.calc-result.show{display:block;}
+.cr-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--green2);margin-bottom:4px;}
+.cr-value{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--cream);}
+.cr-detail{font-size:.78rem;color:var(--gray2);margin-top:4px;line-height:1.55;}
+/* WORKED EXAMPLE */
+.example{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:16px;}
+.ex-title{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);margin-bottom:10px;}
+.ex-problem{font-size:.9rem;color:var(--cream);line-height:1.65;margin-bottom:12px;padding:10px 14px;background:rgba(201,168,76,.05);border-radius:6px;border-left:2px solid var(--gold2);}
+.ex-steps{list-style:none;padding:0;counter-reset:step;}
+.ex-step{padding:6px 0 6px 28px;position:relative;font-size:.86rem;color:rgba(240,235,224,.82);line-height:1.6;counter-increment:step;}
+.ex-step::before{content:counter(step);position:absolute;left:0;top:7px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--green2);background:rgba(39,174,96,.1);border:1px solid var(--border2);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.ex-answer{margin-top:10px;padding:10px 14px;background:rgba(39,174,96,.08);border:1px solid var(--border2);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--green2);}
+/* HIGHLIGHT BOX */
+.hl{border-radius:10px;padding:16px 20px;margin-bottom:16px;}
+.hl.green{background:rgba(39,174,96,.07);border:1px solid var(--border2);border-left:3px solid var(--green2);}
+.hl.red{background:rgba(192,57,43,.07);border:1px solid rgba(231,76,60,.25);border-left:3px solid var(--red2);}
+.hl.gold{background:rgba(201,168,76,.07);border:1px solid rgba(232,201,106,.25);border-left:3px solid var(--gold2);}
+.hl-title{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
+.hl.green .hl-title{color:var(--green2);}
+.hl.red .hl-title{color:var(--red3);}
+.hl.gold .hl-title{color:var(--gold2);}
+.hl p,.hl li{font-size:.87rem;line-height:1.68;color:rgba(240,235,224,.85);}
+.hl ul{padding-left:18px;}
+.hl li{margin-bottom:4px;}
+.hl strong{color:var(--green2);}
+/* TABLE */
+.math-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.85rem;}
+.math-table th{background:rgba(39,174,96,.1);border:1px solid var(--border2);padding:9px 12px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:1px;text-transform:uppercase;color:var(--green2);text-align:left;}
+.math-table td{border:1px solid var(--border);padding:9px 12px;color:rgba(240,235,224,.82);vertical-align:top;line-height:1.5;}
+.math-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.math-table tr:hover td{background:rgba(39,174,96,.03);}
+.td-key{font-weight:600;color:var(--cream);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+@media(max-width:580px){.two-col{grid-template-columns:1fr;}.calc-grid{grid-template-columns:1fr;}}
+.back-top{position:fixed;bottom:24px;right:24px;background:rgba(39,174,96,.12);border:1px solid var(--border2);color:var(--green2);font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:1px;padding:7px 14px;border-radius:20px;cursor:pointer;text-decoration:none;transition:all .2s;backdrop-filter:blur(8px);}
+.back-top:hover{background:rgba(39,174,96,.22);}
+</style>
+</head>
+<body>
+<div class="hdr" id="top">
+  <p class="hdr-eye">NMLS SAFE Exam · Loan Origination · General Mortgage Knowledge</p>
+  <h1>Mortgage Math</h1>
+  <p class="hdr-sub">Interactive Calculators · Worked Examples · Key Formulas</p>
+  <div class="hdr-pills">
+    <span class="hpill">DTI Calculation</span><span class="hpill">LTV / CLTV</span>
+    <span class="hpill">Qualifying Income</span><span class="hpill">PMI Thresholds</span>
+    <span class="hpill">Points & Break-Even</span><span class="hpill">Escrow Analysis</span>
+    <span class="hpill">Loan Limits</span><span class="hpill">Fee Caps</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-grid">
+    <a href="#s1" class="ti"><span class="ti-num">01</span>DTI Ratios</a>
+    <a href="#s2" class="ti"><span class="ti-num">02</span>LTV & CLTV</a>
+    <a href="#s3" class="ti"><span class="ti-num">03</span>Qualifying Income</a>
+    <a href="#s4" class="ti"><span class="ti-num">04</span>PMI Thresholds</a>
+    <a href="#s5" class="ti"><span class="ti-num">05</span>Points & Break-Even</a>
+    <a href="#s6" class="ti"><span class="ti-num">06</span>Escrow Analysis</a>
+    <a href="#s7" class="ti"><span class="ti-num">07</span>TRID Fee Tolerances</a>
+    <a href="#s8" class="ti"><span class="ti-num">08</span>Texas 50(a)(6) Math</a>
+    <a href="#s9" class="ti"><span class="ti-num">09</span>APR vs Note Rate</a>
+    <a href="#s10" class="ti"><span class="ti-num">10</span>Exam Quick Reference</a>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- S1 DTI -->
+<div class="section" id="s1">
+  <div class="sh"><span class="sn">01</span><h2 class="stitle">DTI — Debt-to-Income Ratios</h2></div>
+  <p class="prose">DTI is the most fundamental mortgage math calculation. There are two ratios — <strong>front-end</strong> (housing only) and <strong>back-end</strong> (all debt). Fannie Mae and Freddie Mac use the <strong>back-end ratio</strong> as the primary qualifying test.</p>
+
+  <div class="two-col">
+    <div class="formula">
+      <div class="formula-title">Front-End DTI (Housing Ratio)</div>
+      <div class="formula-eq">Front-End DTI = PITI ÷ Gross Monthly Income</div>
+      <div class="formula-note"><strong>PITI</strong> = Principal + Interest + Taxes + Insurance (+ PMI if applicable)<br>General guideline: 28–31% front-end</div>
+    </div>
+    <div class="formula">
+      <div class="formula-title">Back-End DTI (Total Debt Ratio)</div>
+      <div class="formula-eq">Back-End DTI = (PITI + All Monthly Debts) ÷ Gross Monthly Income</div>
+      <div class="formula-note"><strong>All debts</strong> = car, credit cards (minimum payment), student loans, other mortgages<br>Conventional max: <strong>45%</strong> standard (50% with strong AUS)</div>
+    </div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 DTI Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Gross Monthly Income ($)</label><input class="calc-input" id="dti-income" type="number" placeholder="e.g. 7500"></div>
+      <div class="calc-field"><label>Proposed PITI ($)</label><input class="calc-input" id="dti-piti" type="number" placeholder="e.g. 1800"></div>
+      <div class="calc-field"><label>Other Monthly Debts ($)</label><input class="calc-input" id="dti-debts" type="number" placeholder="e.g. 650"></div>
+    </div>
+    <button class="calc-btn" onclick="calcDTI()">Calculate DTI</button>
+    <div class="calc-result" id="dti-result">
+      <div class="cr-label">Results</div>
+      <div id="dti-output"></div>
+    </div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — DTI Calculation</div>
+    <div class="ex-problem">Maria earns $6,500/month gross. Proposed PITI = $1,750. Car payment = $380. Credit card minimum = $120. Student loan = $200. Does she qualify for a conventional conforming loan at 45% back-end DTI?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">Total monthly debts (non-housing): $380 + $120 + $200 = <strong>$700</strong></li>
+      <li class="ex-step">Total monthly obligations: $1,750 (PITI) + $700 = <strong>$2,450</strong></li>
+      <li class="ex-step">Back-end DTI: $2,450 ÷ $6,500 = <strong>0.377 = 37.7%</strong></li>
+      <li class="ex-step">Front-end DTI: $1,750 ÷ $6,500 = <strong>0.269 = 26.9%</strong></li>
+      <li class="ex-step">Compare to limit: 37.7% back-end &lt; 45% maximum ✓</li>
+    </ol>
+    <div class="ex-answer">✅ Maria QUALIFIES — 37.7% back-end DTI is within the 45% standard conforming limit.</div>
+  </div>
+
+  <div class="hl red">
+    <div class="hl-title">⚠️ Common Exam Traps — DTI</div>
+    <ul>
+      <li><strong>Use gross income</strong> — never net/take-home pay for DTI calculations</li>
+      <li><strong>Credit card minimum payment</strong> counts — not the full balance</li>
+      <li><strong>Student loans in deferment</strong> — must still be counted (1% of balance if payment unknown)</li>
+      <li><strong>Child support/alimony</strong> paid OUT counts as a debt; received comes in as income</li>
+      <li><strong>Max PITI available</strong> = (Max DTI% × Gross Income) − Other Debts</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S2 LTV -->
+<div class="section" id="s2">
+  <div class="sh"><span class="sn">02</span><h2 class="stitle">LTV & CLTV</h2></div>
+  <p class="prose"><strong>LTV (Loan-to-Value)</strong> measures a single loan against the property value. <strong>CLTV (Combined LTV)</strong> measures all loans against the property value. Both are critical for PMI, pricing, and Texas 50(a)(6) compliance.</p>
+
+  <div class="two-col">
+    <div class="formula">
+      <div class="formula-title">LTV Formula</div>
+      <div class="formula-eq">LTV = Loan Amount ÷ LOWER of (Appraised Value OR Purchase Price)</div>
+      <div class="formula-note"><strong>Always use the LOWER number.</strong> If appraisal = $400K and price = $375K → use $375K</div>
+    </div>
+    <div class="formula">
+      <div class="formula-title">CLTV Formula</div>
+      <div class="formula-eq">CLTV = (All Liens Combined) ÷ Appraised Value</div>
+      <div class="formula-note">Includes: 1st mortgage + 2nd mortgage + HELOC. Used for Texas 50(a)(6) max 80% CLTV test.</div>
+    </div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 LTV / CLTV Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Purchase Price ($)</label><input class="calc-input" id="ltv-price" type="number" placeholder="e.g. 400000"></div>
+      <div class="calc-field"><label>Appraised Value ($)</label><input class="calc-input" id="ltv-appraisal" type="number" placeholder="e.g. 415000"></div>
+      <div class="calc-field"><label>First Mortgage ($)</label><input class="calc-input" id="ltv-first" type="number" placeholder="e.g. 320000"></div>
+      <div class="calc-field"><label>Second Lien / HELOC ($)</label><input class="calc-input" id="ltv-second" type="number" placeholder="e.g. 0"></div>
+    </div>
+    <button class="calc-btn" onclick="calcLTV()">Calculate LTV / CLTV</button>
+    <div class="calc-result" id="ltv-result">
+      <div id="ltv-output"></div>
+    </div>
+  </div>
+
+  <table class="math-table">
+    <thead><tr><th>LTV</th><th>Down Payment</th><th>PMI Required?</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="td-key">97%</td><td>3%</td><td style="color:var(--red3);font-weight:600">YES</td><td>HomeReady / Home Possible only. Income limits apply.</td></tr>
+      <tr><td class="td-key">95%</td><td>5%</td><td style="color:var(--red3);font-weight:600">YES</td><td>Standard conventional minimum (without special programs)</td></tr>
+      <tr><td class="td-key">90%</td><td>10%</td><td style="color:var(--red3);font-weight:600">YES</td><td>FHA: LTV &gt;90% → MIP for LIFE of loan</td></tr>
+      <tr><td class="td-key">80%</td><td>20%</td><td style="color:var(--green2);font-weight:600">NO</td><td>No PMI required at origination. Borrower can REQUEST PMI cancellation at this level.</td></tr>
+      <tr><td class="td-key">78%</td><td>22%</td><td style="color:var(--green2);font-weight:600">AUTO-CANCEL</td><td>PMI automatically cancelled under HPA (original value, original schedule)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- S3 QUALIFYING INCOME -->
+<div class="section" id="s3">
+  <div class="sh"><span class="sn">03</span><h2 class="stitle">Qualifying Income Calculations</h2></div>
+  <p class="prose">Different income types are treated differently for qualifying. The exam tests how to calculate usable income from various sources.</p>
+
+  <table class="math-table">
+    <thead><tr><th>Income Type</th><th>How to Calculate</th><th>Documentation</th></tr></thead>
+    <tbody>
+      <tr><td class="td-key">W-2 Hourly</td><td>Hourly rate × Hours/week × 52 ÷ 12 = Monthly income</td><td>2 years W-2s + recent pay stubs</td></tr>
+      <tr><td class="td-key">W-2 Salary</td><td>Annual salary ÷ 12 = Monthly income</td><td>2 years W-2s + recent pay stubs</td></tr>
+      <tr><td class="td-key">Overtime/Bonus</td><td>Average of 2 years if likely to continue (same employer)</td><td>2 years W-2s showing consistent history</td></tr>
+      <tr><td class="td-key">Self-Employed</td><td>Average of 2 years net income from tax returns</td><td>2 years personal + business tax returns + YTD P&L</td></tr>
+      <tr><td class="td-key">Rental Income</td><td>75% of gross monthly rent (vacancy/expense factor)</td><td>Lease agreements + 2 years tax returns (Schedule E)</td></tr>
+      <tr><td class="td-key">Social Security</td><td>Monthly benefit amount (may gross up 125% if non-taxable)</td><td>Award letter + recent bank statements</td></tr>
+      <tr><td class="td-key">Child Support/Alimony IN</td><td>Monthly amount received — must have 3+ years remaining</td><td>Divorce decree + 12 months of payment history</td></tr>
+    </tbody>
+  </table>
+
+  <div class="calc">
+    <div class="calc-title">🧮 Qualifying Income Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Hourly Rate ($)</label><input class="calc-input" id="inc-hourly" type="number" placeholder="e.g. 28.50"></div>
+      <div class="calc-field"><label>Hours Per Week</label><input class="calc-input" id="inc-hours" type="number" placeholder="e.g. 40"></div>
+      <div class="calc-field"><label>Annual Bonus (avg 2 yrs) ($)</label><input class="calc-input" id="inc-bonus" type="number" placeholder="e.g. 6000"></div>
+      <div class="calc-field"><label>Monthly Rental Income ($)</label><input class="calc-input" id="inc-rent" type="number" placeholder="e.g. 1800"></div>
+    </div>
+    <button class="calc-btn" onclick="calcIncome()">Calculate Qualifying Income</button>
+    <div class="calc-result" id="inc-result">
+      <div id="inc-output"></div>
+    </div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — Self-Employed Income</div>
+    <div class="ex-problem">Carlos is self-employed (35% owner). His tax returns show: Year 1 net income = $72,000. Year 2 net income = $84,000. What monthly income can be used for qualifying?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">He owns 35% → treated as self-employed (threshold = 25%+)</li>
+      <li class="ex-step">Average 2 years: ($72,000 + $84,000) ÷ 2 = <strong>$78,000/year</strong></li>
+      <li class="ex-step">Monthly qualifying income: $78,000 ÷ 12 = <strong>$6,500/month</strong></li>
+    </ol>
+    <div class="ex-answer">✅ Qualifying income = $6,500/month based on 2-year average</div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — Rental Income</div>
+    <div class="ex-problem">Sarah owns a rental property. Gross monthly rent = $2,400. The rental property PITI = $1,600/month. How much net rental income can be used for qualifying?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">Apply 75% factor: $2,400 × 75% = <strong>$1,800</strong> usable rental income</li>
+      <li class="ex-step">Rental property PITI = $1,600 (already counted in debts)</li>
+      <li class="ex-step">Net rental income contribution: $1,800 − $1,600 = <strong>$200/month positive income</strong></li>
+    </ol>
+    <div class="ex-answer">✅ $200/month can be added to qualifying income. If 75% rent &lt; PITI, the difference is a monthly debt.</div>
+  </div>
+</div>
+
+<!-- S4 PMI -->
+<div class="section" id="s4">
+  <div class="sh"><span class="sn">04</span><h2 class="stitle">PMI — Threshold & Cancellation Math</h2></div>
+
+  <div class="formula">
+    <div class="formula-title">When PMI is Required</div>
+    <div class="formula-eq">PMI required when: Loan Amount ÷ Value > 80% (LTV > 80%)</div>
+    <div class="formula-note">
+      <strong>Minimum 20% down</strong> = no PMI at origination<br>
+      <strong>PMI cancellation request</strong>: when balance reaches 80% of ORIGINAL purchase price<br>
+      <strong>PMI automatic cancel</strong>: when balance reaches 78% of ORIGINAL purchase price per original amortization schedule
+    </div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 PMI Threshold Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Purchase Price ($)</label><input class="calc-input" id="pmi-price" type="number" placeholder="e.g. 350000"></div>
+      <div class="calc-field"><label>Down Payment ($)</label><input class="calc-input" id="pmi-down" type="number" placeholder="e.g. 35000"></div>
+    </div>
+    <button class="calc-btn" onclick="calcPMI()">Calculate PMI Thresholds</button>
+    <div class="calc-result" id="pmi-result"><div id="pmi-output"></div></div>
+  </div>
+
+  <div class="hl gold">
+    <div class="hl-title">🎯 PMI Numbers — Exam Critical</div>
+    <ul>
+      <li>PMI required: LTV <strong>&gt; 80%</strong> (less than 20% down)</li>
+      <li>Borrower can <strong>REQUEST</strong> cancellation: LTV reaches <strong>80%</strong> of original value</li>
+      <li>PMI <strong>automatically cancels</strong>: LTV reaches <strong>78%</strong> of original value, original schedule</li>
+      <li>Mandatory cancellation: at the <strong>loan midpoint</strong> regardless of LTV</li>
+      <li>FHA MIP with original LTV &gt;90%: lasts the <strong>LIFE OF THE LOAN</strong> — must refinance to cancel</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S5 POINTS -->
+<div class="section" id="s5">
+  <div class="sh"><span class="sn">05</span><h2 class="stitle">Discount Points & Break-Even</h2></div>
+  <p class="prose">Discount points are prepaid interest. <strong>1 point = 1% of the loan amount.</strong> Paying points lowers the interest rate. The break-even calculation tells borrowers how long they need to keep the loan for the points to pay off.</p>
+
+  <div class="two-col">
+    <div class="formula">
+      <div class="formula-title">Cost of Points</div>
+      <div class="formula-eq">Cost = Points% × Loan Amount</div>
+      <div class="formula-note">1 point on $300,000 = 1% × $300,000 = <strong>$3,000</strong></div>
+    </div>
+    <div class="formula">
+      <div class="formula-title">Break-Even Period</div>
+      <div class="formula-eq">Break-Even = Cost of Points ÷ Monthly Payment Savings</div>
+      <div class="formula-note">If $3,000 saves $40/month → $3,000 ÷ $40 = <strong>75 months</strong> (6.25 years)</div>
+    </div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 Points & Break-Even Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Loan Amount ($)</label><input class="calc-input" id="pts-loan" type="number" placeholder="e.g. 300000"></div>
+      <div class="calc-field"><label>Number of Points</label><input class="calc-input" id="pts-points" type="number" step="0.25" placeholder="e.g. 1.5"></div>
+      <div class="calc-field"><label>Monthly Payment Without Points ($)</label><input class="calc-input" id="pts-pay-high" type="number" placeholder="e.g. 1899"></div>
+      <div class="calc-field"><label>Monthly Payment With Points ($)</label><input class="calc-input" id="pts-pay-low" type="number" placeholder="e.g. 1850"></div>
+    </div>
+    <button class="calc-btn" onclick="calcPoints()">Calculate Break-Even</button>
+    <div class="calc-result" id="pts-result"><div id="pts-output"></div></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — Should She Pay Points?</div>
+    <div class="ex-problem">Linda is buying a $400,000 home with a $320,000 loan. Without points: 7.0% rate, $2,129/month. With 2 points: 6.5% rate, $2,023/month. She plans to sell in 4 years. Should she pay points?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">Cost of 2 points: 2% × $320,000 = <strong>$6,400</strong></li>
+      <li class="ex-step">Monthly savings: $2,129 − $2,023 = <strong>$106/month</strong></li>
+      <li class="ex-step">Break-even: $6,400 ÷ $106 = <strong>60.4 months ≈ 5 years</strong></li>
+      <li class="ex-step">Linda plans to sell in 4 years (48 months) — before break-even (60 months)</li>
+    </ol>
+    <div class="ex-answer">❌ Linda should NOT pay points — she will sell before recovering the $6,400 cost. She loses money on the points.</div>
+  </div>
+</div>
+
+<!-- S6 ESCROW -->
+<div class="section" id="s6">
+  <div class="sh"><span class="sn">06</span><h2 class="stitle">Escrow Analysis</h2></div>
+  <p class="prose">RESPA Section 10 governs escrow accounts. The maximum cushion a lender can hold is <strong>2 months</strong> of projected escrow payments. Annual analysis is required.</p>
+
+  <div class="formula">
+    <div class="formula-title">Escrow Analysis Formula</div>
+    <div class="formula-eq">Monthly Escrow Payment = (Annual Taxes + Annual Insurance) ÷ 12
+Max Cushion = Monthly Escrow Payment × 2
+Surplus = Actual Balance − (Expected Low Balance + Max Cushion)</div>
+    <div class="formula-note">If <strong>Surplus &gt; 0</strong> → lender must refund within 30 days or credit next payment<br>If <strong>shortage</strong> → lender can require repayment over 12 months</div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 Escrow Analysis Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Annual Property Taxes ($)</label><input class="calc-input" id="esc-taxes" type="number" placeholder="e.g. 4800"></div>
+      <div class="calc-field"><label>Annual Homeowner Insurance ($)</label><input class="calc-input" id="esc-ins" type="number" placeholder="e.g. 1200"></div>
+      <div class="calc-field"><label>Current Escrow Balance ($)</label><input class="calc-input" id="esc-balance" type="number" placeholder="e.g. 2400"></div>
+    </div>
+    <button class="calc-btn" onclick="calcEscrow()">Analyze Escrow Account</button>
+    <div class="calc-result" id="esc-result"><div id="esc-output"></div></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — Escrow Surplus</div>
+    <div class="ex-problem">Annual taxes = $5,400. Annual insurance = $1,200. Lender holds $2,800 in escrow at analysis date. Is there a surplus? What must the lender do?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">Monthly escrow needed: ($5,400 + $1,200) ÷ 12 = $6,600 ÷ 12 = <strong>$550/month</strong></li>
+      <li class="ex-step">Maximum 2-month cushion: $550 × 2 = <strong>$1,100</strong></li>
+      <li class="ex-step">Maximum allowable balance: $550 (next bill) + $1,100 (cushion) = $1,650</li>
+      <li class="ex-step">Actual balance: $2,800. Surplus: $2,800 − $1,650 = <strong>$1,150 surplus</strong></li>
+    </ol>
+    <div class="ex-answer">✅ Lender must refund $1,150 to the borrower within 30 days or credit it toward next payment. Keeping excess escrow violates RESPA Section 10.</div>
+  </div>
+</div>
+
+<!-- S7 TRID FEE TOLERANCES -->
+<div class="section" id="s7">
+  <div class="sh"><span class="sn">07</span><h2 class="stitle">TRID Fee Tolerance Calculations</h2></div>
+  <p class="prose">TRID divides fees into three tolerance buckets. Knowing which bucket a fee falls into and whether a violation occurred is heavily tested math on the NMLS exam.</p>
+
+  <table class="math-table">
+    <thead><tr><th>Tolerance Type</th><th>Maximum Increase</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td class="td-key">Zero Tolerance</td><td style="color:var(--red3);font-weight:600">$0 — cannot increase at all</td><td>Origination charges, points, transfer taxes, fees for required services where borrower cannot shop</td></tr>
+      <tr><td class="td-key">10% Aggregate</td><td style="color:#f39c12;font-weight:600">10% of TOTAL of all 10% category fees combined</td><td>Recording fees, fees for required services where borrower CAN shop from lender's list</td></tr>
+      <tr><td class="td-key">Unlimited Tolerance</td><td style="color:var(--green2);font-weight:600">Can increase without limit</td><td>Prepaid interest, homeowner's insurance, services borrower shopped for independently</td></tr>
+    </tbody>
+  </table>
+
+  <div class="calc">
+    <div class="calc-title">🧮 TRID 10% Tolerance Violation Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>LE Total of 10% Category Fees ($)</label><input class="calc-input" id="trid-le" type="number" placeholder="e.g. 650"></div>
+      <div class="calc-field"><label>CD Total of Same Fees ($)</label><input class="calc-input" id="trid-cd" type="number" placeholder="e.g. 730"></div>
+    </div>
+    <button class="calc-btn" onclick="calcTRID()">Check for Violation</button>
+    <div class="calc-result" id="trid-result"><div id="trid-output"></div></div>
+  </div>
+
+  <div class="example">
+    <div class="ex-title">📝 Worked Example — Zero Tolerance Violation</div>
+    <div class="ex-problem">The Loan Estimate shows origination fee of $1,200. The Closing Disclosure shows $1,450. No changed circumstance occurred. What is the cure amount?</div>
+    <ol class="ex-steps">
+      <li class="ex-step">Origination fee = <strong>zero tolerance</strong> — cannot increase at all</li>
+      <li class="ex-step">Increase: $1,450 − $1,200 = <strong>$250 increase</strong></li>
+      <li class="ex-step">Since zero tolerance, the ENTIRE increase is a violation</li>
+      <li class="ex-step">Required cure: lender must refund <strong>$250</strong> within 3 calendar years of closing</li>
+    </ol>
+    <div class="ex-answer">✅ Lender must cure by refunding $250 to borrower. Cure window = 3 calendar years from closing date.</div>
+  </div>
+</div>
+
+<!-- S8 TEXAS 50(a)(6) -->
+<div class="section" id="s8">
+  <div class="sh"><span class="sn">08</span><h2 class="stitle">Texas 50(a)(6) Math</h2></div>
+  <p class="prose">Texas home equity math appears on virtually every Texas NMLS exam. Master these two calculations: <strong>maximum HELOC amount</strong> and <strong>maximum fee test</strong>.</p>
+
+  <div class="two-col">
+    <div class="formula">
+      <div class="formula-title">Maximum Home Equity Loan Amount</div>
+      <div class="formula-eq">Max Total Debt = 80% × Fair Market Value
+Max HEL = Max Total Debt − Existing Liens</div>
+      <div class="formula-note">If Max Total Debt ≤ existing first mortgage → <strong>$0 available</strong></div>
+    </div>
+    <div class="formula">
+      <div class="formula-title">3% Fee Cap Test</div>
+      <div class="formula-eq">Max Allowed Fees = 3% × Original Loan Amount
+Violation if: Actual Fees > Max Allowed Fees</div>
+      <div class="formula-note">Cure: lender has 60 days after written notice to refund excess fees</div>
+    </div>
+  </div>
+
+  <div class="calc">
+    <div class="calc-title">🧮 Texas 50(a)(6) Calculator</div>
+    <div class="calc-grid">
+      <div class="calc-field"><label>Home Fair Market Value ($)</label><input class="calc-input" id="tx-value" type="number" placeholder="e.g. 500000"></div>
+      <div class="calc-field"><label>First Mortgage Balance ($)</label><input class="calc-input" id="tx-first" type="number" placeholder="e.g. 310000"></div>
+      <div class="calc-field"><label>Requested HEL Amount ($)</label><input class="calc-input" id="tx-hel" type="number" placeholder="e.g. 80000"></div>
+      <div class="calc-field"><label>Total Fees Charged ($)</label><input class="calc-input" id="tx-fees" type="number" placeholder="e.g. 3200"></div>
+    </div>
+    <button class="calc-btn" onclick="calcTexas()">Analyze 50(a)(6) Compliance</button>
+    <div class="calc-result" id="tx-result"><div id="tx-output"></div></div>
+  </div>
+</div>
+
+<!-- S9 APR -->
+<div class="section" id="s9">
+  <div class="sh"><span class="sn">09</span><h2 class="stitle">APR vs. Note Rate</h2></div>
+  <p class="prose">The exam frequently tests the relationship between the note rate and APR. <strong>APR is always ≥ the note rate</strong> because it includes fees spread over the loan term.</p>
+
+  <table class="math-table">
+    <thead><tr><th>Included in APR</th><th>NOT Included in APR</th></tr></thead>
+    <tbody>
+      <tr><td>✅ Interest rate (note rate)</td><td>❌ Appraisal fee</td></tr>
+      <tr><td>✅ Origination fees & points</td><td>❌ Title insurance premium</td></tr>
+      <tr><td>✅ Mortgage insurance premiums (PMI/MIP)</td><td>❌ Recording fees</td></tr>
+      <tr><td>✅ Prepaid interest (per diem)</td><td>❌ Transfer taxes</td></tr>
+      <tr><td>✅ Certain broker fees</td><td>❌ Homeowner's insurance</td></tr>
+      <tr><td>✅ Loan discount fees</td><td>❌ Survey fees</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl green">
+    <div class="hl-title">💡 APR Advertising Rule — Exam Critical</div>
+    <ul>
+      <li><strong>APR alone</strong> can be advertised without triggering all other disclosures</li>
+      <li>If a specific <strong>interest rate</strong> is stated, APR <strong>must also appear</strong> with equal or greater prominence</li>
+      <li>APR buried in a footnote next to a headline rate = <strong>TILA violation</strong> (not clear and conspicuous)</li>
+      <li><strong>ARM APR</strong> must disclose that the rate may increase after the fixed period</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S10 QUICK REFERENCE -->
+<div class="section" id="s10">
+  <div class="sh"><span class="sn">10</span><h2 class="stitle">Exam Quick Reference — All Key Numbers</h2></div>
+
+  <table class="math-table">
+    <thead><tr><th>Concept</th><th>Number</th><th>Context</th></tr></thead>
+    <tbody>
+      <tr><td class="td-key">Back-end DTI max</td><td>45%</td><td>Standard conforming; 50% with strong AUS</td></tr>
+      <tr><td class="td-key">QM points & fees cap</td><td>3%</td><td>Of loan amount for loans ≥ $100,000</td></tr>
+      <tr><td class="td-key">QM max DTI</td><td>43%</td><td>Standard non-GSE QM</td></tr>
+      <tr><td class="td-key">PMI trigger</td><td>&gt; 80% LTV</td><td>Less than 20% down on conventional</td></tr>
+      <tr><td class="td-key">PMI request cancellation</td><td>80% LTV</td><td>Based on original value, original schedule</td></tr>
+      <tr><td class="td-key">PMI auto-cancel</td><td>78% LTV</td><td>Based on original value, original schedule</td></tr>
+      <tr><td class="td-key">Self-employed threshold</td><td>25%+</td><td>Ownership % that triggers self-employed docs</td></tr>
+      <tr><td class="td-key">Rental income factor</td><td>75%</td><td>Of gross rent used to offset rental PITI</td></tr>
+      <tr><td class="td-key">Escrow cushion max</td><td>2 months</td><td>RESPA Section 10</td></tr>
+      <tr><td class="td-key">1 discount point</td><td>1% of loan</td><td>Prepaid interest to buy down rate</td></tr>
+      <tr><td class="td-key">Texas 50(a)(6) CLTV max</td><td>80%</td><td>All liens ÷ fair market value</td></tr>
+      <tr><td class="td-key">Texas 50(a)(6) fee cap</td><td>3%</td><td>Of original principal amount</td></tr>
+      <tr><td class="td-key">Texas 50(a)(6) waiting period</td><td>12 calendar days</td><td>From application to closing</td></tr>
+      <tr><td class="td-key">TRID LE delivery</td><td>3 business days</td><td>From complete application receipt</td></tr>
+      <tr><td class="td-key">TRID CD waiting period</td><td>3 business days</td><td>Before consummation</td></tr>
+      <tr><td class="td-key">TRID cure window</td><td>3 calendar years</td><td>From closing to cure tolerance violations</td></tr>
+      <tr><td class="td-key">QWR acknowledge</td><td>5 business days</td><td>RESPA Section 6</td></tr>
+      <tr><td class="td-key">QWR response</td><td>30 business days</td><td>Extendable to 45 with notice</td></tr>
+      <tr><td class="td-key">ECOA adverse action</td><td>30 days</td><td>From complete application</td></tr>
+      <tr><td class="td-key">ECOA record retention</td><td>25 months</td><td>From date of credit decision</td></tr>
+      <tr><td class="td-key">TILA rescission period</td><td>3 business days</td><td>Primary residence refinances only</td></tr>
+      <tr><td class="td-key">TILA rescission extension</td><td>3 years</td><td>If proper notice not given at closing</td></tr>
+      <tr><td class="td-key">BSA SAR filing</td><td>30 days</td><td>Extendable to 60 days</td></tr>
+      <tr><td class="td-key">BSA CTR threshold</td><td>$10,000 cash</td><td>Currency Transaction Report</td></tr>
+      <tr><td class="td-key">SCRA interest cap</td><td>6%</td><td>Excess forgiven — not deferred</td></tr>
+      <tr><td class="td-key">TX foreclosure notice</td><td>21 days</td><td>Before trustee sale</td></tr>
+      <tr><td class="td-key">TX foreclosure sale day</td><td>First Tuesday</td><td>10 AM–4 PM at county courthouse</td></tr>
+      <tr><td class="td-key">NMLS passing score</td><td>75%</td><td>≈ 86 correct out of 115 scored</td></tr>
+      <tr><td class="td-key">TX pre-licensing hours</td><td>23 hours</td><td>20 federal + 3 Texas-specific</td></tr>
+      <tr><td class="td-key">TX annual CE hours</td><td>8 hours</td><td>7 federal + 1 Texas-specific</td></tr>
+      <tr><td class="td-key">Conforming loan limit</td><td>$766,550</td><td>2024, 1-unit standard area</td></tr>
+      <tr><td class="td-key">High-cost conforming limit</td><td>$1,149,825</td><td>2024, 1-unit high-cost area (150% of baseline)</td></tr>
+      <tr><td class="td-key">FHA upfront MIP</td><td>1.75%</td><td>Of base loan amount</td></tr>
+      <tr><td class="td-key">USDA upfront fee</td><td>1%</td><td>Of loan amount, can be financed</td></tr>
+      <tr><td class="td-key">USDA annual fee</td><td>0.35%</td><td>Paid monthly</td></tr>
+      <tr><td class="td-key">VA funding fee (1st use)</td><td>2.15%</td><td>Regular military, 0% down, can be financed</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /content -->
+<a href="#top" class="back-top">↑ Top</a>
+
+<script>
+function fmt(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtInt(n){return n.toLocaleString('en-US');}
+
+function calcDTI(){
+  const income=parseFloat(document.getElementById('dti-income').value)||0;
+  const piti=parseFloat(document.getElementById('dti-piti').value)||0;
+  const debts=parseFloat(document.getElementById('dti-debts').value)||0;
+  if(!income||!piti){alert('Please enter income and PITI');return;}
+  const frontEnd=piti/income*100;
+  const backEnd=(piti+debts)/income*100;
+  const maxPITI=(0.45*income)-debts;
+  const pass45=backEnd<=45;
+  const pass50=backEnd<=50;
+  const el=document.getElementById('dti-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;">
+      <div><div class="cr-label">Front-End DTI</div><div class="cr-value" style="color:${frontEnd<=31?'var(--green2)':'var(--red3)'}">${fmt(frontEnd)}%</div><div class="cr-detail">Housing payment only ÷ gross income<br>Guideline: ≤28–31%</div></div>
+      <div><div class="cr-label">Back-End DTI</div><div class="cr-value" style="color:${pass45?'var(--green2)':pass50?'#f39c12':'var(--red3)'}">${fmt(backEnd)}%</div><div class="cr-detail">${pass45?'✅ Within 45% standard limit':pass50?'⚠️ Needs AUS approval (45–50%)':'❌ Exceeds 50% max limit'}</div></div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--green2);margin-top:8px;">
+      Max PITI available at 45% DTI: <strong>$${fmt(maxPITI)}/month</strong>
+    </div>`;
+  document.getElementById('dti-result').classList.add('show');
+}
+
+function calcLTV(){
+  const price=parseFloat(document.getElementById('ltv-price').value)||0;
+  const appraisal=parseFloat(document.getElementById('ltv-appraisal').value)||0;
+  const first=parseFloat(document.getElementById('ltv-first').value)||0;
+  const second=parseFloat(document.getElementById('ltv-second').value)||0;
+  if(!first){alert('Please enter loan amount');return;}
+  const base=Math.min(price||appraisal,appraisal||price)||first*1.25;
+  const ltv=first/base*100;
+  const cltv=(first+second)/base*100;
+  const el=document.getElementById('ltv-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div><div class="cr-label">LTV (First Mortgage Only)</div><div class="cr-value" style="color:${ltv<=80?'var(--green2)':'var(--red3)'}">${fmt(ltv)}%</div><div class="cr-detail">${ltv>80?'⚠️ PMI Required':'✅ No PMI at origination'}<br>Based on $${fmtInt(base)} (lower of price/appraisal)</div></div>
+      <div><div class="cr-label">CLTV (All Liens)</div><div class="cr-value" style="color:${cltv<=80?'var(--green2)':'var(--red3)'}">${fmt(cltv)}%</div><div class="cr-detail">${cltv>80?'❌ Exceeds 80% — TX 50(a)(6) issue if HEL':'✅ Within 80% CLTV cap'}<br>First ($${fmtInt(first)}) + Second ($${fmtInt(second)})</div></div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--gray2);margin-top:10px;">
+      Equity: $${fmtInt(base-first-second)} · Down payment: $${fmtInt(base-first)} (${fmt((base-first)/base*100)}%)
+    </div>`;
+  document.getElementById('ltv-result').classList.add('show');
+}
+
+function calcIncome(){
+  const hourly=parseFloat(document.getElementById('inc-hourly').value)||0;
+  const hours=parseFloat(document.getElementById('inc-hours').value)||0;
+  const bonus=parseFloat(document.getElementById('inc-bonus').value)||0;
+  const rent=parseFloat(document.getElementById('inc-rent').value)||0;
+  const baseMonthly=hourly&&hours?(hourly*hours*52/12):0;
+  const bonusMonthly=bonus/12;
+  const rentUsable=rent*0.75;
+  const total=baseMonthly+bonusMonthly+rentUsable;
+  const el=document.getElementById('inc-output');
+  el.innerHTML=`
+    <div class="cr-label">Qualifying Monthly Income Breakdown</div>
+    ${baseMonthly?`<div style="font-size:.83rem;color:var(--cream2);margin:4px 0;">Base hourly income: <strong style="color:var(--green2)">$${fmt(baseMonthly)}/mo</strong> ($${hourly}/hr × ${hours}hrs × 52wks ÷ 12)</div>`:''}
+    ${bonusMonthly?`<div style="font-size:.83rem;color:var(--cream2);margin:4px 0;">Avg bonus income: <strong style="color:var(--green2)">$${fmt(bonusMonthly)}/mo</strong> (2-year average ÷ 12)</div>`:''}
+    ${rentUsable?`<div style="font-size:.83rem;color:var(--cream2);margin:4px 0;">Rental income (75%): <strong style="color:var(--green2)">$${fmt(rentUsable)}/mo</strong> ($${fmt(rent)} × 75%)</div>`:''}
+    <div class="cr-value" style="margin-top:10px;color:var(--green2);">$${fmt(total)}/mo</div>
+    <div class="cr-detail">Total qualifying gross monthly income<br>Annual equivalent: $${fmtInt(Math.round(total*12))}</div>`;
+  document.getElementById('inc-result').classList.add('show');
+}
+
+function calcPMI(){
+  const price=parseFloat(document.getElementById('pmi-price').value)||0;
+  const down=parseFloat(document.getElementById('pmi-down').value)||0;
+  if(!price||!down){alert('Please enter price and down payment');return;}
+  const loan=price-down;
+  const ltv=loan/price*100;
+  const pmiRequired=ltv>80;
+  const bal80=price*0.80;
+  const bal78=price*0.78;
+  const el=document.getElementById('pmi-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div><div class="cr-label">Loan Amount</div><div class="cr-value">$${fmtInt(loan)}</div></div>
+      <div><div class="cr-label">LTV at Closing</div><div class="cr-value" style="color:${pmiRequired?'var(--red3)':'var(--green2)'}">${fmt(ltv)}%</div></div>
+      <div><div class="cr-label">PMI Required?</div><div class="cr-value" style="color:${pmiRequired?'var(--red3)':'var(--green2)'}">${pmiRequired?'YES':'NO'}</div></div>
+    </div>
+    ${pmiRequired?`<div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--cream2);line-height:1.8;">
+      📌 Request cancellation when balance reaches: <strong style="color:var(--green2)">$${fmtInt(bal80)}</strong> (80% of $${fmtInt(price)})<br>
+      📌 Auto-cancellation when balance reaches: <strong style="color:var(--green2)">$${fmtInt(bal78)}</strong> (78% of $${fmtInt(price)})<br>
+      <span style="color:var(--gray2);font-size:.7rem;">Based on original purchase price and original amortization schedule</span>
+    </div>`:`<div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--green2);">✅ LTV ≤ 80% — no PMI required at origination</div>`}`;
+  document.getElementById('pmi-result').classList.add('show');
+}
+
+function calcPoints(){
+  const loan=parseFloat(document.getElementById('pts-loan').value)||0;
+  const pts=parseFloat(document.getElementById('pts-points').value)||0;
+  const high=parseFloat(document.getElementById('pts-pay-high').value)||0;
+  const low=parseFloat(document.getElementById('pts-pay-low').value)||0;
+  if(!loan||!pts){alert('Enter loan amount and points');return;}
+  const cost=loan*(pts/100);
+  const savings=high-low;
+  const breakEven=savings>0?cost/savings:0;
+  const el=document.getElementById('pts-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div><div class="cr-label">Cost of Points</div><div class="cr-value">$${fmtInt(Math.round(cost))}</div><div class="cr-detail">${pts} pt${pts!==1?'s':''} × $${fmtInt(loan)}</div></div>
+      <div><div class="cr-label">Monthly Savings</div><div class="cr-value">$${fmt(savings)}</div><div class="cr-detail">Payment reduction/month</div></div>
+      <div><div class="cr-label">Break-Even</div><div class="cr-value" style="color:var(--gold2)">${savings>0?Math.ceil(breakEven)+' mo':'N/A'}</div><div class="cr-detail">${savings>0?'≈ '+(breakEven/12).toFixed(1)+' years':''}</div></div>
+    </div>
+    ${savings>0?`<div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--cream2);">
+      💡 Pay points if staying <strong style="color:var(--green2)">&gt; ${Math.ceil(breakEven)} months</strong>. Avoid if selling/refinancing sooner.
+    </div>`:''}`;
+  document.getElementById('pts-result').classList.add('show');
+}
+
+function calcEscrow(){
+  const taxes=parseFloat(document.getElementById('esc-taxes').value)||0;
+  const ins=parseFloat(document.getElementById('esc-ins').value)||0;
+  const balance=parseFloat(document.getElementById('esc-balance').value)||0;
+  if(!taxes&&!ins){alert('Enter tax and insurance amounts');return;}
+  const monthly=(taxes+ins)/12;
+  const maxCushion=monthly*2;
+  const maxBalance=monthly+maxCushion;
+  const surplus=balance-maxBalance;
+  const el=document.getElementById('esc-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div><div class="cr-label">Monthly Escrow Payment</div><div class="cr-value">$${fmt(monthly)}</div><div class="cr-detail">($${fmtInt(taxes)}+$${fmtInt(ins)}) ÷ 12</div></div>
+      <div><div class="cr-label">Max 2-Month Cushion</div><div class="cr-value">$${fmt(maxCushion)}</div><div class="cr-detail">$${fmt(monthly)} × 2 months</div></div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--cream2);line-height:1.8;">
+      Maximum allowable balance: <strong>$${fmt(maxBalance)}</strong><br>
+      Current balance: <strong>$${fmt(balance)}</strong><br>
+      ${surplus>0
+        ?`<span style="color:var(--green2)">✅ Surplus: $${fmt(surplus)} — lender must REFUND within 30 days</span>`
+        :surplus<-50
+        ?`<span style="color:var(--red3)">⚠️ Shortage: $${fmt(Math.abs(surplus))} — lender may collect over 12 months</span>`
+        :`<span style="color:var(--green2)">✅ Account is within acceptable range</span>`}
+    </div>`;
+  document.getElementById('esc-result').classList.add('show');
+}
+
+function calcTRID(){
+  const le=parseFloat(document.getElementById('trid-le').value)||0;
+  const cd=parseFloat(document.getElementById('trid-cd').value)||0;
+  if(!le){alert('Enter LE fee total');return;}
+  const max=le*0.10;
+  const increase=cd-le;
+  const excess=increase-max;
+  const violation=excess>0;
+  const el=document.getElementById('trid-output');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div><div class="cr-label">LE Total</div><div class="cr-value">$${fmt(le)}</div></div>
+      <div><div class="cr-label">Max 10% Increase</div><div class="cr-value">$${fmt(max)}</div></div>
+      <div><div class="cr-label">Actual Increase</div><div class="cr-value" style="color:${violation?'var(--red3)':'var(--green2)'}">$${fmt(increase)}</div></div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.78rem;margin-top:6px;">
+      ${violation
+        ?`<span style="color:var(--red3)">❌ TRID VIOLATION — Excess: $${fmt(excess)}. Lender must cure $${fmt(excess)} within 3 calendar years of closing.</span>`
+        :`<span style="color:var(--green2)">✅ COMPLIANT — Increase of $${fmt(increase)} is within the $${fmt(max)} (10%) tolerance.</span>`}
+    </div>`;
+  document.getElementById('trid-result').classList.add('show');
+}
+
+function calcTexas(){
+  const value=parseFloat(document.getElementById('tx-value').value)||0;
+  const first=parseFloat(document.getElementById('tx-first').value)||0;
+  const hel=parseFloat(document.getElementById('tx-hel').value)||0;
+  const fees=parseFloat(document.getElementById('tx-fees').value)||0;
+  if(!value||!first){alert('Enter home value and first mortgage');return;}
+  const maxTotal=value*0.80;
+  const maxHEL=maxTotal-first;
+  const totalWithHEL=first+hel;
+  const cltv=totalWithHEL/value*100;
+  const cltvOK=cltv<=80;
+  const maxFees=hel*0.03;
+  const feeOK=fees<=maxFees;
+  const el=document.getElementById('tx-output');
+  el.innerHTML=`
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--cream2);line-height:2;margin-bottom:10px;">
+      80% × $${fmtInt(value)} = <strong style="color:var(--green2)">$${fmtInt(maxTotal)}</strong> maximum total debt<br>
+      $${fmtInt(maxTotal)} − $${fmtInt(first)} existing mortgage = <strong style="color:${maxHEL>0?'var(--green2)':'var(--red3)'}">$${fmtInt(Math.max(0,maxHEL))}</strong> maximum HEL amount<br>
+      ${hel?`Requested $${fmtInt(hel)}: ${hel<=maxHEL?'<span style="color:var(--green2)">✅ WITHIN LIMIT</span>':'<span style="color:var(--red3)">❌ EXCEEDS LIMIT by $'+fmtInt(hel-maxHEL)+'</span>'}<br>`:''}
+      ${hel?`CLTV with HEL: <strong style="color:${cltvOK?'var(--green2)':'var(--red3)'}">${fmt(cltv)}% ${cltvOK?'✅':'❌'}</strong><br>`:''}
+      ${fees&&hel?`3% fee cap: $${fmtInt(hel)} × 3% = <strong>$${fmt(maxFees)}</strong> max. Charged $${fmt(fees)}: ${feeOK?'<span style="color:var(--green2)">✅ WITHIN CAP</span>':'<span style="color:var(--red3)">❌ EXCEEDS CAP by $'+fmt(fees-maxFees)+'</span>'}`:''} 
+    </div>`;
+  document.getElementById('tx-result').classList.add('show');
+}
+</script>
+</body>
+</html>

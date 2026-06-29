@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOEPA, SCRA & BSA — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#8b1a1a;--accent2:#5a0808;--accent3:#fde8e8;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#5a0808cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>HOEPA, SCRA & BSA</h1>
+        <p>High-Cost Loans · Military Protection · Anti-Money Laundering</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">Three critical consumer protection laws in one lesson. HOEPA targets predatory lending on high-cost mortgages. SCRA protects active-duty military from financial exploitation. BSA fights money laundering through the banking system.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">HOEPA — High-Cost Mortgages</div>
+      <div class="ev-body">Home Ownership and Equity Protection Act. Three tests: APR test, Points-and-Fees test (5%), Prepayment penalty test. ANY ONE triggers high-cost status with strict restrictions.</div>
+      <span class="ev-tag tag-r">Predatory lending</span>
+      <div class="ev-expand"><strong>APR thresholds:</strong> First lien: APOR + 6.5%. Second lien: APOR + 8.5%. Points/fees: 5% of loan amount (higher percentage for smaller loans). HOEPA applies to refinances on PRIMARY dwelling only — not purchases, not investment properties.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">SCRA — Military Protection</div>
+      <div class="ev-body">Servicemembers Civil Relief Act. Caps interest at <strong>6%</strong> on pre-service debts during active duty. Excess interest is <strong>FORGIVEN</strong> — not deferred. Prevents non-judicial foreclosure during service + 1 year after.</div>
+      <span class="ev-tag tag-r">Military protection</span>
+      <div class="ev-expand"><strong>Exam trap — most tested SCRA fact:</strong> The excess interest above 6% is permanently FORGIVEN — not deferred, not accumulated, not owed later. The servicemember will never pay the waived interest. Applies retroactively to the date of the military orders.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">BSA — Anti-Money Laundering</div>
+      <div class="ev-body">Bank Secrecy Act. Requires SAR within <strong>30 days</strong> of detecting suspicious activity (60 with ID extension). CTR for cash transactions over <strong>$10,000</strong>. Four AML pillars required.</div>
+      <span class="ev-tag tag-r">AML compliance</span>
+      <div class="ev-expand"><strong>SAR confidentiality:</strong> After filing a SAR, the institution CANNOT disclose to the subject that a SAR was filed — "tipping off" is a federal crime. Structuring = breaking up transactions to stay below $10,000 threshold — illegal even if funds are legitimate.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">HOEPA Prohibited Terms</div>
+      <div class="ev-body">High-cost mortgages CANNOT have: balloon payments (most cases) · negative amortization · prepayment penalties · due-on-demand clauses · single-premium credit insurance.</div>
+      <span class="ev-tag tag-r">Prohibited features</span>
+      <div class="ev-expand"><strong>Exam note:</strong> If ANY of these features appears in a HOEPA-covered loan, the entire loan is illegal. Lenders must either redesign the loan to remove the prohibited features or not make the loan at all.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">HOEPA Mandatory Counseling</div>
+      <div class="ev-body">Borrowers must receive HUD-approved counseling before closing a HOEPA high-cost mortgage. HOEPA disclosure must be provided at least <strong>3 business days</strong> before closing.</div>
+      <span class="ev-tag tag-a">Required steps</span>
+      <div class="ev-expand"><strong>Exam note:</strong> The 3-business-day HOEPA pre-closing disclosure is SEPARATE from and in addition to the TRID CD waiting period. Both must be satisfied independently. Counseling requirement reinforces that high-cost loans require extra consumer protection.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">SCRA Interest Cap Details</div>
+      <div class="ev-body">6% cap applies to ALL pre-service obligations — mortgage, car loans, credit cards. Servicemember must provide written notice and copy of orders. Cap is retroactive to orders date.</div>
+      <span class="ev-tag tag-r">6% retroactive</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> The 6% cap is retroactive to the DATE OF THE MILITARY ORDERS — not the date the servicemember notifies the lender. The lender must refund interest above 6% back to the orders date once notified.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">SCRA Foreclosure Protection</div>
+      <div class="ev-body">Non-judicial foreclosure is PROHIBITED on a servicemember's property during active duty and for <strong>1 year after</strong>. Lender must obtain a court order to foreclose — even in non-judicial states like Texas.</div>
+      <span class="ev-tag tag-r">Federal override</span>
+      <div class="ev-expand"><strong>Key point:</strong> SCRA overrides STATE foreclosure procedures. Texas is a non-judicial foreclosure state — but a lender CANNOT use non-judicial process on an active-duty servicemember's property. A court order is required regardless of state law.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">CTR — Currency Transaction Report</div>
+      <div class="ev-body">BSA requires a Currency Transaction Report (CTR) for cash transactions exceeding <strong>$10,000</strong> in a single business day. Must be filed within <strong>15 days</strong>.</div>
+      <span class="ev-tag tag-a">$10,000 cash</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> CTR is for CASH transactions over $10,000 — not wire transfers, not checks. SAR is for SUSPICIOUS activity regardless of amount. Two different reports, two different triggers. Do not confuse them.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">Structuring — Federal Crime</div>
+      <div class="ev-body">Deliberately breaking cash transactions into amounts below $10,000 to avoid CTR filing is ILLEGAL — even if the funds are from legitimate sources. This is "structuring" under 31 U.S.C. § 5324.</div>
+      <span class="ev-tag tag-r">Federal crime</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> The legitimacy of the funds is IRRELEVANT. Structuring is illegal based on the INTENT to evade reporting requirements. A business owner depositing legitimate cash earnings in $9,500 increments to avoid CTRs is committing a federal crime.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">SAR — Suspicious Activity Report</div>
+      <div class="ev-body">Filed within <strong>30 days</strong> of detecting suspicious activity (extendable to 60 days to identify a subject). Cannot "tip off" the subject. Institution must maintain SAR confidentiality.</div>
+      <span class="ev-tag tag-r">30-day deadline</span>
+      <div class="ev-expand"><strong>Four BSA AML Pillars:</strong> (1) Written policies and procedures; (2) Designated compliance officer; (3) Employee training program; (4) Independent testing/audit. All four must be present for a compliant AML program.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">GLBA Privacy</div>
+      <div class="ev-body">Gramm-Leach-Bliley Act requires annual privacy notices and opt-out rights for sharing non-public personal information (NPI) with <strong>non-affiliated third parties</strong>.</div>
+      <span class="ev-tag tag-a">Privacy rules</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Opt-out applies to NON-AFFILIATED third parties only. Sharing with affiliated companies generally does not require opt-out. Exceptions include sharing for loan processing, legal compliance, and fraud prevention — these are permitted regardless of opt-out status.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — HOEPA POINTS & FEES TEST</div>
+    <p class="sc-text">A $150,000 refinance has total points and fees of <mark>$8,200</mark>. HOEPA's points-and-fees threshold for loans of this size is 5%. Does this loan trigger HOEPA high-cost status?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>No — $8,200 is reasonable for a refinance of this size</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Yes — 5% × $150,000 = $7,500 threshold. The $8,200 in fees exceeds $7,500 by $700, triggering HOEPA high-cost status based on the points-and-fees test alone.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>No — HOEPA only applies if both the APR AND points-and-fees tests are triggered simultaneously</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>Yes — but only if the borrower's credit score is below 620</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — SCRA INTEREST CALCULATION</div>
+    <p class="sc-text">A servicemember has a pre-service mortgage at <mark>8.5% interest</mark>. They are called to active duty and invoke SCRA protection. The lender reduces the rate to 6%. What happens to the 2.5% difference for the period of active service?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>It is deferred — the servicemember must pay the accumulated interest when they return from service</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>It is permanently forgiven — the servicemember will NEVER owe the interest above 6% during active duty. SCRA waives it completely.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>It is added to the loan principal and amortized over the remaining term</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>It is held in escrow and refunded if the servicemember completes their tour without default</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — BSA — STRUCTURING</div>
+    <p class="sc-text">A restaurant owner earns $12,000 cash per week from legitimate business operations. To "avoid the hassle of paperwork," he deposits <mark>$9,800</mark> at one bank on Monday and <mark>$9,800</mark> at another bank on Tuesday. Has a crime been committed?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>No — the funds are legitimate business earnings so no crime can occur</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>Yes — structuring (deliberately keeping deposits below $10,000 to avoid CTR filing) is a federal crime under BSA regardless of whether the funds are legitimate.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>No — using two different banks for deposits is a standard legitimate business practice</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>No — structuring only applies when the underlying funds are from illegal sources</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">5%</div><div class="fc-lbl">HOEPA FEE THRESHOLD</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Points-and-fees test: total fees exceed <strong>5% of loan amount</strong> triggers HOEPA high-cost status.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">6%</div><div class="fc-lbl">SCRA INTEREST CAP</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Interest on pre-service debts capped at <strong>6%</strong> during active duty. Excess is <strong>FORGIVEN</strong> — not deferred.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">1 yr</div><div class="fc-lbl">SCRA POST-SERVICE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">SCRA foreclosure protection continues for <strong>1 year AFTER</strong> active duty ends — not just during service.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">$10K</div><div class="fc-lbl">CTR THRESHOLD</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Currency Transaction Report required for cash transactions exceeding <strong>$10,000</strong> in one business day. Filed within 15 days.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">30</div><div class="fc-lbl">DAYS — SAR FILING</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Suspicious Activity Report must be filed within <strong>30 days</strong> of detecting suspicious activity. Extendable to 60 days to identify a subject.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">HOEPA TESTS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer"><strong>APR test · Points/fees test · Prepayment penalty test.</strong> ANY ONE triggers high-cost status independently.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">4</div><div class="fc-lbl">BSA AML PILLARS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">(1) Written policies · (2) Compliance officer · (3) Employee training · (4) Independent testing. All four required.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3 days</div><div class="fc-lbl">HOEPA PRE-CLOSE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">HOEPA disclosure must be provided at least <strong>3 business days</strong> before closing a high-cost mortgage.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five situations covering HOEPA, SCRA, and BSA. Violation or compliant?</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">A high-cost HOEPA mortgage includes a clause allowing the lender to demand full repayment if the borrower's credit score drops below 640 at any future point (due-on-demand clause).</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">A servicemember on active duty has a mortgage originated 5 years ago at 7.25%. They invoke SCRA. The lender refuses, saying the loan was originated before SCRA was expanded to include mortgages.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">A mortgage company employee notices a borrower has made 8 cash deposits of exactly $9,500 over 2 weeks. The employee files a SAR within 30 days. The company does NOT tell the borrower a SAR was filed.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">A lender charges a HOEPA high-cost mortgage borrower a prepayment penalty of 3% if the loan is paid off within the first 5 years.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">A lender receives a GLBA opt-out request from a borrower regarding sharing their information with non-affiliated marketing companies. The lender continues sharing the information, citing that the opt-out was not submitted within 30 days.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>HOEPA: any ONE of 3 tests triggers high-cost status</li><li>SCRA: 6% cap, excess FORGIVEN not deferred</li><li>CTR: cash over $10,000, filed within 15 days</li><li>SAR: suspicious activity, filed within 30 days</li><li>Structuring illegal regardless of fund legitimacy</li><li>SCRA overrides state non-judicial foreclosure procedures</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>SCRA excess interest FORGIVEN — not deferred</li><li>HOEPA applies to refinances on primary dwelling only</li><li>Structuring illegal even with legitimate funds</li><li>SAR: cannot tip off subject — federal crime</li><li>HOEPA counseling + 3-day disclosure both required</li><li>CTR vs SAR — different triggers, different reports</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> HOEPA has three independent tests — ANY ONE triggers high-cost status. Points-and-fees test: 5% × $150,000 = $7,500 threshold. Actual fees of $8,200 exceed this by $700 → HOEPA high-cost loan triggered. Now prohibited terms apply and mandatory counseling is required.',
+    fail:'<strong>Not quite.</strong> HOEPA\'s three tests are INDEPENDENT — any ONE alone triggers high-cost status. Points-and-fees: 5% × $150,000 = $7,500 maximum. $8,200 exceeds this → high-cost loan triggered. No need to also fail the APR test.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> This is the most heavily tested SCRA fact. The excess interest above 6% is PERMANENTLY FORGIVEN — not deferred, not accumulated, not owed after service. The servicemember saves real money — the lender absorbs the difference. This applies retroactively to the date of the military orders.',
+    fail:'<strong>Not quite.</strong> The most tested SCRA fact: excess interest above 6% is FORGIVEN — not deferred. The servicemember will NEVER owe the interest above 6% during their active duty period. It is permanently waived. The lender absorbs the difference.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> Structuring is illegal regardless of the legitimacy of the funds. The crime is the INTENT to evade reporting requirements by keeping transactions below $10,000. Using multiple banks does not help — it is still structuring. A federal crime under 31 U.S.C. § 5324.',
+    fail:'<strong>Not quite.</strong> Structuring is a federal crime based on INTENT — the intent to evade CTR reporting by keeping transactions below $10,000. The legitimacy of the underlying funds is completely irrelevant. Using two banks does not escape the prohibition — it is still structuring.'},
+};
+const RUA={
+  rul1:{v:true,
+    correct:'HOEPA violation. Due-on-demand clauses — allowing the lender to demand full repayment for reasons other than specific default events — are prohibited in HOEPA high-cost mortgages. This is one of several features explicitly banned in high-cost loans.',
+    wrong:'Actually a violation. Due-on-demand clauses (allowing repayment acceleration for non-default reasons like credit score changes) are explicitly prohibited in HOEPA high-cost mortgages. This is one of the core consumer protections HOEPA provides.'},
+  rul2:{v:true,
+    correct:'SCRA violation. SCRA\'s 6% interest cap applies to ALL debts incurred before active duty service — including mortgages. The lender cannot refuse SCRA protection based on when the loan originated. The servicemember qualifies and the lender must reduce to 6% retroactively.',
+    wrong:'Actually a violation. SCRA applies to all pre-service debts including mortgages, regardless of origination date. The lender cannot refuse SCRA protection — they must cap the rate at 6% retroactively to the date of the military orders.'},
+  rul3:{v:false,
+    correct:'Compliant — and required. Filing a SAR within 30 days for suspected structuring activity is correct BSA compliance. NOT telling the borrower is also required — disclosing SAR filing to the subject is "tipping off," a federal crime. The company did everything correctly.',
+    wrong:'Actually fully compliant — on both counts. Filing the SAR within 30 days for suspected structuring is correct. NOT disclosing the SAR to the borrower is also required — tipping off the subject of a SAR is a separate federal crime under BSA.'},
+  rul4:{v:true,
+    correct:'HOEPA violation. Prepayment penalties are explicitly PROHIBITED in HOEPA high-cost mortgages. This is one of the key consumer protections — borrowers must be able to pay off high-cost loans without penalty.',
+    wrong:'Actually a violation. Prepayment penalties are among the specifically prohibited features in HOEPA high-cost mortgages. Borrowers have the right to pay off high-cost loans at any time without penalty.'},
+  rul5:{v:true,
+    correct:'GLBA violation. GLBA opt-out rights are not subject to a 30-day deadline — consumers can exercise their opt-out right at any time. Once an opt-out is received, the lender must honor it. There is no requirement to opt out within a specific time window.',
+    wrong:'Actually a violation. GLBA does not impose a deadline on consumers to exercise their opt-out rights. The opt-out right is ongoing — consumers can exercise it at any time. Once exercised, the lender must stop sharing with non-affiliated third parties.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

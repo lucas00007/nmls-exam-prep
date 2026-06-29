@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethics & UDAP — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#1a4a6b;--accent2:#0c2a40;--accent3:#d8eaf8;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#0c2a40cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · ETHICS & PROFESSIONAL CONDUCT</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>Ethics & UDAP</h1>
+        <p>Professional Conduct · LO Compensation · Conflicts of Interest · CFPB Standards</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">Ethics and UDAP questions make up 16% of the NMLS exam. They test your ability to identify conflicts of interest, professional obligations, the LO Compensation Rule, and the CFPB's UDAP standards. The right answer is almost always: put the borrower's interest first.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">Core MLO Duty</div>
+      <div class="ev-body">MLOs owe a duty of <strong>good faith and fair dealing</strong> to borrowers. This means: no misrepresentation, no steering to benefit the MLO at the borrower's expense, honest disclosure of all material facts.</div>
+      <span class="ev-tag tag-b">Foundation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> The duty of good faith applies even when it costs the MLO money. If a loan does not serve the borrower's best interest, the ethical MLO discloses this — even if it means losing the commission. Professional obligation comes before personal financial gain.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">LO Compensation Rule</div>
+      <div class="ev-body">MLOs cannot steer borrowers to loan products that do not serve their interests in order to earn higher compensation. Anti-steering: must present the borrower with a range of options based on their needs.</div>
+      <span class="ev-tag tag-r">Reg Z rule</span>
+      <div class="ev-expand"><strong>Dual compensation:</strong> An MLO cannot receive compensation from BOTH the lender AND the borrower on the same transaction. If the lender pays the MLO, the borrower cannot also pay the MLO (except for bona fide third-party costs). This prevents double-dipping that harms borrowers.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">UDAP — Three Standards</div>
+      <div class="ev-body">Unfair = causes substantial injury consumers cannot reasonably avoid. Deceptive = likely to mislead a reasonable consumer about material facts. Abusive = takes unreasonable advantage of consumer vulnerability or limited understanding.</div>
+      <span class="ev-tag tag-r">CFPB authority</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Any ONE of the three (unfair, deceptive, OR abusive) is sufficient for a UDAP violation. The CFPB does not need to prove all three. The abusive standard is the newest — targeting practices that exploit consumers who cannot reasonably protect themselves.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">Occupancy Fraud</div>
+      <div class="ev-body">Representing an investment property as a primary residence to get better rates = federal mortgage fraud under 18 U.S.C. § 1014. MLOs who knowingly process such loans are criminally liable — even if the borrower initiated the fraud.</div>
+      <span class="ev-tag tag-r">Federal crime</span>
+      <div class="ev-expand"><strong>Key principle:</strong> "I was just processing the loan" is not a defense when the MLO knowingly assists in fraud. The crime is the knowing participation — not who initiated it. An MLO who sees clear signs of occupancy fraud and proceeds is criminally exposed.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">Net Tangible Benefit</div>
+      <div class="ev-body">Recommending a refinance with closing costs that take 8 years to recover to a borrower who plans to sell in 2 years violates the MLO's ethical duty. Must serve the borrower's stated financial goals.</div>
+      <span class="ev-tag tag-a">Borrower first</span>
+      <div class="ev-expand"><strong>Practical application:</strong> Calculate break-even before recommending a refinance. If break-even exceeds the borrower's planned hold period, the refinance does not serve their interest. Recommending it anyway to earn a commission is both unethical and potentially a UDAP violation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">Elder Financial Exploitation</div>
+      <div class="ev-body">Warning signs: unusual urgency, online-only investment contacts, significant equity at risk, confusion about terms. MLOs may have legal reporting obligations. Proceeding blindly with exploitation warning signs is unethical.</div>
+      <span class="ev-tag tag-r">Vulnerable borrowers</span>
+      <div class="ev-expand"><strong>Abusive UDAP standard:</strong> Taking unreasonable advantage of a person who cannot protect their own interests — such as an elderly borrower showing confusion — violates the CFPB's abusive acts standard. In many states, MLOs have mandatory reporting obligations for suspected elder financial exploitation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">Document Fraud Obligations</div>
+      <div class="ev-body">When an MLO suspects falsified income documents, they MUST escalate to compliance — not proceed. Processing a loan with suspected fraud = potential criminal liability regardless of who falsified the documents.</div>
+      <span class="ev-tag tag-r">Report it</span>
+      <div class="ev-expand"><strong>Self-protection is not enough:</strong> An MLO who "notes the concern in the file but proceeds" is NOT protected. Documenting suspicion while continuing to originate the fraudulent loan can still constitute knowing participation. The correct action is STOP and REPORT — not proceed with documentation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">Fair Lending in Service Quality</div>
+      <div class="ev-body">Providing materially different levels of service (response times, thoroughness, follow-up) to borrowers based on race, national origin, or other protected class = fair lending violation even if all loans ultimately close.</div>
+      <span class="ev-tag tag-r">Service quality</span>
+      <div class="ev-expand"><strong>Paired testing:</strong> Regulators use paired testing to detect service quality disparities. Two "testers" with identical profiles but different protected characteristics contact the same lender. Systematic differences in response quality reveal discrimination even when no loan is denied.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">ABA Disclosure Ethics</div>
+      <div class="ev-body">Referring borrowers to a company in which the MLO has a financial interest without written ABA disclosure is both a RESPA violation AND an ethics violation. The borrower has the right to make informed choices.</div>
+      <span class="ev-tag tag-a">Transparency</span>
+      <div class="ev-expand"><strong>Ethical principle behind the rule:</strong> Conflicts of interest must be disclosed so consumers can make informed decisions. Even if the affiliated company provides good service at fair prices, the undisclosed financial relationship undermines consumer trust and distorts the referral. Disclosure protects the consumer's right to choose.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">Anti-Steering Obligation</div>
+      <div class="ev-body">When a lender offers higher compensation for steering borrowers to Product B over Product A, and Product A better serves the borrower — the MLO must recommend Product A. The compensation structure cannot override the borrower's best interest.</div>
+      <span class="ev-tag tag-r">LO Comp Rule</span>
+      <div class="ev-expand"><strong>Practical rule:</strong> MLO compensation can vary by lender — but NOT by loan product from the same lender. Steering to a higher-rate product from the same lender to earn more = LO Compensation Rule violation. The borrower must receive the best available option from that lender, not the one that pays the MLO more.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">License Maintenance Ethics</div>
+      <div class="ev-body">Originating loans with an expired license is unlicensed activity — a serious violation. Completing CE and renewing on time is a professional obligation, not optional. License expiration requires immediate cessation of origination activity.</div>
+      <span class="ev-tag tag-r">License duty</span>
+      <div class="ev-expand"><strong>Exam note:</strong> When an MLO's license expires, they must STOP originating IMMEDIATELY. They cannot originate "just one more loan" before renewing. Unlicensed origination exposes the MLO and their company to regulatory action, civil liability, and potential criminal charges.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — LO COMPENSATION RULE</div>
+    <p class="sc-text">A lender offers MLOs a <mark>$500 bonus</mark> for every borrower they place into Product B (a higher-rate loan). Product A (a lower-rate loan from the same lender) better serves the borrower's needs. The MLO recommends Product B to earn the bonus. Which rule is violated?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>RESPA Section 8 — the bonus is a kickback from the lender</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>The LO Compensation Rule under TILA Regulation Z. MLOs cannot steer borrowers to loan products that do not serve their interests in order to earn higher compensation.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>HOEPA — higher-rate products that pay bonuses are automatically high-cost loans</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>ECOA — recommending different products to different borrowers could create disparate impact</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — OCCUPANCY FRAUD</div>
+    <p class="sc-text">An MLO is processing a loan for a close friend. During a phone call, the friend says: <mark>"I'm going to rent it out right away — but we put primary residence on the application to get the lower rate."</mark> The MLO continues processing without action. What occurred?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>Nothing — occupancy intent can change after closing and does not affect the loan</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>The MLO participated in mortgage fraud. Knowing the stated occupancy is false and continuing to process the loan = criminal participation under 18 U.S.C. § 1014, regardless of personal relationship with the borrower.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>A minor disclosure issue — the MLO should note the change in the file and proceed</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>A TILA violation for not disclosing the occupancy difference on the loan estimate</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — UDAP ANALYSIS</div>
+    <p class="sc-text">An MLO tells a borrower: <mark>"Don't worry about the rate adjusting — ARM rates ALWAYS go down. I've been doing this 20 years and they've never gone up significantly."</mark> This statement is false and cannot be guaranteed. What violation occurred?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>No violation — experienced MLOs can share professional opinions without liability</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>UDAP deceptive practice — making definitive false statements about future rate movements to induce a borrower to take an ARM is material misrepresentation likely to mislead a reasonable consumer.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>TILA violation for not disclosing the ARM adjustment schedule</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>A breach of the good faith estimate requirements for adjustable rate mortgages</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">1st</div><div class="fc-lbl">BORROWER'S INTEREST</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Borrower's best interest comes <strong>first</strong> — before MLO commission, before company quota, before convenience. This is the foundation of mortgage ethics.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">UDAP VIOLATIONS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer"><strong>Unfair</strong> (unavoidable substantial injury) · <strong>Deceptive</strong> (misleads reasonable consumer) · <strong>Abusive</strong> (exploits vulnerability). Any ONE = violation.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">LO</div><div class="fc-lbl">COMPENSATION RULE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">MLOs cannot steer borrowers to products that don't serve their needs to earn higher pay. <strong>Cannot receive compensation from both lender AND borrower</strong> on same transaction.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Stop</div><div class="fc-lbl">DOCUMENT FRAUD</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Suspected document fraud = <strong>STOP and REPORT</strong> to compliance. Proceeding with documentation of suspicion is NOT protection — it is participation.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">NTB</div><div class="fc-lbl">NET TANGIBLE BENEFIT</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Every refinance recommendation must provide a <strong>net tangible benefit</strong> to the borrower. If break-even exceeds hold period, the refi does not serve them — say so.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">ABA</div><div class="fc-lbl">CONFLICT DISCLOSURE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Financial interest in a referred service provider must be disclosed in writing via ABA disclosure. Non-disclosure = RESPA AND ethics violation simultaneously.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">0</div><div class="fc-lbl">DUAL COMPENSATION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">MLO cannot receive compensation from <strong>both lender and borrower</strong> on same transaction = $0 from one side when receiving from other.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Now</div><div class="fc-lbl">EXPIRED LICENSE</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Expired license = stop originating <strong>immediately</strong>. Cannot originate "just one more." Unlicensed activity = serious regulatory and criminal exposure.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five professional conduct situations. Ethical and compliant, or a violation?</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">An MLO realizes a refinance will cost $6,000 in closing costs and save the borrower $80/month. The borrower plans to stay in the home for at least 10 years. The MLO recommends the refinance.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">An elderly borrower contacts an MLO wanting to take out a $200,000 HELOC to invest in a "guaranteed 30% return" opportunity from someone they met online a week ago. The borrower seems confused about the details.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">An MLO tells a borrower: "I personally prefer ABC Title Company — they've done great work for my clients." The MLO receives no compensation from ABC Title and has no financial interest in them.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">An MLO's license expired on December 31st. On January 3rd, still unlicensed, they take a mortgage application and collect a credit report fee. They plan to renew their license within the week.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">An MLO discovers their employer is systematically approving White applicants at 55% DTI while denying Black applicants at the same DTI with no documented justification. The MLO reports it to the compliance department in writing.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>Borrower's best interest always comes first</li><li>LO Comp Rule: cannot steer for higher pay</li><li>UDAP: unfair + deceptive + abusive — any one violates</li><li>Occupancy fraud = federal crime, even if borrower initiated</li><li>Net tangible benefit required before recommending refi</li><li>Expired license = stop immediately, no exceptions</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>LO Comp Rule is Reg Z — not RESPA Section 8</li><li>Dual compensation: cannot receive from both lender AND borrower</li><li>Document fraud: document + proceed = participation</li><li>UDAP abusive: targets consumer vulnerability exploitation</li><li>Elder exploitation warning signs require intervention</li><li>Reporting discrimination is the RIGHT action — not a violation</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> The LO Compensation Rule (Regulation Z) is specifically designed to prevent this scenario. MLOs cannot steer borrowers to more expensive or less favorable loan products in order to earn higher compensation. The anti-steering provision requires MLOs to present options based on the BORROWER\'S needs — not the MLO\'s compensation structure.',
+    fail:'<strong>Not quite.</strong> The LO Compensation Rule under TILA Regulation Z specifically prohibits steering borrowers to products that do not serve their interests in order to earn higher MLO compensation. This is distinct from RESPA Section 8 — it is an anti-steering provision within Regulation Z, not a kickback prohibition.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> Occupancy fraud is federal mortgage fraud under 18 U.S.C. § 1014. Once the MLO KNOWS the stated occupancy is false, continuing to process = knowing participation in fraud. Friendship with the borrower provides ZERO protection. The MLO must stop processing, refuse to originate the loan, and potentially report the attempted fraud.',
+    fail:'<strong>Not quite.</strong> Once an MLO is told the occupancy is false and continues processing, they become a knowing participant in federal mortgage fraud (18 U.S.C. § 1014). "I didn\'t initiate the fraud" is not a defense. Knowing participation is the crime. The MLO must stop immediately.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> ARM rates do NOT always go down — this is factually false. Making definitive false statements about future rate behavior to steer a borrower toward an ARM is UDAP deceptive (likely to mislead a reasonable consumer about a material fact). The MLO\'s 20 years of experience does not license them to make false guarantees about market movements.',
+    fail:'<strong>Not quite.</strong> Stating as fact that ARM rates "always go down" when this is false and cannot be guaranteed is a material misrepresentation — a UDAP deceptive practice. A reasonable consumer might choose an ARM based on this false guarantee. The MLO\'s experience does not justify making false claims about future market movements.'},
+};
+const RUA={
+  rul1:{v:false,
+    correct:'Compliant and ethical. Break-even: $6,000 / $80/month = 75 months (6.25 years). The borrower plans to stay 10+ years (120 months), well past the 75-month break-even. The refinance provides a clear net tangible benefit. Recommending it serves the borrower\'s stated goals.',
+    wrong:'Actually compliant. Break-even = $6,000 / $80 = 75 months. Borrower\'s hold period = 120+ months. The borrower will recover the costs and save money long-term. This refinance provides genuine net tangible benefit — recommending it is both ethical and appropriate.'},
+  rul2:{v:true,
+    correct:'Ethical violation and potential UDAP abusive. Classic elder financial exploitation warning signs: online-only contact, "guaranteed" returns (no investment guarantees exist), large equity at risk, confusion. The MLO has an ethical obligation to pause, have a careful conversation, and potentially involve Adult Protective Services before proceeding.',
+    wrong:'Actually raises serious ethical and legal concerns. This scenario presents multiple elder financial exploitation warning signs — online-only investment contact, guaranteed returns (none exist), significant equity at risk, borrower confusion. The MLO cannot blindly process this loan. Ethical and potentially legal obligations require intervention.'},
+  rul3:{v:false,
+    correct:'Compliant. Sharing a professional recommendation without a financial relationship is not a RESPA violation. The key RESPA trigger is a financial relationship — compensation, ownership, or thing of value in exchange for referrals. A genuine professional opinion based on experience, with no financial interest, is permitted.',
+    wrong:'Actually compliant. RESPA prohibits referrals involving things of value — not personal professional opinions. An MLO with no financial relationship to a title company can share their professional experience and preference. The absence of compensation or financial interest removes the RESPA concern.'},
+  rul4:{v:true,
+    correct:'Unlicensed activity violation. Once a license expires, origination activity must STOP IMMEDIATELY — including taking applications and collecting fees. "Renewing soon" provides no protection. Even a single transaction while unlicensed = serious regulatory violation exposing both the MLO and the company.',
+    wrong:'Unlicensed activity. An expired license means zero origination activity — no applications, no fees, no rate discussions. Intending to renew "soon" provides no legal cover. Each transaction while unlicensed is a separate violation. The company also faces liability for allowing unlicensed activity.'},
+  rul5:{v:false,
+    correct:'Compliant and correct action. An MLO who discovers discriminatory patterns has an ethical and potentially legal obligation to report them. Reporting in writing to compliance is exactly the right action — it creates a record, puts the company on notice, and satisfies the MLO\'s professional obligations.',
+    wrong:'Actually the correct and ethical action. MLOs who observe discriminatory patterns have a professional obligation to report them. Written reporting to compliance creates a record and initiates investigation. This is exactly what the MLO should do — reporting discrimination is ethical conduct, not a violation.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

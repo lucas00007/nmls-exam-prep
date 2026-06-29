@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECOA — Equal Credit — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#f5efe0;--paper2:#ede5cf;--paper3:#e2d8c0;--paper4:#d6ccb4;
+  --accent:#6c3483;--accent2:#4a2060;--accent3:#f0e8f8;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --gold:#b8860b;--gold2:#d4a017;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#2a1f14;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+.hdr{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#4a2060cc 100%);border-radius:4px 4px 0 0;padding:20px 28px 16px;margin-bottom:-2px;box-shadow:0 4px 20px rgba(0,0,0,.35);position:relative;}
+.hdr-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+.hdr-left p{font-size:.78rem;color:rgba(255,255,255,.75);}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:#fff;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;}
+.folder-tab{position:absolute;top:-26px;left:36px;background:var(--accent);padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 30px rgba(0,0,0,.4);padding:28px 36px 36px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:68px;top:0;bottom:0;width:1px;background:rgba(180,100,100,.25);}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:var(--accent3);color:var(--accent2);border:0.5px solid var(--accent);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+.sticky{background:#ffffa0;padding:13px 15px;box-shadow:3px 3px 10px rgba(0,0,0,.15);font-family:'DM Serif Display',serif;font-size:.9rem;color:#3a3000;line-height:1.6;position:relative;margin:0 0 18px;max-width:360px;transform:rotate(1.2deg);}
+.sticky::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:34px;height:18px;background:rgba(255,230,50,.7);border-bottom:2px solid rgba(0,0,0,.08);}
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:var(--accent);background:var(--accent3);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--accent2);}
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--green3);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--accent2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--accent);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="position:relative;margin-top:36px;">
+  <div class="folder-tab">CASE FILE · FEDERAL MORTGAGE LAW</div>
+  <div class="hdr">
+    <div class="hdr-inner">
+      <div class="hdr-left">
+        <h1>ECOA — Equal Credit</h1>
+        <p>Equal Credit Opportunity Act · Regulation B · CFPB</p>
+      </div>
+      <div class="hdr-right">
+        <div class="prog-wrap">
+          <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+          <span class="prog-pct" id="prog-pct">0%</span>
+        </div>
+        <div class="xp-pill" id="xp-badge">0 XP</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">ECOA — the Equal Credit Opportunity Act — prohibits discrimination in any aspect of a credit transaction. Implemented by Regulation B, enforced by the CFPB. It covers lending from application through closing and beyond.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">What Is ECOA?</div>
+      <div class="ev-body">Equal Credit Opportunity Act. Implemented by <strong>Regulation B</strong>. Enforced by the CFPB. Prohibits discrimination in any aspect of a credit transaction based on protected classes.</div>
+      <span class="ev-tag tag-b">Foundation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> ECOA covers ALL aspects of a credit transaction — not just the final approval/denial. Application processing, pricing, terms offered, and service quality are all covered. Even discouraging someone from applying can be a violation.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">ECOA Protected Classes</div>
+      <div class="ev-body">Race · Color · Religion · National Origin · Sex · <strong>Marital Status</strong> · <strong>Age</strong> · Receipt of Public Assistance. Note: Familial Status and Disability are FHA-only, not ECOA.</div>
+      <span class="ev-tag tag-r">Memorize these</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Marital status and age are ECOA-protected but NOT Fair Housing Act protected. Familial status and disability are FHA-protected but NOT ECOA (well, disability has limited ECOA coverage). Know which law covers which class.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">Adverse Action Timing</div>
+      <div class="ev-body">After a COMPLETE application, lender must provide adverse action notice within <strong>30 days</strong>. The notice must include specific, actionable reasons — not vague conclusions.</div>
+      <span class="ev-tag tag-r">Key deadline</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> "Insufficient creditworthiness" is NOT a specific reason under Reg B. Specific reasons: "credit score below minimum 620" or "debt-to-income ratio exceeds 45%." Vague reasons violate ECOA even if the timing is correct.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">Adverse Action Notice Content</div>
+      <div class="ev-body">Must include: specific reason(s) for denial · ECOA notification statement · FCRA credit bureau disclosure (if credit report used) · Right to obtain free report within 60 days.</div>
+      <span class="ev-tag tag-r">Content required</span>
+      <div class="ev-expand"><strong>Exam note:</strong> ECOA and FCRA both apply to credit denials. ECOA requires specific denial reasons. FCRA requires identifying the credit bureau used and the borrower's right to a free report. Both sets of disclosures must be included.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">Record Retention</div>
+      <div class="ev-body">ECOA Regulation B requires lenders to retain credit application records for <strong>25 months</strong> from the date of the credit decision notification.</div>
+      <span class="ev-tag tag-a">25 months</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> This is 25 months — not 12, not 36, not 7 years. From the date of notification of the credit DECISION — not the application date. 25 months allows regulators to review patterns for fair lending compliance.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">Discouragement Prohibition</div>
+      <div class="ev-body">ECOA prohibits <strong>discouraging</strong> applicants from applying based on protected characteristics. "I don't think you'd qualify" said to only certain groups = ECOA violation even with no formal application.</div>
+      <span class="ev-tag tag-r">No discouragement</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Discouragement is subtle and frequently tested. Telling one group "our rates are very high right now" while giving another group normal sales service = potential ECOA violation. The standard applies to ALL aspects of the credit process, including initial contact.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">Spousal Signature Rules</div>
+      <div class="ev-body">Under ECOA, a lender CANNOT require a spouse's signature on a loan if the applicant individually qualifies. Requiring spousal co-signing for married borrowers but not single borrowers = ECOA violation.</div>
+      <span class="ev-tag tag-r">Spousal rights</span>
+      <div class="ev-expand"><strong>Exception:</strong> A spouse's signature may be required on documents that establish the security interest in jointly-owned property (e.g., deed of trust in community property states). The key is: you cannot require spousal income to qualify when the applicant qualifies alone.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">Income from Public Assistance</div>
+      <div class="ev-body">Lenders CANNOT discount or refuse to count income from public assistance programs (Social Security, disability, welfare) when evaluating creditworthiness. Receipt of public assistance is a protected class.</div>
+      <span class="ev-tag tag-r">Protected income</span>
+      <div class="ev-expand"><strong>Exam note:</strong> This trips up many candidates. You cannot treat public assistance income as less reliable or less valuable than earned income. If the income is documented and stable, it must be counted at full value — same as any other income source.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">Age Discrimination Rules</div>
+      <div class="ev-body">Age is an ECOA protected class. Cannot deny credit solely because of age. EXCEPTION: lenders may consider age in a statistically sound credit scoring system, or when it is relevant to a government loan program.</div>
+      <span class="ev-tag tag-a">Age rules</span>
+      <div class="ev-expand"><strong>Exception detail:</strong> A statistically validated credit scoring system may use age as a factor IF it is actuarially justified and does not discriminate against older applicants. This is a narrow exception — general age discrimination remains prohibited.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">Disparate Treatment vs. Disparate Impact</div>
+      <div class="ev-body">Disparate treatment = intentionally treating similarly situated borrowers differently based on protected class. Disparate impact = neutral policy with disproportionate adverse effect on a protected class.</div>
+      <span class="ev-tag tag-a">Two theories</span>
+      <div class="ev-expand"><strong>Key difference:</strong> Disparate treatment requires discriminatory intent. Disparate impact does NOT require intent — if a neutral policy disproportionately harms a protected class, it may violate ECOA even if unintentional. Both are recognized as ECOA violations.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">Incomplete Applications</div>
+      <div class="ev-body">Lender must notify the applicant of incompleteness within <strong>30 days</strong>. The notice must specify what information is needed. Lender cannot simply sit on an incomplete application indefinitely.</div>
+      <span class="ev-tag tag-a">30 days</span>
+      <div class="ev-expand"><strong>Exam note:</strong> If a lender receives an incomplete application, they have two options: (1) deny it and send adverse action notice, or (2) send an incompleteness notice specifying what is needed within 30 days. Ignoring it is not an option.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three exam-style scenarios. Read carefully — make your call.</p>
+  </div>
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — ADVERSE ACTION TIMING</div>
+    <p class="sc-text">Maria submits a complete mortgage application on <mark>June 1st</mark>. The lender mails a denial letter on <mark>June 28th</mark>. The denial letter states only: <mark>"Insufficient creditworthiness."</mark> Does this satisfy ECOA?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>Yes — June 28th is within 30 days and the reason is stated</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Partially — timing is satisfied (within 30 days) but the reason "insufficient creditworthiness" is too vague. Specific reasons such as "credit score below minimum" or "DTI exceeds 45%" are required.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>No — the denial must be issued within 10 business days of a complete application</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>Yes — lenders have discretion to use general denial language without specifying details</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — PROTECTED CLASS — MARITAL STATUS</div>
+    <p class="sc-text">A lender tells an applicant: <mark>"Since you're divorced, we'll need to see your ex-spouse's income history to evaluate stability."</mark> The applicant individually qualifies based on their own income. Which law is violated?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>Fair Housing Act — marital status is FHA-protected</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'B')"><span class="choice-ltr">B.</span>ECOA Regulation B — marital status is an ECOA-protected class. Requiring additional documentation based on divorce status when the applicant individually qualifies constitutes discrimination based on marital status.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'C')"><span class="choice-ltr">C.</span>RESPA — the request involves a third party to the transaction</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>No violation — lenders may always request additional documentation for risk assessment</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — RECORD RETENTION</div>
+    <p class="sc-text">A fair lending examiner requests mortgage application files from <mark>18 months ago</mark>. The lender has already destroyed the files, saying "we keep records for 12 months." Is the lender in compliance with ECOA?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>Yes — 12 months is a reasonable and standard business record retention period</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>No — ECOA Regulation B requires retention of credit application records for 25 months from the date of the credit decision notification. 12 months falls far short.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>Yes — record retention requirements only apply to approved loans, not denied applications</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>No — ECOA requires 36-month retention to allow for regulatory examination cycles</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal. These numbers appear on almost every exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Reg B</div><div class="fc-lbl">ECOA REGULATION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">ECOA is implemented by <strong>Regulation B</strong>, enforced by the CFPB. Prohibits discrimination in all aspects of credit transactions.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">8</div><div class="fc-lbl">ECOA PROTECTED CLASSES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Race · Color · Religion · National Origin · Sex · <strong>Marital Status · Age · Public Assistance</strong>. Note: Familial status = FHA only.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">30</div><div class="fc-lbl">DAYS — ADVERSE ACTION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Adverse action notice required within <strong>30 days</strong> of a complete application. Must include specific, actionable reasons.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">25</div><div class="fc-lbl">MONTHS — RETENTION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">ECOA requires <strong>25 months</strong> record retention from date of credit decision notification — both approvals and denials.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">60</div><div class="fc-lbl">DAYS — FREE REPORT</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">When denied based on a credit report, borrower has <strong>60 days</strong> to request a free copy of the report from the CRA.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">0</div><div class="fc-lbl">INCOME DISCOUNTING</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Public assistance income must be counted at <strong>full value</strong> — cannot be discounted or excluded based on source.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">2</div><div class="fc-lbl">DISCRIMINATION THEORIES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer"><strong>Disparate Treatment</strong> (intentional) + <strong>Disparate Impact</strong> (unintentional but disproportionate). Both violate ECOA.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">Spec.</div><div class="fc-lbl">DENIAL REASONS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Must be <strong>specific and actionable</strong>. "Insufficient creditworthiness" = too vague. "Score below 620 minimum" = correct.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">Five credit decision scenarios. ECOA violation or compliant? You decide.</p>
+  </div>
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">An MLO says to a borrower: <mark>"Our underwriting is pretty strict. I don't think someone in your situation would qualify — you might want to try a different lender."</mark> No application is submitted.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">A lender uses a statistically validated credit scoring model that considers age as one of many factors, as actuarially justified. Older applicants receive slightly lower scores for this factor.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">A married female applicant applies individually. She qualifies on her own income. The lender requires her husband to co-sign because "married applicants need spousal verification of joint financial obligations."</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul3',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">A lender receives an incomplete mortgage application missing the property address. They send a written notice within 20 days specifying that the property address is needed to complete the application.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">A lender consistently charges borrowers from one ethnic group interest rates 0.50% higher than borrowers with identical credit profiles from another group. There is no documented justification.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul5',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game to see your verdict.</div>
+  <div class="tk-grid">
+    <div class="tk"><h4>KEY TAKEAWAYS</h4><ul><li>Regulation B implements ECOA</li><li>8 protected classes including marital status and age</li><li>Adverse action: 30 days from complete application</li><li>Specific denial reasons required — vague is insufficient</li><li>Record retention: 25 months from decision notification</li><li>Discouragement alone can be a violation</li></ul></div>
+    <div class="tk"><h4>EXAM TRAPS</h4><ul><li>Marital status = ECOA only (not FHA)</li><li>Familial status = FHA only (not ECOA)</li><li>25 months retention — not 12 or 36</li><li>Discounting public assistance income = violation</li><li>Spousal co-sign not required if applicant qualifies</li><li>Vague denial reasons = ECOA violation</li></ul></div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+</div>
+</div>
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> Timing: June 1 + 30 days = July 1 deadline. June 28th is within 30 days ✓. But content fails: "Insufficient creditworthiness" is too vague under Regulation B. Specific, actionable reasons are required — like "credit score of 580 is below our minimum of 620."',
+    fail:'<strong>Not quite.</strong> Two issues here. Timing: June 28 is within 30 days ✓. Content: "Insufficient creditworthiness" is a vague conclusion — not a specific, actionable reason. Regulation B requires specific reasons like "credit score below minimum" or "excessive debt obligations" so borrowers know what to correct.'},
+  sc2:{correct:'B',
+    pass:'<strong>Correct!</strong> Marital status is an ECOA-protected class (NOT Fair Housing Act). Requiring additional scrutiny, documentation, or conditions based on an applicant\'s marital status (divorced) — when they individually qualify — violates ECOA Regulation B. This is a commonly tested distinction: marital status = ECOA only.',
+    fail:'<strong>Not quite.</strong> Marital status is an ECOA-protected class — not an FHA-protected class. Requiring an independently-qualifying borrower to produce an ex-spouse\'s income history because they are divorced is discrimination based on marital status in violation of ECOA Regulation B.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> ECOA Regulation B requires 25-month retention from the date of credit decision notification — for both approved AND denied applications. At 12 months, the lender is in violation. The 18-month-old files should still be available and accessible to examiners.',
+    fail:'<strong>Not quite.</strong> ECOA Regulation B requires record retention for 25 MONTHS from the date of credit decision notification. 12 months is insufficient. Files from 18 months ago must still be retained and must be produced to examiners upon request.'},
+};
+const RUA={
+  rul1:{v:true,
+    correct:'ECOA violation. Discouraging an application based on protected characteristics (the phrase "someone in your situation" implies group-based assessment) violates ECOA even without a formal application. Discouragement is explicitly prohibited.',
+    wrong:'Actually a violation. ECOA prohibits discouraging applications based on protected characteristics. The MLO\'s statement discourages the borrower without evaluating their actual qualifications — a textbook ECOA discouragement violation.'},
+  rul2:{v:false,
+    correct:'Compliant. ECOA permits consideration of age in a statistically sound, empirically derived credit scoring system when actuarially justified. This narrow exception allows age as a scoring factor when the statistical basis is documented and valid.',
+    wrong:'Actually compliant. ECOA\'s age protection has a specific exception: statistically validated, empirically derived credit scoring systems may incorporate age as a factor when actuarially justified. This is one of the few permitted uses of an ECOA-protected class in underwriting.'},
+  rul3:{v:true,
+    correct:'ECOA violation. When an applicant individually qualifies, a lender cannot require a spouse to co-sign. Requiring spousal co-signature for married applicants but not single applicants is marital status discrimination under ECOA Regulation B.',
+    wrong:'Actually a violation. ECOA prohibits requiring spousal co-signatures when the applicant individually qualifies. Applying this requirement only to married borrowers constitutes discrimination based on marital status — a protected ECOA class.'},
+  rul4:{v:false,
+    correct:'Compliant. When a lender receives an incomplete application, they must notify the applicant of what is needed within 30 days. Sending the incompleteness notice within 20 days with specific information required is proper ECOA Regulation B procedure.',
+    wrong:'Actually compliant. ECOA Regulation B requires lenders to notify applicants of incomplete applications within 30 days, specifying what information is needed. A 20-day notification identifying the specific missing element (property address) satisfies this requirement.'},
+  rul5:{v:true,
+    correct:'ECOA violation — disparate treatment based on national origin/race. Systematically charging higher rates to a protected class with identical financial profiles, without justification, is intentional discrimination. This would also likely violate the Fair Housing Act.',
+    wrong:'Actually a major ECOA violation. Charging higher rates to a protected class (identical financial profiles, no documented justification) is textbook disparate treatment discrimination. This violates ECOA and likely the Fair Housing Act simultaneously.'},
+};
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+function addXP(n){xp+=n;document.getElementById('xp-badge').textContent=xp+' XP';updateProg();}
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of this topic. You are ready for exam questions on this material.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing. Review the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> Go back through the Briefing and Evidence Files carefully, paying attention to the exam traps. Then retry the scenarios.';
+}
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+updateProg();
+</script>
+</body>
+</html>

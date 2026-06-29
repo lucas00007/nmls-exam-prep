@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TILA: The Ruling — NMLS Interactive Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;
+  --paper:#f5efe0;
+  --paper2:#ede5cf;
+  --paper3:#e2d8c0;
+  --paper4:#d6ccb4;
+  --blue:#1a3a5c;--blue2:#1f5c99;--blue3:#2e7dd4;--blue4:#daeaf8;
+  --teal:#0f5c4e;--teal2:#17856f;--teal3:#22b89a;--teal4:#d0f5ee;
+  --amber:#8b5e00;--amber2:#b07800;--amber3:#d4a017;--amber4:#fde8b8;
+  --red:#8b1a1a;--red2:#b02020;--red3:#c0392b;--red4:#fde8e8;
+  --green:#1a5c2e;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --gold:#b8860b;--gold2:#d4a017;--gold3:#e8c96a;
+  --tape:rgba(255,230,100,0.55);
+  --gray:#6b5a40;--gray2:#8a7a60;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);
+  --shadow:rgba(0,0,0,.14);
+  --r:8px;--rl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#2a1f14;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px),
+    repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(0,0,0,0.03) 40px,rgba(0,0,0,0.03) 41px);
+  color:var(--ink);
+  min-height:100vh;
+}
+
+/* ── WRAPPER ── */
+.wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px;}
+
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,#d4a017 0%,#b8860b 50%,#9a7209 100%);
+  border-radius:4px 4px 0 0;
+  padding:20px 28px 16px;
+  margin-bottom:-2px;
+  position:relative;
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+}
+.hdr-left h1{font-family:'DM Serif Display',serif;font-size:1.7rem;color:#2a1500;margin-bottom:3px;}
+.hdr-left p{font-size:.78rem;color:#5a3a00;}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.xp-pill{font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(42,21,0,.15);color:#2a1500;border:1px solid rgba(42,21,0,.25);}
+.prog-wrap{display:flex;align-items:center;gap:8px;}
+.prog-track{width:130px;height:5px;background:rgba(0,0,0,.15);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--green2);border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1);}
+.prog-pct{font-size:.7rem;color:#5a3a00;font-family:'DM Mono',monospace;}
+
+/* ── PAPER CONTENT AREA ── */
+.paper-wrap{
+  background:var(--paper);
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,160,120,0.15) 27px,rgba(180,160,120,0.15) 28px);
+  border-radius:0 0 4px 4px;
+  box-shadow:4px 8px 30px rgba(0,0,0,.4),inset 0 0 60px rgba(0,0,0,.02);
+  padding:28px 36px 36px;
+  position:relative;
+}
+.paper-wrap::before{
+  content:'';position:absolute;left:68px;top:0;bottom:0;
+  width:1px;background:rgba(180,100,100,.25);
+}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.tab{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.5px;padding:6px 13px;border:1px solid rgba(0,0,0,.14);background:var(--paper2);color:var(--gray);cursor:pointer;border-radius:3px;transition:all .15s;position:relative;}
+.tab:hover{background:var(--paper3);color:var(--ink);transform:translateY(-1px);}
+.tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.tab.done::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--green3);}
+
+/* ── SECTIONS ── */
+.sec{display:none;animation:fadeUp .25s ease;}
+.sec.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── SECTION HEADER ── */
+.sec-head{margin-bottom:14px;}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--ink);display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.sec-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;background:rgba(30,90,160,.1);color:var(--blue2);border:0.5px solid rgba(30,90,160,.25);}
+.sec-intro{font-size:.88rem;color:var(--gray);line-height:1.65;}
+
+/* ── EVIDENCE CARDS ── */
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-bottom:20px;}
+.ev-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:15px 17px;cursor:pointer;box-shadow:2px 3px 10px var(--shadow);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:38px;height:15px;background:var(--tape);border-radius:2px;}
+.ev-card:hover{transform:translateY(-3px) rotate(.3deg);box-shadow:4px 7px 18px var(--shadow);}
+.ev-card.open{transform:translateY(-3px);border-color:rgba(30,90,160,.35);box-shadow:0 6px 22px rgba(0,0,0,.18);}
+.ev-num{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:2px;color:var(--gray2);margin-bottom:5px;}
+.ev-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--ink);margin-bottom:7px;}
+.ev-body{font-size:.84rem;color:#4a3a20;line-height:1.6;}
+.ev-body strong{color:var(--red2);}
+.ev-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.5px;padding:2px 7px;border-radius:3px;margin-top:9px;}
+.tag-r{background:#fde8e8;color:var(--red2);border:0.5px solid rgba(176,32,32,.25);}
+.tag-a{background:#fde8b8;color:var(--amber2);border:0.5px solid rgba(176,120,0,.25);}
+.tag-g{background:#d5f5e3;color:var(--green2);border:0.5px solid rgba(30,122,60,.25);}
+.tag-b{background:#daeaf8;color:var(--blue2);border:0.5px solid rgba(30,92,153,.25);}
+.ev-expand{display:none;margin-top:11px;padding:10px 13px;background:#fffbe8;border-radius:3px;border-left:3px solid var(--gold2);font-size:.83rem;color:#3a2a10;line-height:1.65;animation:fadeUp .2s ease;}
+.ev-card.open .ev-expand{display:block;}
+.ev-expand strong{color:var(--red2);}
+.ev-hint{font-family:'DM Mono',monospace;font-size:.62rem;color:#aaa;margin-top:9px;}
+.ev-card.open .ev-hint{display:none;}
+
+/* ── SCENARIO ── */
+.scenario{background:#fff9f0;border:2px solid var(--gold2);border-radius:4px;padding:20px 22px;margin-bottom:14px;position:relative;box-shadow:2px 3px 12px rgba(0,0,0,.1);}
+.scenario::before{content:'SCENARIO';position:absolute;top:-11px;left:18px;background:var(--gold2);color:#2a1500;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:3px;padding:2px 10px;}
+.sc-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gray2);margin-bottom:9px;letter-spacing:.5px;}
+.sc-text{font-size:.92rem;color:var(--ink);line-height:1.7;margin-bottom:16px;font-family:'DM Serif Display',serif;}
+.sc-text mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{font-size:.86rem;text-align:left;padding:10px 14px;background:var(--paper);border:1px solid rgba(0,0,0,.1);border-radius:3px;cursor:pointer;transition:all .15s;color:var(--ink);display:flex;gap:10px;align-items:flex-start;}
+.choice:hover:not(:disabled){border-color:var(--gold2);background:var(--paper2);transform:translateX(3px);}
+.choice-ltr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray2);flex-shrink:0;margin-top:2px;}
+.choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);border-width:2px;color:var(--green);}
+.choice.correct .choice-ltr{color:var(--green2);}
+.choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.choice.wrong .choice-ltr{color:var(--red2);}
+.choice.reveal{border-color:rgba(30,122,60,.35);}
+.choice:disabled{cursor:default;}
+.verdict{display:none;margin-top:12px;padding:12px 15px;border-radius:3px;font-size:.85rem;line-height:1.65;}
+.verdict.show{display:block;animation:fadeUp .2s ease;}
+.verdict.pass{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.verdict.pass strong{color:var(--green2);}
+.verdict.fail{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.verdict.fail strong{color:var(--red2);}
+
+/* ── FLASHCARDS ── */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:20px;}
+.fc{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;cursor:pointer;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:2px 3px 8px var(--shadow);transition:all .18s;}
+.fc:hover{transform:translateY(-2px);box-shadow:3px 5px 14px var(--shadow);}
+.fc.flipped{border-color:rgba(30,90,160,.35);background:var(--blue4);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:block;animation:fadeUp .2s ease;}
+.fc-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--blue2);line-height:1;margin-bottom:4px;}
+.fc-lbl{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--gray2);letter-spacing:1px;}
+.fc-hint{font-size:.62rem;color:#bbb;margin-top:6px;font-family:'DM Mono',monospace;}
+.fc-answer{font-size:.83rem;color:var(--ink);line-height:1.55;}
+.fc-answer strong{color:var(--blue2);}
+
+/* ── RULING GAME ── */
+.ruling-card{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px 20px;margin-bottom:10px;box-shadow:2px 3px 8px var(--shadow);}
+.ruling-scene{font-family:'DM Serif Display',serif;font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:13px;}
+.ruling-scene mark{background:rgba(212,160,23,.25);color:var(--amber2);padding:1px 5px;border-radius:2px;}
+.ruling-btns{display:flex;gap:8px;}
+.r-btn{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.5px;padding:8px 18px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper2);color:var(--ink);cursor:pointer;transition:all .15s;flex:1;}
+.r-btn:hover:not(:disabled){transform:translateY(-1px);}
+.r-btn.rv:hover:not(:disabled){background:#fde8e8;border-color:rgba(176,32,32,.35);color:var(--red2);}
+.r-btn.rc:hover:not(:disabled){background:#d5f5e3;border-color:rgba(30,122,60,.35);color:var(--green2);}
+.r-btn:disabled{opacity:.4;cursor:default;transform:none;}
+.r-result{display:none;margin-top:10px;padding:10px 13px;border-radius:3px;font-size:.83rem;line-height:1.6;}
+.r-result.show{display:block;animation:fadeUp .2s ease;}
+.r-result.ok-v{background:#fde8e8;border-left:3px solid var(--red2);color:#5a1010;}
+.r-result.ok-c{background:#d5f5e3;border-left:3px solid var(--green2);color:#1a4a22;}
+.r-result.wrong{background:#fde8b8;border-left:3px solid var(--amber2);color:#5a3800;}
+
+/* ── VERDICT ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
+.stat{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:16px;text-align:center;box-shadow:2px 3px 8px var(--shadow);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--ink);margin-bottom:3px;}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.final-msg{background:#fff9f0;border:1px solid rgba(212,160,23,.3);border-left:3px solid var(--gold2);border-radius:3px;padding:16px 18px;font-size:.88rem;color:#3a2a10;line-height:1.7;margin-bottom:18px;}
+.final-msg strong{color:var(--ink);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.tk{background:white;border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px 16px;box-shadow:2px 3px 8px var(--shadow);}
+.tk h4{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--blue2);letter-spacing:1px;margin-bottom:10px;}
+.tk ul{list-style:none;padding:0;}
+.tk li{font-size:.82rem;color:#4a3a20;padding:3px 0;line-height:1.5;}
+.tk li::before{content:"→ ";color:var(--teal2);}
+@media(max-width:500px){.tk-grid{grid-template-columns:1fr;}.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+
+/* ── NAV ── */
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.15);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 18px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--ink);cursor:pointer;border-radius:3px;transition:all .15s;}
+.nav-btn:hover{background:var(--paper3);}
+.nav-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.nav-btn.primary:hover{opacity:.85;}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.nav-info{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--gray2);}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action-btn{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.5px;padding:9px 16px;border:1px solid rgba(0,0,0,.16);background:var(--paper2);color:var(--teal2);cursor:pointer;border-radius:3px;transition:all .15s;}
+.action-btn:hover{background:var(--paper3);border-color:var(--teal2);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>⚖️ TILA — The Ruling</h1>
+    <p>Truth in Lending Act &nbsp;·&nbsp; Regulation Z &nbsp;·&nbsp; CFPB &nbsp;·&nbsp; Case File 02</p>
+  </div>
+  <div class="hdr-right">
+    <div class="prog-wrap">
+      <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <span class="prog-pct" id="prog-pct">0%</span>
+    </div>
+    <div class="xp-pill" id="xp-badge">0 XP</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="paper-wrap">
+<div class="tabs">
+  <button class="tab active" id="tab-0" onclick="go(0)">📋 Briefing</button>
+  <button class="tab" id="tab-1" onclick="go(1)">🔍 Evidence</button>
+  <button class="tab" id="tab-2" onclick="go(2)">🎯 Scenario</button>
+  <button class="tab" id="tab-3" onclick="go(3)">🔢 Numbers</button>
+  <button class="tab" id="tab-4" onclick="go(4)">⚖️ The Ruling</button>
+  <button class="tab" id="tab-5" onclick="go(5)">✅ Verdict</button>
+</div>
+
+<!-- ═══ SECTION 0: BRIEFING ═══ -->
+<div class="sec active" id="sec-0">
+  <div class="sec-head">
+    <div class="sec-title">Case Briefing <span class="sec-tag">START HERE</span></div>
+    <p class="sec-intro">TILA — the Truth in Lending Act — has protected consumers from hidden loan costs since 1968. Your job: know it cold before you walk into the NMLS exam room.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT A</div>
+      <div class="ev-title">What Is TILA?</div>
+      <div class="ev-body">Enacted 1968. Implemented by <strong>Regulation Z</strong>. Enforced by the <strong>CFPB</strong>. Mission: ensure borrowers receive clear, accurate cost disclosures before they borrow.</div>
+      <span class="ev-tag tag-b">Foundation</span>
+      <div class="ev-expand"><strong>Exam note:</strong> TILA transferred from the Federal Reserve to the CFPB in 2011 under Dodd-Frank. If the exam asks who enforces TILA today — the answer is always the <strong>CFPB</strong>. Not the Fed. Not HUD. The CFPB.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT B</div>
+      <div class="ev-title">APR — The Core Disclosure</div>
+      <div class="ev-body">Annual Percentage Rate = note rate + fees. <strong>Always ≥ the note rate.</strong> Gives borrowers a standardized way to compare the true cost of different loan offers.</div>
+      <span class="ev-tag tag-r">Exam critical</span>
+      <div class="ev-expand"><strong>Included in APR:</strong> Note rate, origination fees, points, PMI/MIP, prepaid interest, broker fees. <strong>NOT included:</strong> Appraisal, title insurance, recording fees, transfer taxes, homeowner's insurance. APR is always ≥ note rate because of the added fees.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">EXHIBIT C</div>
+      <div class="ev-title">Right of Rescission</div>
+      <div class="ev-body"><strong>3 business days</strong> to cancel after closing — primary residence refinances only. <strong>NOT purchase loans.</strong> Not vacation homes. Not investment properties.</div>
+      <span class="ev-tag tag-r">Most tested</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> If the lender fails to give proper Notice of Right to Cancel at closing — rescission extends from 3 days to <strong>3 YEARS</strong>. This is the nuclear consumer protection option and is frequently tested.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" disabled>← Previous</button>
+    <span class="nav-info">1 / 6</span>
+    <button class="nav-btn primary" onclick="go(1)">Open Evidence →</button>
+  </div>
+</div>
+
+<!-- ═══ SECTION 1: EVIDENCE ═══ -->
+<div class="sec" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-title">Evidence Files <span class="sec-tag">STUDY</span></div>
+    <p class="sec-intro">Eight key TILA concepts. Tap each card to reveal the hidden exam trap inside.</p>
+  </div>
+  <div class="ev-grid">
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 001</div>
+      <div class="ev-title">Trigger Terms</div>
+      <div class="ev-body">Any specific rate, payment, loan amount, or down payment % in an ad triggers ALL 5 required disclosures in that same ad.</div>
+      <span class="ev-tag tag-r">Advertising rule</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> APR alone can be stated without triggering all disclosures. But a specific interest rate requires APR to appear with equal or greater prominence. "Low rates available" = safe. "6.5% rate" = triggers everything.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 002</div>
+      <div class="ev-title">The 5 Required Disclosures</div>
+      <div class="ev-body">When triggered: (1) APR · (2) Down payment amount or % · (3) Repayment terms · (4) Amount of each payment · (5) Number of payments.</div>
+      <span class="ev-tag tag-r">All 5 required</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> All 5 must appear in the SAME advertisement. Not on a separate page. Not hyperlinked. Not in a tiny footnote. "Clear and conspicuous" means comparable size and placement to the trigger term itself.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 003</div>
+      <div class="ev-title">Business Day Counting</div>
+      <div class="ev-body">For rescission: business days = all days EXCEPT Sundays and federal holidays. <strong>Saturday COUNTS.</strong> Closing day = Day 0 (doesn't count).</div>
+      <span class="ev-tag tag-r">Heavily tested</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Saturday counts! Most candidates assume it doesn't — it does. If a federal holiday falls in your 3-day count, skip it and push the deadline one more day. Only federal holidays count — NOT state holidays.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 004</div>
+      <div class="ev-title">ATR — Ability to Repay</div>
+      <div class="ev-body">Lenders must verify 8 factors before originating any mortgage: income, employment, assets, mortgage payment, other mortgages, monthly debts, DTI, and credit history.</div>
+      <span class="ev-tag tag-a">Dodd-Frank</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Credit score alone is NEVER sufficient for ATR. You must actually verify income and employment. Approving based only on a 760 credit score without verifying income = clear ATR violation, regardless of the score.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 005</div>
+      <div class="ev-title">QM — Qualified Mortgage</div>
+      <div class="ev-body">Safe harbor for ATR claims. Standard QM requires: max 43% DTI, 3% points/fees cap, 30-year max term, no balloon payments, no negative amortization.</div>
+      <span class="ev-tag tag-r">Safe harbor</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> 40-year loans are NOT QM — the maximum term is 30 years. Standard QM = conclusive safe harbor. Higher-priced QM = rebuttable presumption only (weaker protection). Know the difference.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 006</div>
+      <div class="ev-title">APR Advertising Rules</div>
+      <div class="ev-body">APR alone can be safely stated. If a specific rate is stated, APR must be equally prominent. Tiny footnote APR next to headline rate = violation.</div>
+      <span class="ev-tag tag-a">Clear & conspicuous</span>
+      <div class="ev-expand"><strong>ARM rule:</strong> For adjustable-rate mortgages, the APR must disclose that the rate may increase after the initial fixed period. You cannot advertise only the low teaser rate without disclosing that it adjusts.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 007</div>
+      <div class="ev-title">Rescission Exceptions</div>
+      <div class="ev-body">No rescission right for: purchase money mortgages, vacation homes, investment properties, commercial properties. Primary residence refinances ONLY.</div>
+      <span class="ev-tag tag-r">Exam trap</span>
+      <div class="ev-expand"><strong>Exam trap:</strong> Borrower refinances their vacation home and calls 2 days later to rescind — no TILA right. The exam adds details like "used 4 months per year" or "considers it a second home" — doesn't matter. Principal dwelling = primary residence only.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+    <div class="ev-card" onclick="toggleEv(this)">
+      <div class="ev-num">FILE 008</div>
+      <div class="ev-title">3-Year Extension</div>
+      <div class="ev-body">If the lender fails to provide proper Notice of Right to Cancel at closing — rescission extends from 3 business days to <strong>3 YEARS</strong>.</div>
+      <span class="ev-tag tag-r">Nuclear option</span>
+      <div class="ev-expand"><strong>Exam note:</strong> Only the BORROWER can waive the rescission right — and only in a genuine documented emergency. If the exam shows a borrower trying to rescind 18 months after closing, check whether proper notice was given. If not — rescission may still be valid.</div>
+      <div class="ev-hint">▼ tap to expand exam note</div>
+    </div>
+
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(0)">← Briefing</button>
+    <span class="nav-info">2 / 6</span>
+    <button class="nav-btn primary" onclick="go(2)">Test Yourself →</button>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: SCENARIOS ═══ -->
+<div class="sec" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-title">Scenario Challenge <span class="sec-tag">INTERACTIVE</span></div>
+    <p class="sec-intro">Three real-world scenarios — exactly how they appear on the NMLS exam. Read carefully, make your call.</p>
+  </div>
+
+  <!-- SC1 -->
+  <div class="scenario" id="sc1">
+    <div class="sc-label">SCENARIO 01 / 03 — TRIGGER TERMS</div>
+    <p class="sc-text">A mortgage company runs an ad: <mark>"30-year fixed — only $1,299/month!"</mark> No other disclosures appear. A consumer files a TILA complaint. Is there a violation?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc1',false,'A')"><span class="choice-ltr">A.</span>No — disclosing the payment amount is encouraged for consumer transparency</button>
+      <button class="choice" onclick="answer(this,'sc1',true,'B')"><span class="choice-ltr">B.</span>Yes — "$1,299/month" is a trigger term requiring all 5 disclosures (APR, down payment, repayment terms, number and amount of payments) to appear in the same ad.</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'C')"><span class="choice-ltr">C.</span>No — monthly payment amounts are not trigger terms under TILA Regulation Z</button>
+      <button class="choice" onclick="answer(this,'sc1',false,'D')"><span class="choice-ltr">D.</span>Only if the APR would be materially higher than the stated rate</button>
+    </div>
+    <div class="verdict" id="sc1-verd"></div>
+  </div>
+
+  <!-- SC2 -->
+  <div class="scenario" id="sc2">
+    <div class="sc-label">SCENARIO 02 / 03 — RESCISSION COUNTING</div>
+    <p class="sc-text">Maria closes a refinance on her primary residence on <mark>Friday July 3rd</mark>. July 4th is a federal holiday (Saturday). When does her 3-day rescission period expire?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc2',false,'A')"><span class="choice-ltr">A.</span>Monday July 6th — weekends don't count as business days for TILA</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'B')"><span class="choice-ltr">B.</span>Sunday July 5th — 3 calendar days from the closing date</button>
+      <button class="choice" onclick="answer(this,'sc2',true,'C')"><span class="choice-ltr">C.</span>Tuesday July 7th — Day 1 = Saturday (counts). Day 2 skips Sunday. Day 3 skips Saturday July 4th (federal holiday). Day 3 falls on Tuesday July 7th at midnight.</button>
+      <button class="choice" onclick="answer(this,'sc2',false,'D')"><span class="choice-ltr">D.</span>Wednesday July 8th — federal holidays add 2 extra days to the count</button>
+    </div>
+    <div class="verdict" id="sc2-verd"></div>
+  </div>
+
+  <!-- SC3 -->
+  <div class="scenario" id="sc3">
+    <div class="sc-label">SCENARIO 03 / 03 — QM POINTS & FEES</div>
+    <p class="sc-text">A lender originates a <mark>$180,000 mortgage</mark> with total points and fees of <mark>$5,800</mark>. Does this loan qualify as a standard Qualified Mortgage?</p>
+    <div class="choices">
+      <button class="choice" onclick="answer(this,'sc3',false,'A')"><span class="choice-ltr">A.</span>Yes — $5,800 is within a reasonable range for a loan of this size</button>
+      <button class="choice" onclick="answer(this,'sc3',true,'B')"><span class="choice-ltr">B.</span>No — QM cap is 3% × $180,000 = $5,400 maximum. The $5,800 exceeds the cap by $400, disqualifying this loan from standard QM status.</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'C')"><span class="choice-ltr">C.</span>Yes — the 3% QM fee cap only applies to loans over $250,000</button>
+      <button class="choice" onclick="answer(this,'sc3',false,'D')"><span class="choice-ltr">D.</span>No — loans under $200,000 cannot qualify as Qualified Mortgages regardless of fees</button>
+    </div>
+    <div class="verdict" id="sc3-verd"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(1)">← Evidence</button>
+    <span class="nav-info">3 / 6</span>
+    <button class="nav-btn primary" onclick="go(3)">Key Numbers →</button>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: FLASHCARDS ═══ -->
+<div class="sec" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-title">Key Numbers <span class="sec-tag">MEMORIZE</span></div>
+    <p class="sec-intro">Tap each card to flip and reveal what the number means. These appear on almost every NMLS exam.</p>
+  </div>
+  <div class="fc-grid">
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">DAYS — RESCISSION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Business days to cancel after closing.<br><strong>Primary residence refinances only.</strong><br>Closing day = Day 0.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3</div><div class="fc-lbl">YEARS — EXTENSION</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Rescission extends to <strong>3 full years</strong> if the lender did not give proper Notice of Right to Cancel at closing.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">43%</div><div class="fc-lbl">QM DTI CAP</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Max back-end DTI for <strong>standard non-GSE QM</strong>. Fannie/Freddie loans may allow higher DTI with strong AUS approval.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">3%</div><div class="fc-lbl">QM FEE CAP</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">Max points and fees for QM status on loans <strong>≥ $100,000</strong>.<br>3% × loan amount = max allowed.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">30</div><div class="fc-lbl">YEAR MAX — QM</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">QM maximum loan term = <strong>30 years</strong>.<br>A 40-year mortgage is <strong>NOT</strong> a Qualified Mortgage — period.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">5</div><div class="fc-lbl">TILA DISCLOSURES</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">When triggered — all 5 same ad:<br><strong>APR · Down payment · Repayment terms · Payment amount · Number of payments</strong></div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">8</div><div class="fc-lbl">ATR FACTORS</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">ATR requires verifying <strong>8 factors</strong>: income, assets, employment, PITI, other mortgages, monthly obligations, DTI, credit history.</div></div>
+    </div>
+    <div class="fc" onclick="flipFC(this)">
+      <div class="fc-front"><div class="fc-num">1968</div><div class="fc-lbl">TILA ENACTED</div><div class="fc-hint">tap to reveal</div></div>
+      <div class="fc-back"><div class="fc-answer">TILA enacted <strong>1968</strong>.<br>Regulation Z.<br>Enforced by <strong>CFPB</strong> since 2011.</div></div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(2)">← Scenario</button>
+    <span class="nav-info">4 / 6</span>
+    <button class="nav-btn primary" onclick="go(4)">The Ruling →</button>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: THE RULING ═══ -->
+<div class="sec" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-title">⚖️ The Ruling <span class="sec-tag">GAME</span></div>
+    <p class="sec-intro">You are the judge. Read each situation — rule VIOLATION or COMPLIANT. No second-guessing.</p>
+  </div>
+
+  <div class="ruling-card" id="rul1">
+    <div class="ruling-scene">An ad reads: <mark>"Competitive mortgage rates — call us today for a personalized quote!"</mark> No rates, payments, or amounts mentioned anywhere in the ad.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul1',false,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul1',true,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul1-res"></div>
+  </div>
+
+  <div class="ruling-card" id="rul2">
+    <div class="ruling-scene">An ad shows <mark>"5.5% fixed rate!"</mark> in large bold font. The APR of 5.82% appears in 7-point font in a footnote at the bottom of the page.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul2',true,'v')">🚨 Violation</button>
+      <button class="r-btn rc" onclick="rule('rul2',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul2-res"></div>
+  </div>
+
+  <div class="ruling-card" id="rul3">
+    <div class="ruling-scene">A borrower closes a cash-out refinance on their <mark>primary residence</mark> on Tuesday. No federal holidays in the period. They call on Thursday to rescind. Is the rescission timely?</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul3',false,'v')">❌ Too Late</button>
+      <button class="r-btn rc" onclick="rule('rul3',true,'c')">✅ Still Valid</button>
+    </div>
+    <div class="r-result" id="rul3-res"></div>
+  </div>
+
+  <div class="ruling-card" id="rul4">
+    <div class="ruling-scene">A lender approves a <mark>$340,000 mortgage</mark> based entirely on the borrower's 775 credit score. Income and employment are not verified. The borrower defaults 5 months later.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul4',true,'v')">🚨 ATR Violation</button>
+      <button class="r-btn rc" onclick="rule('rul4',false,'c')">✅ Compliant</button>
+    </div>
+    <div class="r-result" id="rul4-res"></div>
+  </div>
+
+  <div class="ruling-card" id="rul5">
+    <div class="ruling-scene">A borrower refinances their <mark>vacation home</mark> in Colorado. Two days after closing they call invoking their TILA Right of Rescission to cancel the loan.</div>
+    <div class="ruling-btns">
+      <button class="r-btn rv" onclick="rule('rul5',false,'v')">✅ Valid Rescission</button>
+      <button class="r-btn rc" onclick="rule('rul5',true,'c')">❌ No Right Exists</button>
+    </div>
+    <div class="r-result" id="rul5-res"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(3)">← Numbers</button>
+    <span class="nav-info">5 / 6</span>
+    <button class="nav-btn primary" onclick="go(5)">See Verdict →</button>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: VERDICT ═══ -->
+<div class="sec" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-title">Final Verdict <span class="sec-tag">COMPLETE</span></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val" id="sv-correct">—</div><div class="stat-lbl">CORRECT</div></div>
+    <div class="stat"><div class="stat-val" id="sv-total">—</div><div class="stat-lbl">ANSWERED</div></div>
+    <div class="stat"><div class="stat-val" id="sv-pct">—</div><div class="stat-lbl">SCORE</div></div>
+    <div class="stat"><div class="stat-val" id="sv-xp">—</div><div class="stat-lbl">XP EARNED</div></div>
+  </div>
+  <div class="final-msg" id="final-msg">Complete the scenarios and ruling game above to see your verdict here.</div>
+  <div class="tk-grid">
+    <div class="tk">
+      <h4>KEY TAKEAWAYS</h4>
+      <ul>
+        <li>APR always ≥ note rate (includes fees)</li>
+        <li>Trigger terms require all 5 disclosures</li>
+        <li>Saturday counts for rescission counting</li>
+        <li>Rescission = primary residence refi only</li>
+        <li>ATR: credit score alone is never enough</li>
+        <li>QM max: 43% DTI · 3% fees · 30 years</li>
+      </ul>
+    </div>
+    <div class="tk">
+      <h4>EXAM TRAPS</h4>
+      <ul>
+        <li>Purchase loans — NO rescission right</li>
+        <li>40-year loans — NOT QM</li>
+        <li>APR alone is safe to advertise</li>
+        <li>Miss proper notice → 3-year extension</li>
+        <li>Vacation homes — no rescission right</li>
+        <li>Higher-priced QM = rebuttable only</li>
+      </ul>
+    </div>
+  </div>
+  <div class="action-btns">
+    <button class="nav-btn primary" onclick="restart()">↺ Review Again</button>
+    <button class="action-btn" onclick="go(0)">← Back to Briefing</button>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="go(4)">← The Ruling</button>
+    <span class="nav-info">6 / 6</span>
+    <button class="nav-btn" disabled>Complete ✓</button>
+  </div>
+</div>
+
+</div><!-- /paper-wrap -->
+
+</div><!-- /wrap -->
+
+<script>
+let cur=0,xp=0,scCorrect=0,scDone=0,rCorrect=0,rDone=0;
+let visited=new Set([0]);
+
+const SCA={
+  sc1:{correct:'B',
+    pass:'<strong>Correct!</strong> "$1,299/month" is a specific monthly payment — a TILA trigger term. One trigger term requires all 5 disclosures (APR, down payment, repayment terms, payment amount, number of payments) in the same ad. Missing all 5 = TILA violation.',
+    fail:'<strong>Not quite.</strong> "$1,299/month" IS a trigger term. Any specific monthly payment, interest rate, loan amount, or down payment % triggers ALL 5 required TILA disclosures. The ad is missing APR, down payment, repayment terms, and number of payments.'},
+  sc2:{correct:'C',
+    pass:'<strong>Correct!</strong> Friday = Day 0. Day 1 = Saturday (Saturday counts for TILA rescission). Day 2 skips Sunday. Day 3 skips July 4th Saturday (federal holiday). Day 3 falls on Tuesday July 7th. The 3-day rescission window expires midnight Tuesday.',
+    fail:'<strong>Not quite.</strong> Saturday counts as a business day for TILA rescission — only Sundays and federal holidays are excluded. Friday (Day 0) → Saturday Day 1 → skip Sunday → skip July 4th (federal holiday) → Tuesday = Day 3.'},
+  sc3:{correct:'B',
+    pass:'<strong>Correct!</strong> QM points and fees cap = 3% × $180,000 = $5,400 maximum. Actual fees = $5,800. Exceeds cap by $400 → this is NOT a QM. The lender loses the ATR safe harbor and faces greater litigation risk.',
+    fail:'<strong>Not quite.</strong> QM fee cap = 3% × $180,000 = $5,400 max. The $5,800 in actual fees exceeds this by $400 — this loan FAILS the QM points and fees test and cannot be a standard Qualified Mortgage.'}
+};
+
+const RUA={
+  rul1:{v:false,
+    correct:'No trigger terms were used. "Competitive rates" is vague language — no specific rate, payment, amount, or percentage stated. Vague language does not trigger any TILA disclosure requirements. Fully compliant.',
+    wrong:'Actually compliant. "Competitive rates" is vague — no specific numbers. Only specific rates, payments, loan amounts, or down payment percentages trigger TILA\'s disclosure requirements. Vague language is always safe.'},
+  rul2:{v:true,
+    correct:'TILA violation. When a specific interest rate is advertised, the APR must appear with equal or greater prominence. APR buried in 7-point footnote text while the 5.5% rate dominates in large font fails the "clear and conspicuous" standard.',
+    wrong:'Actually a violation. TILA requires APR to be at least as prominent as the stated interest rate. A 7-point footnote APR next to a large-font rate fails "clear and conspicuous" — one of the most tested TILA advertising rules.'},
+  rul3:{v:false,
+    correct:'Still valid. Tuesday closing = Day 0. Wednesday = Day 1. Thursday = Day 2. The 3-day window doesn\'t expire until midnight Thursday (end of Day 3). The Thursday call is Day 2 — rescission is timely.',
+    wrong:'Actually still valid. Tuesday = Day 0. Wednesday = Day 1. Thursday = Day 2. The rescission deadline is midnight at the END of Day 3 — which is midnight Thursday. A call on Thursday is within the window.'},
+  rul4:{v:true,
+    correct:'ATR violation. The ATR rule requires lenders to verify income, employment, and other factors — not just check a credit score. Approving a loan based solely on credit score, without income verification, is a clear ATR violation under TILA/Dodd-Frank.',
+    wrong:'ATR violation. Credit score alone is NEVER sufficient under the Ability-to-Repay rule. Lenders must verify income, employment, assets, and other factors. Even a 775 score without income verification = ATR violation.'},
+  rul5:{v:true,
+    correct:'No rescission right exists. TILA\'s Right of Rescission applies ONLY to the borrower\'s principal dwelling. A vacation home in Colorado is not a principal dwelling. The borrower has no TILA rescission right for this transaction.',
+    wrong:'Correct — no right exists. TILA rescission covers ONLY the borrower\'s principal (primary) dwelling. Vacation homes, second homes, and investment properties are explicitly excluded. The borrower\'s call does not create a valid rescission.'}
+};
+
+function go(n){
+  document.getElementById('sec-'+cur).classList.remove('active');
+  document.getElementById('tab-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  visited.add(n);
+  if(n===5)buildVerdict();
+  updateProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleEv(card){
+  const was=card.classList.contains('open');
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  if(!was){card.classList.add('open');addXP(12);document.getElementById('tab-1').classList.add('done');}
+  updateProg();
+}
+
+function answer(btn,scId,correct,ltr){
+  const sc=document.getElementById(scId);
+  sc.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const cv=SCA[scId];
+  sc.querySelectorAll('.choice').forEach(b=>{
+    if(b.querySelector('.choice-ltr').textContent===cv.correct+'.')b.classList.add('reveal');
+  });
+  btn.classList.add(correct?'correct':'wrong');
+  const v=document.getElementById(scId+'-verd');
+  v.innerHTML=correct?cv.pass:cv.fail;
+  v.className='verdict show '+(correct?'pass':'fail');
+  scDone++;if(correct){scCorrect++;addXP(150);}else addXP(40);
+  document.getElementById('tab-2').classList.add('done');
+  updateProg();
+}
+
+function flipFC(card){
+  card.classList.toggle('flipped');
+  if(card.classList.contains('flipped')){addXP(15);document.getElementById('tab-3').classList.add('done');}
+  updateProg();
+}
+
+function rule(id,isV,type){
+  const card=document.getElementById(id);
+  card.querySelectorAll('.r-btn').forEach(b=>{b.disabled=true;b.style.opacity='.4';});
+  const ra=RUA[id];
+  const correct=(isV===ra.v);
+  const res=document.getElementById(id+'-res');
+  res.innerHTML=correct?ra.correct:ra.wrong;
+  res.className='r-result show '+(correct?(isV?'ok-v':'ok-c'):'wrong');
+  rDone++;if(correct){rCorrect++;addXP(120);}else addXP(35);
+  document.getElementById('tab-4').classList.add('done');
+  updateProg();
+}
+
+function addXP(n){
+  xp+=n;
+  document.getElementById('xp-badge').textContent=xp+' XP';
+  updateProg();
+}
+
+function updateProg(){
+  const base=Math.round((visited.size/6)*40);
+  const sc=Math.round((scDone/3)*30);
+  const r=Math.round((rDone/5)*30);
+  const pct=Math.min(base+sc+r,100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  visited.forEach(n=>{if(n>0&&n<5)document.getElementById('tab-'+n).classList.add('done');});
+}
+
+function buildVerdict(){
+  const total=scDone+rDone;
+  const correct=scCorrect+rCorrect;
+  const pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('sv-correct').textContent=correct;
+  document.getElementById('sv-total').textContent=total;
+  document.getElementById('sv-pct').textContent=pct+'%';
+  document.getElementById('sv-xp').textContent=xp;
+  const msg=document.getElementById('final-msg');
+  if(pct>=80)msg.innerHTML='<strong>Outstanding.</strong> You have solid command of TILA. Trigger terms, rescission rules, ATR, and QM requirements are locked in. You are ready for TILA questions on exam day.';
+  else if(pct>=60)msg.innerHTML='<strong>Good progress.</strong> A few concepts need reinforcing — especially the business day counting rules and QM fee calculations. Go back through the Evidence Files and retry the Ruling game.';
+  else msg.innerHTML='<strong>Needs more work.</strong> TILA is worth ~23% of the exam — it\'s worth extra time. Re-read the Briefing and Evidence Files carefully, paying special attention to the exam traps. Then retry the scenarios.';
+}
+
+function restart(){
+  xp=0;scCorrect=0;scDone=0;rCorrect=0;rDone=0;visited=new Set([0]);
+  document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;b.className='choice';});
+  document.querySelectorAll('.verdict').forEach(v=>v.className='verdict');
+  document.querySelectorAll('.r-btn').forEach(b=>{b.disabled=false;b.style.opacity='1';});
+  document.querySelectorAll('.r-result').forEach(r=>r.className='r-result');
+  document.querySelectorAll('.fc.flipped').forEach(c=>c.classList.remove('flipped'));
+  document.querySelectorAll('.ev-card.open').forEach(c=>c.classList.remove('open'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('done'));
+  document.getElementById('xp-badge').textContent='0 XP';
+  go(0);
+}
+
+updateProg();
+</script>
+</body>
+</html>
