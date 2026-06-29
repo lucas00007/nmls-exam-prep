@@ -36,4 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 # user data (JSON DB)
+
 /data/users.json
