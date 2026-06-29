@@ -33,7 +33,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = signToken({ userId: user.id, email: user.email });
+    const token = signToken({
+      userId: user.id,
+      email: user.email,
+      plan: user.plan ?? (user.paid ? "paid" : "free"),
+    });
 
     const response = NextResponse.json({ success: true });
     response.cookies.set("auth_token", token, {

@@ -5,6 +5,7 @@ const SECRET = process.env.JWT_SECRET!;
 export interface TokenPayload {
   userId: string;
   email: string;
+  plan: string;
 }
 
 export function signToken(payload: TokenPayload): string {

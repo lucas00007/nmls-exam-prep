@@ -12,6 +12,7 @@ export interface User {
   setupTokenExpiry: number | null;
   createdAt: number;
   paid: boolean;
+  plan: string;
 }
 
 const ADMIN_USER_ID = "admin-env-user";
@@ -28,6 +29,7 @@ function getAdminEnvUser(): User | null {
     setupTokenExpiry: null,
     createdAt: 0,
     paid: true,
+    plan: "paid",
   };
 }
 
@@ -84,6 +86,7 @@ export function createUser(email: string): { user: User; setupToken: string } {
     setupTokenExpiry: Date.now() + 24 * 60 * 60 * 1000,
     createdAt: Date.now(),
     paid: true,
+    plan: "paid",
   };
   db.users.push(user);
   writeDB(db);

@@ -40,7 +40,11 @@ export async function POST(req: NextRequest) {
     const passwordHash = await bcrypt.hash(password, 12);
     updateUserPassword(user.id, passwordHash);
 
-    const jwtToken = signToken({ userId: user.id, email: user.email });
+    const jwtToken = signToken({
+      userId: user.id,
+      email: user.email,
+      plan: user.plan ?? (user.paid ? "paid" : "free"),
+    });
 
     const response = NextResponse.json({ success: true });
     response.cookies.set("auth_token", jwtToken, {
