@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTI Calculator — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#e8e0cc;--paper2:#ddd4bc;--paper3:#d2c8ae;
+  --accent:#1a5c2e;--gold:#b8860b;--gold2:#d4a017;
+  --red2:#b02020;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --tape:rgba(255,220,80,0.5);--gray:#5a4a30;--gray2:#7a6a50;
+  --border:rgba(0,0,0,.12);--shadow:rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#1e1508;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#1a5c2e;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#1a5c2eee,#1a5c2ebb);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.78);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,140,100,0.18) 27px,rgba(160,140,100,0.18) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 32px rgba(0,0,0,.45);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,80,80,.2);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+.cta-box{margin-top:32px;padding:20px 24px;background:rgba(139,105,20,.08);border:1px solid rgba(139,105,20,.25);border-left:3px solid #1a5c2e;border-radius:3px;text-align:center;}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--ink);margin-bottom:8px;}
+.cta-box p{font-size:.85rem;color:#4a3a20;margin-bottom:14px;line-height:1.6;}
+.cta-btn{display:inline-block;padding:11px 28px;background:#1a5c2e;color:#fff;border-radius:3px;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:1px;text-decoration:none;transition:all .15s;}
+.cta-btn:hover{opacity:.85;}
+.footer-note{margin-top:32px;padding:14px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.78rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">FREE TOOL</div>
+  <div class="hdr"><h1>DTI Calculator</h1><p>Calculate Front-End & Back-End DTI · QM Thresholds · Conforming Limits</p></div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<style>
+.calc-intro{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:24px;}
+.calc-section{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.12);border-radius:4px;padding:22px 24px;margin-bottom:16px;box-shadow:2px 3px 10px rgba(0,0,0,.12);}
+.calc-section h3{font-family:'DM Serif Display',serif;font-size:1.05rem;color:#1a1108;margin-bottom:16px;padding-bottom:8px;border-bottom:1px dashed rgba(0,0,0,.12);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
+.field-group{display:flex;flex-direction:column;gap:5px;}
+.field-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a50;}
+.field-input{padding:9px 12px;border-radius:3px;border:1px solid rgba(0,0,0,.15);background:var(--paper);font-size:.9rem;color:#1a1108;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;}
+.field-input:focus{border-color:#1a5c2e;}
+.field-prefix{position:relative;}
+.field-prefix::before{content:'$';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#7a6a50;font-size:.85rem;pointer-events:none;}
+.field-prefix .field-input{padding-left:22px;}
+.calc-btn{width:100%;padding:12px;border-radius:3px;background:#1a5c2e;color:#fff;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;transition:all .15s;margin-top:8px;}
+.calc-btn:hover{background:#25934f;}
+.results-area{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.12);border-radius:4px;padding:22px 24px;box-shadow:2px 3px 10px rgba(0,0,0,.12);display:none;}
+.results-area.show{display:block;}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;}
+.result-card{background:var(--paper2);border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:14px;text-align:center;}
+.result-num{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;margin-bottom:4px;}
+.result-num.good{color:#1e7a3c;}
+.result-num.warn{color:#b07800;}
+.result-num.bad{color:#b02020;}
+.result-lbl{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a50;}
+.result-msg{padding:14px 16px;border-radius:3px;font-size:.86rem;line-height:1.65;margin-bottom:14px;}
+.result-msg.good{background:#d5f5e3;border-left:3px solid #1e7a3c;color:#1a4a22;}
+.result-msg.warn{background:#fde8b8;border-left:3px solid #b07800;color:#5a3800;}
+.result-msg.bad{background:#fde8e8;border-left:3px solid #b02020;color:#5a1010;}
+.breakdown-table{width:100%;border-collapse:collapse;font-size:.83rem;}
+.breakdown-table td{padding:7px 10px;border:1px solid var(--paper3);color:#2a1a08;}
+.breakdown-table tr:first-child td{background:var(--paper3);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.5px;font-weight:600;}
+.thresholds{margin-top:16px;}
+.thresh-title{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:#7a6a50;margin-bottom:10px;}
+.thresh-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed rgba(0,0,0,.08);font-size:.82rem;color:#2a1a08;}
+.thresh-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+@media(max-width:500px){.field-row{grid-template-columns:1fr;}}
+</style>
+
+<p class="calc-intro">Calculate your Debt-to-Income ratio instantly. The DTI is one of the most important qualifying factors — and one of the most tested calculations on the NMLS exam. Use this to understand DTI before you take the real test.</p>
+
+<div class="calc-section">
+  <h3>📊 Income</h3>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">Monthly Gross Income</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="income" placeholder="5,000" min="0"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Co-Borrower Monthly Income</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="income2" placeholder="0 (optional)" min="0"></div>
+    </div>
+  </div>
+</div>
+
+<div class="calc-section">
+  <h3>🏠 Proposed Housing Payment (PITIA)</h3>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">Principal + Interest</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="pi" placeholder="1,200" min="0"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Property Taxes (monthly)</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="taxes" placeholder="300" min="0"></div>
+    </div>
+  </div>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">Homeowner's Insurance</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="insurance" placeholder="100" min="0"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">PMI / MIP (if applicable)</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="pmi" placeholder="0" min="0"></div>
+    </div>
+  </div>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">HOA Dues (monthly)</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="hoa" placeholder="0" min="0"></div>
+    </div>
+    <div class="field-group"></div>
+  </div>
+</div>
+
+<div class="calc-section">
+  <h3>💳 Monthly Debt Obligations</h3>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">Car Payment(s)</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="car" placeholder="0" min="0"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Student Loans</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="student" placeholder="0" min="0"></div>
+    </div>
+  </div>
+  <div class="field-row">
+    <div class="field-group">
+      <label class="field-label">Credit Card Min Payments</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="cc" placeholder="0" min="0"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Other Monthly Debts</label>
+      <div class="field-prefix"><input type="number" class="field-input" id="other" placeholder="0" min="0"></div>
+    </div>
+  </div>
+  <button class="calc-btn" onclick="calculate()">Calculate My DTI →</button>
+</div>
+
+<div class="results-area" id="results">
+  <h3 style="font-family:DM Serif Display,serif;font-size:1.15rem;color:#1a1108;margin-bottom:16px;">Your DTI Results</h3>
+  <div class="results-grid">
+    <div class="result-card"><div class="result-num" id="r-front">—</div><div class="result-lbl">Front-End DTI</div></div>
+    <div class="result-card"><div class="result-num" id="r-back">—</div><div class="result-lbl">Back-End DTI</div></div>
+    <div class="result-card"><div class="result-num" id="r-income">—</div><div class="result-lbl">Total Monthly Income</div></div>
+    <div class="result-card"><div class="result-num" id="r-housing">—</div><div class="result-lbl">Total Housing Payment</div></div>
+  </div>
+  <div class="result-msg" id="r-msg"></div>
+  <table class="breakdown-table" id="r-table"></table>
+  <div class="thresholds">
+    <div class="thresh-title">DTI Thresholds Reference</div>
+    <div class="thresh-row"><div class="thresh-dot" style="background:#1e7a3c"></div><strong>≤ 36%</strong> — Excellent · Strong approval likelihood</div>
+    <div class="thresh-row"><div class="thresh-dot" style="background:#25934f"></div><strong>37–43%</strong> — Good · Qualifies for standard QM</div>
+    <div class="thresh-row"><div class="thresh-dot" style="background:#b07800"></div><strong>44–45%</strong> — Acceptable · Conforming standard maximum</div>
+    <div class="thresh-row"><div class="thresh-dot" style="background:#c0580a"></div><strong>46–50%</strong> — Borderline · Requires strong AUS and compensating factors</div>
+    <div class="thresh-row"><div class="thresh-dot" style="background:#b02020"></div><strong>&gt; 50%</strong> — Exceeds conforming maximum · Non-QM or denial likely</div>
+  </div>
+</div>
+
+<script>
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function calculate(){
+  const income = v('income') + v('income2');
+  if(!income){alert('Please enter monthly gross income.');return;}
+  
+  const pi=v('pi'),taxes=v('taxes'),ins=v('insurance'),pmi=v('pmi'),hoa=v('hoa');
+  const car=v('car'),student=v('student'),cc=v('cc'),other=v('other');
+  
+  const housing = pi+taxes+ins+pmi+hoa;
+  const totalDebts = housing+car+student+cc+other;
+  
+  const frontDTI = Math.round(housing/income*1000)/10;
+  const backDTI = Math.round(totalDebts/income*1000)/10;
+  
+  // Display
+  const fEl = document.getElementById('r-front');
+  const bEl = document.getElementById('r-back');
+  fEl.textContent = frontDTI+'%';
+  bEl.textContent = backDTI+'%';
+  document.getElementById('r-income').textContent = fmt(income);
+  document.getElementById('r-housing').textContent = fmt(housing);
+  
+  fEl.className = 'result-num '+(frontDTI<=28?'good':frontDTI<=36?'warn':'bad');
+  bEl.className = 'result-num '+(backDTI<=43?'good':backDTI<=50?'warn':'bad');
+  
+  const msg = document.getElementById('r-msg');
+  if(backDTI<=43){
+    msg.className='result-msg good';
+    msg.innerHTML=`<strong>✅ Qualifies for QM</strong> — Back-end DTI of ${backDTI}% is within the 43% QM maximum. This borrower would likely qualify for a standard Qualified Mortgage with strong loan characteristics.`;
+  }else if(backDTI<=50){
+    msg.className='result-msg warn';
+    msg.innerHTML=`<strong>⚠️ Borderline</strong> — Back-end DTI of ${backDTI}% exceeds the 43% standard QM maximum but is within the 50% conforming limit. Approval possible with strong AUS findings and compensating factors (high credit score, significant reserves, etc.).`;
+  }else{
+    msg.className='result-msg bad';
+    msg.innerHTML=`<strong>❌ Exceeds Limits</strong> — Back-end DTI of ${backDTI}% exceeds the 50% conforming maximum. Standard conventional and QM loans unavailable at this ratio. Non-QM products or reducing debts would be needed.`;
+  }
+  
+  document.getElementById('r-table').innerHTML=`
+    <tr><td>Item</td><td>Monthly Amount</td><td>% of Income</td></tr>
+    <tr><td>Principal + Interest</td><td>${fmt(pi)}</td><td>${Math.round(pi/income*100)}%</td></tr>
+    <tr><td>Taxes + Insurance + PMI + HOA</td><td>${fmt(taxes+ins+pmi+hoa)}</td><td>${Math.round((taxes+ins+pmi+hoa)/income*100)}%</td></tr>
+    <tr><td><strong>Total Housing (PITIA)</strong></td><td><strong>${fmt(housing)}</strong></td><td><strong>${frontDTI}%</strong></td></tr>
+    <tr><td>Car + Student + Credit Cards + Other</td><td>${fmt(car+student+cc+other)}</td><td>${Math.round((car+student+cc+other)/income*100)}%</td></tr>
+    <tr><td><strong>Total Back-End DTI</strong></td><td><strong>${fmt(totalDebts)}</strong></td><td><strong>${backDTI}%</strong></td></tr>
+    <tr><td>Total Monthly Income</td><td>${fmt(income)}</td><td>100%</td></tr>`;
+  
+  document.getElementById('results').className='results-area show';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+
+  <div class="cta-box">
+    <h3>Want the Full Course?</h3>
+    <p>Unlock all 10 interactive lessons, 660+ practice questions, 125-question mock exam, and Texas USC content.</p>
+    <a href="/" class="cta-btn">Get Full Access — $30 →</a>
+  </div>
+  <div class="footer-note">NMLS Prep · Free Resource · nmlsprep.com</div>
+</div>
+</div>
+</body>
+</html>

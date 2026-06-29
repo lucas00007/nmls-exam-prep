@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMLS Diagnostic Quiz — NMLS Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1108;--paper:#e8e0cc;--paper2:#ddd4bc;--paper3:#d2c8ae;
+  --accent:#6c3483;--gold:#b8860b;--gold2:#d4a017;
+  --red2:#b02020;--green2:#1e7a3c;--green3:#25934f;--green4:#d5f5e3;
+  --tape:rgba(255,220,80,0.5);--gray:#5a4a30;--gray2:#7a6a50;
+  --border:rgba(0,0,0,.12);--shadow:rgba(0,0,0,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#1e1508;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(0,0,0,0.04) 40px,rgba(0,0,0,0.04) 41px);color:var(--ink);min-height:100vh;}
+.wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px;}
+.folder-tab{position:relative;margin-top:36px;}
+.tab-label{position:absolute;top:-26px;left:36px;background:#6c3483;padding:5px 22px 7px;border-radius:5px 5px 0 0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.15);border-bottom:none;}
+.hdr{background:linear-gradient(135deg,#6c3483ee,#6c3483bb);border-radius:0 4px 0 0;padding:24px 28px 20px;margin-bottom:-2px;box-shadow:0 4px 24px rgba(0,0,0,.4);}
+.hdr h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin-bottom:6px;text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.hdr p{font-size:.82rem;color:rgba(255,255,255,.78);}
+.paper-wrap{background:var(--paper);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(160,140,100,0.18) 27px,rgba(160,140,100,0.18) 28px);border-radius:0 0 4px 4px;box-shadow:4px 8px 32px rgba(0,0,0,.45);padding:32px 40px 40px;position:relative;}
+.paper-wrap::before{content:'';position:absolute;left:72px;top:0;bottom:0;width:1px;background:rgba(180,80,80,.2);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:7px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.18);background:var(--paper2);color:var(--gray);cursor:pointer;text-decoration:none;margin-bottom:24px;transition:all .15s;}
+.back-btn:hover{background:var(--paper3);}
+.cta-box{margin-top:32px;padding:20px 24px;background:rgba(139,105,20,.08);border:1px solid rgba(139,105,20,.25);border-left:3px solid #6c3483;border-radius:3px;text-align:center;}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--ink);margin-bottom:8px;}
+.cta-box p{font-size:.85rem;color:#4a3a20;margin-bottom:14px;line-height:1.6;}
+.cta-btn{display:inline-block;padding:11px 28px;background:#6c3483;color:#fff;border-radius:3px;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:1px;text-decoration:none;transition:all .15s;}
+.cta-btn:hover{opacity:.85;}
+.footer-note{margin-top:32px;padding:14px 18px;background:var(--paper2);border-radius:3px;border-left:3px solid var(--gold2);font-size:.78rem;color:var(--gray);line-height:1.6;text-align:center;}
+@media(max-width:500px){.paper-wrap{padding:18px 18px 28px;}.paper-wrap::before{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="folder-tab">
+  <div class="tab-label">FREE TOOL</div>
+  <div class="hdr"><h1>NMLS Diagnostic Quiz</h1><p>10 Questions · Find Your Weak Topics · Get a Personalized Study Plan</p></div>
+</div>
+<div class="paper-wrap">
+  <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+<style>
+.diag-intro{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:24px;}
+.diag-progress{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.diag-bar{flex:1;height:6px;background:rgba(0,0,0,.1);border-radius:3px;overflow:hidden;}
+.diag-fill{height:100%;background:#b8860b;border-radius:3px;transition:width .4s;}
+.diag-count{font-family:'DM Mono',monospace;font-size:.68rem;color:#7a6a50;}
+.diag-q-card{background:rgba(255,255,255,.8);border:1px solid rgba(0,0,0,.12);border-radius:4px;padding:24px;box-shadow:3px 4px 16px rgba(0,0,0,.14);margin-bottom:16px;}
+.diag-topic{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#7a6a50;margin-bottom:10px;}
+.diag-question{font-family:'DM Serif Display',serif;font-size:1.05rem;color:#1a1108;line-height:1.55;margin-bottom:18px;}
+.diag-choices{display:flex;flex-direction:column;gap:8px;}
+.diag-choice{font-size:.86rem;padding:10px 14px;border-radius:3px;border:1px solid rgba(0,0,0,.12);background:var(--paper);color:#1a1108;cursor:pointer;transition:all .15s;display:flex;gap:10px;align-items:flex-start;text-align:left;}
+.diag-choice:hover:not(:disabled){border-color:#b8860b;background:#ddd4bc;}
+.diag-choice.correct{background:#d5f5e3;border-color:rgba(30,122,60,.45);color:#1a4a22;}
+.diag-choice.wrong{background:#fde8e8;border-color:rgba(176,32,32,.35);color:#5a1010;}
+.diag-choice.reveal{border-color:rgba(30,122,60,.35);}
+.diag-choice:disabled{cursor:default;}
+.diag-ltr{font-family:'DM Mono',monospace;font-size:.65rem;color:#7a6a50;flex-shrink:0;margin-top:2px;}
+.diag-explain{display:none;margin-top:12px;padding:10px 14px;background:#fffbe8;border-left:3px solid #d4a017;border-radius:3px;font-size:.83rem;color:#3a2a10;line-height:1.65;}
+.diag-explain.show{display:block;}
+.diag-next{margin-top:14px;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:9px 20px;border-radius:3px;background:#b8860b;color:#fff;border:none;cursor:pointer;transition:all .15s;display:none;}
+.diag-next.show{display:inline-block;}
+.diag-next:hover{background:#d4a017;}
+.results-card{background:rgba(255,255,255,.8);border:1px solid rgba(0,0,0,.12);border-radius:4px;padding:28px;box-shadow:3px 4px 16px rgba(0,0,0,.14);display:none;}
+.results-card.show{display:block;}
+.results-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:#1a1108;margin-bottom:6px;}
+.results-score{font-family:'DM Serif Display',serif;font-size:3rem;color:#b8860b;line-height:1;margin:16px 0 8px;}
+.results-msg{font-size:.9rem;color:#3a2a10;line-height:1.7;margin-bottom:20px;}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:20px;}
+.topic-card{background:var(--paper2);border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:12px;text-align:center;}
+.topic-name{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:#7a6a50;margin-bottom:6px;}
+.topic-score{font-family:'DM Serif Display',serif;font-size:1.4rem;}
+.topic-score.good{color:#1e7a3c;}
+.topic-score.bad{color:#b02020;}
+.restart-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:1px;padding:9px 20px;border-radius:3px;background:var(--paper2);color:var(--ink);border:1px solid rgba(0,0,0,.15);cursor:pointer;transition:all .15s;}
+.restart-btn:hover{background:var(--paper3);}
+</style>
+
+<p class="diag-intro">10 questions across all major NMLS topics. Answer all 10 and we'll tell you exactly where to focus your study time.</p>
+
+<div class="diag-progress">
+  <div class="diag-bar"><div class="diag-fill" id="diag-fill" style="width:0%"></div></div>
+  <div class="diag-count"><span id="diag-num">0</span> / 10</div>
+</div>
+
+<div id="quiz-area"></div>
+<div class="results-card" id="results"></div>
+
+<script>
+const QUESTIONS = [
+  {topic:"RESPA",q:"Under RESPA Section 8, what is the minimum dollar amount that constitutes a kickback violation?",choices:["A. $25","B. $50","C. $100","D. There is no minimum dollar threshold"],correct:"D",explain:"There is NO minimum under RESPA Section 8. Even $5 exchanged for a referral is a violation. The exchange itself is the violation."},
+  {topic:"TILA",q:"A borrower refinances their primary residence. How many business days do they have to cancel the transaction?",choices:["A. 1 business day","B. 3 business days","C. 5 business days","D. 7 calendar days"],correct:"B",explain:"The Right of Rescission gives borrowers 3 business days to cancel refinances on a primary residence. Saturday counts; Sundays and federal holidays do not."},
+  {topic:"TRID",q:"Which of the following is NOT one of the six application elements that trigger the Loan Estimate?",choices:["A. Social Security Number","B. Credit score","C. Property address","D. Desired loan amount"],correct:"B",explain:"Credit score is NOT one of the six elements. The six are: Name, SSN, Income, Property Address, Estimated Value, and Desired Loan Amount."},
+  {topic:"ECOA",q:"Which protected class is covered by ECOA but NOT by the Fair Housing Act?",choices:["A. Race","B. Disability","C. Familial Status","D. Marital Status"],correct:"D",explain:"Marital Status is ECOA-protected only. Familial Status and Disability are FHA-protected only. This distinction is tested constantly."},
+  {topic:"HMDA",q:"HMDA Action Code 2 means:",choices:["A. Loan originated","B. Application approved but not accepted by borrower","C. Application denied by lender","D. Application withdrawn by borrower"],correct:"B",explain:"Code 2 = Approved but Not Accepted. The lender said yes; the borrower walked away after approval. Code 4 = borrower withdrew before lender decision."},
+  {topic:"Texas",q:"What is the maximum CLTV allowed on a Texas Section 50(a)(6) home equity loan?",choices:["A. 75%","B. 80%","C. 85%","D. 90%"],correct:"B",explain:"Texas Section 50(a)(6) caps ALL liens combined at 80% of the homestead's fair market value. Hard constitutional cap — no exceptions."},
+  {topic:"Texas",q:"Texas non-judicial foreclosure sales must occur on:",choices:["A. Any Tuesday with 21 days notice","B. The last Friday of each month","C. The first Tuesday of each month","D. Any business day with 30 days notice"],correct:"C",explain:"Texas foreclosure sales must occur on the FIRST Tuesday of the month, 10AM-4PM at the county courthouse. Jan 1 or July 4 → moves to Wednesday."},
+  {topic:"BSA",q:"Structuring cash transactions below $10,000 to avoid CTR filing is:",choices:["A. Legal if the funds are from legitimate sources","B. Legal if spread across multiple banks","C. Illegal only if funds are from illegal sources","D. Illegal regardless of whether funds are legitimate"],correct:"D",explain:"Structuring is a federal crime regardless of fund legitimacy. The crime is the INTENT to evade reporting requirements."},
+  {topic:"Ethics",q:"The LO Compensation Rule prohibits MLOs from:",choices:["A. Receiving any compensation from lenders","B. Earning more than $10,000 per transaction","C. Steering borrowers to products that don't serve their interests to earn higher pay","D. Working with more than one lender at a time"],correct:"C",explain:"The LO Compensation Rule prohibits steering borrowers to worse products to earn higher MLO compensation. The borrower's interest comes first."},
+  {topic:"SAFE Act",q:"The SAFE Act minimum passing score on the NMLS exam is:",choices:["A. 70%","B. 72%","C. 75%","D. 80%"],correct:"C",explain:"75% is the minimum passing score on the NMLS SAFE exam. Below 75% is a failing score."},
+];
+
+let current = 0;
+let answers = [];
+let answered = false;
+
+function render() {
+  if(current >= QUESTIONS.length) {
+    showResults();
+    return;
+  }
+  const q = QUESTIONS[current];
+  document.getElementById('diag-fill').style.width = (current/10*100)+'%';
+  document.getElementById('diag-num').textContent = current;
+  
+  const choicesHTML = q.choices.map((c,i) => {
+    const letter = ['A','B','C','D'][i];
+    return `<button class="diag-choice" onclick="answer(this,'${letter}')" data-letter="${letter}">
+      <span class="diag-ltr">${letter}.</span>${c.slice(3)}
+    </button>`;
+  }).join('');
+  
+  document.getElementById('quiz-area').innerHTML = `
+    <div class="diag-q-card" id="qcard">
+      <div class="diag-topic">${q.topic}</div>
+      <div class="diag-question">${q.q}</div>
+      <div class="diag-choices">${choicesHTML}</div>
+      <div class="diag-explain" id="explain">${q.explain}</div>
+      <button class="diag-next" id="next-btn" onclick="nextQ()">${current === 9 ? 'See My Results →' : 'Next Question →'}</button>
+    </div>`;
+  answered = false;
+}
+
+function answer(btn, letter) {
+  if(answered) return;
+  answered = true;
+  const q = QUESTIONS[current];
+  const correct = letter === q.correct;
+  answers.push({topic: q.topic, correct});
+  
+  document.querySelectorAll('.diag-choice').forEach(b => {
+    b.disabled = true;
+    if(b.dataset.letter === q.correct) b.classList.add('reveal');
+  });
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  document.getElementById('explain').classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+}
+
+function nextQ() {
+  current++;
+  render();
+}
+
+function showResults() {
+  document.getElementById('quiz-area').innerHTML = '';
+  document.getElementById('diag-fill').style.width = '100%';
+  document.getElementById('diag-num').textContent = '10';
+  
+  const total = answers.filter(a => a.correct).length;
+  const pct = Math.round(total/10*100);
+  
+  // Topic scores
+  const topics = {};
+  QUESTIONS.forEach((q,i) => {
+    if(!topics[q.topic]) topics[q.topic] = {correct:0,total:0};
+    topics[q.topic].total++;
+    if(answers[i]?.correct) topics[q.topic].correct++;
+  });
+  
+  const topicCards = Object.entries(topics).map(([name, data]) => {
+    const tpct = Math.round(data.correct/data.total*100);
+    return `<div class="topic-card">
+      <div class="topic-name">${name}</div>
+      <div class="topic-score ${tpct >= 75 ? 'good' : 'bad'}">${tpct}%</div>
+    </div>`;
+  }).join('');
+  
+  const weakTopics = Object.entries(topics)
+    .filter(([,d]) => d.correct/d.total < 1)
+    .map(([name]) => name);
+  
+  let msg = '';
+  if(pct >= 90) msg = 'Excellent foundation! You know the material well. Focus on your weaker topics to lock in a passing score on exam day.';
+  else if(pct >= 70) msg = `Good start! Your weaker areas are <strong>${weakTopics.join(', ')}</strong>. Focus your study time there first using the interactive lessons.`;
+  else msg = `You have solid room to grow. Your weakest areas are <strong>${weakTopics.join(', ')}</strong>. Start with those interactive lessons and drill the practice quizzes. You will get there!`;
+  
+  const r = document.getElementById('results');
+  r.innerHTML = `
+    <div class="results-title">Your Diagnostic Results</div>
+    <div class="results-score">${pct}%</div>
+    <p style="font-family:DM Mono,monospace;font-size:.7rem;color:#7a6a50;margin-bottom:16px;">${total} of 10 correct</p>
+    <p class="results-msg">${msg}</p>
+    <div class="topic-grid">${topicCards}</div>
+    <button class="restart-btn" onclick="restart()">↺ Retake Diagnostic</button>`;
+  r.classList.add('show');
+}
+
+function restart() {
+  current = 0; answers = [];
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('diag-fill').style.width = '0%';
+  document.getElementById('diag-num').textContent = '0';
+  render();
+}
+
+render();
+</script>
+
+  <div class="cta-box">
+    <h3>Want the Full Course?</h3>
+    <p>Unlock all 10 interactive lessons, 660+ practice questions, 125-question mock exam, and Texas USC content.</p>
+    <a href="/" class="cta-btn">Get Full Access — $30 →</a>
+  </div>
+  <div class="footer-note">NMLS Prep · Free Resource · nmlsprep.com</div>
+</div>
+</div>
+</body>
+</html>
