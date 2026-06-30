@@ -4,17 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 
-const lessons = [
-  { id: 1,  title: "RESPA",             subtitle: "Real Estate Settlement Procedures Act",  file: "/lessons/respa_interactive_lesson.html",          icon: "⚖️" },
-  { id: 2,  title: "TILA",              subtitle: "Truth in Lending Act · Regulation Z",    file: "/lessons/tila_interactive_lesson.html",           icon: "📜" },
-  { id: 3,  title: "TRID",              subtitle: "Integrated Disclosure Rule",              file: "/lessons/trid_interactive_lesson.html",           icon: "📑" },
-  { id: 4,  title: "ECOA",              subtitle: "Equal Credit Opportunity Act",            file: "/lessons/ecoa_interactive_lesson.html",           icon: "🏛️" },
+const lessons: { id: number; title: string; subtitle: string; file: string; icon: string; video?: string }[] = [
+  { id: 1,  title: "RESPA",             subtitle: "Real Estate Settlement Procedures Act",  file: "/lessons/respa_interactive_lesson.html",           icon: "⚖️", video: "https://youtu.be/icNYZb2MPVA" },
+  { id: 2,  title: "TILA",              subtitle: "Truth in Lending Act · Regulation Z",    file: "/lessons/tila_interactive_lesson.html",            icon: "📜", video: "https://youtu.be/FcVWdXdZhDE" },
+  { id: 3,  title: "TRID",              subtitle: "Integrated Disclosure Rule",              file: "/lessons/trid_interactive_lesson.html",            icon: "📑", video: "https://youtu.be/T49XRWzV4eE" },
+  { id: 4,  title: "ECOA",              subtitle: "Equal Credit Opportunity Act",            file: "/lessons/ecoa_interactive_lesson.html",            icon: "🏛️", video: "https://youtu.be/JdorLbFjpoY" },
   { id: 5,  title: "HMDA & Fair Housing", subtitle: "Data Reporting · Discrimination",      file: "/lessons/hmda_fairhousing_interactive_lesson.html", icon: "🗂️" },
-  { id: 6,  title: "HOEPA · SCRA · BSA", subtitle: "High Cost · Military · AML",            file: "/lessons/hoepa_scra_bsa_interactive_lesson.html", icon: "🛡️" },
+  { id: 6,  title: "HOEPA · SCRA · BSA", subtitle: "High Cost · Military · AML",            file: "/lessons/hoepa_scra_bsa_interactive_lesson.html",  icon: "🛡️" },
   { id: 7,  title: "Conforming Loans",  subtitle: "Fannie · Freddie · PMI · Limits",        file: "/lessons/conforming_loans_interactive_lesson.html", icon: "🏠" },
   { id: 8,  title: "Advertising Rules", subtitle: "Triggers · NMLS Numbers · UDAP",         file: "/lessons/advertising_rules_interactive_lesson.html", icon: "📢" },
-  { id: 9,  title: "Texas USC",         subtitle: "50(a)(6) · TDSML · Foreclosure",         file: "/lessons/texas_usc_interactive_lesson.html",      icon: "🤠" },
-  { id: 10, title: "Ethics & UDAP",     subtitle: "Professional Conduct · LO Comp",         file: "/lessons/ethics_udap_interactive_lesson.html",    icon: "🎯" },
+  { id: 9,  title: "Texas USC",         subtitle: "50(a)(6) · TDSML · Foreclosure",         file: "/lessons/texas_usc_interactive_lesson.html",       icon: "🤠" },
+  { id: 10, title: "Ethics & UDAP",     subtitle: "Professional Conduct · LO Comp",         file: "/lessons/ethics_udap_interactive_lesson.html",     icon: "🎯" },
 ];
 
 const quizzes = [
@@ -153,24 +153,38 @@ export default function DashboardContent({ email }: { email: string }) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {lessons.map((lesson) => (
-                <a
+                <div
                   key={lesson.id}
-                  href={lesson.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white border border-[#e0e8f0] rounded-xl p-5 hover:border-[#c9a84c]/50 hover:shadow-md transition-all group flex items-start gap-4"
+                  className="bg-white border border-[#e0e8f0] rounded-xl p-5 hover:border-[#c9a84c]/50 hover:shadow-md transition-all group"
                 >
-                  <div className="text-2xl flex-shrink-0 leading-none pt-0.5">{lesson.icon}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors leading-snug">
-                      {lesson.title}
+                  <a
+                    href={lesson.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4"
+                  >
+                    <div className="text-2xl flex-shrink-0 leading-none pt-0.5">{lesson.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors leading-snug">
+                        {lesson.title}
+                      </div>
+                      <div className="text-xs text-[#a0b4c4] mt-1">{lesson.subtitle}</div>
                     </div>
-                    <div className="text-xs text-[#a0b4c4] mt-1">{lesson.subtitle}</div>
-                  </div>
-                  <span className="text-[#a0b4c4] group-hover:text-[#c9a84c] transition-colors text-lg flex-shrink-0">
-                    →
-                  </span>
-                </a>
+                    <span className="text-[#a0b4c4] group-hover:text-[#c9a84c] transition-colors text-lg flex-shrink-0">
+                      →
+                    </span>
+                  </a>
+                  {lesson.video && (
+                    <a
+                      href={lesson.video}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-3 ml-10 text-xs font-semibold text-[#cc0000] hover:text-[#ff0000] transition-colors"
+                    >
+                      🎥 Watch Video
+                    </a>
+                  )}
+                </div>
               ))}
             </div>
           </div>
