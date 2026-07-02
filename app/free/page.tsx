@@ -10,6 +10,7 @@ const guides = [
   { title: "50 Sample Practice Questions", desc: "A representative sample from the full 660+ question bank with detailed explanations.", meta: "50 questions", tag: "Practice", file: "/lessons/free_sample_questions.html" },
   { title: "Exam Day Checklist", desc: "NMLS exam format, scoring, what to bring, strategy tips, and key numbers final drill.", meta: "2 pages", tag: "Strategy", file: "/lessons/free_exam_checklist.html" },
   { title: "Key Terms Glossary", desc: "Over 50 mortgage and lending terms defined in plain language.", meta: "50+ terms", tag: "Reference", file: "/lessons/free_glossary.html" },
+  { title: "Mortgage Math Guide", desc: "Interactive calculators for DTI, LTV, PMI, points break-even, escrow, and Texas 50(a)(6).", meta: "", tag: "Math", file: "/lessons/mortgage_math_guide.html" },
   { title: "NMLS Diagnostic Quiz", desc: "10 questions across all topics. Find your weak areas and get a personalized study plan.", meta: "", tag: "Free Tool", file: "/lessons/free_diagnostic_quiz.html" },
   { title: "DTI Calculator", desc: "Calculate your front-end and back-end DTI instantly. See how you compare to QM thresholds.", meta: "", tag: "Free Tool", file: "/lessons/free_dti_calculator.html" },
   { title: "NMLS Exam FAQ", desc: "25 most asked questions about the exam — format, scheduling, retakes, and licensing.", meta: "", tag: "Free Resource", file: "/lessons/free_exam_faq.html" },

@@ -224,6 +224,26 @@ export default function DashboardContent({ email }: { email: string }) {
         {/* ── Tab: Quizzes & Exams ── */}
         {tab === "quizzes" && (
           <div>
+            {/* Mortgage Math Guide — featured card */}
+            <a
+              href="/lessons/mortgage_math_guide.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-5 bg-white border border-[#c9a84c]/30 rounded-2xl p-5 mb-8 hover:border-[#c9a84c]/60 hover:shadow-md transition-all"
+            >
+              <div className="text-4xl flex-shrink-0">🧮</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[#c9a84c] text-xs font-black uppercase tracking-widest mb-1">Math Reference</div>
+                <h3 className="font-serif text-lg font-bold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors">
+                  Mortgage Math Guide
+                </h3>
+                <p className="text-sm text-[#4a5568] mt-1">
+                  Interactive calculators for DTI, LTV, PMI, points break-even, escrow, and Texas 50(a)(6).
+                </p>
+              </div>
+              <span className="text-[#a0b4c4] group-hover:text-[#c9a84c] transition-colors text-lg flex-shrink-0">→</span>
+            </a>
+
             <div className="flex items-baseline gap-3 mb-6">
               <h2 className="font-serif text-2xl font-bold text-[#1e2d3d]">
                 7 Practice Quizzes
