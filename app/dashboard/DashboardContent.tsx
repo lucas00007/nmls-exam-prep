@@ -5,16 +5,16 @@ import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 
 const lessons: { id: number; title: string; subtitle: string; file: string; icon: string; video?: string }[] = [
-  { id: 1,  title: "RESPA",             subtitle: "Real Estate Settlement Procedures Act",  file: "/lessons/respa_interactive_lesson.html",           icon: "⚖️", video: "https://youtu.be/icNYZb2MPVA" },
-  { id: 2,  title: "TILA",              subtitle: "Truth in Lending Act · Regulation Z",    file: "/lessons/tila_interactive_lesson.html",            icon: "📜", video: "https://youtu.be/FcVWdXdZhDE" },
-  { id: 3,  title: "TRID",              subtitle: "Integrated Disclosure Rule",              file: "/lessons/trid_interactive_lesson.html",            icon: "📑", video: "https://youtu.be/T49XRWzV4eE" },
-  { id: 4,  title: "ECOA",              subtitle: "Equal Credit Opportunity Act",            file: "/lessons/ecoa_interactive_lesson.html",            icon: "🏛️", video: "https://youtu.be/JdorLbFjpoY" },
-  { id: 5,  title: "HMDA & Fair Housing", subtitle: "Data Reporting · Discrimination",      file: "/lessons/hmda_fairhousing_interactive_lesson.html", icon: "🗂️" },
-  { id: 6,  title: "HOEPA · SCRA · BSA", subtitle: "High Cost · Military · AML",            file: "/lessons/hoepa_scra_bsa_interactive_lesson.html",  icon: "🛡️" },
-  { id: 7,  title: "Conforming Loans",  subtitle: "Fannie · Freddie · PMI · Limits",        file: "/lessons/conforming_loans_interactive_lesson.html", icon: "🏠" },
-  { id: 8,  title: "Advertising Rules", subtitle: "Triggers · NMLS Numbers · UDAP",         file: "/lessons/advertising_rules_interactive_lesson.html", icon: "📢" },
-  { id: 9,  title: "Texas USC",         subtitle: "50(a)(6) · TDSML · Foreclosure",         file: "/lessons/texas_usc_interactive_lesson.html",       icon: "🤠" },
-  { id: 10, title: "Ethics & UDAP",     subtitle: "Professional Conduct · LO Comp",         file: "/lessons/ethics_udap_interactive_lesson.html",     icon: "🎯" },
+  { id: 1,  title: "RESPA",               subtitle: "Real Estate Settlement Procedures Act",  file: "/lessons/respa_interactive_lesson.html",           icon: "⚖️", video: "https://youtu.be/icNYZb2MPVA" },
+  { id: 2,  title: "TILA",                subtitle: "Truth in Lending Act · Regulation Z",    file: "/lessons/tila_interactive_lesson.html",            icon: "📜", video: "https://youtu.be/FcVWdXdZhDE" },
+  { id: 3,  title: "TRID",                subtitle: "Integrated Disclosure Rule",              file: "/lessons/trid_interactive_lesson.html",            icon: "📑", video: "https://youtu.be/T49XRWzV4eE" },
+  { id: 4,  title: "ECOA",                subtitle: "Equal Credit Opportunity Act",            file: "/lessons/ecoa_interactive_lesson.html",            icon: "🏛️", video: "https://youtu.be/JdorLbFjpoY" },
+  { id: 5,  title: "HMDA & Fair Housing", subtitle: "Data Reporting · Discrimination",         file: "/lessons/hmda_fairhousing_interactive_lesson.html", icon: "🗂️", video: "https://youtu.be/-qqRGqMB0XE" },
+  { id: 6,  title: "HOEPA · SCRA · BSA", subtitle: "High Cost · Military · AML",              file: "/lessons/hoepa_scra_bsa_interactive_lesson.html",  icon: "🛡️", video: "https://youtu.be/xSA5TaRNK8c" },
+  { id: 7,  title: "Conforming Loans",    subtitle: "Fannie · Freddie · PMI · Limits",        file: "/lessons/conforming_loans_interactive_lesson.html", icon: "🏠", video: "https://youtu.be/a4tcKjrMPok" },
+  { id: 8,  title: "Advertising Rules",   subtitle: "Triggers · NMLS Numbers · UDAP",         file: "/lessons/advertising_rules_interactive_lesson.html", icon: "📢", video: "https://youtu.be/NRT-fNaEyD0" },
+  { id: 9,  title: "Texas USC",           subtitle: "50(a)(6) · TDSML · Foreclosure",         file: "/lessons/texas_usc_interactive_lesson.html",       icon: "🤠", video: "https://youtu.be/UwChQ2F5h9c" },
+  { id: 10, title: "Ethics & UDAP",       subtitle: "Professional Conduct · LO Comp",         file: "/lessons/ethics_udap_interactive_lesson.html",     icon: "🎯", video: "https://youtu.be/6nSBgA4aRAs" },
 ];
 
 const quizzes = [
