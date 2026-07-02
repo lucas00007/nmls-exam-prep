@@ -224,24 +224,32 @@ export default function DashboardContent({ email }: { email: string }) {
         {/* ── Tab: Quizzes & Exams ── */}
         {tab === "quizzes" && (
           <div>
-            {/* Mortgage Math Guide — featured card */}
+            {/* Mortgage Math Guide — featured banner */}
             <a
               href="/lessons/mortgage_math_guide.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-5 bg-white border border-[#c9a84c]/30 rounded-2xl p-5 mb-8 hover:border-[#c9a84c]/60 hover:shadow-md transition-all"
+              className="group block bg-white border border-[#c9a84c]/30 rounded-2xl p-6 mb-8 hover:border-[#c9a84c]/60 hover:shadow-md transition-all shadow-sm"
             >
-              <div className="text-4xl flex-shrink-0">🧮</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[#c9a84c] text-xs font-black uppercase tracking-widest mb-1">Math Reference</div>
-                <h3 className="font-serif text-lg font-bold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors">
-                  Mortgage Math Guide
-                </h3>
-                <p className="text-sm text-[#4a5568] mt-1">
-                  Interactive calculators for DTI, LTV, PMI, points break-even, escrow, and Texas 50(a)(6).
-                </p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                <div className="flex items-start gap-4">
+                  <div className="text-4xl flex-shrink-0 leading-none">🧮</div>
+                  <div>
+                    <div className="text-[#c9a84c] text-xs font-black uppercase tracking-widest mb-2">
+                      Math Reference
+                    </div>
+                    <h3 className="font-serif text-2xl font-bold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors">
+                      Mortgage Math Calculator Guide
+                    </h3>
+                    <p className="text-[#4a5568] text-sm mt-1.5">
+                      Interactive calculators for DTI, LTV/CLTV, PMI, points break-even, escrow analysis, and Texas 50(a)(6). Type your numbers, get instant answers.
+                    </p>
+                  </div>
+                </div>
+                <div className="bg-[#c9a84c] text-[#1e2d3d] font-bold px-7 py-3.5 rounded-xl group-hover:bg-[#e0c068] transition-colors flex-shrink-0 text-sm whitespace-nowrap">
+                  Open Calculator Guide →
+                </div>
               </div>
-              <span className="text-[#a0b4c4] group-hover:text-[#c9a84c] transition-colors text-lg flex-shrink-0">→</span>
             </a>
 
             <div className="flex items-baseline gap-3 mb-6">

@@ -123,9 +123,11 @@ export default function FreePage() {
         </div>
       </div>
 
-      {/* ── Free Interactive Lesson ── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
-        <h2 className="font-serif text-2xl font-bold text-[#1e2d3d] mb-4">Free Interactive Lesson</h2>
+      {/* ── Free Featured Cards ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-4 space-y-4">
+        <h2 className="font-serif text-2xl font-bold text-[#1e2d3d] mb-4">Free Interactive Lessons</h2>
+
+        {/* RESPA */}
         <a
           href="/lessons/respa_interactive_lesson.html"
           target="_blank"
@@ -146,6 +148,34 @@ export default function FreePage() {
             </div>
             <div className="flex-shrink-0 text-[#c9a84c] font-semibold text-sm whitespace-nowrap">
               Open Lesson →
+            </div>
+          </div>
+        </a>
+
+        {/* Mortgage Math Calculator Guide */}
+        <a
+          href="/lessons/mortgage_math_guide.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block bg-white border border-[#c9a84c]/30 rounded-2xl p-6 hover:border-[#c9a84c]/60 hover:shadow-md transition-all shadow-sm"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className="text-3xl flex-shrink-0 leading-none">🧮</div>
+              <div>
+                <span className="text-xs font-black uppercase tracking-widest text-[#c9a84c] inline-block mb-2">
+                  Free Tool
+                </span>
+                <h3 className="font-serif text-lg font-bold text-[#1e2d3d] group-hover:text-[#c9a84c] transition-colors mb-1">
+                  Mortgage Math Calculator Guide
+                </h3>
+                <p className="text-[#4a5568] text-sm leading-relaxed max-w-xl">
+                  Interactive calculators for DTI, LTV, PMI, points break-even, escrow, and Texas 50(a)(6). All the math you need for the exam — and for real MLO work.
+                </p>
+              </div>
+            </div>
+            <div className="flex-shrink-0 text-[#c9a84c] font-semibold text-sm whitespace-nowrap">
+              Open Calculator →
             </div>
           </div>
         </a>
